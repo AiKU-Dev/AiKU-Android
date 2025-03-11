@@ -1,4 +1,3 @@
-import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
 import com.hyunjung.aiku.configureKotlinAndroid
 import com.hyunjung.aiku.libs
