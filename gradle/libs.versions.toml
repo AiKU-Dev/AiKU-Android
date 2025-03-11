@@ -61,6 +61,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 
 # Plugins defined by this project
 aiku-android-application = { id = "aiku.android.application" }
@@ -68,3 +69,4 @@ aiku-android-application-compose = { id = "aiku.android.application.compose" }
 aiku-android-library-compose = { id = "aiku.android.library.compose" }
 aiku-android-library = { id = "aiku.android.library" }
 aiku-android-presentation = { id = "aiku.android.presentation" }
+aiku-hilt = { id = "aiku.hilt" }
