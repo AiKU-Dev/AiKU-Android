@@ -72,3 +72,4 @@ aiku-android-library = { id = "aiku.android.library" }
 aiku-android-presentation = { id = "aiku.android.presentation" }
 aiku-hilt = { id = "aiku.hilt" }
 aiku-android-room = { id = "aiku.android.room" }
+aiku-jvm-library = { id = "aiku.jvm.library" }

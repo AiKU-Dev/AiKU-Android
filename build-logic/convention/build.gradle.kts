@@ -62,5 +62,9 @@ gradlePlugin {
             id = libs.plugins.aiku.android.room.get().pluginId
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("jvmLibrary") {
+            id = libs.plugins.aiku.jvm.library.get().pluginId
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
