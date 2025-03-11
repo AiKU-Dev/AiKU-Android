@@ -12,7 +12,6 @@ ksp = "2.1.0-1.0.29"
 room = "2.6.1"
 hilt = "2.55"
 androidxHiltNavigationCompose = "1.2.0"
-dependencyGuard = "0.5.0"
 androidxNavigation = "2.8.8"
 kotlinxSerializationJson = "1.8.0"
 gmsPlugin = "4.4.2"
@@ -61,7 +60,6 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
