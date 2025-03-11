@@ -37,6 +37,7 @@ hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testi
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -57,3 +58,4 @@ dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependen
 aiku-android-application = { id = "aiku.android.application" }
 aiku-android-application-compose = { id = "aiku.android.application.compose" }
 aiku-android-library-compose = { id = "aiku.android.library.compose" }
+aiku-android-library = { id = "aiku.android.library" }
