@@ -42,5 +42,9 @@ gradlePlugin {
             id = libs.plugins.aiku.android.application.asProvider().get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidLibraryCompose") {
+            id = libs.plugins.aiku.android.library.compose.get().pluginId
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
     }
 }

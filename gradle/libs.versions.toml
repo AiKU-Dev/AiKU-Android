@@ -56,3 +56,4 @@ dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependen
 # Plugins defined by this project
 aiku-android-application = { id = "aiku.android.application" }
 aiku-android-application-compose = { id = "aiku.android.application.compose" }
+aiku-android-library-compose = { id = "aiku.android.library.compose" }
