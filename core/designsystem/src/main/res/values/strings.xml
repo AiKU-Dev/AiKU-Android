@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="core_designsystem_navigation_icon_description">navigation icon</string>
+</resources>
