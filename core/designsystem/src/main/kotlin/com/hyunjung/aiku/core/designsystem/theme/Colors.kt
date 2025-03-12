@@ -14,10 +14,6 @@ val Pink40 = Color(0xFF7D5260)
 val CobaltBlue = Color(0xFF201CAF)
 
 // Green
-val Green = Color(0xFF76E2B5)
-val GreenLight = Color(0xFF8DE7C2)
-val GreenPale = Color(0xFFB0EED4)
-
 val Green01 = Color(0xFFF1FCF8)
 val Green02 = Color(0xFFC7F3E1)
 val Green03 = Color(0xFFB0EEF4)
