@@ -21,5 +21,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AiKU"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
+include(":core")
+include(":core:designsystem")
  
