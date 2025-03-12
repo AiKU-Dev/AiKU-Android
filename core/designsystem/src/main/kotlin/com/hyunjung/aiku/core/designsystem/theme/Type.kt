@@ -20,7 +20,7 @@ val pretendardFontFamily = FontFamily(
 
 
 object AikuTypography{
-    val Headline_1G = TextStyle(
+    val Headline1_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 60.sp,
@@ -28,7 +28,7 @@ object AikuTypography{
         letterSpacing = 0.sp
     )
 
-    val Headline_2G = TextStyle(
+    val Headline2_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 34.sp,
@@ -36,7 +36,7 @@ object AikuTypography{
         letterSpacing = 0.sp
     )
 
-    val Headline_3G = TextStyle(
+    val Headline3_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
@@ -44,7 +44,7 @@ object AikuTypography{
         letterSpacing = 0.sp
     )
 
-    val Subtitle_1G = TextStyle(
+    val Subtitle1_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp,
@@ -52,7 +52,7 @@ object AikuTypography{
         letterSpacing = 0.sp
     )
 
-    val Subtitle_2G = TextStyle(
+    val Subtitle2_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
@@ -60,7 +60,7 @@ object AikuTypography{
         letterSpacing = 0.sp
     )
 
-    val Subtitle_3G = TextStyle(
+    val Subtitle3_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
@@ -68,7 +68,7 @@ object AikuTypography{
         letterSpacing = 0.sp
     )
 
-    val Subtitle_4G = TextStyle(
+    val Subtitle4_G = TextStyle(
         fontFamily = gmarketFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
