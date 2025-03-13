@@ -28,14 +28,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 
 @Composable
 @NonRestartableComposable
 fun AikuSurface(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    color: Color = AikuColors.White,
+    color: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     content: @Composable () -> Unit
@@ -62,7 +61,7 @@ fun AikuSurface(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = RectangleShape,
-    color: Color = AikuColors.White,
+    color: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
@@ -92,7 +91,7 @@ fun AikuSurface(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = RectangleShape,
-    color: Color = AikuColors.White,
+    color: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
@@ -123,7 +122,7 @@ fun AikuSurface(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = RectangleShape,
-    color: Color = AikuColors.White,
+    color: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
