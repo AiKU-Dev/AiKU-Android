@@ -126,7 +126,7 @@ private fun AikuTopAppBarBase(
                     onClick = onNavigationClick,
                     imageVector = navigationIcon,
                     contentDescription = stringResource(R.string.core_designsystem_navigation_icon_description),
-                    iconSize = NavigationIconSize
+                    size = NavigationIconSize
                 )
             }
         }
@@ -181,12 +181,12 @@ private fun AikuTopAppBarPreview() {
                 AikuIconButton(
                     onClick = {},
                     imageVector = Icons.Default.Add,
-                    iconSize = 22.dp
+                    size = 22.dp
                 )
                 AikuIconButton(
                     onClick = {},
                     imageVector = Icons.Default.DateRange,
-                    iconSize = 22.dp
+                    size = 22.dp
                 )
             }
         )
@@ -213,12 +213,12 @@ private fun AikuCenterAlignedTopAppBarPreview() {
                 AikuIconButton(
                     onClick = {},
                     imageVector = Icons.Default.Add,
-                    iconSize = 22.dp
+                    size = 22.dp
                 )
                 AikuIconButton(
                     onClick = {},
                     imageVector = Icons.Default.DateRange,
-                    iconSize = 22.dp
+                    size = 22.dp
                 )
             }
         )

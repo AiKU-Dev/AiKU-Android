@@ -1,9 +1,6 @@
 package com.hyunjung.aiku.core.designsystem.component
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,12 +13,9 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -33,8 +27,8 @@ private val IconMinimumSize: Dp = 20.dp
 fun AikuIconButton(
     onClick: () -> Unit,
     imageVector: ImageVector,
-    iconSize: Dp = IconMinimumSize,
     modifier: Modifier = Modifier,
+    size: Dp = IconMinimumSize,
     contentDescription: String? = null,
     padding: PaddingValues = PaddingValues(0.dp),
     enabled: Boolean = true,
@@ -43,7 +37,7 @@ fun AikuIconButton(
 ) {
     AikuIconButtonContainer(
         onClick = onClick,
-        rippleRadius = iconSize,
+        size = size,
         modifier = modifier,
         padding = padding,
         enabled = enabled,
@@ -53,7 +47,6 @@ fun AikuIconButton(
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
-            modifier = Modifier.size(iconSize)
         )
     }
 }
@@ -62,17 +55,17 @@ fun AikuIconButton(
 fun AikuIconButton(
     onClick: () -> Unit,
     painter: Painter,
-    iconSize: Dp = IconMinimumSize,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
-    contentDescription: String? = null,
-    padding: PaddingValues = PaddingValues(0.dp),
     enabled: Boolean = true,
+    size: Dp = IconMinimumSize,
+    padding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
     interactionSource: MutableInteractionSource? = null,
 ) {
     AikuIconButtonContainer(
         onClick = onClick,
-        rippleRadius = iconSize,
+        size = size,
         modifier = modifier,
         padding = padding,
         enabled = enabled,
@@ -82,7 +75,6 @@ fun AikuIconButton(
         Icon(
             painter = painter,
             contentDescription = contentDescription,
-            modifier = Modifier.size(iconSize)
         )
     }
 }
@@ -90,7 +82,7 @@ fun AikuIconButton(
 @Composable
 private fun AikuIconButtonContainer(
     onClick: () -> Unit,
-    rippleRadius: Dp,
+    size: Dp,
     modifier: Modifier,
     padding: PaddingValues,
     enabled: Boolean,
@@ -98,23 +90,15 @@ private fun AikuIconButtonContainer(
     interactionSource: MutableInteractionSource?,
     content: @Composable () -> Unit
 ) {
-    Box(
-        modifier =
-            modifier
-                .padding(padding)
-                .background(color = if (enabled) colors.containerColor else colors.disabledContainerColor)
-                .clickable(
-                    onClick = onClick,
-                    enabled = enabled,
-                    role = Role.Button,
-                    interactionSource = interactionSource,
-                    indication = ripple(
-                        bounded = false,
-                        radius = rippleRadius / 2,
-                        color = Color.Unspecified
-                    )
-                ),
-        contentAlignment = Alignment.Center
+    AikuSurface(
+        modifier = Modifier
+            .size(size)
+            .padding(padding)
+            .then(modifier),
+        onClick = onClick,
+        color = if (enabled) colors.containerColor else colors.disabledContainerColor,
+        interactionSource = interactionSource,
+        indication = ripple(radius = size / 2)
     ) {
         val contentColor = if (enabled) colors.contentColor else colors.disabledContentColor
         CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
