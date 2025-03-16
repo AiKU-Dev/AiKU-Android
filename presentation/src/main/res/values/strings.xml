@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="presentation_home_no_schedule">아직 약속이 없어요</string>
+    <string name="presentation_char_head_unknown_description">Empty Schedule Illustration</string>
+</resources>
