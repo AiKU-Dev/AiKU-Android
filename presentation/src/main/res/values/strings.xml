@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="presentation_home_no_schedule">아직 약속이 없어요</string>
+    <string name="presentation_home_no_group">그룹을 만들어 보세요!</string>
+    <string name="presentation_home_no_group_button">+ 그룹 만들기</string>
     <string name="presentation_char_head_unknown_description">Empty Schedule Illustration</string>
+    <string name="presentation_char_running_boy_description">Empty State Illustration</string>
 </resources>
