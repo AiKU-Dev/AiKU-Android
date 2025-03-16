@@ -90,7 +90,7 @@ private fun AikuIconButtonContainer(
     interactionSource: MutableInteractionSource?,
     content: @Composable () -> Unit
 ) {
-    AikuSurface(
+    AikuClickableSurface(
         modifier = Modifier
             .size(size)
             .padding(padding)

@@ -48,7 +48,7 @@ fun AikuButton(
     val containerColor = if (enabled) colors.containerColor else colors.disabledContainerColor
     val contentColor = if (enabled) colors.contentColor else colors.disabledContentColor
 
-    AikuSurface(
+    AikuClickableSurface(
         onClick = onClick,
         modifier = modifier.semantics { role = Role.Button },
         enabled = enabled,

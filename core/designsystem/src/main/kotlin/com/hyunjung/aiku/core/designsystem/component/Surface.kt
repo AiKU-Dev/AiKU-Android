@@ -56,7 +56,7 @@ fun AikuSurface(
 
 @Composable
 @NonRestartableComposable
-fun AikuSurface(
+fun AikuClickableSurface(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -85,7 +85,7 @@ fun AikuSurface(
 
 @Composable
 @NonRestartableComposable
-fun AikuSurface(
+fun AikuSelectableSurface(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -116,7 +116,7 @@ fun AikuSurface(
 
 @Composable
 @NonRestartableComposable
-fun AikuSurface(
+fun AikuCheckableSurface(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -179,7 +179,7 @@ fun AikuSurfacePreview() {
 @Preview(showBackground = true, name = "Clickable AikuSurface")
 @Composable
 fun ClickableAikuSurfacePreview() {
-    AikuSurface(onClick = {}) {
+    AikuClickableSurface(onClick = {}) {
         Text(text = "Clickable Surface")
     }
 }
@@ -189,7 +189,7 @@ fun ClickableAikuSurfacePreview() {
 fun SelectableAikuSurfacePreview() {
     var selected by remember { mutableStateOf(false) }
 
-    AikuSurface(
+    AikuSelectableSurface(
         selected = selected,
         onClick = { selected = !selected }
     ) {
@@ -202,7 +202,7 @@ fun SelectableAikuSurfacePreview() {
 fun ToggleableAikuSurfacePreview() {
     var checked by remember { mutableStateOf(false) }
 
-    AikuSurface(
+    AikuCheckableSurface(
         checked = checked,
         onCheckedChange = { checked = it }
     ) {
