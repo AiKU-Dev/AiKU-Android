@@ -3,6 +3,11 @@
     <string name="presentation_home_no_schedule">아직 약속이 없어요</string>
     <string name="presentation_home_no_group">그룹을 만들어 보세요!</string>
     <string name="presentation_home_no_group_button">+ 그룹 만들기</string>
+    <string name="presentation_schedule_card_status_running">진행 중</string>
+    <string name="presentation_schedule_card_status_waiting">대기 중</string>
+    <string name="presentation_group_card_recent_schedule">최근 약속 %1$s</string>
+    <string name="presentation_group_card_badge_member_over_limit">99+</string>
     <string name="presentation_char_head_unknown_description">Empty Schedule Illustration</string>
     <string name="presentation_char_running_boy_description">Empty State Illustration</string>
+    <string name="presentation_char_head_no_hair_description">Default Profile Illustration</string>
 </resources>
