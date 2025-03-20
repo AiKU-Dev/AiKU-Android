@@ -29,11 +29,11 @@ import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.presentation.R
 
-private enum class CreateGroupError(val stringResId: Int) {
-    NONE(R.string.presentation_create_group_dialog_supporting_text), // 에러 없음
+private enum class GroupNameValidationError(val stringResId: Int) {
+    NONE(R.string.presentation_create_group_dialog_supporting_text),
     EMPTY(R.string.presentation_create_group_dialog_error_blank),
     TOO_SHORT(R.string.presentation_create_group_dialog_error_too_short),
-    SPECIAL_CHAR(R.string.presentation_create_group_dialog_error_special_chars)
+    INVALID_CHARACTERS(R.string.presentation_create_group_dialog_error_special_chars)
 }
 
 @Composable
@@ -42,7 +42,7 @@ fun CreateGroupDialog(
     onCreateGroup: (String) -> Unit,
 ) {
     var groupName by remember { mutableStateOf("") }
-    var errorState by remember { mutableStateOf(CreateGroupError.NONE) }
+    var errorState by remember { mutableStateOf(GroupNameValidationError.NONE) }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -77,7 +77,7 @@ fun CreateGroupDialog(
                     },
                     placeholder = stringResource(R.string.presentation_create_group_dialog_placeholder),
                     maxLength = 15,
-                    isError = errorState != CreateGroupError.NONE,
+                    isError = errorState != GroupNameValidationError.NONE,
                     supporting = {
                         Text(text = stringResource(errorState.stringResId))
                     }
@@ -90,7 +90,7 @@ fun CreateGroupDialog(
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
-                    enabled = groupName.isNotBlank() && errorState == CreateGroupError.NONE,
+                    enabled = groupName.isNotBlank() && errorState == GroupNameValidationError.NONE,
                 ) {
                     Text(
                         text = stringResource(R.string.presentation_create_group_dialog_button),
@@ -102,12 +102,12 @@ fun CreateGroupDialog(
     }
 }
 
-private fun validateGroupName(groupName: String): CreateGroupError {
+private fun validateGroupName(groupName: String): GroupNameValidationError {
     return when {
-        groupName.isBlank() -> CreateGroupError.EMPTY
-        groupName.length < 2 -> CreateGroupError.TOO_SHORT
-        !groupName.matches(Regex("^[가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ ]+$")) -> CreateGroupError.SPECIAL_CHAR
-        else -> CreateGroupError.NONE
+        groupName.isBlank() -> GroupNameValidationError.EMPTY
+        groupName.length < 2 -> GroupNameValidationError.TOO_SHORT
+        !groupName.matches(Regex("^[가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ ]+$")) -> GroupNameValidationError.INVALID_CHARACTERS
+        else -> GroupNameValidationError.NONE
     }
 }
 
