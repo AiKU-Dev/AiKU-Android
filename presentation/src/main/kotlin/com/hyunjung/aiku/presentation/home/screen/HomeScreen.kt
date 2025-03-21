@@ -31,6 +31,7 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.presentation.home.component.CreateGroupDialog
 import com.hyunjung.aiku.presentation.home.component.EmptyScheduleCard
 import com.hyunjung.aiku.presentation.home.component.EmptyStateCard
 import com.hyunjung.aiku.presentation.home.component.GroupCard
@@ -43,9 +44,17 @@ fun HomeScreen(
     userNickname: String,
     scheduleUiState: ScheduleUiState,
     groupUiState: GroupUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showCreateGroupDialog: Boolean = false,
+    onCreateGroupDismissed: () -> Unit = {}
 ) {
     val dateFormatter = remember { SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()) }
+    if (showCreateGroupDialog) {
+        CreateGroupDialog(
+            onDismiss = onCreateGroupDismissed,
+            onCreateGroup = {}
+        )
+    }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -235,6 +244,19 @@ private fun HomeScreenPreview() {
             userNickname = "닉네임",
             scheduleUiState = ScheduleUiState.Success(mockSchedules),
             groupUiState = GroupUiState.Success(mockGroups),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HomeScreenPreviewWithDialog() {
+    AiKUTheme {
+        HomeScreen(
+            showCreateGroupDialog = true,
+            userNickname = "닉네임",
+            scheduleUiState = ScheduleUiState.Success(emptyList()),
+            groupUiState = GroupUiState.Success(emptyList()),
         )
     }
 }
