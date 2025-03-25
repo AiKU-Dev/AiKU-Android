@@ -39,6 +39,43 @@ import com.hyunjung.aiku.presentation.home.component.ScheduleCard
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+sealed interface ScheduleUiState {
+    object Loading : ScheduleUiState
+    data class Success(
+        val schedules: List<Schedule>
+    ) : ScheduleUiState {
+        fun isEmpty(): Boolean = schedules.isEmpty()
+    }
+
+    data class Error(val message: String) : ScheduleUiState
+}
+
+sealed interface GroupUiState {
+    object Loading : GroupUiState
+    data class Success(
+        val groups: List<Group>
+    ) : GroupUiState {
+        fun isEmpty(): Boolean = groups.isEmpty()
+    }
+
+    data class Error(val message: String) : GroupUiState
+}
+
+data class Group(
+    val id: Long,
+    val name: String,
+    val latestScheduleTime: Long,
+    val memberSize: Int,
+)
+
+data class Schedule(
+    val id: Long,
+    val groupName: String,
+    val location: String,
+    val isRunning: Boolean,
+    val time: Long,
+)
+
 @Composable
 fun HomeScreen(
     userNickname: String,
@@ -164,6 +201,7 @@ private fun ColumnScope.GroupList(
             if (groupUiState.isEmpty()) {
                 EmptyStateCard(
                     title = stringResource(R.string.presentation_group_empty_message),
+                    buttonText = stringResource(R.string.presentation_home_no_group_button),
                     onClickButton = onCreateGroup,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -260,40 +298,3 @@ private fun HomeScreenPreviewWithDialog() {
         )
     }
 }
-
-sealed interface ScheduleUiState {
-    object Loading : ScheduleUiState
-    data class Success(
-        val schedules: List<Schedule>
-    ) : ScheduleUiState {
-        fun isEmpty(): Boolean = schedules.isEmpty()
-    }
-
-    data class Error(val message: String) : ScheduleUiState
-}
-
-sealed interface GroupUiState {
-    object Loading : GroupUiState
-    data class Success(
-        val groups: List<Group>
-    ) : GroupUiState {
-        fun isEmpty(): Boolean = groups.isEmpty()
-    }
-
-    data class Error(val message: String) : GroupUiState
-}
-
-data class Group(
-    val id: Long,
-    val name: String,
-    val latestScheduleTime: Long,
-    val memberSize: Int,
-)
-
-data class Schedule(
-    val id: Long,
-    val groupName: String,
-    val location: String,
-    val isRunning: Boolean,
-    val time: Long,
-)
