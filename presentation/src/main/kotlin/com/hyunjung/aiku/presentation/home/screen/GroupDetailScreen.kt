@@ -84,7 +84,7 @@ fun GroupDetailScreen(
     groupScheduleUiState: GroupScheduleUiState,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTab by remember { mutableStateOf(GroupDetailTab.SCHEDULE) }
+    var selectedTab by remember { mutableStateOf(GroupDetailTab.MEMBER) }
     val tabs = GroupDetailTab.entries
     Column(
         modifier = modifier.fillMaxSize()
@@ -113,55 +113,8 @@ fun GroupDetailScreen(
                     ScheduleTabContent(
                         groupScheduleUiState = groupScheduleUiState,
                         onScheduleClick = {},
+                        onCreateSchedule = {},
                     )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ScheduleTabContent(
-    groupScheduleUiState: GroupScheduleUiState,
-    onScheduleClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-    ) {
-        when (groupScheduleUiState) {
-            is GroupScheduleUiState.Loading -> {
-                // todo : Loading State
-            }
-            is GroupScheduleUiState.Success -> {
-                if (groupScheduleUiState.isEmpty()) {
-                    // todo : Empty state
-                } else {
-                    Text(
-                        text = stringResource(
-                            R.string.presentation_member_detail_group_section_schedule_status_summary,
-                            groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
-                            groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
-                        ),
-                        style = AikuTypography.Caption1_SemiBold,
-                        color = AikuColors.Typo,
-                        modifier = Modifier.padding(vertical = 16.dp)
-                    )
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        items(
-                            items = groupScheduleUiState.schedules, key = { it.id }) {
-                            GroupScheduleCard(
-                                onClick = { onScheduleClick(it.id) },
-                                scheduleName = it.scheduleName,
-                                location = it.location,
-                                time = it.time,
-                                scheduleStatus = it.scheduleStatus
-                            )
-                        }
-                    }
                 }
             }
         }
@@ -219,6 +172,59 @@ private fun MemberTabContent(
                                 onClick = {
                                     onMemberClick(member.id)
                                 }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ScheduleTabContent(
+    groupScheduleUiState: GroupScheduleUiState,
+    onScheduleClick: (Long) -> Unit,
+    onCreateSchedule:() -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+    ) {
+        when (groupScheduleUiState) {
+            is GroupScheduleUiState.Loading -> {
+                // todo : Loading State
+            }
+            is GroupScheduleUiState.Success -> {
+                if (groupScheduleUiState.isEmpty()) {
+                    EmptyStateCard(
+                        title = stringResource(R.string.presentation_member_detail_schedule_section_empty_title),
+                        buttonText = stringResource(R.string.presentation_member_detail_schedule_section_empty_button),
+                        onClickButton = onCreateSchedule,
+                    )
+                } else {
+                    Text(
+                        text = stringResource(
+                            R.string.presentation_member_detail_schedule_section_schedule_status_summary,
+                            groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
+                            groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
+                        ),
+                        style = AikuTypography.Caption1_SemiBold,
+                        color = AikuColors.Typo,
+                        modifier = Modifier.padding(vertical = 16.dp)
+                    )
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                    ) {
+                        items(
+                            items = groupScheduleUiState.schedules, key = { it.id }) {
+                            GroupScheduleCard(
+                                onClick = { onScheduleClick(it.id) },
+                                scheduleName = it.scheduleName,
+                                location = it.location,
+                                time = it.time,
+                                scheduleStatus = it.scheduleStatus
                             )
                         }
                     }
@@ -351,7 +357,7 @@ private fun GroupDetailScreenPreview() {
             ),
         )
         GroupDetailScreen(
-            memberUiState = MemberUiState.Success(members),
+            memberUiState = MemberUiState.Success(emptyList()),
             groupScheduleUiState = GroupScheduleUiState.Success(groupSchedules)
         )
     }
