@@ -21,4 +21,12 @@
     <string name="presentation_create_group_dialog_error_blank">그룹명을 입력해주세요</string>
     <string name="presentation_create_group_dialog_error_too_short">2자 이상 입력해주세요</string>
     <string name="presentation_create_group_dialog_error_special_chars">특수문자는 입력 불가합니다</string>
+    <string name="presentation_group_schedule_card_ic_location_description">location icon</string>
+    <string name="presentation_member_detail_member_section_empty_title">멤버를 초대해 보세요!</string>
+    <string name="presentation_member_detail_member_section_empty_button">+ 멤버 초대하기</string>
+    <string name="presentation_member_detail_member_section_invite">초대하기</string>
+    <string name="presentation_member_detail_member_section_avatar_description">%1$s의 프로필</string>
+    <string name="presentation_member_detail_schedule_section_empty_title">약속을 만들어 주세요!</string>
+    <string name="presentation_member_detail_schedule_section_empty_button">+ 약속 만들기</string>
+    <string name="presentation_member_detail_schedule_section_schedule_status_summary">진행중 %1$d | 대기중 %2$d</string>
 </resources>

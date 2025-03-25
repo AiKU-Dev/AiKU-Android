@@ -25,7 +25,8 @@ import com.hyunjung.aiku.presentation.R
 
 @Composable
 fun EmptyStateCard(
-    title:String,
+    title: String,
+    buttonText: String,
     onClickButton: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -61,7 +62,7 @@ fun EmptyStateCard(
             )
         ) {
             Text(
-                text = stringResource(R.string.presentation_home_no_group_button),
+                text = buttonText,
                 style = AikuTypography.Body1_SemiBold,
                 color = AikuColors.CobaltBlue
             )
@@ -75,7 +76,8 @@ private fun EmptyStateCardPreview() {
     AiKUTheme {
         EmptyStateCard(
             title = stringResource(R.string.presentation_home_no_group),
-            onClickButton = {}
+            buttonText = stringResource(R.string.presentation_home_no_group_button),
+            onClickButton = {},
         )
     }
 }
