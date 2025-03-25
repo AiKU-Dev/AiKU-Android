@@ -1,10 +1,8 @@
 package com.hyunjung.aiku.presentation.home.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,9 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
+import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
@@ -44,59 +41,48 @@ fun CreateGroupDialog(
     var groupName by remember { mutableStateOf("") }
     var errorState by remember { mutableStateOf(GroupNameValidationError.NONE) }
 
-    Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-    ) {
-        Box(
+    AikuDialog(onDismiss = onDismiss) {
+        Column(
             modifier = Modifier
-                .fillMaxSize()
-                .background(color = AikuColors.Gray06.copy(alpha = 0.5f))
-                .padding(32.dp),
-            contentAlignment = Alignment.Center
+                .background(
+                    color = AikuColors.White,
+                    shape = RoundedCornerShape(10.dp),
+                )
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            Text(
+                text = stringResource(R.string.presentation_create_group_dialog_title),
+                style = AikuTypography.Body1_SemiBold,
+            )
+            Spacer(Modifier.height(32.dp))
+            AikuLimitedTextField(
+                value = groupName,
+                onValueChange = {
+                    groupName = it
+                    errorState = validateGroupName(it)
+                },
+                placeholder = stringResource(R.string.presentation_create_group_dialog_placeholder),
+                maxLength = 15,
+                isError = errorState != GroupNameValidationError.NONE,
+                supporting = {
+                    Text(text = stringResource(errorState.stringResId))
+                }
+            )
+            Spacer(Modifier.height(56.dp))
+            AikuButton(
+                onClick = {
+                    onCreateGroup(groupName)
+                    onDismiss()
+                },
                 modifier = Modifier
-                    .background(
-                        color = AikuColors.White,
-                        shape = RoundedCornerShape(10.dp)
-                    )
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth(),
+                enabled = groupName.isNotBlank() && errorState == GroupNameValidationError.NONE,
             ) {
                 Text(
-                    text = stringResource(R.string.presentation_create_group_dialog_title),
-                    style = AikuTypography.Body1_SemiBold,
+                    text = stringResource(R.string.presentation_create_group_dialog_button),
+                    style = AikuTypography.Body1_SemiBold
                 )
-                Spacer(Modifier.height(32.dp))
-                AikuLimitedTextField(
-                    value = groupName,
-                    onValueChange = {
-                        groupName = it
-                        errorState = validateGroupName(it)
-                    },
-                    placeholder = stringResource(R.string.presentation_create_group_dialog_placeholder),
-                    maxLength = 15,
-                    isError = errorState != GroupNameValidationError.NONE,
-                    supporting = {
-                        Text(text = stringResource(errorState.stringResId))
-                    }
-                )
-                Spacer(Modifier.height(56.dp))
-                AikuButton(
-                    onClick = {
-                        onCreateGroup(groupName)
-                        onDismiss()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    enabled = groupName.isNotBlank() && errorState == GroupNameValidationError.NONE,
-                ) {
-                    Text(
-                        text = stringResource(R.string.presentation_create_group_dialog_button),
-                        style = AikuTypography.Body1_SemiBold
-                    )
-                }
             }
         }
     }
