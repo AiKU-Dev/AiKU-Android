@@ -20,10 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -80,11 +76,12 @@ sealed interface GroupScheduleUiState {
 
 @Composable
 fun GroupDetailScreen(
+    selectedTab: GroupDetailTab,
+    onTabSelected: (Int) -> Unit,
     memberUiState: MemberUiState,
     groupScheduleUiState: GroupScheduleUiState,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTab by remember { mutableStateOf(GroupDetailTab.MEMBER) }
     val tabs = GroupDetailTab.entries
     Column(
         modifier = modifier.fillMaxSize()
@@ -96,9 +93,7 @@ fun GroupDetailScreen(
             AikuTabs(
                 tabs = tabs.map { it.label },
                 selectedIndex = tabs.indexOf(selectedTab),
-                onTabSelected = { newIndex ->
-                    selectedTab = tabs[newIndex]
-                }
+                onTabSelected = onTabSelected
             )
             when (selectedTab) {
                 GroupDetailTab.MEMBER -> {
@@ -151,7 +146,7 @@ private fun MemberTabContent(
                         contentPadding = PaddingValues(vertical = 20.dp)
                     ) {
                         item {
-                            MemberMiniProfile(
+                            MemberAvatarCard(
                                 member = Member(
                                     id = 0,
                                     avatar = painterResource(R.drawable.presentation_char_head_unknown),
@@ -163,7 +158,7 @@ private fun MemberTabContent(
                             )
                         }
                         items(items = memberUiState.members, key = { it.id }) { member ->
-                            MemberMiniProfile(
+                            MemberAvatarCard(
                                 member = member,
                                 contentDescription = stringResource(
                                     R.string.presentation_member_detail_member_section_avatar_description,
@@ -185,16 +180,17 @@ private fun MemberTabContent(
 private fun ScheduleTabContent(
     groupScheduleUiState: GroupScheduleUiState,
     onScheduleClick: (Long) -> Unit,
-    onCreateSchedule:() -> Unit,
+    onCreateSchedule: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
+    Box(
+        modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
         when (groupScheduleUiState) {
             is GroupScheduleUiState.Loading -> {
                 // todo : Loading State
             }
+
             is GroupScheduleUiState.Success -> {
                 if (groupScheduleUiState.isEmpty()) {
                     EmptyStateCard(
@@ -203,20 +199,22 @@ private fun ScheduleTabContent(
                         onClickButton = onCreateSchedule,
                     )
                 } else {
-                    Text(
-                        text = stringResource(
-                            R.string.presentation_member_detail_schedule_section_schedule_status_summary,
-                            groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
-                            groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
-                        ),
-                        style = AikuTypography.Caption1_SemiBold,
-                        color = AikuColors.Typo,
-                        modifier = Modifier.padding(vertical = 16.dp)
-                    )
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
+                        contentPadding = PaddingValues(vertical = 20.dp)
                     ) {
+                        item {
+                            Text(
+                                text = stringResource(
+                                    R.string.presentation_member_detail_schedule_section_schedule_status_summary,
+                                    groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
+                                    groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
+                                ),
+                                style = AikuTypography.Caption1_SemiBold,
+                                color = AikuColors.Typo,
+                            )
+                        }
                         items(
                             items = groupScheduleUiState.schedules, key = { it.id }) {
                             GroupScheduleCard(
@@ -235,7 +233,7 @@ private fun ScheduleTabContent(
 }
 
 @Composable
-private fun MemberMiniProfile(
+private fun MemberAvatarCard(
     member: Member,
     contentDescription: String?,
     onClick: () -> Unit,
@@ -289,9 +287,22 @@ private fun AdContainer(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Member Tab - Empty")
 @Composable
-private fun GroupDetailScreenPreview() {
+private fun GroupDetailScreenMemberTabEmptyPreview() {
+    AiKUTheme {
+        GroupDetailScreen(
+            selectedTab = GroupDetailTab.MEMBER,
+            onTabSelected = {},
+            memberUiState = MemberUiState.Success(emptyList()),
+            groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Member Tab")
+@Composable
+private fun GroupDetailScreenMemberTabPreview() {
     AiKUTheme {
         val members = listOf(
             Member(
@@ -326,6 +337,32 @@ private fun GroupDetailScreenPreview() {
             ),
 
             )
+        GroupDetailScreen(
+            selectedTab = GroupDetailTab.MEMBER,
+            onTabSelected = {},
+            memberUiState = MemberUiState.Success(members),
+            groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Schedule Tab - Empty")
+@Composable
+private fun GroupDetailScreenScheduleTabEmptyPreview() {
+    AiKUTheme {
+        GroupDetailScreen(
+            selectedTab = GroupDetailTab.SCHEDULE,
+            onTabSelected = {},
+            memberUiState = MemberUiState.Success(emptyList()),
+            groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Schedule Tab")
+@Composable
+private fun GroupDetailScreenScheduleTabPreview() {
+    AiKUTheme {
         val groupSchedules = listOf(
             GroupSchedule(
                 id = 0,
@@ -357,6 +394,8 @@ private fun GroupDetailScreenPreview() {
             ),
         )
         GroupDetailScreen(
+            selectedTab = GroupDetailTab.SCHEDULE,
+            onTabSelected = {},
             memberUiState = MemberUiState.Success(emptyList()),
             groupScheduleUiState = GroupScheduleUiState.Success(groupSchedules)
         )
