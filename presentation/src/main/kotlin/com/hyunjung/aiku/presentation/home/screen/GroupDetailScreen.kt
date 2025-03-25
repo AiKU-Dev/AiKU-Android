@@ -52,8 +52,10 @@ data class Member(
 
 data class GroupSchedule(
     val id: Long,
+    val hostName:String,
     val scheduleName: String,
     val location: String,
+    val participantCount:Int,
     val scheduleStatus: ScheduleStatus,
     val time: Long,
 )
@@ -366,6 +368,8 @@ private fun GroupDetailScreenScheduleTabPreview() {
         val groupSchedules = listOf(
             GroupSchedule(
                 id = 0,
+                hostName = "홍길동",
+                participantCount = 4,
                 scheduleName = "약속 이름",
                 location = "홍대 입구역 1번 출구",
                 scheduleStatus = ScheduleStatus.WAITING,
@@ -373,6 +377,8 @@ private fun GroupDetailScreenScheduleTabPreview() {
             ),
             GroupSchedule(
                 id = 1,
+                hostName = "홍길동",
+                participantCount = 4,
                 scheduleName = "약속 이름",
                 location = "홍대 입구역 1번 출구",
                 scheduleStatus = ScheduleStatus.RUNNING,
@@ -380,6 +386,8 @@ private fun GroupDetailScreenScheduleTabPreview() {
             ),
             GroupSchedule(
                 id = 2,
+                hostName = "홍길동",
+                participantCount = 4,
                 scheduleName = "약속 이름",
                 location = "홍대 입구역 1번 출구",
                 scheduleStatus = ScheduleStatus.BEFORE_JOIN,
@@ -387,6 +395,8 @@ private fun GroupDetailScreenScheduleTabPreview() {
             ),
             GroupSchedule(
                 id = 3,
+                hostName = "홍길동",
+                participantCount = 4,
                 scheduleName = "약속 이름",
                 location = "홍대 입구역 1번 출구",
                 scheduleStatus = ScheduleStatus.ENDED,
