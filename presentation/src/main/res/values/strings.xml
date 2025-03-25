@@ -29,4 +29,7 @@
     <string name="presentation_member_detail_schedule_section_empty_title">약속을 만들어 주세요!</string>
     <string name="presentation_member_detail_schedule_section_empty_button">+ 약속 만들기</string>
     <string name="presentation_member_detail_schedule_section_schedule_status_summary">진행중 %1$d | 대기중 %2$d</string>
+    <string name="presentation_member_detail_join_schedule_dialog_participant_format">%1$s 외 %2$d명 참가</string>
+    <string name="presentation_member_detail_join_schedule_dialog_point_notice">약속 입장 시, 10야쿠가 소모됩니다.</string>
+    <string name="presentation_member_detail_join_schedule_dialog_button">입장하기</string>
 </resources>

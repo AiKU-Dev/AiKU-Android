@@ -6,6 +6,11 @@ import androidx.compose.ui.res.painterResource
 import com.hyunjung.aiku.core.designsystem.R
 
 object AikuIcons {
+    val Account: Painter
+        @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_account)
+    val Calendar: Painter
+        @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_calendar)
     val Location: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_location)
+
 }
