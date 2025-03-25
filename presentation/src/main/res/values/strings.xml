@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="presentation_point_unit">%1d 아쿠</string>
     <string name="presentation_home_no_schedule">아직 약속이 없어요</string>
     <string name="presentation_home_no_group">그룹을 만들어 보세요!</string>
     <string name="presentation_home_no_group_button">+ 그룹 만들기</string>
@@ -32,4 +33,8 @@
     <string name="presentation_member_detail_join_schedule_dialog_participant_format">%1$s 외 %2$d명 참가</string>
     <string name="presentation_member_detail_join_schedule_dialog_point_notice">약속 입장 시, 10야쿠가 소모됩니다.</string>
     <string name="presentation_member_detail_join_schedule_dialog_button">입장하기</string>
+    <string name="presentation_member_detail_insufficient_points_dialog_title">야쿠 부족</string>
+    <string name="presentation_member_detail_insufficient_points_dialog_message">야쿠가 부족합니다!\n광고 시청 후 야쿠를 충전해주세요.</string>
+    <string name="presentation_member_detail_insufficient_points_dialog_current_points_label">현재 내 보유 아쿠</string>
+    <string name="presentation_member_detail_insufficient_points_dialog_button">충선소 바로가기</string>
 </resources>

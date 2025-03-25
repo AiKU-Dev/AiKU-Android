@@ -8,6 +8,8 @@ import com.hyunjung.aiku.core.designsystem.R
 object AikuIcons {
     val Account: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_account)
+    val Aku: Painter
+        @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_aku)
     val Calendar: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_calendar)
     val Location: Painter
