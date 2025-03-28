@@ -2,6 +2,7 @@ package com.hyunjung.aiku.core.designsystem.component.textfield
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -54,13 +55,11 @@ fun AikuLimitedTextField(
         },
         placeholder = { Text(text = placeholder) },
         trailing = {
-            if (value.isNotBlank()) {
-                Text(
-                    text = "${value.length}/$maxLength",
-                    style = AikuTypography.Caption1,
-                    color = colors.trailingColor
-                )
-            }
+            Text(
+                text = "${value.length}/$maxLength",
+                style = AikuTypography.Caption1,
+                color = colors.trailingColor
+            )
         },
         modifier = modifier,
         textStyle = textStyle,
@@ -157,7 +156,7 @@ private fun AikuEmptyLimitedTextFieldPreview() {
             placeholder = "그룹 이름을 입력하세요",
             onValueChange = {},
             maxLength = 5,
-            contentPadding = PaddingValues(20.dp)
+            modifier = Modifier.padding(20.dp)
         )
     }
 }
@@ -171,7 +170,7 @@ private fun AikuLimitedTextFieldPreview() {
             placeholder = "그룹 이름을 입력하세요",
             onValueChange = {},
             maxLength = 10,
-            contentPadding = PaddingValues(20.dp)
+            modifier = Modifier.padding(20.dp)
         )
     }
 }
@@ -182,7 +181,6 @@ private fun AikuDefaultTextFiledPreview() {
     AiKUTheme {
         AikuTextField(
             value = "Aiku 그룹",
-            contentPadding = PaddingValues(20.dp),
             onValueChange = {},
             supporting = {
                 Text(
@@ -194,6 +192,7 @@ private fun AikuDefaultTextFiledPreview() {
                 Text(text = "placeholder")
             },
             singleLine = true,
+            modifier = Modifier.padding(20.dp)
         )
     }
 }
@@ -204,7 +203,6 @@ private fun AikuErrorDefaultTextFiledPreview() {
     AiKUTheme {
         AikuTextField(
             value = "Aiku 그룹!@#",
-            contentPadding = PaddingValues(20.dp),
             onValueChange = {},
             isError = true,
             supporting = {
@@ -215,6 +213,7 @@ private fun AikuErrorDefaultTextFiledPreview() {
             },
             placeholder = { Text(text = "placeholder") },
             singleLine = true,
+            modifier = Modifier.padding(20.dp)
         )
     }
 }
