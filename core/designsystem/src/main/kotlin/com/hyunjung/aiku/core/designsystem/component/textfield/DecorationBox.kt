@@ -223,14 +223,14 @@ private fun AikuTextFieldLayer(
     paddingValues: PaddingValues,
     containerColor: Color,
 ) {
-    AikuSurface(
-        shape = shape,
-        color = containerColor,
-    ) {
-        Column(
-            modifier = Modifier.padding(paddingValues)
+    Column{
+        AikuSurface(
+            shape = shape,
+            color = containerColor,
         ) {
-            Row {
+            Row(
+                modifier = Modifier.padding(paddingValues)
+            ) {
                 if (leading != null) {
                     Box(
                         Modifier
@@ -265,22 +265,22 @@ private fun AikuTextFieldLayer(
                     }
                 }
             }
-            if (indicator != null) {
-                Box(
-                    modifier = Modifier.padding(top = DefaultIndicatorPadding),
-                ) {
-                    indicator()
-                }
+        }
+        if (indicator != null) {
+            Box(
+                modifier = Modifier.padding(top = DefaultIndicatorPadding),
+            ) {
+                indicator()
             }
-            if (supporting != null) {
-                Box(
-                    Modifier
-                        .heightIn(min = MinSupportingTextLineHeight)
-                        .wrapContentHeight()
-                        .padding(top = DefaultIndicatorPadding)
-                ) {
-                    supporting()
-                }
+        }
+        if (supporting != null) {
+            Box(
+                Modifier
+                    .heightIn(min = MinSupportingTextLineHeight)
+                    .wrapContentHeight()
+                    .padding(top = DefaultIndicatorPadding)
+            ) {
+                supporting()
             }
         }
     }

@@ -38,7 +38,7 @@ object AikuColors {
 
     // Gray
     val Gray00 = Color(0xFFB5B5BB)
-    val Gray01 = Color(0xFFF6F6F6)
+    val Gray01 = Color(0xFFF3F4F5)
     val Gray02 = Color(0xFFDCDCDD)
     val Gray03 = Color(0xFF979798)
     val Gray04 = Color(0xFF565657)
