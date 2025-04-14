@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -97,14 +97,11 @@ fun <T> Picker(
                 .wrapContentSize()
                 .height(itemHeight * visibleItemsCount)
         ) {
-            items(
-                items = adjustedItems,
-                key = { it.hashCode() },
-            ) { item ->
+            items(count = listScrollCount, key = { it }) { index ->
                 val fraction by remember {
                     derivedStateOf {
                         val currentItem =
-                            listState.layoutInfo.visibleItemsInfo.firstOrNull { it.key == item.hashCode() }
+                            listState.layoutInfo.visibleItemsInfo.firstOrNull { it.key == index }
                         currentItem?.offset?.let { offset ->
                             val itemHeightPx = with(density) { itemHeight.toPx() }
                             val fraction =
@@ -114,8 +111,12 @@ fun <T> Picker(
                     }
                 }
 
+                val currentItemText by remember {
+                    mutableStateOf(if (getItem(index) == null) "" else getItem(index).toString())
+                }
+
                 Text(
-                    text = item?.toString() ?: "",
+                    text = currentItemText,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = textStyle.copy(
