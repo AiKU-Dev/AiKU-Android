@@ -51,5 +51,5 @@
     <string name="presentation_create_schedule_date_description">날짜 선택</string>
     <string name="presentation_create_schedule_time_description">시간 선택</string>
     <string name="presentation_create_schedule_location_description">장소 검색</string>
-
+    <string name="presentation_date_picker_dialog_button">확인</string>
 </resources>
