@@ -32,8 +32,8 @@ import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import java.util.Calendar
 import com.hyunjung.aiku.presentation.R
+import java.util.Calendar
 
 @Composable
 fun DatePickerDialog(
@@ -46,13 +46,13 @@ fun DatePickerDialog(
     textStyle: TextStyle = AikuTypography.Subtitle3,
     selectedTextStyle: TextStyle = AikuTypography.Subtitle2,
 ) {
-    val currentYear = calendar.get(Calendar.YEAR)
-    val currentMonth = calendar.get(Calendar.MONTH) + 1
-    val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-    var selectedYear by remember { mutableIntStateOf(currentYear) }
-    var selectedMonth by remember { mutableIntStateOf(currentMonth) }
-    var selectedDay by remember { mutableIntStateOf(currentDay) }
+    val newCalendar = remember { Calendar.getInstance() }
+    val currentYear = newCalendar.get(Calendar.YEAR)
+
+    var selectedYear by remember { mutableIntStateOf(calendar.get(Calendar.YEAR)) }
+    var selectedMonth by remember { mutableIntStateOf(calendar.get(Calendar.MONTH)) }
+    var selectedDay by remember { mutableIntStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
 
     val yearRange = (currentYear..currentYear + 9).toList()
     val monthRange = (1..12).toList()
@@ -60,7 +60,7 @@ fun DatePickerDialog(
         derivedStateOf {
             val tempCal = Calendar.getInstance().apply {
                 set(Calendar.YEAR, selectedYear)
-                set(Calendar.MONTH, selectedMonth - 1) // again, 0-based
+                set(Calendar.MONTH, selectedMonth)
                 set(Calendar.DAY_OF_MONTH, 1)
             }
             val daysInMonth = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -68,9 +68,9 @@ fun DatePickerDialog(
         }
     }
 
-    val yearStartIndex = remember { yearRange.indexOf(currentYear) }
-    val monthStartIndex = remember { monthRange.indexOf(currentMonth) }
-    val dayStartIndex = remember { dayRange.indexOf(currentDay) }
+    val yearStartIndex = remember { yearRange.indexOf(selectedYear) }
+    val monthStartIndex = remember { monthRange.indexOf(selectedMonth + 1) }
+    val dayStartIndex = remember { dayRange.indexOf(selectedDay) }
 
     val itemHeight = with(LocalDensity.current) {
         selectedTextStyle.fontSize.toDp()
@@ -111,7 +111,7 @@ fun DatePickerDialog(
                 )
                 Picker(
                     items = monthRange,
-                    onItemSelected = { selectedMonth = it },
+                    onItemSelected = { selectedMonth = it - 1 },
                     modifier = Modifier.weight(1f),
                     startIndex = monthStartIndex,
                     visibleItemsCount = visibleItemsCount,
