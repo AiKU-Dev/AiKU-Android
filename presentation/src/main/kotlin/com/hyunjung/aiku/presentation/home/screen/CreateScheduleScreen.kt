@@ -34,7 +34,10 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.presentation.home.component.DatePickerDialog
+import com.hyunjung.aiku.presentation.home.component.TimePickerDialog
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 private val ScheduleFormPadding = 16.dp
@@ -62,6 +65,31 @@ fun CreateScheduleScreen(
     val formatterTime = remember { SimpleDateFormat("a hh:mm", Locale.KOREAN) }
     var nameValidationError by remember { mutableStateOf(ScheduleNameValidationError.NONE) }
 
+    val calendar = remember { Calendar.getInstance() }
+    var showDatePickerDialog by remember { mutableStateOf(false) }
+    var showTimePickerDialog by remember { mutableStateOf(false) }
+
+    if (showDatePickerDialog) {
+        DatePickerDialog(
+            calendar = calendar,
+            onDismiss = { showDatePickerDialog = false },
+            onDateChange = { year, month, dayOfMonth ->
+                calendar.set(year, month, dayOfMonth)
+            }
+        )
+    }
+
+    if (showTimePickerDialog) {
+        TimePickerDialog(
+            calendar = calendar,
+            onDismiss = { showTimePickerDialog = false },
+            onTimeChange = { amPm, hourOfDay, minute ->
+                calendar.set(Calendar.AM_PM, amPm)
+                calendar.set(Calendar.HOUR, hourOfDay % 12)
+                calendar.set(Calendar.MINUTE, minute)
+            }
+        )
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -105,13 +133,13 @@ fun CreateScheduleScreen(
                 ) {
                     ScheduleDropdownSelector(
                         text = formatterDate.format(scheduleFormState.time),
-                        onClick = {},
+                        onClick = { showDatePickerDialog = true },
                         contentDescription = stringResource(R.string.presentation_create_schedule_date_description),
                         modifier = Modifier.weight(1f)
                     )
                     ScheduleDropdownSelector(
                         text = formatterTime.format(scheduleFormState.time),
-                        onClick = {},
+                        onClick = { showTimePickerDialog = true },
                         contentDescription = stringResource(R.string.presentation_create_schedule_time_description),
                         modifier = Modifier.weight(1f)
                     )
