@@ -97,11 +97,13 @@ fun <T> Picker(
                 .wrapContentSize()
                 .height(itemHeight * visibleItemsCount)
         ) {
-            items(count = listScrollCount, key = { it }) { index ->
+            items(count = listScrollCount, key = { index ->
+                "${getItem(index).hashCode()}_$index"
+            }) { index ->
                 val fraction by remember {
                     derivedStateOf {
                         val currentItem =
-                            listState.layoutInfo.visibleItemsInfo.firstOrNull { it.key == index }
+                            listState.layoutInfo.visibleItemsInfo.firstOrNull { it.index == index }
                         currentItem?.offset?.let { offset ->
                             val itemHeightPx = with(density) { itemHeight.toPx() }
                             val fraction =
