@@ -8,5 +8,6 @@ android {
 }
 
 dependencies {
+    api(projects.core.common)
     implementation(libs.kotlinx.serialization.json)
 }
