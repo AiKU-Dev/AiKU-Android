@@ -1,6 +1,10 @@
 package com.hyunjung.aiku.core.data.dto
 
+import android.os.Build
+import com.hyunjung.aiku.core.data.model.GroupOverview
 import kotlinx.serialization.Serializable
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Serializable
 data class GroupOverviewListResponse(
@@ -21,3 +25,20 @@ data class GroupOverviewResponse(
     val memberSize: Int,
     val lastScheduleTime: String?
 )
+
+fun GroupOverviewResponse.toGroupOverview(): GroupOverview {
+    return GroupOverview(
+        groupId = groupId,
+        groupName = groupName,
+        memberSize = memberSize,
+        lastScheduleTime = lastScheduleTime?.let {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    LocalDateTime.parse(it, DateTimeFormatter.ISO_DATE_TIME)
+                } else null
+            } catch (e: Exception) {
+                null
+            }
+        }
+    )
+}
