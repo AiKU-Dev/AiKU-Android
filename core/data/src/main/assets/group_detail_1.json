@@ -1,0 +1,56 @@
+{
+  "groupId": 1,
+  "groupName": "전공기초프로젝트",
+  "members": [
+    {
+      "memberId": 101,
+      "nickname": "지정희",
+      "memberProfile": {
+        "profileType": "CHAR",
+        "profileImg": null,
+        "profileCharacter": "C01",
+        "profileBackground": "GREEN"
+      }
+    },
+    {
+      "memberId": 102,
+      "nickname": "박소영",
+      "memberProfile": {
+        "profileType": "CHAR",
+        "profileImg": null,
+        "profileCharacter": "C02",
+        "profileBackground": "RED"
+      }
+    },
+    {
+      "memberId": 103,
+      "nickname": "김지후",
+      "memberProfile": {
+        "profileType": "CHAR",
+        "profileImg": null,
+        "profileCharacter": "C03",
+        "profileBackground": "PURPLE"
+      }
+    },
+    {
+      "memberId": 104,
+      "nickname": "이수현",
+      "memberProfile": {
+        "profileType": "CHAR",
+        "profileImg": null,
+        "profileCharacter": "C04",
+        "profileBackground": "YELLOW"
+      }
+    },
+    {
+      "memberId": 105,
+      "nickname": "최윤아",
+      "memberProfile": {
+        "profileType": "CHAR",
+        "profileImg": null,
+        "profileCharacter": "C01",
+        "profileBackground": "GRAY"
+      }
+    }
+  ]
+}
