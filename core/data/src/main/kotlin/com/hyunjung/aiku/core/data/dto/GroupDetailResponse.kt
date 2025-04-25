@@ -1,5 +1,8 @@
 package com.hyunjung.aiku.core.data.dto
 
+import com.hyunjung.aiku.core.data.model.GroupDetail
+import com.hyunjung.aiku.core.data.model.GroupMember
+import com.hyunjung.aiku.core.data.model.MemberProfile
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,3 +32,27 @@ data class MemberProfileResponse(
     val profileCharacter: String? = null,
     val profileBackground: String? = null
 )
+
+fun GroupDetailResult.toGroupDetail(): GroupDetail =
+    GroupDetail(
+        groupId = groupId,
+        groupName = groupName,
+        members = members.map { it.toGroupMember() }
+    )
+
+
+fun GroupMemberResponse.toGroupMember(): GroupMember =
+    GroupMember(
+        memberId = memberId,
+        nickname = nickname,
+        memberProfile = memberProfile.toMemberProfile()
+    )
+
+fun MemberProfileResponse.toMemberProfile(): MemberProfile =
+    MemberProfile(
+        profileType = profileType,
+        profileImg = profileImg,
+        profileCharacter = profileCharacter,
+        profileBackground = profileBackground
+    )
+
