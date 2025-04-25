@@ -1,0 +1,65 @@
+{
+  "page": 1,
+  "data": [
+    {
+      "groupId": 1,
+      "groupName": "전공기초프로젝트",
+      "memberSize": 5,
+      "lastScheduleTime": "2024-07-30T12:12:12"
+    },
+    {
+      "groupId": 2,
+      "groupName": "산학협력프로젝트",
+      "memberSize": 2,
+      "lastScheduleTime": null
+    },
+    {
+      "groupId": 3,
+      "groupName": "AI 스터디",
+      "memberSize": 7,
+      "lastScheduleTime": "2024-08-01T15:00:00"
+    },
+    {
+      "groupId": 4,
+      "groupName": "캡스톤 디자인 팀",
+      "memberSize": 4,
+      "lastScheduleTime": "2024-06-20T18:30:00"
+    },
+    {
+      "groupId": 5,
+      "groupName": "창업 멘토링 그룹",
+      "memberSize": 3,
+      "lastScheduleTime": null
+    },
+    {
+      "groupId": 6,
+      "groupName": "취준 스터디",
+      "memberSize": 8,
+      "lastScheduleTime": "2024-07-01T10:00:00"
+    },
+    {
+      "groupId": 7,
+      "groupName": "토익 스터디",
+      "memberSize": 6,
+      "lastScheduleTime": "2024-07-15T09:00:00"
+    },
+    {
+      "groupId": 8,
+      "groupName": "운동 모임",
+      "memberSize": 10,
+      "lastScheduleTime": "2024-05-05T07:30:00"
+    },
+    {
+      "groupId": 9,
+      "groupName": "코틀린 스터디",
+      "memberSize": 4,
+      "lastScheduleTime": null
+    },
+    {
+      "groupId": 10,
+      "groupName": "수강 신청 전략팀",
+      "memberSize": 5,
+      "lastScheduleTime": "2024-08-10T13:45:00"
+    }
+  ]
+}
