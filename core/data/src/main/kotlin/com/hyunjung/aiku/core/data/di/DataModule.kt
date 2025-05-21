@@ -1,20 +1,25 @@
 package com.hyunjung.aiku.core.data.di
 
-import android.content.Context
-import com.hyunjung.aiku.core.data.demo.DemoAssetManager
+import com.hyunjung.aiku.core.data.datasource.GroupDataSource
+import com.hyunjung.aiku.core.data.demo.DemoGroupDataSource
+import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
+import com.hyunjung.aiku.core.data.repository.GroupRepository
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object DataModule {
-    @Provides
-    @Singleton
-    fun providesDemoAssetManager(
-        @ApplicationContext context: Context,
-    ): DemoAssetManager = DemoAssetManager(context.assets::open)
+abstract class DataModule {
+
+    @Binds
+    internal abstract fun bindsGroupDataSource(
+        dataSource: DemoGroupDataSource
+    ): GroupDataSource
+
+    @Binds
+    internal abstract fun bindsGroupRepository(
+        groupRepositoryImpl: DefaultGroupRepository
+    ): GroupRepository
 }
