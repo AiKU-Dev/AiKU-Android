@@ -1,0 +1,44 @@
+package com.hyunjung.aiku.core.navigation
+
+import androidx.navigation.NavController
+import androidx.navigation.NavOptionsBuilder
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onSubscription
+
+abstract class Navigator {
+    val navigationCommands =
+        MutableSharedFlow<NavigationCommand>(extraBufferCapacity = Int.MAX_VALUE)
+    val navControllerFlow = MutableStateFlow<NavController?>(null)
+    fun navigateUp() {
+        navigationCommands.tryEmit(NavigationCommand.NavigateUp)
+    }
+}
+
+abstract class AppComposeNavigator<T : Any> : Navigator() {
+    abstract fun navigate(route: T, optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null)
+    abstract fun popUpTo(route: T, inclusive: Boolean)
+    abstract fun navigateAndClearBackStack(route: T)
+
+    suspend fun handleNavigationCommands(navController: NavController) {
+        navigationCommands
+            .onSubscription { this@AppComposeNavigator.navControllerFlow.value = navController }
+            .onCompletion { this@AppComposeNavigator.navControllerFlow.value = null }
+            .collect { navController.handleComposeNavigationCommand(it) }
+    }
+
+    private fun NavController.handleComposeNavigationCommand(navigationCommand: NavigationCommand) {
+        when (navigationCommand) {
+            is ComposeNavigationCommand.NavigateToRoute<*> -> {
+                navigate(navigationCommand.route, navigationCommand.options)
+            }
+
+            NavigationCommand.NavigateUp -> navigateUp()
+            is ComposeNavigationCommand.PopUpToRoute<*> -> popBackStack(
+                navigationCommand.route,
+                navigationCommand.inclusive,
+            )
+        }
+    }
+}
