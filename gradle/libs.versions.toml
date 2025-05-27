@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.9.2"
 coreSplashscreen = "1.0.1"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -9,7 +9,7 @@ espressoCore = "3.6.1"
 androidxLifecycle = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.02.00"
-ksp = "2.1.0-1.0.29"
+ksp = "2.1.10-1.0.31"
 room = "2.6.1"
 hilt = "2.55"
 androidxHiltNavigationCompose = "1.2.0"
@@ -82,6 +82,6 @@ aiku-android-application-compose = { id = "aiku.android.application.compose" }
 aiku-android-library-compose = { id = "aiku.android.library.compose" }
 aiku-android-library = { id = "aiku.android.library" }
 aiku-android-presentation = { id = "aiku.android.presentation" }
-aiku-hilt = { id = "aiku.hilt" }
+aiku-android-hilt = { id = "aiku.android.hilt" }
 aiku-android-room = { id = "aiku.android.room" }
 aiku-jvm-library = { id = "aiku.jvm.library" }

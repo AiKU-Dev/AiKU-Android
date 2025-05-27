@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.aiku.android.application)
     alias(libs.plugins.aiku.android.application.compose)
-    alias(libs.plugins.aiku.hilt)
+    alias(libs.plugins.aiku.android.hilt)
     alias(libs.plugins.kotlin.serialization)
 }
 

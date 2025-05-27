@@ -1,8 +1,8 @@
-plugins{
-    alias(libs.plugins.aiku.jvm.library)
-    alias(libs.plugins.aiku.hilt)
+plugins {
+    alias(libs.plugins.aiku.android.library)
+    alias(libs.plugins.aiku.android.hilt)
 }
 
-dependencies{
+dependencies {
     implementation(libs.kotlinx.coroutines.core)
 }

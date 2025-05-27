@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.aiku.android.library)
-    alias(libs.plugins.aiku.hilt)
+    alias(libs.plugins.aiku.android.hilt)
     id("kotlinx-serialization")
 }
 
