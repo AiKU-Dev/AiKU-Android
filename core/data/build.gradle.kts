@@ -17,4 +17,6 @@ dependencies {
     api(projects.core.common)
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
 }
