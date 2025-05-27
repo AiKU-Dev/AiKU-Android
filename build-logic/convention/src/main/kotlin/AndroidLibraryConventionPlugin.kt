@@ -6,6 +6,9 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import kotlin.apply
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -16,14 +19,10 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 35
-                testOptions.animationsDisabled = true
-                resourcePrefix =
-                    path.split("""\W""".toRegex()).drop(1).distinct().joinToString(separator = "_")
-                        .lowercase() + "_"
             }
-            dependencies {
-                "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
-                "testImplementation"(libs.findLibrary("kotlin.test").get())
+
+            extensions.getByType<KotlinAndroidProjectExtension>().apply {
+                configureKotlinAndroid(this)
             }
         }
     }

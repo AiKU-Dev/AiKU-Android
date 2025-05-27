@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     `kotlin-dsl`
 }
@@ -7,13 +5,8 @@ plugins {
 group = "com.hyunjung.aiku.buildlogic"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -54,17 +47,13 @@ gradlePlugin {
             id = libs.plugins.aiku.android.presentation.get().pluginId
             implementationClass = "AndroidPresentationConventionPlugin"
         }
-        register("hilt") {
-            id = libs.plugins.aiku.hilt.get().pluginId
-            implementationClass = "HiltConventionPlugin"
+        register("androidHilt") {
+            id = libs.plugins.aiku.android.hilt.get().pluginId
+            implementationClass = "AndroidHiltConventionPlugin"
         }
         register("androidRoom") {
             id = libs.plugins.aiku.android.room.get().pluginId
             implementationClass = "AndroidRoomConventionPlugin"
-        }
-        register("jvmLibrary") {
-            id = libs.plugins.aiku.jvm.library.get().pluginId
-            implementationClass = "JvmLibraryConventionPlugin"
         }
     }
 }

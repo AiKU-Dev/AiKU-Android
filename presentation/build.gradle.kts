@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.aiku.android.presentation)
     alias(libs.plugins.aiku.android.library.compose)
+    alias(libs.plugins.aiku.android.hilt)
 }
 
-android{
+android {
     namespace = "com.hyunjung.aiku.presentation"
 }
