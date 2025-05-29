@@ -1,0 +1,53 @@
+package com.hyunjung.aiku.core.network.di
+
+import com.hyunjung.aiku.core.network.auth.BearerTokenManager
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.bearer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.http.URLProtocol
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+
+    @Provides
+    @Singleton
+    fun providesNetworkJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(
+        json: Json,
+        bearerTokenManager: BearerTokenManager,
+    ): HttpClient = HttpClient(CIO) {
+        defaultRequest {
+            url {
+                protocol = URLProtocol.HTTPS
+                host = "aiku.duckdns.org"
+            }
+        }
+        install(ContentNegotiation) {
+            json(json)
+        }
+        install(Auth) {
+            bearer {
+                loadTokens {
+                    bearerTokenManager.token
+                }
+                // todo : refresh token
+            }
+        }
+    }
+}
