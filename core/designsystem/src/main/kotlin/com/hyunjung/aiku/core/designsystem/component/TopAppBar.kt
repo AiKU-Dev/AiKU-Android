@@ -46,7 +46,7 @@ fun AikuTopAppBar(
     ),
     onNavigationClick: () -> Unit = {},
 ) {
-    AikuTopAppBarBase(
+    TopAppBarBase(
         title = title,
         modifier = modifier,
         navigationIcon = navigationIcon,
@@ -70,7 +70,7 @@ fun AikuCenterAlignedTopAppBar(
     ),
     onNavigationClick: () -> Unit = {},
 ) {
-    AikuTopAppBarBase(
+    TopAppBarBase(
         title = title,
         modifier = modifier,
         navigationIcon = navigationIcon,
@@ -84,7 +84,7 @@ fun AikuCenterAlignedTopAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AikuTopAppBarBase(
+private fun TopAppBarBase(
     title: @Composable (() -> Unit),
     modifier: Modifier,
     navigationIcon: ImageVector?,
