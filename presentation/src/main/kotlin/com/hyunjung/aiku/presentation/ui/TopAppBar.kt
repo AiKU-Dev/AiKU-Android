@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
@@ -22,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
@@ -72,15 +70,34 @@ fun AikuAppBar(
 }
 
 @Composable
-fun AikuCenterAlignedTopAppBar(
-    title: @Composable (() -> Unit),
+fun NavigationAppBar(
+    title: String,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit) = {},
-    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(
+        titleContentColor = AikuColors.Typo,
+        containerColor = AikuColors.White,
+        actionIconContentColor = AikuColors.Gray04,
+        navigationIconContentColor = AikuColors.Gray04,
+    ),
 ) {
+    val composeNavigator = currentComposeNavigator
+
     TopAppBarBase(
-        title = title,
-        navigationIcon = {},
+        title = {
+            Text(
+                text = title,
+                style = AikuTypography.Subtitle2,
+            )
+        },
+        navigationIcon = {
+            AikuIconButton(
+                onClick = { composeNavigator.navigateUp() },
+                imageVector = AikuIcons.ArrowBackIosNew,
+                contentDescription = "navigateUp",
+                size = NavigationIconSize
+            )
+        },
         actions = actions,
         colors = colors,
         centeredTitle = true,
@@ -115,7 +132,6 @@ private fun TopAppBarBase(
         Box(
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(end = NavigationIconStartPadding)
         ) {
             CompositionLocalProvider(
                 LocalContentColor provides colors.navigationIconContentColor,
@@ -126,7 +142,6 @@ private fun TopAppBarBase(
         Box(
             modifier = Modifier
                 .align(if (centeredTitle) Alignment.Center else Alignment.CenterStart)
-                .padding(horizontal = TitlePadding)
         ) {
             CompositionLocalProvider(
                 LocalDensity provides Density(
@@ -141,7 +156,6 @@ private fun TopAppBarBase(
         Box(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .padding(end = ActionsEndPadding)
         ) {
             CompositionLocalProvider(
                 LocalContentColor provides colors.actionIconContentColor,
@@ -159,45 +173,34 @@ private fun AikuAppBarPreview() {
         LocalComposeNavigator provides AikuComposeNavigator()
     ) {
         AiKUTheme {
-            AikuAppBar()
+            AikuAppBar(Modifier.padding(horizontal = 20.dp))
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun AikuCenterAlignedTopAppBarPreview() {
-    AiKUTheme {
-        AikuCenterAlignedTopAppBar(
-            title = {
-                Text(
-                    text = "AiKU",
-                    style = AikuTypography.Headline3_G,
-                )
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                titleContentColor = AikuColors.CobaltBlue,
-                containerColor = AikuColors.White
-            ),
-            actions = {
-                AikuIconButton(
-                    onClick = {},
-                    imageVector = Icons.Default.Add,
-                    size = 22.dp
-                )
-                AikuIconButton(
-                    onClick = {},
-                    imageVector = Icons.Default.DateRange,
-                    size = 22.dp
-                )
-            }
-        )
+private fun NavigationAppBarPreview() {
+    CompositionLocalProvider(
+        LocalComposeNavigator provides AikuComposeNavigator()
+    ) {
+        AiKUTheme {
+            NavigationAppBar(
+                title = stringResource(android.R.string.untitled),
+                modifier = Modifier.padding(horizontal = 20.dp),
+                actions = {
+                    AikuIconButton(
+                        onClick = {},
+                        imageVector = AikuIcons.MoreHoriz,
+                        contentDescription = null,
+                        size = 24.dp
+                    )
+                }
+            )
+        }
     }
 }
 
 private val TopAppBarHeight = 48.dp
 private val NavigationIconSize = 24.dp
-private val NavigationIconStartPadding = 4.dp
-private val TitlePadding = 20.dp
-private val ActionsEndPadding = 22.dp
 private val ActionsSpacing = 8.dp
