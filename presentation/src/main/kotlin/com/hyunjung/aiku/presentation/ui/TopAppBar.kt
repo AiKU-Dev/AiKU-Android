@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.designsystem.component
+package com.hyunjung.aiku.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.R
+import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
