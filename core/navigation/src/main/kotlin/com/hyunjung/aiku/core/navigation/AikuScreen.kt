@@ -17,6 +17,9 @@ sealed interface AikuScreen {
     data object Home : AikuScreen
 
     @Serializable
+    data object AkuChargingStation : AikuScreen
+
+    @Serializable
     data class GroupDetail(val groupId: String) : AikuScreen
 
     @Serializable
