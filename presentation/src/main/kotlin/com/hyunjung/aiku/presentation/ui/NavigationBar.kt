@@ -97,7 +97,7 @@ fun AikuNavigationBar(
 }
 
 @Composable
-fun RowScope.AikuNavigationBarItem(
+private fun RowScope.AikuNavigationBarItem(
     label: String,
     selected: Boolean,
     onClick: () -> Unit,
