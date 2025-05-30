@@ -24,4 +24,7 @@ sealed interface AikuScreen {
 
     @Serializable
     data object MyPage : AikuScreen
+
+    @Serializable
+    data object Schedule : AikuScreen
 }
