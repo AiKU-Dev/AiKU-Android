@@ -34,7 +34,7 @@ import com.hyunjung.aiku.core.navigation.LocalComposeNavigator
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 
 @Composable
-fun AikuAppBar(
+fun AikuLogoAppBar(
     modifier: Modifier = Modifier,
     title: String = "AiKU",
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(
@@ -70,7 +70,7 @@ fun AikuAppBar(
 }
 
 @Composable
-fun NavigationAppBar(
+fun AikuBackAppBar(
     title: String,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit) = {},
@@ -173,7 +173,7 @@ private fun AikuAppBarPreview() {
         LocalComposeNavigator provides AikuComposeNavigator()
     ) {
         AiKUTheme {
-            AikuAppBar(Modifier.padding(horizontal = 20.dp))
+            AikuLogoAppBar(Modifier.padding(horizontal = 20.dp))
         }
     }
 }
@@ -185,7 +185,7 @@ private fun NavigationAppBarPreview() {
         LocalComposeNavigator provides AikuComposeNavigator()
     ) {
         AiKUTheme {
-            NavigationAppBar(
+            AikuBackAppBar(
                 title = stringResource(android.R.string.untitled),
                 modifier = Modifier.padding(horizontal = 20.dp),
                 actions = {
