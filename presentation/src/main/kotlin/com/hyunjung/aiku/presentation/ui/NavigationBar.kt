@@ -27,6 +27,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -63,7 +65,7 @@ fun AikuNavigationBar(
     )
 
     AikuSurface(
-        color = AikuColors.White,
+        color = AikuColors.Gray01,
         modifier = modifier
     ) {
         Row(
@@ -72,7 +74,15 @@ fun AikuNavigationBar(
                     .fillMaxWidth()
                     .windowInsetsPadding(windowInsets)
                     .defaultMinSize(minHeight = AikuNavigationBarDefaults.NavigationBarHeight)
-                    .selectableGroup(),
+                    .selectableGroup()
+                    .drawBehind {
+                        drawLine(
+                            color = AikuColors.Gray02,
+                            start = Offset(0f, 0f),
+                            end = Offset(size.width, 0f),
+                            strokeWidth = 1.dp.toPx()
+                        )
+                    },
             horizontalArrangement = Arrangement.spacedBy(
                 AikuNavigationBarDefaults.NavigationBarItemHorizontalPadding
             ),
