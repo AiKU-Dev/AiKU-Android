@@ -35,12 +35,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
-import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.core.navigation.AikuComposeNavigator
 import com.hyunjung.aiku.core.navigation.AikuScreen
-import com.hyunjung.aiku.core.navigation.LocalComposeNavigator
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 
 
@@ -150,12 +147,8 @@ private fun RowScope.AikuNavigationBarItem(
 @Preview
 @Composable
 private fun AikuNavigationBarPreview() {
-    CompositionLocalProvider(
-        LocalComposeNavigator provides AikuComposeNavigator()
-    ) {
-        AiKUTheme {
-            AikuNavigationBar(AikuScreen.Home)
-        }
+    AikuPreviewTheme {
+        AikuNavigationBar(AikuScreen.Home)
     }
 }
 

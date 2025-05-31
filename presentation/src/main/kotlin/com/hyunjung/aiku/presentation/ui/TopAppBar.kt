@@ -25,12 +25,9 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
-import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.core.navigation.AikuComposeNavigator
 import com.hyunjung.aiku.core.navigation.AikuScreen
-import com.hyunjung.aiku.core.navigation.LocalComposeNavigator
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 
 private val TopAppBarPadding = 20.dp
@@ -178,31 +175,25 @@ private fun TopAppBarBase(
 @Preview(showBackground = true)
 @Composable
 private fun AikuAppBarPreview() {
-    CompositionLocalProvider(
-        LocalComposeNavigator provides AikuComposeNavigator()
-    ) {
-        AiKUTheme { AikuLogoAppBar() }
+    AikuPreviewTheme {
+        AikuLogoAppBar()
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun NavigationAppBarPreview() {
-    CompositionLocalProvider(
-        LocalComposeNavigator provides AikuComposeNavigator()
-    ) {
-        AiKUTheme {
-            AikuBackAppBar(
-                title = stringResource(android.R.string.untitled),
-                actions = {
-                    AikuIconButton(
-                        onClick = {},
-                        imageVector = AikuIcons.MoreHoriz,
-                        contentDescription = null,
-                        size = 24.dp
-                    )
-                }
-            )
-        }
+    AikuPreviewTheme {
+        AikuBackAppBar(
+            title = stringResource(android.R.string.untitled),
+            actions = {
+                AikuIconButton(
+                    onClick = {},
+                    imageVector = AikuIcons.MoreHoriz,
+                    contentDescription = null,
+                    size = 24.dp
+                )
+            }
+        )
     }
 }
