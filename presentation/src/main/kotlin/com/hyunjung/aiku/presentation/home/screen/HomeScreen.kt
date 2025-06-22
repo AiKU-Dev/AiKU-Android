@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.presentation.home.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,15 +28,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
-import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.home.component.CreateGroupDialog
 import com.hyunjung.aiku.presentation.home.component.EmptyScheduleCard
 import com.hyunjung.aiku.presentation.home.component.EmptyStateCard
 import com.hyunjung.aiku.presentation.home.component.GroupCard
 import com.hyunjung.aiku.presentation.home.component.ScheduleCard
+import com.hyunjung.aiku.presentation.ui.AikuLogoAppBar
+import com.hyunjung.aiku.presentation.ui.AikuNavigationBar
+import com.hyunjung.aiku.presentation.ui.AikuPreviewTheme
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -85,37 +89,40 @@ fun HomeScreen(
     showCreateGroupDialog: Boolean = false,
     onCreateGroupDismissed: () -> Unit = {}
 ) {
-    val dateFormatter = remember { SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()) }
     if (showCreateGroupDialog) {
         CreateGroupDialog(
             onDismiss = onCreateGroupDismissed,
             onCreateGroup = {}
         )
     }
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
+    Box {
         Column(
             modifier = modifier
-                .padding(20.dp),
+                .fillMaxSize()
+                .background(color = AikuColors.Gray01),
         ) {
-            Text(
-                text = dateFormatter.format(System.currentTimeMillis()),
-                style = AikuTypography.Subtitle2_G,
-                color = AikuColors.Typo
-            )
-            UpcomingSchedule(
-                title = stringResource(R.string.presentation_home_schedule_title),
-                scheduleUiState = scheduleUiState,
-                onScheduleClick = {}
-            )
-            Spacer(Modifier.height(24.dp))
-            GroupList(
-                title = stringResource(R.string.presentation_home_group_title, userNickname),
-                groupUiState = groupUiState,
-                onGroupClick = {},
-                onCreateGroup = {}
+            AikuLogoAppBar()
+            Column(
+                modifier = modifier
+                    .weight(1f)
+                    .padding(horizontal = 20.dp),
+            ) {
+                UpcomingSchedule(
+                    title = stringResource(R.string.presentation_home_schedule_title),
+                    scheduleUiState = scheduleUiState,
+                    onScheduleClick = {}
+                )
+                Spacer(Modifier.height(24.dp))
+                GroupList(
+                    title = stringResource(R.string.presentation_home_group_title, userNickname),
+                    groupUiState = groupUiState,
+                    onGroupClick = {},
+                    onCreateGroup = {}
+                )
+            }
+            AikuNavigationBar(
+                currentScreen = AikuScreen.Home,
+                modifier = Modifier
             )
         }
         if (groupUiState is GroupUiState.Success && !groupUiState.isEmpty())
@@ -123,7 +130,7 @@ fun HomeScreen(
                 onClick = {},
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 12.dp, end = 24.dp),
+                    .padding(bottom = 88.dp, end = 24.dp),
                 shape = CircleShape,
                 shadowElevation = 8.dp,
                 colors = AikuButtonDefaults.buttonColors(
@@ -147,6 +154,14 @@ private fun ColumnScope.UpcomingSchedule(
     onScheduleClick: (Long) -> Unit,
     title: String,
 ) {
+    val dateFormatter = remember { SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()) }
+
+    Text(
+        text = dateFormatter.format(System.currentTimeMillis()),
+        style = AikuTypography.Subtitle2_G,
+        color = AikuColors.Typo
+    )
+    Spacer(Modifier.height(8.dp))
     Text(
         text = title,
         style = AikuTypography.Body2,
@@ -229,7 +244,7 @@ private fun ColumnScope.GroupList(
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenEmptyPreview() {
-    AiKUTheme {
+    AikuPreviewTheme {
         HomeScreen(
             userNickname = "닉네임",
             scheduleUiState = ScheduleUiState.Success(emptyList()),
@@ -277,7 +292,7 @@ private fun HomeScreenPreview() {
         Group(id = 10, name = "그룹 10", latestScheduleTime = 1722600732000L, memberSize = 44)
     )
 
-    AiKUTheme {
+    AikuPreviewTheme {
         HomeScreen(
             userNickname = "닉네임",
             scheduleUiState = ScheduleUiState.Success(mockSchedules),
@@ -289,7 +304,7 @@ private fun HomeScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreviewWithDialog() {
-    AiKUTheme {
+    AikuPreviewTheme {
         HomeScreen(
             showCreateGroupDialog = true,
             userNickname = "닉네임",
