@@ -15,7 +15,7 @@ internal class DefaultGroupRepository @Inject constructor(
         emit(dataSource.getGroups(page))
     }
 
-    override fun getGroup(id: Long): Flow<GroupDetail> = flow {
+    override fun getGroupById(id: Long): Flow<GroupDetail> = flow {
         emit(dataSource.getGroupById(id))
     }
 
