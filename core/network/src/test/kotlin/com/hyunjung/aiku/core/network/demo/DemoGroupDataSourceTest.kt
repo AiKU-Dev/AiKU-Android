@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.demo
+package com.hyunjung.aiku.core.network.demo
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
 import com.hyunjung.aiku.core.data.model.GroupDetail

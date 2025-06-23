@@ -6,9 +6,16 @@ plugins {
 
 android {
     namespace = "com.hyunjung.aiku.core.network"
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
+    implementation(projects.core.data)
+
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
@@ -17,4 +24,8 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
 }

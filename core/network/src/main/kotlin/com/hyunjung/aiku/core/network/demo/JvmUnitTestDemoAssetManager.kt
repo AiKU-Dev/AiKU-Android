@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.demo
+package com.hyunjung.aiku.core.network.demo
 
 import java.io.File
 import java.io.InputStream

@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.demo
+package com.hyunjung.aiku.core.network.demo
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
