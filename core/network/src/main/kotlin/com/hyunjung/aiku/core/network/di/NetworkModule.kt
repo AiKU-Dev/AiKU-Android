@@ -1,12 +1,9 @@
 package com.hyunjung.aiku.core.network.di
 
-import android.content.Context
 import com.hyunjung.aiku.core.network.auth.BearerTokenManager
-import com.hyunjung.aiku.core.network.demo.DemoAssetManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -29,12 +26,6 @@ object NetworkModule {
     fun providesNetworkJson(): Json = Json {
         ignoreUnknownKeys = true
     }
-
-    @Provides
-    @Singleton
-    fun providesDemoAssetManager(
-        @ApplicationContext context: Context,
-    ): DemoAssetManager = DemoAssetManager(context.assets::open)
 
     @Provides
     @Singleton
