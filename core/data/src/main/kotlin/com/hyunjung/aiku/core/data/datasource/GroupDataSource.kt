@@ -5,6 +5,6 @@ import com.hyunjung.aiku.core.data.model.GroupOverview
 
 interface GroupDataSource {
     suspend fun getGroups(page:Int):List<GroupOverview>
-    suspend fun getGroup(id:Long): GroupDetail
-    suspend fun setGroup(name:String)
+    suspend fun getGroupById(id:Long): GroupDetail
+    suspend fun addGroup(name:String)
 }

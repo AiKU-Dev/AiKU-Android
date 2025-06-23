@@ -35,7 +35,7 @@ class DemoGroupDataSourceTest {
 
     @Test
     fun `getGroup returns correct group detail`() = runTest(testDispatcher) {
-        val group: GroupDetail = subject.getGroup(1)
+        val group: GroupDetail = subject.getGroupById(1)
         assertEquals(1L, group.groupId)
         assertEquals("전공기초프로젝트", group.groupName)
         assert(group.members.isNotEmpty())

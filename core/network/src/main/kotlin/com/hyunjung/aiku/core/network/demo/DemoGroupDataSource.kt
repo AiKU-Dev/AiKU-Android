@@ -3,14 +3,14 @@ package com.hyunjung.aiku.core.network.demo
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.network.model.GroupDetailResult
-import com.hyunjung.aiku.core.network.model.GroupOverviewListResult
-import com.hyunjung.aiku.core.network.model.toGroupDetail
-import com.hyunjung.aiku.core.network.model.toGroupOverview
 import com.hyunjung.aiku.core.data.model.GroupDetail
 import com.hyunjung.aiku.core.data.model.GroupOverview
 import com.hyunjung.aiku.core.network.AikuDispatchers.IO
 import com.hyunjung.aiku.core.network.Dispatcher
+import com.hyunjung.aiku.core.network.model.GroupDetailResult
+import com.hyunjung.aiku.core.network.model.GroupOverviewListResult
+import com.hyunjung.aiku.core.network.model.toGroupDetail
+import com.hyunjung.aiku.core.network.model.toGroupOverview
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -29,12 +29,12 @@ class DemoGroupDataSource @Inject constructor(
         return result.data.map { it.toGroupOverview() }
     }
 
-    override suspend fun getGroup(id: Long): GroupDetail {
+    override suspend fun getGroupById(id: Long): GroupDetail {
         val result: GroupDetailResult = getDataFromJsonFile(GROUP_DETAIL_ASSET)
         return result.toGroupDetail()
     }
 
-    override suspend fun setGroup(name: String) {
+    override suspend fun addGroup(name: String) {
         TODO("Not yet implemented")
     }
 

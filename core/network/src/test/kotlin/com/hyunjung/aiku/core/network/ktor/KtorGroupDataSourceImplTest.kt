@@ -37,7 +37,7 @@ class KtorGroupDataSourceImplTest {
 
     @Test
     fun `getGroup returns correct group detail`() = runTest {
-        val result: GroupDetail = subject.getGroup(id = 1L)
+        val result: GroupDetail = subject.getGroupById(id = 1L)
         assertEquals(1L, result.groupId)
         assertEquals("산학협력프로젝트", result.groupName)
         assertEquals(2, result.members.size)

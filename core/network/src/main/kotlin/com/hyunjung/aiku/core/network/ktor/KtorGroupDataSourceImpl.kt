@@ -20,11 +20,11 @@ class KtorGroupDataSourceImpl @Inject constructor(
         client.get(Groups(page)).body<GroupOverviewListResponse>()
             .result.data.map { it.toGroupOverview() }
 
-    override suspend fun getGroup(id: Long): GroupDetail =
+    override suspend fun getGroupById(id: Long): GroupDetail =
         client.get(Groups.Id(id = id))
             .body<GroupDetailResponse>().result.toGroupDetail()
 
-    override suspend fun setGroup(name: String) {
+    override suspend fun addGroup(name: String) {
         TODO("Not yet implemented")
     }
 }

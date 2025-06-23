@@ -16,10 +16,10 @@ internal class DefaultGroupRepository @Inject constructor(
     }
 
     override fun getGroup(id: Long): Flow<GroupDetail> = flow {
-        emit(dataSource.getGroup(id))
+        emit(dataSource.getGroupById(id))
     }
 
     override suspend fun setGroup(name: String) {
-        dataSource.setGroup(name)
+        dataSource.addGroup(name)
     }
 }
