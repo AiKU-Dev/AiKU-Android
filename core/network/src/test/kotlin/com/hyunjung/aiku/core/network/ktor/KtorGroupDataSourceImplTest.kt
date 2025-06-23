@@ -1,0 +1,47 @@
+package com.hyunjung.aiku.core.network.ktor
+
+import com.hyunjung.aiku.core.data.datasource.GroupDataSource
+import com.hyunjung.aiku.core.data.model.GroupDetail
+import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.network.ktor.mock.groupMockEngine
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.resources.Resources
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class KtorGroupDataSourceImplTest {
+    private lateinit var subject: GroupDataSource
+
+    @BeforeTest
+    fun setup() {
+        subject = KtorGroupDataSourceImpl(HttpClient(groupMockEngine) {
+            install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true })
+            }
+            install(Resources)
+        })
+    }
+
+    @Test
+    fun `getGroups returns expected list`() = runTest {
+        val result: List<GroupOverview> = subject.getGroups(page = 1)
+        assertEquals(2, result.size)
+        assertEquals("전공기초프로젝트", result[0].groupName)
+        assertEquals("산학협력프로젝트", result[1].groupName)
+    }
+
+    @Test
+    fun `getGroup returns correct group detail`() = runTest {
+        val result: GroupDetail = subject.getGroup(id = 1L)
+        assertEquals(1L, result.groupId)
+        assertEquals("산학협력프로젝트", result.groupName)
+        assertEquals(2, result.members.size)
+        assertEquals("지정희", result.members[0].nickname)
+        assertEquals("C01", result.members[1].memberProfile.profileCharacter)
+    }
+}
