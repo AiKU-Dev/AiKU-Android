@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal interface DataSourceModule {
+internal interface KtorDataSourceModule {
 
     @Binds
     fun bindGroupDataSource(
