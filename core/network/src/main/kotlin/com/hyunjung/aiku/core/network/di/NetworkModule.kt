@@ -14,6 +14,7 @@ import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.resources.Resources
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -47,6 +48,7 @@ object NetworkModule {
                 host = "aiku.duckdns.org"
             }
         }
+        install(Resources)
         install(ContentNegotiation) {
             json(json)
         }
