@@ -3,10 +3,10 @@ package com.hyunjung.aiku.core.network.demo
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.data.dto.GroupDetailResult
-import com.hyunjung.aiku.core.data.dto.GroupOverviewListResult
-import com.hyunjung.aiku.core.data.dto.toGroupDetail
-import com.hyunjung.aiku.core.data.dto.toGroupOverview
+import com.hyunjung.aiku.core.network.model.GroupDetailResult
+import com.hyunjung.aiku.core.network.model.GroupOverviewListResult
+import com.hyunjung.aiku.core.network.model.toGroupDetail
+import com.hyunjung.aiku.core.network.model.toGroupOverview
 import com.hyunjung.aiku.core.data.model.GroupDetail
 import com.hyunjung.aiku.core.data.model.GroupOverview
 import com.hyunjung.aiku.core.network.AikuDispatchers.IO

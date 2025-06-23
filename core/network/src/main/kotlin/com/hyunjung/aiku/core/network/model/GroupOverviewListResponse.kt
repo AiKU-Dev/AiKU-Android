@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.dto
+package com.hyunjung.aiku.core.network.model
 
 import android.os.Build
 import com.hyunjung.aiku.core.data.model.GroupOverview
