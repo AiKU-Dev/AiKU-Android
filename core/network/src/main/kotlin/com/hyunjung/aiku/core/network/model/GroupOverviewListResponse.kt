@@ -7,18 +7,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Serializable
-data class GroupOverviewListResponse(
-    val requestId: String,
-    val result: GroupOverviewListResult
-)
-
-@Serializable
-data class GroupOverviewListResult(
-    val page: Int,
-    val data: List<GroupOverviewResponse>
-)
-
-@Serializable
 data class GroupOverviewResponse(
     val groupId: Long,
     val groupName: String,

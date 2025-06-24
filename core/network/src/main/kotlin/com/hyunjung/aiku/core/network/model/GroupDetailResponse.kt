@@ -6,12 +6,6 @@ import com.hyunjung.aiku.core.data.model.MemberProfile
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GroupDetailResponse(
-    val requestId: String,
-    val result: GroupDetailResult
-)
-
-@Serializable
 data class GroupDetailResult(
     val groupId: Long,
     val groupName: String,
