@@ -14,7 +14,7 @@ data class GroupOverviewResponse(
     val lastScheduleTime: String?
 )
 
-fun GroupOverviewResponse.toGroupOverview(): GroupOverview {
+fun GroupOverviewResponse.toModel(): GroupOverview {
     return GroupOverview(
         groupId = groupId,
         groupName = groupName,
