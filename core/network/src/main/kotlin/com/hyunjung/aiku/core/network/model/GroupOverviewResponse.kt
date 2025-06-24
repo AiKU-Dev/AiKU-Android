@@ -1,10 +1,8 @@
 package com.hyunjung.aiku.core.network.model
 
-import android.os.Build
 import com.hyunjung.aiku.core.data.model.GroupOverview
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @Serializable
 data class GroupOverviewResponse(
@@ -14,19 +12,10 @@ data class GroupOverviewResponse(
     val lastScheduleTime: String?
 )
 
-fun GroupOverviewResponse.toModel(): GroupOverview {
-    return GroupOverview(
+fun GroupOverviewResponse.toModel(): GroupOverview =
+    GroupOverview(
         groupId = groupId,
         groupName = groupName,
         memberSize = memberSize,
-        lastScheduleTime = lastScheduleTime?.let {
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    LocalDateTime.parse(it, DateTimeFormatter.ISO_DATE_TIME)
-                } else null
-            } catch (e: Exception) {
-                null
-            }
-        }
+        lastScheduleTime = lastScheduleTime?.let { LocalDateTime.parse(lastScheduleTime) }
     )
-}
