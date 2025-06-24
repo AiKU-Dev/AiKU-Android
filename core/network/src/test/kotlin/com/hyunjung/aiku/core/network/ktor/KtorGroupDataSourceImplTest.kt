@@ -1,29 +1,35 @@
-package com.hyunjung.aiku.core.data.repository
+package com.hyunjung.aiku.core.network.ktor
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.data.fake.FakeGroupDataSource
 import com.hyunjung.aiku.core.data.model.GroupDetail
 import com.hyunjung.aiku.core.data.model.GroupOverview
-import kotlinx.coroutines.flow.first
+import com.hyunjung.aiku.core.network.ktor.mock.groupMockEngine
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.resources.Resources
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
-import org.junit.Test
+import kotlinx.serialization.json.Json
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class DefaultGroupRepositoryTest {
-    private lateinit var groupDataSource: GroupDataSource
-    private lateinit var subject: DefaultGroupRepository
+class KtorGroupDataSourceImplTest {
+    private lateinit var subject: GroupDataSource
 
-    @Before
+    @BeforeTest
     fun setup() {
-        groupDataSource = FakeGroupDataSource()
-        subject = DefaultGroupRepository(groupDataSource)
+        subject = KtorGroupDataSourceImpl(HttpClient(groupMockEngine) {
+            install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true })
+            }
+            install(Resources)
+        })
     }
-
 
     @Test
     fun `getGroups returns expected list`() = runTest {
-        val result: List<GroupOverview> = subject.getGroups(page = 1).first()
+        val result: List<GroupOverview> = subject.getGroups(page = 1)
         assertEquals(2, result.size)
         assertEquals("전공기초프로젝트", result[0].groupName)
         assertEquals("산학협력프로젝트", result[1].groupName)
@@ -31,7 +37,7 @@ class DefaultGroupRepositoryTest {
 
     @Test
     fun `getGroup returns correct group detail`() = runTest {
-        val result: GroupDetail = subject.getGroupById(id = 1L).first()
+        val result: GroupDetail = subject.getGroupById(id = 1L)
         assertEquals(1L, result.groupId)
         assertEquals("산학협력프로젝트", result.groupName)
         assertEquals(2, result.members.size)
