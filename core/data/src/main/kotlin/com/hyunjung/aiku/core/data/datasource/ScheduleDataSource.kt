@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.core.data.datasource
 
+import com.hyunjung.aiku.core.data.model.GroupSchedule
 import com.hyunjung.aiku.core.data.model.Schedule
 import java.time.LocalDateTime
 
@@ -10,9 +11,10 @@ interface ScheduleDataSource {
         endDate: LocalDateTime? = null,
     ): List<Schedule>
 
-    suspend fun getScheduleByGroup(
+    suspend fun getGroupSchedules(
+        groupId: Long,
         page: Int = 1,
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
-    ): List<Schedule>
+    ): List<GroupSchedule>
 }
