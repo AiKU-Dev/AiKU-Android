@@ -5,10 +5,3 @@ data class GroupMember(
     val nickname: String,
     val memberProfile: MemberProfile
 )
-
-data class MemberProfile(
-    val profileType: String,
-    val profileImg: String? = null,
-    val profileCharacter: String? = null,
-    val profileBackground: String? = null
-)

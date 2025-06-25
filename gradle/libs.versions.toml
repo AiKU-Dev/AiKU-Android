@@ -20,8 +20,10 @@ kotlinxSerializationJson = "1.8.0"
 kotlinxCoroutines = "1.10.1"
 gmsPlugin = "4.4.2"
 androidxComposeFoundation = "1.8.2"
+androidDesugarJdkLibs = "2.1.5"
 
 [libraries]
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
