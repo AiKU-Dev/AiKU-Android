@@ -1,7 +1,9 @@
 package com.hyunjung.aiku.core.data.di
 
 import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
+import com.hyunjung.aiku.core.data.repository.DefaultScheduleRepository
 import com.hyunjung.aiku.core.data.repository.GroupRepository
+import com.hyunjung.aiku.core.data.repository.ScheduleRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ abstract class DataModule {
     internal abstract fun bindsGroupRepository(
         groupRepositoryImpl: DefaultGroupRepository
     ): GroupRepository
+
+    @Binds
+    internal abstract fun bindsScheduleRepository(
+        scheduleRepositoryImpl: DefaultScheduleRepository
+    ): ScheduleRepository
 }
