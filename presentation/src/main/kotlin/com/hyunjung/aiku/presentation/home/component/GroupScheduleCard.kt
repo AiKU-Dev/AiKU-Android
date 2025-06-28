@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
@@ -30,23 +31,28 @@ import com.hyunjung.aiku.presentation.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-enum class ScheduleStatus(
-    val label: String,
-    val color: Color,
-) {
-    WAITING("대기 중", AikuColors.Purple05),
-    RUNNING("진행 중", AikuColors.Green05),
-    BEFORE_JOIN("참가 전", AikuColors.Yellow05),
-    ENDED("종료", AikuColors.Gray03),
-}
+val ScheduleStatus.label: String
+    get() = when (this) {
+        ScheduleStatus.WAITING -> "대기 중"
+        ScheduleStatus.RUNNING -> "진행 중"
+        ScheduleStatus.BEFORE_JOIN -> "참가 전"
+        ScheduleStatus.TERMINATED -> "종료"
+    }
 
+val ScheduleStatus.color: Color
+    get() = when (this) {
+        ScheduleStatus.WAITING -> AikuColors.Purple05
+        ScheduleStatus.RUNNING -> AikuColors.Green05
+        ScheduleStatus.BEFORE_JOIN -> AikuColors.Yellow05
+        ScheduleStatus.TERMINATED -> AikuColors.Gray03
+    }
 
 @Composable
 fun GroupScheduleCard(
     onClick: () -> Unit,
     scheduleName: String,
     location: String,
-    time:Long,
+    time: Long,
     scheduleStatus: ScheduleStatus,
     modifier: Modifier = Modifier
 ) {

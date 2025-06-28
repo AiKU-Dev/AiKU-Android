@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
@@ -77,7 +78,7 @@ fun JoinScheduleDialog(
                     painter = AikuIcons.Calendar,
                 )
             }
-            Column{
+            Column {
                 Text(
                     text = stringResource(R.string.presentation_member_detail_join_schedule_dialog_point_notice),
                     style = AikuTypography.Body2,
