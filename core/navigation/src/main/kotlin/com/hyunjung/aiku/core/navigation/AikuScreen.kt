@@ -26,5 +26,8 @@ sealed interface AikuScreen {
     data object MyPage : AikuScreen
 
     @Serializable
-    data class Schedule(val groupId: Long, val scheduleId: Long) : AikuScreen
+    data object Schedule : AikuScreen
+
+    @Serializable
+    data class ScheduleDetail(val groupId: Long, val scheduleId: Long) : AikuScreen
 }

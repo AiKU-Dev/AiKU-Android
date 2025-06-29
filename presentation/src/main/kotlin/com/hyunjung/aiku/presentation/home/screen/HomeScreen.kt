@@ -138,7 +138,7 @@ fun HomeContent(
                 todaySchedules = todaySchedules,
                 homeScheduleUiState = scheduleUiState,
                 onScheduleClick = { groupId, scheduleId ->
-                    composeNavigator.navigate(AikuScreen.Schedule(groupId, scheduleId))
+                    composeNavigator.navigate(AikuScreen.ScheduleDetail(groupId, scheduleId))
                 },
                 loadNextSchedulePage = loadNextSchedulePage,
             )
@@ -188,6 +188,7 @@ private fun TodaySchedulesSection(
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     loadNextSchedulePage: () -> Unit,
     title: String,
+    modifier: Modifier = Modifier,
 ) {
     val formatter = remember { DateTimeFormatter.ofPattern("yyyy.MM.dd", Locale.getDefault()) }
     val today = remember { LocalDate.now().format(formatter) }
@@ -208,35 +209,37 @@ private fun TodaySchedulesSection(
             }
     }
 
-    Text(
-        text = today,
-        style = AikuTypography.Subtitle2_G,
-        color = AikuColors.Typo
-    )
-    Spacer(Modifier.height(8.dp))
-    Text(
-        text = title,
-        style = AikuTypography.Body2,
-        color = AikuColors.Typo
-    )
-    Spacer(Modifier.height(12.dp))
-    if (todaySchedules.isEmpty()) {
-        EmptyScheduleCard()
-    } else {
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            items(
-                items = todaySchedules,
-                key = { it.scheduleId }
-            ) { schedule ->
-                HomeScheduleCard(
-                    groupName = schedule.groupName,
-                    location = schedule.location.locationName,
-                    isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
-                    time = schedule.scheduleTime,
-                    onClick = { onScheduleClick(schedule.groupId, schedule.scheduleId) }
-                )
+    Column(modifier = modifier) {
+        Text(
+            text = today,
+            style = AikuTypography.Subtitle2_G,
+            color = AikuColors.Typo
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = title,
+            style = AikuTypography.Body2,
+            color = AikuColors.Typo
+        )
+        Spacer(Modifier.height(12.dp))
+        if (todaySchedules.isEmpty()) {
+            EmptyScheduleCard()
+        } else {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(
+                    items = todaySchedules,
+                    key = { it.scheduleId }
+                ) { schedule ->
+                    HomeScheduleCard(
+                        groupName = schedule.groupName,
+                        location = schedule.location.locationName,
+                        isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
+                        time = schedule.scheduleTime,
+                        onClick = { onScheduleClick(schedule.groupId, schedule.scheduleId) }
+                    )
+                }
             }
         }
     }
