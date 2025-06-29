@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface GroupRepository {
     fun getGroups(page: Int): Flow<List<GroupOverview>>
     fun getGroupById(id: Long): Flow<GroupDetail>
-    suspend fun setGroup(name: String)
+    suspend fun setGroup(name: String): Result<Unit>
 }

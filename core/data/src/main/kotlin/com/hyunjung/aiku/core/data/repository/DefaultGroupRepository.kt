@@ -19,7 +19,6 @@ internal class DefaultGroupRepository @Inject constructor(
         emit(dataSource.getGroupById(id))
     }
 
-    override suspend fun setGroup(name: String) {
+    override suspend fun setGroup(name: String): Result<Unit> =
         dataSource.addGroup(name)
-    }
 }
