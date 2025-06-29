@@ -74,6 +74,7 @@ fun HomeScreen(
     val scheduleUiState by viewModel.scheduleUiState.collectAsStateWithLifecycle()
     val groupUiState by viewModel.groupUiState.collectAsStateWithLifecycle()
     val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
+    val isCreateGroupDialogVisible by viewModel.isCreateGroupDialogVisible.collectAsStateWithLifecycle()
 
     HomeContent(
         userNickname = userNickname,
@@ -81,11 +82,12 @@ fun HomeScreen(
         todaySchedules = todaySchedules,
         scheduleUiState = scheduleUiState,
         groupUiState = groupUiState,
-        loadNextSchedulePage = { viewModel.loadNextSchedulePage() },
-        loadNextGroupPage = { viewModel.loadNextGroupPage() },
+        loadNextSchedulePage = viewModel::loadNextSchedulePage,
+        loadNextGroupPage = viewModel::loadNextGroupPage,
         modifier = modifier,
-        showCreateGroupDialog = false,
-        onCreateGroupDismissed = {}
+        isCreateGroupDialogVisible = isCreateGroupDialogVisible,
+        onOpenCreateGroupDialog = viewModel::openCreateGroupDialog,
+        onDismissCreateGroupDialog = viewModel::dismissCreateGroupDialog,
     )
 }
 
@@ -99,14 +101,15 @@ fun HomeContent(
     loadNextSchedulePage: () -> Unit,
     loadNextGroupPage: () -> Unit,
     modifier: Modifier = Modifier,
-    showCreateGroupDialog: Boolean = false,
-    onCreateGroupDismissed: () -> Unit = {},
+    isCreateGroupDialogVisible: Boolean,
+    onOpenCreateGroupDialog: () -> Unit,
+    onDismissCreateGroupDialog: () -> Unit,
 ) {
     val composeNavigator = currentComposeNavigator
 
-    if (showCreateGroupDialog) {
+    if (isCreateGroupDialogVisible) {
         CreateGroupDialog(
-            onDismiss = onCreateGroupDismissed,
+            onDismiss = onDismissCreateGroupDialog,
             onCreateGroup = {}
         )
     }
@@ -145,7 +148,7 @@ fun HomeContent(
                 onGroupClick = {
                     composeNavigator.navigate(AikuScreen.GroupDetail(it))
                 },
-                onCreateGroup = {},
+                onOpenCreateGroupDialog = onOpenCreateGroupDialog,
                 loadNextGroupPage = loadNextGroupPage,
             )
         }
@@ -155,7 +158,7 @@ fun HomeContent(
         )
         if (groups.isEmpty())
             AikuButton(
-                onClick = {},
+                onClick = onOpenCreateGroupDialog,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(bottom = 88.dp, end = 24.dp),
@@ -243,7 +246,7 @@ private fun GroupOverviewsSection(
     groups: List<GroupOverview>,
     groupUiState: HomeGroupUiState,
     onGroupClick: (Long) -> Unit,
-    onCreateGroup: () -> Unit,
+    onOpenCreateGroupDialog: () -> Unit,
     loadNextGroupPage: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -274,7 +277,7 @@ private fun GroupOverviewsSection(
             EmptyStateCard(
                 title = stringResource(R.string.presentation_group_empty_message),
                 buttonText = stringResource(R.string.presentation_home_no_group_button),
-                onClickButton = onCreateGroup,
+                onClickButton = onOpenCreateGroupDialog,
                 modifier = Modifier.fillMaxSize()
             )
         } else {
@@ -310,6 +313,9 @@ private fun HomeScreenEmptyPreview() {
             groupUiState = HomeGroupUiState.Idle,
             loadNextGroupPage = {},
             loadNextSchedulePage = {},
+            onOpenCreateGroupDialog = {},
+            onDismissCreateGroupDialog = {},
+            isCreateGroupDialogVisible = false,
         )
     }
 }
@@ -326,6 +332,9 @@ private fun HomeScreenPreview() {
             groupUiState = HomeGroupUiState.Idle,
             loadNextGroupPage = {},
             loadNextSchedulePage = {},
+            onOpenCreateGroupDialog = {},
+            onDismissCreateGroupDialog = {},
+            isCreateGroupDialogVisible = false,
         )
     }
 }
@@ -335,7 +344,6 @@ private fun HomeScreenPreview() {
 private fun HomeScreenPreviewWithDialog() {
     AikuPreviewTheme {
         HomeContent(
-            showCreateGroupDialog = true,
             userNickname = "닉네임",
             groups = mockGroups,
             todaySchedules = mockSchedules,
@@ -343,6 +351,9 @@ private fun HomeScreenPreviewWithDialog() {
             groupUiState = HomeGroupUiState.Idle,
             loadNextGroupPage = {},
             loadNextSchedulePage = {},
+            onOpenCreateGroupDialog = {},
+            onDismissCreateGroupDialog = {},
+            isCreateGroupDialogVisible = true,
         )
     }
 }

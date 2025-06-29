@@ -39,6 +39,9 @@ class HomeViewModel @Inject constructor(
     // todo : replace with actual user nickname fetching logic
     val userNickName: StateFlow<String> = MutableStateFlow("Nickname")
 
+    private val _isCreateGroupDialogVisible = MutableStateFlow(false)
+    val isCreateGroupDialogVisible: StateFlow<Boolean> = _isCreateGroupDialogVisible
+
     val scheduleUiState: StateFlow<HomeScheduleUiState> =
         currentSchedulePage
             .flatMapConcat { page ->
@@ -106,5 +109,13 @@ class HomeViewModel @Inject constructor(
         if (!isLastGroupPage) {
             currentGroupPage.update { it + 1 }
         }
+    }
+
+    fun openCreateGroupDialog() {
+        _isCreateGroupDialogVisible.value = true
+    }
+
+    fun dismissCreateGroupDialog() {
+        _isCreateGroupDialogVisible.value = false
     }
 }
