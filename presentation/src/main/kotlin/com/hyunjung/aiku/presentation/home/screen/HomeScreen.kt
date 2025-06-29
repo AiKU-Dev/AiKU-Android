@@ -37,6 +37,7 @@ import com.hyunjung.aiku.core.data.model.Schedule
 import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
+import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
@@ -158,6 +159,16 @@ fun HomeContent(
             currentScreen = AikuScreen.Home,
             modifier = Modifier.align(Alignment.BottomStart),
         )
+        if (groupUiState == HomeGroupUiState.Loading ||
+            scheduleUiState == HomeScheduleUiState.Loading
+        ) {
+            AikuLoadingWheel(
+                contentDescription = "",
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(80.dp)
+            )
+        }
         if (groups.isEmpty())
             AikuButton(
                 onClick = onOpenCreateGroupDialog,
