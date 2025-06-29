@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -24,23 +25,25 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.presentation.R
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
-fun ScheduleCard(
+fun HomeScheduleCard(
     groupName: String,
     location: String,
-    time: Long,
+    time: LocalDateTime,
     isRunning: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
+    // todo : 상태 표시를 위한 로직 개선 필요
     val statusLabel = stringResource(
         if (isRunning) R.string.presentation_schedule_card_status_running
         else R.string.presentation_schedule_card_status_waiting
     )
+    val formatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     AikuClickableSurface(
         modifier = modifier
@@ -76,7 +79,7 @@ fun ScheduleCard(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = SimpleDateFormat("HH:mm", Locale.KOREAN).format(time),
+                    text = formatter.format(time),
                     style = AikuTypography.Subtitle3_SemiBold,
                 )
                 Text(
@@ -116,11 +119,11 @@ private fun ScheduleCardPreview() {
         Box(
             modifier = Modifier.padding(20.dp)
         ) {
-            ScheduleCard(
+            HomeScheduleCard(
                 onClick = {},
                 groupName = "가나다라마바사아자차카타파하",
                 location = "홍대입구역1번 출구 스타벅스 앞",
-                time = 1742889600000L,
+                time = LocalDateTime.parse("2025-06-30T12:12:12"),
                 isRunning = true
             )
         }

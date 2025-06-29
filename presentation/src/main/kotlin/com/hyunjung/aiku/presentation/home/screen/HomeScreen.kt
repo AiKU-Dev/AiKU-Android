@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,18 +13,28 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.data.model.Location
+import com.hyunjung.aiku.core.data.model.Schedule
+import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
@@ -35,59 +44,62 @@ import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.home.component.CreateGroupDialog
 import com.hyunjung.aiku.presentation.home.component.EmptyScheduleCard
 import com.hyunjung.aiku.presentation.home.component.EmptyStateCard
-import com.hyunjung.aiku.presentation.home.component.GroupCard
-import com.hyunjung.aiku.presentation.home.component.ScheduleCard
-import com.hyunjung.aiku.presentation.ui.AikuLogoAppBar
+import com.hyunjung.aiku.presentation.home.component.HomeGroupOverviewCard
+import com.hyunjung.aiku.presentation.home.component.HomeScheduleCard
+import com.hyunjung.aiku.presentation.home.model.HomeGroupUiState
+import com.hyunjung.aiku.presentation.home.model.HomeScheduleUiState
+import com.hyunjung.aiku.presentation.home.viewmodel.HomeViewModel
+import com.hyunjung.aiku.presentation.ui.AikuLogoTopAppBar
 import com.hyunjung.aiku.presentation.ui.AikuNavigationBar
+import com.hyunjung.aiku.presentation.ui.AikuNavigationBarDefaults
 import com.hyunjung.aiku.presentation.ui.AikuPreviewTheme
-import java.text.SimpleDateFormat
+import com.hyunjung.aiku.presentation.ui.AikuTopAppBarDefaults
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-sealed interface ScheduleUiState {
-    object Loading : ScheduleUiState
-    data class Success(
-        val schedules: List<Schedule>
-    ) : ScheduleUiState {
-        fun isEmpty(): Boolean = schedules.isEmpty()
-    }
-
-    data class Error(val message: String) : ScheduleUiState
-}
-
-sealed interface GroupUiState {
-    object Loading : GroupUiState
-    data class Success(
-        val groups: List<Group>
-    ) : GroupUiState {
-        fun isEmpty(): Boolean = groups.isEmpty()
-    }
-
-    data class Error(val message: String) : GroupUiState
-}
-
-data class Group(
-    val id: Long,
-    val name: String,
-    val latestScheduleTime: Long,
-    val memberSize: Int,
-)
-
-data class Schedule(
-    val id: Long,
-    val groupName: String,
-    val location: String,
-    val isRunning: Boolean,
-    val time: Long,
-)
+private const val Threshold = 5
 
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val groups by viewModel.groups.collectAsStateWithLifecycle()
+    val todaySchedules by viewModel.todaySchedules.collectAsStateWithLifecycle()
+    val scheduleUiState by viewModel.scheduleUiState.collectAsStateWithLifecycle()
+    val groupUiState by viewModel.groupUiState.collectAsStateWithLifecycle()
+    val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
+
+    HomeContent(
+        userNickname = userNickname,
+        groups = groups,
+        todaySchedules = todaySchedules,
+        scheduleUiState = scheduleUiState,
+        groupUiState = groupUiState,
+        loadNextSchedulePage = { viewModel.loadNextSchedulePage() },
+        loadNextGroupPage = { viewModel.loadNextGroupPage() },
+        modifier = modifier,
+        showCreateGroupDialog = false,
+        onCreateGroupDismissed = {}
+    )
+}
+
+@Composable
+fun HomeContent(
     userNickname: String,
-    scheduleUiState: ScheduleUiState,
-    groupUiState: GroupUiState,
+    groups: List<GroupOverview>,
+    todaySchedules: List<Schedule>,
+    scheduleUiState: HomeScheduleUiState,
+    groupUiState: HomeGroupUiState,
+    loadNextSchedulePage: () -> Unit,
+    loadNextGroupPage: () -> Unit,
     modifier: Modifier = Modifier,
     showCreateGroupDialog: Boolean = false,
-    onCreateGroupDismissed: () -> Unit = {}
+    onCreateGroupDismissed: () -> Unit = {},
 ) {
     if (showCreateGroupDialog) {
         CreateGroupDialog(
@@ -95,37 +107,46 @@ fun HomeScreen(
             onCreateGroup = {}
         )
     }
-    Box {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = AikuColors.Gray01),
+    ) {
+        AikuLogoTopAppBar(
+            modifier = Modifier.align(Alignment.TopStart),
+        )
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
-                .background(color = AikuColors.Gray01),
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp,
+                    top = AikuTopAppBarDefaults.TopAppBarHeight,
+                    bottom = AikuNavigationBarDefaults.NavigationBarHeight
+                ),
         ) {
-            AikuLogoAppBar()
-            Column(
-                modifier = modifier
-                    .weight(1f)
-                    .padding(horizontal = 20.dp),
-            ) {
-                UpcomingSchedule(
-                    title = stringResource(R.string.presentation_home_schedule_title),
-                    scheduleUiState = scheduleUiState,
-                    onScheduleClick = {}
-                )
-                Spacer(Modifier.height(24.dp))
-                GroupList(
-                    title = stringResource(R.string.presentation_home_group_title, userNickname),
-                    groupUiState = groupUiState,
-                    onGroupClick = {},
-                    onCreateGroup = {}
-                )
-            }
-            AikuNavigationBar(
-                currentScreen = AikuScreen.Home,
-                modifier = Modifier
+            TodaySchedulesSection(
+                title = stringResource(R.string.presentation_home_schedule_title),
+                todaySchedules = todaySchedules,
+                homeScheduleUiState = scheduleUiState,
+                onScheduleClick = {},
+                loadNextSchedulePage = loadNextSchedulePage,
+            )
+            Spacer(Modifier.height(24.dp))
+            GroupOverviewsSection(
+                title = stringResource(R.string.presentation_home_group_title, userNickname),
+                groups = groups,
+                groupUiState = groupUiState,
+                onGroupClick = {},
+                onCreateGroup = {},
+                loadNextGroupPage = loadNextGroupPage,
             )
         }
-        if (groupUiState is GroupUiState.Success && !groupUiState.isEmpty())
+        AikuNavigationBar(
+            currentScreen = AikuScreen.Home,
+            modifier = Modifier.align(Alignment.BottomStart),
+        )
+        if (groups.isEmpty())
             AikuButton(
                 onClick = {},
                 modifier = Modifier
@@ -149,15 +170,34 @@ fun HomeScreen(
 }
 
 @Composable
-private fun ColumnScope.UpcomingSchedule(
-    scheduleUiState: ScheduleUiState,
+private fun TodaySchedulesSection(
+    todaySchedules: List<Schedule>,
+    homeScheduleUiState: HomeScheduleUiState,
     onScheduleClick: (Long) -> Unit,
+    loadNextSchedulePage: () -> Unit,
     title: String,
 ) {
-    val dateFormatter = remember { SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()) }
+    val formatter = remember { DateTimeFormatter.ofPattern("yyyy.MM.dd", Locale.getDefault()) }
+    val today = remember { LocalDate.now().format(formatter) }
+
+    val listState = rememberLazyListState()
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.layoutInfo }
+            .map { layoutInfo ->
+                val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+                val totalCount = layoutInfo.totalItemsCount
+                lastVisibleIndex >= totalCount - Threshold
+            }
+            .distinctUntilChanged()
+            .collect { shouldLoad ->
+                if (shouldLoad && homeScheduleUiState == HomeScheduleUiState.Idle) {
+                    loadNextSchedulePage()
+                }
+            }
+    }
 
     Text(
-        text = dateFormatter.format(System.currentTimeMillis()),
+        text = today,
         style = AikuTypography.Subtitle2_G,
         color = AikuColors.Typo
     )
@@ -168,73 +208,83 @@ private fun ColumnScope.UpcomingSchedule(
         color = AikuColors.Typo
     )
     Spacer(Modifier.height(12.dp))
-    when (scheduleUiState) {
-        is ScheduleUiState.Error -> TODO()
-        ScheduleUiState.Loading -> TODO()
-        is ScheduleUiState.Success -> {
-            if (scheduleUiState.isEmpty()) {
-                EmptyScheduleCard()
-            } else {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    items(
-                        items = scheduleUiState.schedules,
-                        key = { it.id }
-                    ) {
-                        ScheduleCard(
-                            groupName = it.groupName,
-                            location = it.location,
-                            isRunning = it.isRunning,
-                            time = it.time,
-                            onClick = { onScheduleClick(it.id) }
-                        )
-                    }
-                }
+    if (todaySchedules.isEmpty()) {
+        EmptyScheduleCard()
+    } else {
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(
+                items = todaySchedules,
+                key = { it.scheduleId }
+            ) { schedule ->
+                HomeScheduleCard(
+                    groupName = schedule.groupName,
+                    location = schedule.location.locationName,
+                    isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
+                    time = schedule.scheduleTime,
+                    onClick = { onScheduleClick(schedule.scheduleId) }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun ColumnScope.GroupList(
+private fun GroupOverviewsSection(
     title: String,
-    groupUiState: GroupUiState,
+    groups: List<GroupOverview>,
+    groupUiState: HomeGroupUiState,
     onGroupClick: (Long) -> Unit,
     onCreateGroup: () -> Unit,
+    loadNextGroupPage: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = title,
-        style = AikuTypography.Subtitle4_G,
-        color = AikuColors.Typo
-    )
-    Spacer(Modifier.height(12.dp))
-    when (groupUiState) {
-        is GroupUiState.Error -> TODO()
-        GroupUiState.Loading -> TODO()
-        is GroupUiState.Success -> {
-            if (groupUiState.isEmpty()) {
-                EmptyStateCard(
-                    title = stringResource(R.string.presentation_group_empty_message),
-                    buttonText = stringResource(R.string.presentation_home_no_group_button),
-                    onClickButton = onCreateGroup,
-                    modifier = Modifier.fillMaxSize()
-                )
-            } else {
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(
-                        items = groupUiState.groups,
-                        key = { it.id }
-                    ) {
-                        GroupCard(
-                            groupName = it.name,
-                            time = it.latestScheduleTime,
-                            onClick = { onGroupClick(it.id) },
-                            memberSize = it.memberSize
-                        )
-                    }
+    val listState = rememberLazyListState()
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.layoutInfo }
+            .map { layoutInfo ->
+                val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+                val totalCount = layoutInfo.totalItemsCount
+                lastVisibleIndex >= totalCount - Threshold
+            }
+            .distinctUntilChanged()
+            .collect { shouldLoad ->
+                if (shouldLoad && groupUiState == HomeGroupUiState.Idle) {
+                    loadNextGroupPage()
+                }
+            }
+    }
+
+    Column(modifier = modifier) {
+        Text(
+            text = title,
+            style = AikuTypography.Subtitle4_G,
+            color = AikuColors.Typo
+        )
+        Spacer(Modifier.height(12.dp))
+        if (groups.isEmpty()) {
+            EmptyStateCard(
+                title = stringResource(R.string.presentation_group_empty_message),
+                buttonText = stringResource(R.string.presentation_home_no_group_button),
+                onClickButton = onCreateGroup,
+                modifier = Modifier.fillMaxSize()
+            )
+        } else {
+            LazyColumn(
+                state = listState,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(
+                    items = groups,
+                    key = { it.groupId }
+                ) { group ->
+                    HomeGroupOverviewCard(
+                        groupName = group.groupName,
+                        time = group.lastScheduleTime,
+                        onClick = { onGroupClick(group.groupId) },
+                        memberSize = group.memberSize
+                    )
                 }
             }
         }
@@ -245,10 +295,14 @@ private fun ColumnScope.GroupList(
 @Composable
 private fun HomeScreenEmptyPreview() {
     AikuPreviewTheme {
-        HomeScreen(
+        HomeContent(
             userNickname = "닉네임",
-            scheduleUiState = ScheduleUiState.Success(emptyList()),
-            groupUiState = GroupUiState.Success(emptyList()),
+            groups = emptyList(),
+            todaySchedules = emptyList(),
+            scheduleUiState = HomeScheduleUiState.Idle,
+            groupUiState = HomeGroupUiState.Idle,
+            loadNextGroupPage = {},
+            loadNextSchedulePage = {},
         )
     }
 }
@@ -256,47 +310,15 @@ private fun HomeScreenEmptyPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    val mockSchedules = listOf(
-        Schedule(
-            id = 6L,
-            groupName = "건국대학교",
-            location = "공학관",
-            isRunning = true,
-            time = 1724152332000L // "2024-08-20T12:12:12"
-        ),
-        Schedule(
-            id = 8L,
-            groupName = "건국대학교",
-            location = "공학관",
-            isRunning = false,
-            time = 1724152332000L
-        ),
-        Schedule(
-            id = 9L,
-            groupName = "건국대학교",
-            location = "공학관",
-            isRunning = false,
-            time = 1724152332000L
-        )
-    )
-    val mockGroups = listOf(
-        Group(id = 1, name = "그룹 1", latestScheduleTime = 1722859932000L, memberSize = 138),
-        Group(id = 2, name = "그룹 2", latestScheduleTime = 1723032732000L, memberSize = 6),
-        Group(id = 3, name = "그룹 3", latestScheduleTime = 1723723932000L, memberSize = 48),
-        Group(id = 4, name = "그룹 4", latestScheduleTime = 1722687132000L, memberSize = 8),
-        Group(id = 5, name = "그룹 5", latestScheduleTime = 1722946332000L, memberSize = 33),
-        Group(id = 6, name = "그룹 6", latestScheduleTime = 1721823132000L, memberSize = 120),
-        Group(id = 7, name = "그룹 7", latestScheduleTime = 1721909532000L, memberSize = 20),
-        Group(id = 8, name = "그룹 8", latestScheduleTime = 1723205532000L, memberSize = 37),
-        Group(id = 9, name = "그룹 9", latestScheduleTime = 1723378332000L, memberSize = 41),
-        Group(id = 10, name = "그룹 10", latestScheduleTime = 1722600732000L, memberSize = 44)
-    )
-
     AikuPreviewTheme {
-        HomeScreen(
+        HomeContent(
             userNickname = "닉네임",
-            scheduleUiState = ScheduleUiState.Success(mockSchedules),
-            groupUiState = GroupUiState.Success(mockGroups),
+            groups = mockGroups,
+            todaySchedules = mockSchedules,
+            scheduleUiState = HomeScheduleUiState.Idle,
+            groupUiState = HomeGroupUiState.Idle,
+            loadNextGroupPage = {},
+            loadNextSchedulePage = {},
         )
     }
 }
@@ -305,11 +327,123 @@ private fun HomeScreenPreview() {
 @Composable
 private fun HomeScreenPreviewWithDialog() {
     AikuPreviewTheme {
-        HomeScreen(
+        HomeContent(
             showCreateGroupDialog = true,
             userNickname = "닉네임",
-            scheduleUiState = ScheduleUiState.Success(emptyList()),
-            groupUiState = GroupUiState.Success(emptyList()),
+            groups = mockGroups,
+            todaySchedules = mockSchedules,
+            scheduleUiState = HomeScheduleUiState.Idle,
+            groupUiState = HomeGroupUiState.Idle,
+            loadNextGroupPage = {},
+            loadNextSchedulePage = {},
         )
     }
 }
+
+private val previewLocalDateTime = LocalDateTime.parse("2025-06-30T12:12:12")
+private val mockSchedules = listOf(
+    Schedule(
+        groupId = 1L,
+        groupName = "건국대학교",
+        scheduleId = 6L,
+        scheduleName = "산협프 회의",
+        location = Location(
+            latitude = 37.5407,
+            longitude = 127.0795,
+            locationName = "공학관"
+        ),
+        scheduleTime = previewLocalDateTime,
+        memberSize = 5,
+        scheduleStatus = ScheduleStatus.RUNNING
+    ),
+    Schedule(
+        groupId = 1L,
+        groupName = "건국대학교",
+        scheduleId = 8L,
+        scheduleName = "팀 정기모임",
+        location = Location(
+            latitude = 37.5407,
+            longitude = 127.0795,
+            locationName = "공학관"
+        ),
+        scheduleTime = previewLocalDateTime,
+        memberSize = 5,
+        scheduleStatus = ScheduleStatus.TERMINATED
+    ),
+    Schedule(
+        groupId = 1L,
+        groupName = "건국대학교",
+        scheduleId = 9L,
+        scheduleName = "스터디 회의",
+        location = Location(
+            latitude = 37.5407,
+            longitude = 127.0795,
+            locationName = "공학관"
+        ),
+        scheduleTime = previewLocalDateTime,
+        memberSize = 5,
+        scheduleStatus = ScheduleStatus.TERMINATED
+    )
+)
+private val mockGroups = listOf(
+    GroupOverview(
+        groupId = 1,
+        groupName = "그룹 1",
+        memberSize = 138,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 2,
+        groupName = "그룹 2",
+        memberSize = 6,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 3,
+        groupName = "그룹 3",
+        memberSize = 48,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 4,
+        groupName = "그룹 4",
+        memberSize = 8,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 5,
+        groupName = "그룹 5",
+        memberSize = 33,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 6,
+        groupName = "그룹 6",
+        memberSize = 120,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 7,
+        groupName = "그룹 7",
+        memberSize = 20,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 8,
+        groupName = "그룹 8",
+        memberSize = 37,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 9,
+        groupName = "그룹 9",
+        memberSize = 41,
+        lastScheduleTime = previewLocalDateTime
+    ),
+    GroupOverview(
+        groupId = 10,
+        groupName = "그룹 10",
+        memberSize = 44,
+        lastScheduleTime = previewLocalDateTime
+    )
+)

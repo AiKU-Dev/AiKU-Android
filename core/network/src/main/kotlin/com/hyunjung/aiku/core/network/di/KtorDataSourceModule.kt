@@ -1,7 +1,9 @@
 package com.hyunjung.aiku.core.network.di
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
+import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
 import com.hyunjung.aiku.core.network.ktor.KtorGroupDataSourceImpl
+import com.hyunjung.aiku.core.network.ktor.KtorScheduleDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ internal interface KtorDataSourceModule {
     fun bindGroupDataSource(
         groupDataSource: KtorGroupDataSourceImpl
     ): GroupDataSource
+
+    @Binds
+    fun bindScheduleDataSource(
+        scheduleDataSource: KtorScheduleDataSourceImpl
+    ): ScheduleDataSource
 }

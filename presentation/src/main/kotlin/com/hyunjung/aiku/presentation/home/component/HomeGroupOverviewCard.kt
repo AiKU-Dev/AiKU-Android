@@ -31,18 +31,20 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.presentation.R
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
-fun GroupCard(
+fun HomeGroupOverviewCard(
     onClick: () -> Unit,
     groupName: String,
-    time: Long,
+    time: LocalDateTime?,
     memberSize: Int,
     modifier: Modifier = Modifier,
 ) {
-    val formattedTime = SimpleDateFormat("yy.MM.dd HH:mm", Locale.KOREAN).format(time)
+    val formatter = DateTimeFormatter.ofPattern("yy.MM.dd  HH:mm")
+    val formattedTime =
+        time?.format(formatter) ?: stringResource(R.string.presentation_home_no_schedule)
     AikuClickableSurface(
         onClick = onClick,
         shadowElevation = 4.dp,
@@ -78,7 +80,7 @@ fun GroupCard(
                     Text(
                         text = stringResource(
                             R.string.presentation_group_card_recent_schedule,
-                            formattedTime
+                            formattedTime,
                         ),
                         style = AikuTypography.Body2,
                         color = AikuColors.Typo
@@ -147,9 +149,9 @@ private fun ProfileWithBadge(
 @Composable
 private fun GroupCardPreview() {
     AiKUTheme {
-        GroupCard(
+        HomeGroupOverviewCard(
             groupName = "그룹 1",
-            time = 1742889600000L,
+            time = null,
             onClick = {},
             memberSize = 18
         )

@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
@@ -30,30 +31,24 @@ import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 
-private val TopAppBarPadding = 20.dp
-private val NavigationIconSize = 24.dp
-private val ActionsSpacing = 8.dp
-
 @Composable
-fun AikuLogoAppBar(
+fun AikuLogoTopAppBar(
     modifier: Modifier = Modifier,
     title: String = "AiKU",
-    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(
-        containerColor = AikuColors.Gray01,
+    colors: AikuTopAppBarColors = AikuTopAppBarDefaults.topAppBarColors(
         titleContentColor = AikuColors.CobaltBlue,
     ),
-    paddingValues: PaddingValues = PaddingValues(TopAppBarPadding),
 ) {
     val composeNavigator = currentComposeNavigator
 
-    TopAppBarBase(
+    BaseTopAppBarLayout(
         title = {
             Text(
                 text = title,
                 style = AikuTypography.Headline3_G,
             )
         },
-        actions = {
+        actionsContent = {
             CompositionLocalProvider(
                 LocalContentColor provides Color.Unspecified
             ) {
@@ -61,37 +56,38 @@ fun AikuLogoAppBar(
                     onClick = { composeNavigator.navigate(route = AikuScreen.AkuChargingStation) },
                     painter = AikuIcons.Aku,
                     contentDescription = "AkuChargingStation",
-                    size = 24.dp
+                    size = AikuTopAppBarDefaults.ActionIconSize,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = colors.actionIconColor
+                    )
                 )
             }
         },
         colors = colors,
         centeredTitle = false,
         modifier = modifier,
-        paddingValues = paddingValues
     )
 }
 
 @Composable
-fun AikuBackAppBar(
+fun AikuTopAppBarWithNavigation(
     title: String,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit) = {},
-    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(
-        titleContentColor = AikuColors.Typo,
-        containerColor = AikuColors.Gray01,
-        actionIconContentColor = AikuColors.Gray04,
-        navigationIconContentColor = AikuColors.Gray04,
-    ),
-    paddingValues: PaddingValues = PaddingValues(TopAppBarPadding)
+    colors: AikuTopAppBarColors = AikuTopAppBarDefaults.topAppBarColors(),
+    paddingValues: PaddingValues = PaddingValues(
+        vertical = AikuTopAppBarDefaults.VerticalPadding,
+        horizontal = AikuTopAppBarDefaults.HorizontalPadding
+    )
 ) {
     val composeNavigator = currentComposeNavigator
 
-    TopAppBarBase(
+    BaseTopAppBarLayout(
         title = {
             Text(
                 text = title,
                 style = AikuTypography.Subtitle2,
+                color = LocalContentColor.current
             )
         },
         navigationIcon = {
@@ -99,10 +95,10 @@ fun AikuBackAppBar(
                 onClick = { composeNavigator.navigateUp() },
                 imageVector = AikuIcons.ArrowBackIosNew,
                 contentDescription = "navigateUp",
-                size = NavigationIconSize
+                size = AikuTopAppBarDefaults.NavigationIconSize
             )
         },
-        actions = actions,
+        actionsContent = actions,
         colors = colors,
         centeredTitle = true,
         modifier = modifier,
@@ -112,35 +108,39 @@ fun AikuBackAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopAppBarBase(
+private fun BaseTopAppBarLayout(
     title: @Composable (() -> Unit),
-    actions: @Composable (RowScope.() -> Unit),
-    colors: TopAppBarColors,
+    actionsContent: @Composable RowScope.() -> Unit,
+    colors: AikuTopAppBarColors,
     centeredTitle: Boolean,
     modifier: Modifier,
     navigationIcon: @Composable (() -> Unit) = {},
-    paddingValues: PaddingValues,
+    paddingValues: PaddingValues = PaddingValues(
+        vertical = AikuTopAppBarDefaults.VerticalPadding,
+        horizontal = AikuTopAppBarDefaults.HorizontalPadding
+    )
 ) {
     val actionsRow = @Composable {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(ActionsSpacing),
+            horizontalArrangement = Arrangement.spacedBy(AikuTopAppBarDefaults.ActionsSpacing),
             verticalAlignment = Alignment.CenterVertically,
-            content = actions
+            content = actionsContent
         )
     }
 
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .height(AikuTopAppBarDefaults.TopAppBarHeight)
             .background(colors.containerColor)
-            .padding(paddingValues),
+            .padding(paddingValues)
     ) {
         Box(
             modifier = Modifier
                 .align(Alignment.CenterStart)
         ) {
             CompositionLocalProvider(
-                LocalContentColor provides colors.navigationIconContentColor,
+                LocalContentColor provides colors.navigationIconColor,
                 content = navigationIcon
             )
         }
@@ -154,7 +154,7 @@ private fun TopAppBarBase(
                     density = LocalDensity.current.density,
                     fontScale = 1f,
                 ),
-                LocalContentColor provides colors.titleContentColor,
+                LocalContentColor provides colors.titleColor,
                 content = title
             )
         }
@@ -164,7 +164,7 @@ private fun TopAppBarBase(
                 .align(Alignment.CenterEnd)
         ) {
             CompositionLocalProvider(
-                LocalContentColor provides colors.actionIconContentColor,
+                LocalContentColor provides colors.actionIconColor,
                 content = actionsRow
             )
         }
@@ -176,7 +176,7 @@ private fun TopAppBarBase(
 @Composable
 private fun AikuAppBarPreview() {
     AikuPreviewTheme {
-        AikuLogoAppBar()
+        AikuLogoTopAppBar()
     }
 }
 
@@ -184,16 +184,51 @@ private fun AikuAppBarPreview() {
 @Composable
 private fun NavigationAppBarPreview() {
     AikuPreviewTheme {
-        AikuBackAppBar(
+        AikuTopAppBarWithNavigation(
             title = stringResource(android.R.string.untitled),
             actions = {
                 AikuIconButton(
                     onClick = {},
                     imageVector = AikuIcons.MoreHoriz,
                     contentDescription = null,
-                    size = 24.dp
+                    size = AikuTopAppBarDefaults.ActionIconSize
                 )
             }
         )
     }
 }
+
+object AikuTopAppBarDefaults {
+
+    val VerticalPadding: Dp = 8.dp
+    val HorizontalPadding: Dp = 20.dp
+    val ActionIconSize: Dp = 24.dp
+    val NavigationIconSize: Dp = 24.dp
+    val ActionsSpacing: Dp = 4.dp
+    val TopAppBarHeight: Dp = 52.dp
+
+    val TitleContentColor: Color = AikuColors.Typo
+    val ContainerColor: Color = AikuColors.Gray01
+    val ActionIconContentColor: Color = Color.Unspecified
+    val NavigationIconContentColor: Color = AikuColors.Gray04
+
+    @Composable
+    fun topAppBarColors(
+        containerColor: Color = ContainerColor,
+        titleContentColor: Color = TitleContentColor,
+        actionIconContentColor: Color = ActionIconContentColor,
+        navigationIconContentColor: Color = NavigationIconContentColor
+    ): AikuTopAppBarColors = AikuTopAppBarColors(
+        containerColor = containerColor,
+        titleColor = titleContentColor,
+        actionIconColor = actionIconContentColor,
+        navigationIconColor = navigationIconContentColor,
+    )
+}
+
+data class AikuTopAppBarColors(
+    val containerColor: Color,
+    val titleColor: Color,
+    val navigationIconColor: Color,
+    val actionIconColor: Color
+)

@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
@@ -36,7 +37,6 @@ import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.home.component.AikuTabs
 import com.hyunjung.aiku.presentation.home.component.EmptyStateCard
 import com.hyunjung.aiku.presentation.home.component.GroupScheduleCard
-import com.hyunjung.aiku.presentation.home.component.ScheduleStatus
 
 enum class GroupDetailTab(val label: String) {
     MEMBER("멤버"),
@@ -52,10 +52,10 @@ data class Member(
 
 data class GroupSchedule(
     val id: Long,
-    val hostName:String,
+    val hostName: String,
     val scheduleName: String,
     val location: String,
-    val participantCount:Int,
+    val participantCount: Int,
     val scheduleStatus: ScheduleStatus,
     val time: Long,
 )
@@ -399,7 +399,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
                 participantCount = 4,
                 scheduleName = "약속 이름",
                 location = "홍대 입구역 1번 출구",
-                scheduleStatus = ScheduleStatus.ENDED,
+                scheduleStatus = ScheduleStatus.TERMINATED,
                 time = 1734048000000L,
             ),
         )
