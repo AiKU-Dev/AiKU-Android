@@ -132,7 +132,9 @@ fun HomeContent(
                 title = stringResource(R.string.presentation_home_schedule_title),
                 todaySchedules = todaySchedules,
                 homeScheduleUiState = scheduleUiState,
-                onScheduleClick = {},
+                onScheduleClick = { groupId, scheduleId ->
+                    composeNavigator.navigate(AikuScreen.Schedule(groupId, scheduleId))
+                },
                 loadNextSchedulePage = loadNextSchedulePage,
             )
             Spacer(Modifier.height(24.dp))
@@ -178,7 +180,7 @@ fun HomeContent(
 private fun TodaySchedulesSection(
     todaySchedules: List<Schedule>,
     homeScheduleUiState: HomeScheduleUiState,
-    onScheduleClick: (Long) -> Unit,
+    onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     loadNextSchedulePage: () -> Unit,
     title: String,
 ) {
@@ -228,7 +230,7 @@ private fun TodaySchedulesSection(
                     location = schedule.location.locationName,
                     isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
                     time = schedule.scheduleTime,
-                    onClick = { onScheduleClick(schedule.scheduleId) }
+                    onClick = { onScheduleClick(schedule.groupId, schedule.scheduleId) }
                 )
             }
         }
