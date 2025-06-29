@@ -77,40 +77,42 @@ fun HomeScreen(
     val isCreateGroupDialogVisible by viewModel.isCreateGroupDialogVisible.collectAsStateWithLifecycle()
 
     HomeContent(
+        scheduleUiState = scheduleUiState,
+        groupUiState = groupUiState,
         userNickname = userNickname,
         groups = groups,
         todaySchedules = todaySchedules,
-        scheduleUiState = scheduleUiState,
-        groupUiState = groupUiState,
         loadNextSchedulePage = viewModel::loadNextSchedulePage,
         loadNextGroupPage = viewModel::loadNextGroupPage,
-        modifier = modifier,
         isCreateGroupDialogVisible = isCreateGroupDialogVisible,
         onOpenCreateGroupDialog = viewModel::openCreateGroupDialog,
         onDismissCreateGroupDialog = viewModel::dismissCreateGroupDialog,
+        onCreateGroup = viewModel::createGroup,
+        modifier = modifier,
     )
 }
 
 @Composable
 fun HomeContent(
+    scheduleUiState: HomeScheduleUiState,
+    groupUiState: HomeGroupUiState,
     userNickname: String,
     groups: List<GroupOverview>,
     todaySchedules: List<Schedule>,
-    scheduleUiState: HomeScheduleUiState,
-    groupUiState: HomeGroupUiState,
     loadNextSchedulePage: () -> Unit,
     loadNextGroupPage: () -> Unit,
-    modifier: Modifier = Modifier,
     isCreateGroupDialogVisible: Boolean,
     onOpenCreateGroupDialog: () -> Unit,
     onDismissCreateGroupDialog: () -> Unit,
+    onCreateGroup: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val composeNavigator = currentComposeNavigator
 
     if (isCreateGroupDialogVisible) {
         CreateGroupDialog(
             onDismiss = onDismissCreateGroupDialog,
-            onCreateGroup = {}
+            onCreateGroup = { onCreateGroup(it) }
         )
     }
     Box(
@@ -315,6 +317,7 @@ private fun HomeScreenEmptyPreview() {
             loadNextSchedulePage = {},
             onOpenCreateGroupDialog = {},
             onDismissCreateGroupDialog = {},
+            onCreateGroup = {},
             isCreateGroupDialogVisible = false,
         )
     }
@@ -334,6 +337,7 @@ private fun HomeScreenPreview() {
             loadNextSchedulePage = {},
             onOpenCreateGroupDialog = {},
             onDismissCreateGroupDialog = {},
+            onCreateGroup = {},
             isCreateGroupDialogVisible = false,
         )
     }
@@ -353,6 +357,7 @@ private fun HomeScreenPreviewWithDialog() {
             loadNextSchedulePage = {},
             onOpenCreateGroupDialog = {},
             onDismissCreateGroupDialog = {},
+            onCreateGroup = {},
             isCreateGroupDialogVisible = true,
         )
     }

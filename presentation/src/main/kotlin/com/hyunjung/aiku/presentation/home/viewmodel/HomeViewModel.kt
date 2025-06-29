@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -118,4 +119,19 @@ class HomeViewModel @Inject constructor(
     fun dismissCreateGroupDialog() {
         _isCreateGroupDialogVisible.value = false
     }
+
+    fun createGroup(name: String) {
+        viewModelScope.launch {
+            val result = groupRepository.setGroup(name)
+            if (result.isSuccess) {
+                _groups.update { emptyList() }
+                currentGroupPage.value = 1
+                isLastGroupPage = false
+                dismissCreateGroupDialog()
+            } else {
+                // TODO: 에러 처리 로직
+            }
+        }
+    }
+
 }
