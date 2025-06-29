@@ -40,6 +40,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
+import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.home.component.CreateGroupDialog
 import com.hyunjung.aiku.presentation.home.component.EmptyScheduleCard
@@ -101,6 +102,8 @@ fun HomeContent(
     showCreateGroupDialog: Boolean = false,
     onCreateGroupDismissed: () -> Unit = {},
 ) {
+    val composeNavigator = currentComposeNavigator
+
     if (showCreateGroupDialog) {
         CreateGroupDialog(
             onDismiss = onCreateGroupDismissed,
@@ -137,7 +140,9 @@ fun HomeContent(
                 title = stringResource(R.string.presentation_home_group_title, userNickname),
                 groups = groups,
                 groupUiState = groupUiState,
-                onGroupClick = {},
+                onGroupClick = {
+                    composeNavigator.navigate(AikuScreen.GroupDetail(it))
+                },
                 onCreateGroup = {},
                 loadNextGroupPage = loadNextGroupPage,
             )
