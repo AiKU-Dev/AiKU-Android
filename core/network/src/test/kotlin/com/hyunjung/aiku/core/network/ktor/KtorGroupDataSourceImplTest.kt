@@ -44,4 +44,10 @@ class KtorGroupDataSourceImplTest {
         assertEquals("지정희", result.members[0].nickname)
         assertEquals("C01", result.members[1].memberProfile.profileCharacter)
     }
+
+    @Test
+    fun `addGroup returns success`() = runTest {
+        val result = subject.addGroup("새로운 그룹")
+        assertEquals(true, result.isSuccess)
+    }
 }
