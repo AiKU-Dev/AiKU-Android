@@ -37,9 +37,11 @@ import com.hyunjung.aiku.core.data.model.Schedule
 import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
+import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
+import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.home.component.CreateGroupDialog
 import com.hyunjung.aiku.presentation.home.component.EmptyScheduleCard
@@ -73,38 +75,45 @@ fun HomeScreen(
     val scheduleUiState by viewModel.scheduleUiState.collectAsStateWithLifecycle()
     val groupUiState by viewModel.groupUiState.collectAsStateWithLifecycle()
     val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
+    val isCreateGroupDialogVisible by viewModel.isCreateGroupDialogVisible.collectAsStateWithLifecycle()
 
     HomeContent(
+        scheduleUiState = scheduleUiState,
+        groupUiState = groupUiState,
         userNickname = userNickname,
         groups = groups,
         todaySchedules = todaySchedules,
-        scheduleUiState = scheduleUiState,
-        groupUiState = groupUiState,
-        loadNextSchedulePage = { viewModel.loadNextSchedulePage() },
-        loadNextGroupPage = { viewModel.loadNextGroupPage() },
+        loadNextSchedulePage = viewModel::loadNextSchedulePage,
+        loadNextGroupPage = viewModel::loadNextGroupPage,
+        isCreateGroupDialogVisible = isCreateGroupDialogVisible,
+        onOpenCreateGroupDialog = viewModel::openCreateGroupDialog,
+        onDismissCreateGroupDialog = viewModel::dismissCreateGroupDialog,
+        onCreateGroup = viewModel::createGroup,
         modifier = modifier,
-        showCreateGroupDialog = false,
-        onCreateGroupDismissed = {}
     )
 }
 
 @Composable
 fun HomeContent(
+    scheduleUiState: HomeScheduleUiState,
+    groupUiState: HomeGroupUiState,
     userNickname: String,
     groups: List<GroupOverview>,
     todaySchedules: List<Schedule>,
-    scheduleUiState: HomeScheduleUiState,
-    groupUiState: HomeGroupUiState,
     loadNextSchedulePage: () -> Unit,
     loadNextGroupPage: () -> Unit,
+    isCreateGroupDialogVisible: Boolean,
+    onOpenCreateGroupDialog: () -> Unit,
+    onDismissCreateGroupDialog: () -> Unit,
+    onCreateGroup: (String) -> Unit,
     modifier: Modifier = Modifier,
-    showCreateGroupDialog: Boolean = false,
-    onCreateGroupDismissed: () -> Unit = {},
 ) {
-    if (showCreateGroupDialog) {
+    val composeNavigator = currentComposeNavigator
+
+    if (isCreateGroupDialogVisible) {
         CreateGroupDialog(
-            onDismiss = onCreateGroupDismissed,
-            onCreateGroup = {}
+            onDismiss = onDismissCreateGroupDialog,
+            onCreateGroup = { onCreateGroup(it) }
         )
     }
     Box(
@@ -129,7 +138,9 @@ fun HomeContent(
                 title = stringResource(R.string.presentation_home_schedule_title),
                 todaySchedules = todaySchedules,
                 homeScheduleUiState = scheduleUiState,
-                onScheduleClick = {},
+                onScheduleClick = { groupId, scheduleId ->
+                    composeNavigator.navigate(AikuScreen.ScheduleDetail(groupId, scheduleId))
+                },
                 loadNextSchedulePage = loadNextSchedulePage,
             )
             Spacer(Modifier.height(24.dp))
@@ -137,8 +148,10 @@ fun HomeContent(
                 title = stringResource(R.string.presentation_home_group_title, userNickname),
                 groups = groups,
                 groupUiState = groupUiState,
-                onGroupClick = {},
-                onCreateGroup = {},
+                onGroupClick = {
+                    composeNavigator.navigate(AikuScreen.GroupDetail(it))
+                },
+                onOpenCreateGroupDialog = onOpenCreateGroupDialog,
                 loadNextGroupPage = loadNextGroupPage,
             )
         }
@@ -146,9 +159,19 @@ fun HomeContent(
             currentScreen = AikuScreen.Home,
             modifier = Modifier.align(Alignment.BottomStart),
         )
+        if (groupUiState == HomeGroupUiState.Loading ||
+            scheduleUiState == HomeScheduleUiState.Loading
+        ) {
+            AikuLoadingWheel(
+                contentDescription = "",
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(80.dp)
+            )
+        }
         if (groups.isEmpty())
             AikuButton(
-                onClick = {},
+                onClick = onOpenCreateGroupDialog,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(bottom = 88.dp, end = 24.dp),
@@ -173,9 +196,10 @@ fun HomeContent(
 private fun TodaySchedulesSection(
     todaySchedules: List<Schedule>,
     homeScheduleUiState: HomeScheduleUiState,
-    onScheduleClick: (Long) -> Unit,
+    onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     loadNextSchedulePage: () -> Unit,
     title: String,
+    modifier: Modifier = Modifier,
 ) {
     val formatter = remember { DateTimeFormatter.ofPattern("yyyy.MM.dd", Locale.getDefault()) }
     val today = remember { LocalDate.now().format(formatter) }
@@ -196,35 +220,37 @@ private fun TodaySchedulesSection(
             }
     }
 
-    Text(
-        text = today,
-        style = AikuTypography.Subtitle2_G,
-        color = AikuColors.Typo
-    )
-    Spacer(Modifier.height(8.dp))
-    Text(
-        text = title,
-        style = AikuTypography.Body2,
-        color = AikuColors.Typo
-    )
-    Spacer(Modifier.height(12.dp))
-    if (todaySchedules.isEmpty()) {
-        EmptyScheduleCard()
-    } else {
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            items(
-                items = todaySchedules,
-                key = { it.scheduleId }
-            ) { schedule ->
-                HomeScheduleCard(
-                    groupName = schedule.groupName,
-                    location = schedule.location.locationName,
-                    isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
-                    time = schedule.scheduleTime,
-                    onClick = { onScheduleClick(schedule.scheduleId) }
-                )
+    Column(modifier = modifier) {
+        Text(
+            text = today,
+            style = AikuTypography.Subtitle2_G,
+            color = AikuColors.Typo
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = title,
+            style = AikuTypography.Body2,
+            color = AikuColors.Typo
+        )
+        Spacer(Modifier.height(12.dp))
+        if (todaySchedules.isEmpty()) {
+            EmptyScheduleCard()
+        } else {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(
+                    items = todaySchedules,
+                    key = { it.scheduleId }
+                ) { schedule ->
+                    HomeScheduleCard(
+                        groupName = schedule.groupName,
+                        location = schedule.location.locationName,
+                        isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
+                        time = schedule.scheduleTime,
+                        onClick = { onScheduleClick(schedule.groupId, schedule.scheduleId) }
+                    )
+                }
             }
         }
     }
@@ -236,7 +262,7 @@ private fun GroupOverviewsSection(
     groups: List<GroupOverview>,
     groupUiState: HomeGroupUiState,
     onGroupClick: (Long) -> Unit,
-    onCreateGroup: () -> Unit,
+    onOpenCreateGroupDialog: () -> Unit,
     loadNextGroupPage: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -267,7 +293,7 @@ private fun GroupOverviewsSection(
             EmptyStateCard(
                 title = stringResource(R.string.presentation_group_empty_message),
                 buttonText = stringResource(R.string.presentation_home_no_group_button),
-                onClickButton = onCreateGroup,
+                onClickButton = onOpenCreateGroupDialog,
                 modifier = Modifier.fillMaxSize()
             )
         } else {
@@ -303,6 +329,10 @@ private fun HomeScreenEmptyPreview() {
             groupUiState = HomeGroupUiState.Idle,
             loadNextGroupPage = {},
             loadNextSchedulePage = {},
+            onOpenCreateGroupDialog = {},
+            onDismissCreateGroupDialog = {},
+            onCreateGroup = {},
+            isCreateGroupDialogVisible = false,
         )
     }
 }
@@ -319,6 +349,10 @@ private fun HomeScreenPreview() {
             groupUiState = HomeGroupUiState.Idle,
             loadNextGroupPage = {},
             loadNextSchedulePage = {},
+            onOpenCreateGroupDialog = {},
+            onDismissCreateGroupDialog = {},
+            onCreateGroup = {},
+            isCreateGroupDialogVisible = false,
         )
     }
 }
@@ -328,7 +362,6 @@ private fun HomeScreenPreview() {
 private fun HomeScreenPreviewWithDialog() {
     AikuPreviewTheme {
         HomeContent(
-            showCreateGroupDialog = true,
             userNickname = "닉네임",
             groups = mockGroups,
             todaySchedules = mockSchedules,
@@ -336,6 +369,10 @@ private fun HomeScreenPreviewWithDialog() {
             groupUiState = HomeGroupUiState.Idle,
             loadNextGroupPage = {},
             loadNextSchedulePage = {},
+            onOpenCreateGroupDialog = {},
+            onDismissCreateGroupDialog = {},
+            onCreateGroup = {},
+            isCreateGroupDialogVisible = true,
         )
     }
 }

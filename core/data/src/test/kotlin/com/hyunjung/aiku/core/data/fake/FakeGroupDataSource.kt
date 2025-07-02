@@ -51,7 +51,5 @@ class FakeGroupDataSource : GroupDataSource {
         )
     )
 
-    override suspend fun addGroup(name: String) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun addGroup(name: String): Result<Unit> = Result.success(Unit)
 }

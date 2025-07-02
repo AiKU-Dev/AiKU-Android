@@ -5,6 +5,7 @@ import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.engine.mock.respondError
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.fullPath
 import io.ktor.http.headersOf
@@ -12,21 +13,31 @@ import io.ktor.resources.href
 import io.ktor.resources.serialization.ResourcesFormat
 
 val groupMockEngine = MockEngine { request ->
-    val groupsPath = href(ResourcesFormat(), Groups(page = 1))
+    val groupsPath = href(ResourcesFormat(), Groups(1))
     val groupDetailPath = href(ResourcesFormat(), Groups.Id(id = 1L))
+    val postGroupsPath = href(ResourcesFormat(), Groups())
 
-    when (request.url.fullPath) {
-        groupsPath -> respond(
+    when {
+        request.method == HttpMethod.Get && request.url.fullPath == groupsPath -> respond(
             content = groupListJson,
             status = HttpStatusCode.OK,
             headers = headersOf(HttpHeaders.ContentType, "application/json")
         )
 
-        groupDetailPath -> respond(
+        request.method == HttpMethod.Get && request.url.fullPath == groupDetailPath -> respond(
             content = groupDetailJson,
             status = HttpStatusCode.OK,
             headers = headersOf(HttpHeaders.ContentType, "application/json")
         )
+
+        request.method == HttpMethod.Post && request.url.fullPath == postGroupsPath -> {
+            println("ddddddddddddddddddddd")
+            respond(
+                content = """{"code":200,"message":"OK","result":null}""",
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
 
         else -> respondError(HttpStatusCode.NotFound)
     }
