@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.data.repository
 
-import com.hyunjung.aiku.core.data.model.GroupDetail
-import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.GroupOverview
 import kotlinx.coroutines.flow.Flow
 
 interface GroupRepository {

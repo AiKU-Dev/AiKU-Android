@@ -2,8 +2,8 @@ package com.hyunjung.aiku.core.data.repository
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
 import com.hyunjung.aiku.core.data.fake.FakeGroupDataSource
-import com.hyunjung.aiku.core.data.model.GroupDetail
-import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.GroupOverview
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

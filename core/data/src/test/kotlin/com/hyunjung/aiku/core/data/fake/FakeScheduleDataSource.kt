@@ -1,10 +1,10 @@
 package com.hyunjung.aiku.core.data.fake
 
 import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
-import com.hyunjung.aiku.core.data.model.GroupSchedule
-import com.hyunjung.aiku.core.data.model.Location
-import com.hyunjung.aiku.core.data.model.Schedule
-import com.hyunjung.aiku.core.data.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.GroupSchedule
+import com.hyunjung.aiku.core.model.Location
+import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.ScheduleStatus
 import java.time.LocalDateTime
 
 class FakeScheduleDataSource : ScheduleDataSource {

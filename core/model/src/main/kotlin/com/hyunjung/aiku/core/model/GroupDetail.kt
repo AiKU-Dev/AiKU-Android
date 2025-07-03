@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.model
+package com.hyunjung.aiku.core.model
 
 data class GroupDetail(
     val groupId: Long,

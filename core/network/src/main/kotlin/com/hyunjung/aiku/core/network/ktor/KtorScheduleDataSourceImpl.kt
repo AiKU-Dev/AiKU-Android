@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.ktor
 
 import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
-import com.hyunjung.aiku.core.data.model.GroupSchedule
-import com.hyunjung.aiku.core.data.model.Schedule
+import com.hyunjung.aiku.core.model.GroupSchedule
+import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.network.model.ApiResponse
 import com.hyunjung.aiku.core.network.model.GroupSchedulesResultResponse
 import com.hyunjung.aiku.core.network.model.SchedulesResultResponse

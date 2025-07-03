@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.ktor
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.data.model.GroupDetail
-import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.network.ktor.mock.groupMockEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

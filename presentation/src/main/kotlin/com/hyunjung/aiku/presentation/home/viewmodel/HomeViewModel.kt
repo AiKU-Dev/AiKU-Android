@@ -2,10 +2,10 @@ package com.hyunjung.aiku.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hyunjung.aiku.core.data.model.GroupOverview
-import com.hyunjung.aiku.core.data.model.Schedule
 import com.hyunjung.aiku.core.data.repository.GroupRepository
 import com.hyunjung.aiku.core.data.repository.ScheduleRepository
+import com.hyunjung.aiku.core.model.GroupOverview
+import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.network.result.Result
 import com.hyunjung.aiku.core.network.result.asResult
 import com.hyunjung.aiku.presentation.home.model.HomeGroupUiState

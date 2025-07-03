@@ -1,10 +1,10 @@
 package com.hyunjung.aiku.core.data.fake
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.data.model.GroupDetail
-import com.hyunjung.aiku.core.data.model.GroupMember
-import com.hyunjung.aiku.core.data.model.GroupOverview
-import com.hyunjung.aiku.core.data.model.MemberProfile
+import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.GroupMember
+import com.hyunjung.aiku.core.model.GroupOverview
+import com.hyunjung.aiku.core.model.MemberProfile
 import java.time.LocalDateTime
 
 class FakeGroupDataSource : GroupDataSource {

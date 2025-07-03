@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.ktor
 
 import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
-import com.hyunjung.aiku.core.data.model.GroupSchedule
-import com.hyunjung.aiku.core.data.model.Schedule
+import com.hyunjung.aiku.core.model.GroupSchedule
+import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.network.ktor.mock.scheduleMockEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

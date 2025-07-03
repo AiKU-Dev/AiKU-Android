@@ -1,13 +1,14 @@
-package com.hyunjung.aiku.core.data.model
+package com.hyunjung.aiku.core.model
 
 import java.time.LocalDateTime
 
-data class GroupSchedule(
+data class Schedule(
+    val groupId: Long,
+    val groupName: String,
     val scheduleId: Long,
     val scheduleName: String,
     val location: Location,
     val scheduleTime: LocalDateTime,
-    val scheduleStatus: ScheduleStatus,
     val memberSize: Int,
-    val accept: Boolean
+    val scheduleStatus: ScheduleStatus,
 )

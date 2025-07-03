@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.data.datasource
 
-import com.hyunjung.aiku.core.data.model.GroupDetail
-import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.GroupOverview
 
 interface GroupDataSource {
     suspend fun getGroups(page: Int): List<GroupOverview>

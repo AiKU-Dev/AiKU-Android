@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.model
+package com.hyunjung.aiku.core.model
 
 import java.time.LocalDateTime
 

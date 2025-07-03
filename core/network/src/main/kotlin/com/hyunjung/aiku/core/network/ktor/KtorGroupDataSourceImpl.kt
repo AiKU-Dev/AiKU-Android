@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.ktor
 
 import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.data.model.GroupDetail
-import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.network.model.ApiResponse
 import com.hyunjung.aiku.core.network.model.GroupCreateRequest
 import com.hyunjung.aiku.core.network.model.GroupDetailResponse
