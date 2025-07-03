@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.core.data.repository
 
+import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.model.GroupDetail
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource

@@ -7,7 +7,3 @@ plugins {
 android {
     namespace = "com.hyunjung.aiku.presentation"
 }
-
-dependencies {
-    implementation(projects.core.model)
-}

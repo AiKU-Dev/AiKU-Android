@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.core.data.repository
 
+import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.model.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource

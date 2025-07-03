@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.repository
+package com.hyunjung.aiku.core.domain.repository
 
 import com.hyunjung.aiku.core.model.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
