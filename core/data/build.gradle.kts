@@ -15,6 +15,7 @@ android {
 
 dependencies {
     api(projects.core.common)
+    implementation(projects.core.network)
     implementation(projects.core.model)
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.kotlinx.coroutines.test)

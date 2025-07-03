@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.ktor.mock
+package com.hyunjung.aiku.core.network.datasource.mock
 
 import com.hyunjung.aiku.core.network.resource.Groups
 import com.hyunjung.aiku.core.network.resource.Member

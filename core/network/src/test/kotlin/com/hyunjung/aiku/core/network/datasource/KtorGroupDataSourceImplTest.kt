@@ -1,9 +1,8 @@
-package com.hyunjung.aiku.core.network.ktor
+package com.hyunjung.aiku.core.network.datasource
 
-import com.hyunjung.aiku.core.data.datasource.GroupDataSource
 import com.hyunjung.aiku.core.model.GroupDetail
 import com.hyunjung.aiku.core.model.GroupOverview
-import com.hyunjung.aiku.core.network.ktor.mock.groupMockEngine
+import com.hyunjung.aiku.core.network.datasource.mock.groupMockEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.resources.Resources
@@ -15,11 +14,11 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class KtorGroupDataSourceImplTest {
-    private lateinit var subject: GroupDataSource
+    private lateinit var subject: GroupRemoteDataSource
 
     @BeforeTest
     fun setup() {
-        subject = KtorGroupDataSourceImpl(HttpClient(groupMockEngine) {
+        subject = KtorGroupRemoteDataSource(HttpClient(groupMockEngine) {
             install(ContentNegotiation) {
                 json(Json { ignoreUnknownKeys = true })
             }

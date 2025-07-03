@@ -1,9 +1,9 @@
 package com.hyunjung.aiku.core.data.repository
 
-import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
 import com.hyunjung.aiku.core.data.fake.FakeScheduleDataSource
 import com.hyunjung.aiku.core.model.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -12,7 +12,7 @@ import kotlin.test.assertEquals
 
 class DefaultScheduleRepositoryTest {
 
-    private lateinit var scheduleDataSource: ScheduleDataSource
+    private lateinit var scheduleDataSource: ScheduleRemoteDataSource
     private lateinit var subject: DefaultScheduleRepository
 
     @Before

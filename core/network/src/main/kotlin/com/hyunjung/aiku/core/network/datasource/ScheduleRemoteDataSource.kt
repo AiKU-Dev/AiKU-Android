@@ -1,10 +1,10 @@
-package com.hyunjung.aiku.core.data.datasource
+package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
 import java.time.LocalDateTime
 
-interface ScheduleDataSource {
+interface ScheduleRemoteDataSource {
     suspend fun getSchedules(
         page: Int = 1,
         startDate: LocalDateTime? = null,

@@ -1,9 +1,8 @@
-package com.hyunjung.aiku.core.network.ktor
+package com.hyunjung.aiku.core.network.datasource
 
-import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
 import com.hyunjung.aiku.core.model.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
-import com.hyunjung.aiku.core.network.ktor.mock.scheduleMockEngine
+import com.hyunjung.aiku.core.network.datasource.mock.scheduleMockEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.resources.Resources
@@ -15,11 +14,11 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class KtorScheduleDataSourceImplTest {
-    private lateinit var subject: ScheduleDataSource
+    private lateinit var subject: ScheduleRemoteDataSource
 
     @BeforeTest
     fun setup() {
-        subject = KtorScheduleDataSourceImpl(HttpClient(scheduleMockEngine) {
+        subject = KtorScheduleRemoteDataSource(HttpClient(scheduleMockEngine) {
             install(ContentNegotiation) {
                 json(Json { ignoreUnknownKeys = true })
             }

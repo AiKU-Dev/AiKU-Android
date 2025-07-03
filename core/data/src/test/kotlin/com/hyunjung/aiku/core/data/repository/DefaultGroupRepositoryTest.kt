@@ -1,9 +1,9 @@
 package com.hyunjung.aiku.core.data.repository
 
-import com.hyunjung.aiku.core.data.datasource.GroupDataSource
 import com.hyunjung.aiku.core.data.fake.FakeGroupDataSource
 import com.hyunjung.aiku.core.model.GroupDetail
 import com.hyunjung.aiku.core.model.GroupOverview
+import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -11,7 +11,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class DefaultGroupRepositoryTest {
-    private lateinit var groupDataSource: GroupDataSource
+    private lateinit var groupDataSource: GroupRemoteDataSource
     private lateinit var subject: DefaultGroupRepository
 
     @Before
