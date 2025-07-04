@@ -1,9 +1,9 @@
 package com.hyunjung.aiku.core.network.di
 
-import com.hyunjung.aiku.core.data.datasource.GroupDataSource
-import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
-import com.hyunjung.aiku.core.network.ktor.KtorGroupDataSourceImpl
-import com.hyunjung.aiku.core.network.ktor.KtorScheduleDataSourceImpl
+import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorGroupRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorScheduleRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,12 +14,12 @@ import dagger.hilt.components.SingletonComponent
 internal interface KtorDataSourceModule {
 
     @Binds
-    fun bindGroupDataSource(
-        groupDataSource: KtorGroupDataSourceImpl
-    ): GroupDataSource
+    fun bindGroupRemoteDataSource(
+        groupRemoteDataSource: KtorGroupRemoteDataSource
+    ): GroupRemoteDataSource
 
     @Binds
-    fun bindScheduleDataSource(
-        scheduleDataSource: KtorScheduleDataSourceImpl
-    ): ScheduleDataSource
+    fun bindScheduleRemoteDataSource(
+        scheduleRemoteDataSource: KtorScheduleRemoteDataSource
+    ): ScheduleRemoteDataSource
 }

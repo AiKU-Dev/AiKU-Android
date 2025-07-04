@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.data.model.Schedule
-import com.hyunjung.aiku.core.data.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.ScheduleStatus
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 

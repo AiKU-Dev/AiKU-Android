@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.aiku.android.library)
     alias(libs.plugins.aiku.android.hilt)
-    id("kotlinx-serialization")
 }
 
 android {
@@ -14,8 +13,8 @@ android {
 }
 
 dependencies {
-    api(projects.core.common)
-    implementation(libs.kotlinx.serialization.json)
+    implementation(projects.core.domain)
+    implementation(projects.core.network)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

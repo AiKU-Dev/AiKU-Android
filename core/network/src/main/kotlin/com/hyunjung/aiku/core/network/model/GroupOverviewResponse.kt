@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.data.model.GroupOverview
+import com.hyunjung.aiku.core.model.GroupOverview
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 

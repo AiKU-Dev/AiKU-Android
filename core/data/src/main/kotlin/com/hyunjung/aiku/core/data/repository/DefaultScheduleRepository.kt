@@ -1,22 +1,23 @@
 package com.hyunjung.aiku.core.data.repository
 
-import com.hyunjung.aiku.core.data.datasource.ScheduleDataSource
-import com.hyunjung.aiku.core.data.model.GroupSchedule
-import com.hyunjung.aiku.core.data.model.Schedule
+import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
+import com.hyunjung.aiku.core.model.GroupSchedule
+import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 internal class DefaultScheduleRepository @Inject constructor(
-    private val scheduleDataSource: ScheduleDataSource
+    private val scheduleRemoteDataSource: ScheduleRemoteDataSource
 ) : ScheduleRepository {
     override fun getSchedules(
         page: Int,
         startDate: LocalDateTime?,
         endDate: LocalDateTime?,
     ): Flow<List<Schedule>> = flow {
-        emit(scheduleDataSource.getSchedules(page, startDate, endDate))
+        emit(scheduleRemoteDataSource.getSchedules(page, startDate, endDate))
     }
 
     override fun getGroupSchedules(
@@ -25,7 +26,7 @@ internal class DefaultScheduleRepository @Inject constructor(
         startDate: LocalDateTime?,
         endDate: LocalDateTime?,
     ): Flow<List<GroupSchedule>> = flow {
-        emit(scheduleDataSource.getGroupSchedules(groupId, page, startDate, endDate))
+        emit(scheduleRemoteDataSource.getGroupSchedules(groupId, page, startDate, endDate))
     }
 
 }

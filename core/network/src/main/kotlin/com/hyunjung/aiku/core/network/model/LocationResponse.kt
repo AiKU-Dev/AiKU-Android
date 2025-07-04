@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.data.model.Location
+import com.hyunjung.aiku.core.model.Location
 import kotlinx.serialization.Serializable
 
 @Serializable

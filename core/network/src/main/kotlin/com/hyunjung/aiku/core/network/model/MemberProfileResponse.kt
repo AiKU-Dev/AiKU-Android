@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.data.model.MemberProfile
+import com.hyunjung.aiku.core.model.MemberProfile
 import kotlinx.serialization.Serializable
 
 @Serializable

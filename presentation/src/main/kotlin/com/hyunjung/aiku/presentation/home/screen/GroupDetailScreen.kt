@@ -28,11 +28,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hyunjung.aiku.core.data.model.ScheduleStatus
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.home.component.AikuTabs
 import com.hyunjung.aiku.presentation.home.component.EmptyStateCard

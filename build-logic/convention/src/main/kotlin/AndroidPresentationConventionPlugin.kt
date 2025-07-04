@@ -14,7 +14,7 @@ class AndroidPresentationConventionPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
             dependencies {
-                "implementation"(project(":core:data"))
+                "implementation"(project(":core:domain"))
                 "implementation"(project(":core:navigation"))
                 "implementation"(project(":core:designsystem"))
 

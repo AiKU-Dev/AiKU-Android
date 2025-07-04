@@ -2,8 +2,8 @@ package com.hyunjung.aiku.core.data.di
 
 import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
 import com.hyunjung.aiku.core.data.repository.DefaultScheduleRepository
-import com.hyunjung.aiku.core.data.repository.GroupRepository
-import com.hyunjung.aiku.core.data.repository.ScheduleRepository
+import com.hyunjung.aiku.core.domain.repository.GroupRepository
+import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
