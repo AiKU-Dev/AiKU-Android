@@ -94,6 +94,6 @@ aiku-android-application = { id = "aiku.android.application" }
 aiku-android-application-compose = { id = "aiku.android.application.compose" }
 aiku-android-library-compose = { id = "aiku.android.library.compose" }
 aiku-android-library = { id = "aiku.android.library" }
-aiku-android-presentation = { id = "aiku.android.presentation" }
+aiku-android-feature = { id = "aiku.android.feature" }
 aiku-android-hilt = { id = "aiku.android.hilt" }
 aiku-android-room = { id = "aiku.android.room" }

@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.aiku.android.presentation)
+    alias(libs.plugins.aiku.android.feature)
     alias(libs.plugins.aiku.android.library.compose)
     alias(libs.plugins.aiku.android.hilt)
 }

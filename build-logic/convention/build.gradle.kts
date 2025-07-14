@@ -43,9 +43,9 @@ gradlePlugin {
             id = libs.plugins.aiku.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-        register("androidPresentation") {
-            id = libs.plugins.aiku.android.presentation.get().pluginId
-            implementationClass = "AndroidPresentationConventionPlugin"
+        register("androidFeature") {
+            id = libs.plugins.aiku.android.feature.get().pluginId
+            implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidHilt") {
             id = libs.plugins.aiku.android.hilt.get().pluginId

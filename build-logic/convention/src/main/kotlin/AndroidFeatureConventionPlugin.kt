@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
-class AndroidPresentationConventionPlugin : Plugin<Project> {
+class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "aiku.android.library")
