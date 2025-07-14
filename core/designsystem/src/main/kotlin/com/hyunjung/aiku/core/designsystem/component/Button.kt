@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -29,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 
 @Composable
 fun AikuButton(
@@ -60,7 +58,7 @@ fun AikuButton(
     ) {
         ProvideContentColorTextStyle(
             contentColor = contentColor,
-            textStyle = AiKUTheme.typography.subtitle3SemiBold
+            textStyle = AiKUTheme.typography.body1SemiBold
         ) {
             Row(
                 Modifier
@@ -79,10 +77,10 @@ private fun ProvideContentColorTextStyle(
     textStyle: TextStyle,
     content: @Composable () -> Unit
 ) {
-    val mergedStyle = LocalTextStyle.current.merge(textStyle)
+    val mergedStyle = LocalAikuTextStyle.current.merge(textStyle)
     CompositionLocalProvider(
-        LocalContentColor provides contentColor,
-        LocalTextStyle provides mergedStyle,
+        LocalAikuContentColor provides contentColor,
+        LocalAikuTextStyle provides mergedStyle,
         content = content
     )
 }
@@ -96,7 +94,7 @@ private fun AikuButtonPreview() {
                 .size(width = 320.dp, height = 54.dp),
             onClick = {},
         ) {
-            Text(
+            AikuText(
                 text = "내용 입력",
                 style = AiKUTheme.typography.subtitle3SemiBold
             )
@@ -114,7 +112,7 @@ private fun DisabledAikuButtonPreview() {
                 .size(width = 320.dp, height = 54.dp),
             onClick = {},
         ) {
-            Text(
+            AikuText(
                 text = "내용 입력",
                 style = AiKUTheme.typography.subtitle3SemiBold
             )

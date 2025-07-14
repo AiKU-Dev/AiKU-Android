@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -27,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
@@ -67,21 +67,19 @@ fun GroupOverviewCard(
                 ),
             ) {
                 Column {
-                    Text(
+                    AikuText(
                         text = groupName,
                         style = AiKUTheme.typography.body1SemiBold,
-                        color = AiKUTheme.colors.typo,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Spacer(Modifier.height(4.dp))
-                    Text(
+                    AikuText(
                         text = stringResource(
                             R.string.group_card_recent_schedule,
                             formattedTime,
                         ),
                         style = AiKUTheme.typography.body2,
-                        color = AiKUTheme.colors.typo
                     )
                 }
                 Spacer(Modifier.weight(1f))
@@ -127,7 +125,7 @@ private fun ProfileWithBadge(
                 modifier = Modifier.size(32.dp)
             )
         }
-        Text(
+        AikuText(
             text = badgeLabel,
             style = AiKUTheme.typography.caption1Medium,
             color = AiKUTheme.colors.white,

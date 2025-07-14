@@ -9,7 +9,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
@@ -172,7 +171,7 @@ private fun Modifier.surface(
 @Composable
 fun AikuSurfacePreview() {
     AikuSurface {
-        Text(text = "Default Surface")
+        AikuText(text = "Default Surface")
     }
 }
 
@@ -180,7 +179,7 @@ fun AikuSurfacePreview() {
 @Composable
 fun ClickableAikuSurfacePreview() {
     AikuClickableSurface(onClick = {}) {
-        Text(text = "Clickable Surface")
+        AikuText(text = "Clickable Surface")
     }
 }
 
@@ -193,7 +192,7 @@ fun SelectableAikuSurfacePreview() {
         selected = selected,
         onClick = { selected = !selected }
     ) {
-        Text(text = if (selected) "Selected" else "Not Selected")
+        AikuText(text = if (selected) "Selected" else "Not Selected")
     }
 }
 
@@ -206,7 +205,7 @@ fun ToggleableAikuSurfacePreview() {
         checked = checked,
         onCheckedChange = { checked = it }
     ) {
-        Text(text = if (checked) "Checked" else "Unchecked")
+        AikuText(text = if (checked) "Checked" else "Unchecked")
     }
 }
 

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
@@ -69,18 +69,18 @@ fun UpcomingScheduleCard(
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(
+                AikuText(
                     text = groupName,
                     style = AiKUTheme.typography.caption1,
                     color = AiKUTheme.colors.gray04,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(
+                AikuText(
                     text = formatter.format(time),
                     style = AiKUTheme.typography.subtitle3SemiBold,
                 )
-                Text(
+                AikuText(
                     text = location,
                     style = AiKUTheme.typography.caption1Medium,
                     maxLines = 1,
@@ -94,7 +94,7 @@ fun UpcomingScheduleCard(
                         color = AiKUTheme.colors.white
                     ),
                 ) {
-                    Text(
+                    AikuText(
                         text = statusLabel,
                         style = AiKUTheme.typography.caption1SemiBold,
                         color = AiKUTheme.colors.white,

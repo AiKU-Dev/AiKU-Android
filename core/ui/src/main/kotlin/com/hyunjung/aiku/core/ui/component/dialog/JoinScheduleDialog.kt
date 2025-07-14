@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.ScheduleStatus
@@ -47,10 +47,9 @@ fun JoinScheduleDialog(
                 )
                 .padding(16.dp),
         ) {
-            Text(
+            AikuText(
                 text = schedule.scheduleName,
                 style = AiKUTheme.typography.subtitle1,
-                color = AiKUTheme.colors.typo,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -76,7 +75,7 @@ fun JoinScheduleDialog(
                 )
             }
             Column {
-                Text(
+                AikuText(
                     text = stringResource(R.string.join_schedule_dialog_point_notice),
                     style = AiKUTheme.typography.body2,
                     color = AiKUTheme.colors.red01,
@@ -89,11 +88,7 @@ fun JoinScheduleDialog(
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(12.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.join_schedule_dialog_button),
-                        style = AiKUTheme.typography.body1SemiBold,
-                        color = AiKUTheme.colors.white,
-                    )
+                    AikuText(text = stringResource(R.string.join_schedule_dialog_button))
                 }
             }
         }
@@ -130,10 +125,9 @@ private fun TextWithLeadingIcon(
             tint = iconColor,
             modifier = modifier.size(iconSize)
         )
-        Text(
+        AikuText(
             text = text,
             style = textStyle,
-            color = AiKUTheme.colors.typo,
             modifier = Modifier.padding(start = 12.dp)
         )
     }

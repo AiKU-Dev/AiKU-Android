@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,6 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.Location
@@ -217,16 +217,14 @@ private fun TodaySchedulesSection(
     }
 
     Column(modifier = modifier) {
-        Text(
+        AikuText(
             text = today,
             style = AiKUTheme.typography.subtitle2G,
-            color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(8.dp))
-        Text(
+        AikuText(
             text = title,
             style = AiKUTheme.typography.body2,
-            color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(12.dp))
         if (todaySchedules.isEmpty()) {
@@ -279,10 +277,9 @@ private fun GroupOverviewsSection(
     }
 
     Column(modifier = modifier) {
-        Text(
+        AikuText(
             text = title,
             style = AiKUTheme.typography.subtitle4G,
-            color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(12.dp))
         if (groups.isEmpty()) {

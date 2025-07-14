@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
@@ -112,7 +112,7 @@ fun CreateGroupScheduleScreen(
                     contentPadding = PaddingValues(ScheduleFormPadding),
                     isError = nameValidationError != ScheduleNameValidationError.NONE,
                     supporting = {
-                        Text(
+                        AikuText(
                             text = stringResource(nameValidationError.stringResId),
                             modifier = Modifier.padding(start = 16.dp)
                         )
@@ -162,7 +162,7 @@ fun CreateGroupScheduleScreen(
                     )
                 ) {
                     Box(Modifier.fillMaxWidth()) {
-                        Text(
+                        AikuText(
                             text = locationName,
                             style = AiKUTheme.typography.body2,
                             modifier = Modifier.align(Alignment.CenterStart)
@@ -186,7 +186,7 @@ fun CreateGroupScheduleScreen(
                 .height(ScheduleButtonHeight),
             enabled = scheduleFormState.name.isNotBlank() && nameValidationError == ScheduleNameValidationError.NONE,
         ) {
-            Text(
+            AikuText(
                 text = stringResource(R.string.create_group_schedule_button_create),
                 style = AiKUTheme.typography.subtitle3SemiBold,
             )
@@ -202,18 +202,16 @@ private fun ScheduleForm(
     content: @Composable () -> Unit,
 ) {
     Column(modifier = modifier) {
-        Text(
+        AikuText(
             text = title,
             style = AiKUTheme.typography.subtitle2,
-            color = AiKUTheme.colors.typo,
             modifier = Modifier.padding(bottom = 12.dp)
         )
         content()
         supporting?.let {
-            Text(
+            AikuText(
                 text = it,
                 style = AiKUTheme.typography.caption1,
-                color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
             )
         }
@@ -240,7 +238,7 @@ private fun ScheduleDropdownSelector(
         )
     ) {
         Box(Modifier.fillMaxWidth()) {
-            Text(
+            AikuText(
                 text = text,
                 style = textStyle,
                 modifier = Modifier.align(Alignment.CenterStart)

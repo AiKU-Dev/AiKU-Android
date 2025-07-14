@@ -7,6 +7,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 
@@ -17,6 +18,8 @@ private val LocalAikuColors = compositionLocalOf<AikuColors> {
 private val LocalAikuTypography = compositionLocalOf<AikuTypography> {
     error("No AikuTypography provided!")
 }
+
+val LocalAikuContentColor = compositionLocalOf { Color(0xFF1E1927) }
 
 @Composable
 fun AiKUTheme(

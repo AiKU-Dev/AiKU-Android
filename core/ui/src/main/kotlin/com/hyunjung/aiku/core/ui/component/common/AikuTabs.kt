@@ -10,13 +10,13 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 
 @Composable
@@ -51,7 +51,7 @@ fun AikuTabs(
                 unselectedContentColor = AiKUTheme.colors.gray03,
                 modifier = Modifier.padding(bottom = 12.dp)
             ) {
-                Text(
+                AikuText(
                     text = label,
                     style = AiKUTheme.typography.subtitle4G
                 )

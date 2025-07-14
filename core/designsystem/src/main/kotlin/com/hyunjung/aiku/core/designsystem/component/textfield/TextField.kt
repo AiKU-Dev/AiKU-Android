@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,6 +19,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.R
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 
 @Composable
@@ -52,9 +52,15 @@ fun AikuLimitedTextField(
             }
             onValueChange(updatedText)
         },
-        placeholder = { Text(text = placeholder) },
+        placeholder = {
+            AikuText(
+                text = placeholder,
+                style = AiKUTheme.typography.body1,
+                color = colors.placeholderColor
+            )
+        },
         trailing = {
-            Text(
+            AikuText(
                 text = "${value.length}/$maxLength",
                 style = AiKUTheme.typography.caption1,
                 color = colors.trailingColor
@@ -182,13 +188,10 @@ private fun AikuDefaultTextFiledPreview() {
             value = "Aiku 그룹",
             onValueChange = {},
             supporting = {
-                Text(
-                    text = "supportingText",
-                    style = AiKUTheme.typography.caption1
-                )
+                AikuText(text = "supportingText")
             },
             placeholder = {
-                Text(text = "placeholder")
+                AikuText(text = "placeholder")
             },
             singleLine = true,
             modifier = Modifier.padding(20.dp)
@@ -204,13 +207,8 @@ private fun AikuErrorDefaultTextFiledPreview() {
             value = "Aiku 그룹!@#",
             onValueChange = {},
             isError = true,
-            supporting = {
-                Text(
-                    text = "특수문자는 입력 불가합니다",
-                    style = AiKUTheme.typography.caption1
-                )
-            },
-            placeholder = { Text(text = "placeholder") },
+            supporting = { AikuText(text = "특수문자는 입력 불가합니다") },
+            placeholder = { AikuText(text = "placeholder") },
             singleLine = true,
             modifier = Modifier.padding(20.dp)
         )

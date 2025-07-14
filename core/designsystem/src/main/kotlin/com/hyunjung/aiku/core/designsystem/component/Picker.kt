@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -115,7 +114,7 @@ fun <T> Picker(
                     mutableStateOf(if (getItem(index) == null) "" else getItem(index).toString())
                 }
 
-                Text(
+                AikuText(
                     text = currentItemText,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

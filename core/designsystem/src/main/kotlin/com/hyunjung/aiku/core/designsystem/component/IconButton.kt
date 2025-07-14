@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -20,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 
 private val IconMinimumSize: Dp = 20.dp
 
@@ -101,7 +101,7 @@ private fun AikuIconButtonContainer(
         indication = ripple(radius = size / 2)
     ) {
         val contentColor = if (enabled) colors.contentColor else colors.disabledContentColor
-        CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
+        CompositionLocalProvider(LocalAikuContentColor provides contentColor, content = content)
     }
 }
 

@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.component.common.AikuTabs
@@ -205,14 +205,13 @@ private fun ScheduleTabContent(
                         contentPadding = PaddingValues(vertical = 20.dp)
                     ) {
                         item {
-                            Text(
+                            AikuText(
                                 text = stringResource(
                                     R.string.group_detail_schedule_section_schedule_status_summary,
                                     groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
                                     groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
                                 ),
                                 style = AiKUTheme.typography.caption1SemiBold,
-                                color = AiKUTheme.colors.typo,
                             )
                         }
                         items(
@@ -257,10 +256,9 @@ private fun MemberAvatarCard(
                     )
                     .padding(8.dp)
             )
-            Text(
+            AikuText(
                 text = member.name,
                 style = AiKUTheme.typography.body2SemiBold,
-                color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
@@ -280,7 +278,7 @@ private fun AdContainer(
         Box(
             contentAlignment = Alignment.Center
         ) {
-            Text(
+            AikuText(
                 text = "광고", style = AiKUTheme.typography.subtitle3G
             )
         }

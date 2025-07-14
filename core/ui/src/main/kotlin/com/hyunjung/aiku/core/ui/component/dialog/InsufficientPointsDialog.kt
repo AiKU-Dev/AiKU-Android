@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
@@ -46,16 +46,14 @@ fun InsufficientPointsDialog(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
+            AikuText(
                 text = stringResource(R.string.insufficient_points_dialog_title),
                 style = AiKUTheme.typography.subtitle1,
-                color = AiKUTheme.colors.typo,
             )
-            Text(
+            AikuText(
                 text = stringResource(R.string.insufficient_points_dialog_message),
                 textAlign = TextAlign.Center,
                 style = AiKUTheme.typography.caption1Medium,
-                color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(top = 12.dp),
             )
             Column(
@@ -64,10 +62,9 @@ fun InsufficientPointsDialog(
             ) {
                 val textStyle = AiKUTheme.typography.body2SemiBold
                 val iconSize = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
-                Text(
+                AikuText(
                     text = stringResource(R.string.insufficient_points_dialog_current_points_label),
                     style = AiKUTheme.typography.caption1Medium,
-                    color = AiKUTheme.colors.typo,
                 )
                 AikuSurface(
                     shape = RoundedCornerShape(16.dp),
@@ -85,7 +82,7 @@ fun InsufficientPointsDialog(
                             tint = Color.Unspecified,
                             modifier = Modifier.size(iconSize)
                         )
-                        Text(
+                        AikuText(
                             text = stringResource(R.string.point_unit, points),
                             style = textStyle,
                             color = AiKUTheme.colors.cobaltBlue,
@@ -101,10 +98,7 @@ fun InsufficientPointsDialog(
                 shape = RoundedCornerShape(10.dp),
                 contentPadding = PaddingValues(12.dp),
             ) {
-                Text(
-                    text = stringResource(R.string.insufficient_points_dialog_button),
-                    style = AiKUTheme.typography.body1SemiBold,
-                )
+                AikuText(text = stringResource(R.string.insufficient_points_dialog_button))
             }
         }
     }

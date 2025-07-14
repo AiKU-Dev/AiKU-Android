@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -24,8 +21,10 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
@@ -42,14 +41,14 @@ fun AikuLogoTopAppBar(
 
     BaseTopAppBarLayout(
         title = {
-            Text(
+            AikuText(
                 text = title,
                 style = AiKUTheme.typography.headline3G,
             )
         },
         actionsContent = {
             CompositionLocalProvider(
-                LocalContentColor provides Color.Unspecified
+                LocalAikuContentColor provides Color.Unspecified
             ) {
                 AikuIconButton(
                     onClick = { composeNavigator.navigate(route = AikuScreen.AkuChargingStation) },
@@ -83,10 +82,10 @@ fun AikuTopAppBarWithNavigation(
 
     BaseTopAppBarLayout(
         title = {
-            Text(
+            AikuText(
                 text = title,
                 style = AiKUTheme.typography.subtitle2,
-                color = LocalContentColor.current
+                color = LocalAikuContentColor.current
             )
         },
         navigationIcon = {
@@ -105,7 +104,6 @@ fun AikuTopAppBarWithNavigation(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BaseTopAppBarLayout(
     title: @Composable (() -> Unit),
@@ -139,7 +137,7 @@ private fun BaseTopAppBarLayout(
                 .align(Alignment.CenterStart)
         ) {
             CompositionLocalProvider(
-                LocalContentColor provides colors.navigationIconColor,
+                LocalAikuContentColor provides colors.navigationIconColor,
                 content = navigationIcon
             )
         }
@@ -153,7 +151,7 @@ private fun BaseTopAppBarLayout(
                     density = LocalDensity.current.density,
                     fontScale = 1f,
                 ),
-                LocalContentColor provides colors.titleColor,
+                LocalAikuContentColor provides colors.titleColor,
                 content = title
             )
         }
@@ -163,7 +161,7 @@ private fun BaseTopAppBarLayout(
                 .align(Alignment.CenterEnd)
         ) {
             CompositionLocalProvider(
-                LocalContentColor provides colors.actionIconColor,
+                LocalAikuContentColor provides colors.actionIconColor,
                 content = actionsRow
             )
         }

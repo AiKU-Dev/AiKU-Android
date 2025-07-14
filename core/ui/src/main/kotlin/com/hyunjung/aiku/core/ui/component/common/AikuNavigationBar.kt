@@ -19,8 +19,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -34,8 +32,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
@@ -135,9 +135,9 @@ private fun RowScope.AikuNavigationBarItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        CompositionLocalProvider(LocalContentColor provides color, content = icon)
+        CompositionLocalProvider(LocalAikuContentColor provides color, content = icon)
         Spacer(Modifier.height(AikuNavigationBarDefaults.NavigationBarItemVerticalPadding))
-        Text(
+        AikuText(
             text = label,
             style = AiKUTheme.typography.caption1Medium,
             color = color,
