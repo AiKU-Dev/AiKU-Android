@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -32,45 +31,30 @@ import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 import java.util.Calendar
 
 @Composable
-fun DatePickerDialog(
+fun TimePickerDialog(
     calendar: Calendar,
     onDismiss: () -> Unit,
-    onDateChange: (year: Int, month: Int, day: Int) -> Unit,
+    onTimeChange: (year: Int, month: Int, day: Int) -> Unit,
     modifier: Modifier = Modifier,
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(8.dp),
     textStyle: TextStyle = AikuTypography.Subtitle3,
     selectedTextStyle: TextStyle = AikuTypography.Subtitle2,
 ) {
+    val currentAMPM = calendar.get(Calendar.AM_PM)
+    val currentHour = calendar.get(Calendar.HOUR)
+    val currentMin = calendar.get(Calendar.MINUTE)
 
-    val newCalendar = remember { Calendar.getInstance() }
-    val currentYear = newCalendar.get(Calendar.YEAR)
+    var selectedAMPM by remember { mutableIntStateOf(currentAMPM) }
+    var selectedHour by remember { mutableIntStateOf(currentHour) }
+    var selectedMin by remember { mutableIntStateOf(currentMin) }
 
-    var selectedYear by remember { mutableIntStateOf(calendar.get(Calendar.YEAR)) }
-    var selectedMonth by remember { mutableIntStateOf(calendar.get(Calendar.MONTH)) }
-    var selectedDay by remember { mutableIntStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
-
-    val yearRange = (currentYear..currentYear + 9).toList()
-    val monthRange = (1..12).toList()
-    val dayRange by remember(selectedYear, selectedMonth) {
-        derivedStateOf {
-            val tempCal = Calendar.getInstance().apply {
-                set(Calendar.YEAR, selectedYear)
-                set(Calendar.MONTH, selectedMonth)
-                set(Calendar.DAY_OF_MONTH, 1)
-            }
-            val daysInMonth = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH)
-            (1..daysInMonth).toList()
-        }
-    }
-
-    val yearStartIndex = remember { yearRange.indexOf(selectedYear) }
-    val monthStartIndex = remember { monthRange.indexOf(selectedMonth + 1) }
-    val dayStartIndex = remember { dayRange.indexOf(selectedDay) }
+    val hourRange = (1..12).map { it.toString().padStart(2, '0') }
+    val minRange = (0..59).map { it.toString().padStart(2, '0') }
 
     val itemHeight = with(LocalDensity.current) {
         selectedTextStyle.fontSize.toDp()
@@ -96,10 +80,10 @@ fun DatePickerDialog(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Picker(
-                    items = yearRange,
-                    onItemSelected = { selectedYear = it },
+                    items = listOf("오전", "오후"),
+                    onItemSelected = { selectedAMPM = if (it == "오전") 0 else 1 },
                     modifier = Modifier.weight(1f),
-                    startIndex = yearStartIndex,
+                    startIndex = selectedAMPM,
                     visibleItemsCount = visibleItemsCount,
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
@@ -110,35 +94,37 @@ fun DatePickerDialog(
                     color = AikuColors.Typo
                 )
                 Picker(
-                    items = monthRange,
-                    onItemSelected = { selectedMonth = it - 1 },
+                    items = hourRange,
+                    onItemSelected = { selectedHour = it.toInt() },
                     modifier = Modifier.weight(1f),
-                    startIndex = monthStartIndex,
+                    startIndex = selectedHour - 1,
                     visibleItemsCount = visibleItemsCount,
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
-                    itemPadding = itemPadding
+                    itemPadding = itemPadding,
+                    isInfinity = true,
                 )
                 VerticalDivider(
                     modifier = Modifier.height(itemHeight),
                     color = AikuColors.Typo
                 )
                 Picker(
-                    items = dayRange,
-                    onItemSelected = { selectedDay = it },
+                    items = minRange,
+                    onItemSelected = { selectedMin = it.toInt() },
                     modifier = Modifier.weight(1f),
-                    startIndex = dayStartIndex,
+                    startIndex = selectedMin,
                     visibleItemsCount = visibleItemsCount,
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
                     itemPadding = itemPadding,
+                    isInfinity = true,
                 )
             }
 
             Spacer(Modifier.height(20.dp))
             AikuButton(
                 onClick = {
-                    onDateChange(selectedYear, selectedMonth, selectedDay)
+                    onTimeChange(selectedAMPM, selectedHour, selectedMin)
                     onDismiss()
                 },
                 modifier = Modifier
@@ -146,7 +132,7 @@ fun DatePickerDialog(
                     .heightIn(min = 54.dp)
                     .padding(horizontal = 20.dp)
             ) {
-                Text(text = stringResource(R.string.presentation_date_picker_dialog_button))
+                Text(text = stringResource(R.string.date_picker_dialog_button))
             }
         }
     }
@@ -154,13 +140,13 @@ fun DatePickerDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun DatePickerDialogPreview() {
+private fun TimePickerDialogPreview() {
     AiKUTheme {
         val calendar = remember { Calendar.getInstance() }
-        DatePickerDialog(
+        TimePickerDialog(
             calendar = calendar,
             onDismiss = {},
-            onDateChange = { _, _, _ -> }
+            onTimeChange = { _, _, _ -> }
         )
     }
 }

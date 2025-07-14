@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextFi
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 
 @Composable
 fun CreateGroupDialog(
@@ -45,7 +45,7 @@ fun CreateGroupDialog(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.presentation_create_group_dialog_title),
+                text = stringResource(R.string.create_group_dialog_title),
                 style = AikuTypography.Body1_SemiBold,
             )
             Spacer(Modifier.height(32.dp))
@@ -55,7 +55,7 @@ fun CreateGroupDialog(
                     groupName = it
                     validationResult = validateGroupName(it)
                 },
-                placeholder = stringResource(R.string.presentation_create_group_dialog_placeholder),
+                placeholder = stringResource(R.string.create_group_dialog_placeholder),
                 maxLength = 15,
                 isError = validationResult != GroupNameValidationResult.NONE,
                 supporting = {
@@ -77,7 +77,7 @@ fun CreateGroupDialog(
                 enabled = groupName.isNotBlank() && validationResult == GroupNameValidationResult.NONE,
             ) {
                 Text(
-                    text = stringResource(R.string.presentation_create_group_dialog_button),
+                    text = stringResource(R.string.create_group_dialog_button),
                     style = AikuTypography.Body1_SemiBold
                 )
             }
@@ -97,10 +97,10 @@ private fun CreateGroupDialogPreview() {
 }
 
 private enum class GroupNameValidationResult(val stringResId: Int) {
-    NONE(R.string.presentation_create_group_dialog_supporting_text),
-    EMPTY(R.string.presentation_create_group_dialog_error_blank),
-    TOO_SHORT(R.string.presentation_create_group_dialog_error_too_short),
-    INVALID_CHARACTERS(R.string.presentation_create_group_dialog_error_special_chars)
+    NONE(R.string.create_group_dialog_supporting_text),
+    EMPTY(R.string.create_group_dialog_error_blank),
+    TOO_SHORT(R.string.create_group_dialog_error_too_short),
+    INVALID_CHARACTERS(R.string.create_group_dialog_error_special_chars)
 }
 
 private fun validateGroupName(groupName: String): GroupNameValidationResult {

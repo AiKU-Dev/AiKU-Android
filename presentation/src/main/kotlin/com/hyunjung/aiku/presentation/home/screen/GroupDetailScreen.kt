@@ -33,10 +33,10 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
+import com.hyunjung.aiku.core.ui.component.common.AikuTabs
+import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.presentation.R
-import com.hyunjung.aiku.presentation.home.component.AikuTabs
-import com.hyunjung.aiku.presentation.home.component.EmptyStateCard
-import com.hyunjung.aiku.presentation.home.component.GroupScheduleCard
+import com.hyunjung.aiku.core.ui.R as UiRes
 
 enum class GroupDetailTab(val label: String) {
     MEMBER("멤버"),
@@ -135,7 +135,7 @@ private fun MemberTabContent(
 
             is MemberUiState.Success -> {
                 if (memberUiState.isEmpty()) {
-                    EmptyStateCard(
+                    EmptyPlaceholder(
                         title = stringResource(R.string.presentation_member_detail_member_section_empty_title),
                         buttonText = stringResource(R.string.presentation_member_detail_member_section_empty_button),
                         onClickButton = onInviteClick,
@@ -151,7 +151,7 @@ private fun MemberTabContent(
                             MemberAvatarCard(
                                 member = Member(
                                     id = 0,
-                                    avatar = painterResource(R.drawable.presentation_char_head_unknown),
+                                    avatar = painterResource(UiRes.drawable.img_char_head_unknown),
                                     name = stringResource(R.string.presentation_member_detail_member_section_invite),
                                     backgroundColor = AikuColors.Gray02,
                                 ),
@@ -195,7 +195,7 @@ private fun ScheduleTabContent(
 
             is GroupScheduleUiState.Success -> {
                 if (groupScheduleUiState.isEmpty()) {
-                    EmptyStateCard(
+                    EmptyPlaceholder(
                         title = stringResource(R.string.presentation_member_detail_schedule_section_empty_title),
                         buttonText = stringResource(R.string.presentation_member_detail_schedule_section_empty_button),
                         onClickButton = onCreateSchedule,
@@ -232,6 +232,17 @@ private fun ScheduleTabContent(
             }
         }
     }
+}
+
+@Composable
+fun GroupScheduleCard(
+    onClick: () -> Unit,
+    scheduleName: String,
+    location: String,
+    time: Long,
+    scheduleStatus: ScheduleStatus
+) {
+    TODO("Not yet implemented")
 }
 
 @Composable
@@ -309,31 +320,31 @@ private fun GroupDetailScreenMemberTabPreview() {
         val members = listOf(
             Member(
                 id = 1,
-                avatar = painterResource(R.drawable.presentation_char_head_boy),
+                avatar = painterResource(UiRes.drawable.img_char_head_boy),
                 name = "사용자1",
                 backgroundColor = AikuColors.Green05,
             ),
             Member(
                 id = 2,
-                avatar = painterResource(R.drawable.presentation_char_head_baby),
+                avatar = painterResource(UiRes.drawable.img_char_head_baby),
                 name = "사용자2",
                 backgroundColor = AikuColors.Yellow05,
             ),
             Member(
                 id = 3,
-                avatar = painterResource(R.drawable.presentation_char_head_scratch),
+                avatar = painterResource(UiRes.drawable.img_char_head_scratch),
                 name = "abcdef",
                 backgroundColor = AikuColors.Purple05,
             ),
             Member(
                 id = 4,
-                avatar = painterResource(R.drawable.presentation_char_head_girl),
+                avatar = painterResource(UiRes.drawable.img_char_head_girl),
                 name = "ABCDEF",
                 backgroundColor = AikuColors.Yellow05,
             ),
             Member(
                 id = 5,
-                avatar = painterResource(R.drawable.presentation_char_head_baby),
+                avatar = painterResource(UiRes.drawable.img_char_head_baby),
                 name = "사용자5",
                 backgroundColor = AikuColors.Green05,
             ),

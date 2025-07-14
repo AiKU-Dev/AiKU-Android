@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.schedule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +27,7 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -48,7 +48,7 @@ val ScheduleStatus.color: Color
     }
 
 @Composable
-fun GroupScheduleCard(
+fun ScheduleCard(
     onClick: () -> Unit,
     scheduleName: String,
     location: String,
@@ -107,7 +107,7 @@ fun GroupScheduleCard(
                 ) {
                     Icon(
                         painter = AikuIcons.Location,
-                        contentDescription = stringResource(R.string.presentation_group_schedule_card_ic_location_description),
+                        contentDescription = stringResource(R.string.ic_location_description),
                         tint = AikuColors.Gray00
                     )
                     Text(
@@ -132,7 +132,7 @@ fun GroupScheduleCard(
 @Composable
 private fun GroupScheduleCardPreview() {
     AiKUTheme {
-        GroupScheduleCard(
+        ScheduleCard(
             onClick = {},
             scheduleName = "약속 이름",
             location = "홍대 입구역 1번 출구",

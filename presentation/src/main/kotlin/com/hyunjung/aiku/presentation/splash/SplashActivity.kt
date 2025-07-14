@@ -35,6 +35,7 @@ import com.hyunjung.aiku.presentation.R
 import com.hyunjung.aiku.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import com.hyunjung.aiku.core.ui.R as UiRes
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -108,20 +109,20 @@ fun SplashCharactersRow() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.presentation_char_1),
+            painter = painterResource(id = UiRes.drawable.img_char_1),
             contentDescription = "Character 1",
         )
         Image(
-            painter = painterResource(id = R.drawable.presentation_char_2),
+            painter = painterResource(id = UiRes.drawable.img_char_2),
             contentDescription = "Character 2",
 
             )
         Image(
-            painter = painterResource(id = R.drawable.presentation_char_3),
+            painter = painterResource(id = UiRes.drawable.img_char_3),
             contentDescription = "Character 3"
         )
         Image(
-            painter = painterResource(id = R.drawable.presentation_char_4),
+            painter = painterResource(id = UiRes.drawable.img_char_4),
             contentDescription = "Character 4",
         )
     }

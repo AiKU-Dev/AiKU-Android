@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.group
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,12 +30,12 @@ import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun HomeGroupOverviewCard(
+fun GroupOverviewCard(
     onClick: () -> Unit,
     groupName: String,
     time: LocalDateTime?,
@@ -44,7 +44,7 @@ fun HomeGroupOverviewCard(
 ) {
     val formatter = DateTimeFormatter.ofPattern("yy.MM.dd  HH:mm")
     val formattedTime =
-        time?.format(formatter) ?: stringResource(R.string.presentation_home_no_schedule)
+        time?.format(formatter) ?: stringResource(R.string.schedule_empty_message)
     AikuClickableSurface(
         onClick = onClick,
         shadowElevation = 4.dp,
@@ -79,7 +79,7 @@ fun HomeGroupOverviewCard(
                     Spacer(Modifier.height(4.dp))
                     Text(
                         text = stringResource(
-                            R.string.presentation_group_card_recent_schedule,
+                            R.string.group_card_recent_schedule,
                             formattedTime,
                         ),
                         style = AikuTypography.Body2,
@@ -89,8 +89,8 @@ fun HomeGroupOverviewCard(
                 Spacer(Modifier.weight(1f))
                 ProfileWithBadge(
                     memberSize = memberSize,
-                    avatar = painterResource(R.drawable.presentation_char_head_nohair),
-                    contentDescription = stringResource(R.string.presentation_char_head_no_hair_description)
+                    avatar = painterResource(R.drawable.img_char_head_nohair),
+                    contentDescription = stringResource(R.string.char_head_no_hair_description)
                 )
             }
         }
@@ -107,7 +107,7 @@ private fun ProfileWithBadge(
     contentDescription: String?,
 ) {
     val badgeLabel = if (memberSize >= 100) {
-        stringResource(R.string.presentation_group_card_badge_member_over_limit)
+        stringResource(R.string.group_card_badge_member_over_limit)
     } else {
         "$memberSize"
     }
@@ -149,7 +149,7 @@ private fun ProfileWithBadge(
 @Composable
 private fun GroupCardPreview() {
     AiKUTheme {
-        HomeGroupOverviewCard(
+        GroupOverviewCard(
             groupName = "그룹 1",
             time = null,
             onClick = {},

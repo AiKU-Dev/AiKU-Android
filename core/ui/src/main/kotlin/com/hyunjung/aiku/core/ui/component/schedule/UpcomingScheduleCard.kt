@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.schedule
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -24,12 +24,12 @@ import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun HomeScheduleCard(
+fun UpcomingScheduleCard(
     groupName: String,
     location: String,
     time: LocalDateTime,
@@ -40,8 +40,8 @@ fun HomeScheduleCard(
 
     // todo : 상태 표시를 위한 로직 개선 필요
     val statusLabel = stringResource(
-        if (isRunning) R.string.presentation_schedule_card_status_running
-        else R.string.presentation_schedule_card_status_waiting
+        if (isRunning) R.string.schedule_status_running
+        else R.string.schedule_status_waiting
     )
     val formatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
@@ -119,7 +119,7 @@ private fun ScheduleCardPreview() {
         Box(
             modifier = Modifier.padding(20.dp)
         ) {
-            HomeScheduleCard(
+            UpcomingScheduleCard(
                 onClick = {},
                 groupName = "가나다라마바사아자차카타파하",
                 location = "홍대입구역1번 출구 스타벅스 앞",

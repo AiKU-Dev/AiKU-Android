@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.ui
+package com.hyunjung.aiku.core.ui.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider

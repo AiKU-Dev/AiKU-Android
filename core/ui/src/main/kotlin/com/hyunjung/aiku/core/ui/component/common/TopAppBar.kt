@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.ui
+package com.hyunjung.aiku.core.ui.component.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
@@ -30,6 +29,7 @@ import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
+import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun AikuLogoTopAppBar(
@@ -185,7 +185,7 @@ private fun AikuAppBarPreview() {
 private fun NavigationAppBarPreview() {
     AikuPreviewTheme {
         AikuTopAppBarWithNavigation(
-            title = stringResource(android.R.string.untitled),
+            title = "<Untitled>",
             actions = {
                 AikuIconButton(
                     onClick = {},

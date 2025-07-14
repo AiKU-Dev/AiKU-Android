@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,8 +28,7 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
-import com.hyunjung.aiku.presentation.R
-import com.hyunjung.aiku.presentation.home.screen.GroupSchedule
+import com.hyunjung.aiku.core.ui.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -63,7 +62,7 @@ fun JoinScheduleDialog(
             ) {
                 TextWithLeadingIcon(
                     text = stringResource(
-                        R.string.presentation_member_detail_join_schedule_dialog_participant_format,
+                        R.string.join_schedule_dialog_participant_format,
                         schedule.hostName,
                         schedule.participantCount,
                     ),
@@ -80,7 +79,7 @@ fun JoinScheduleDialog(
             }
             Column {
                 Text(
-                    text = stringResource(R.string.presentation_member_detail_join_schedule_dialog_point_notice),
+                    text = stringResource(R.string.join_schedule_dialog_point_notice),
                     style = AikuTypography.Body2,
                     color = AikuColors.Red01,
                     modifier = Modifier.padding(8.dp)
@@ -93,7 +92,7 @@ fun JoinScheduleDialog(
                     contentPadding = PaddingValues(12.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.presentation_member_detail_join_schedule_dialog_button),
+                        text = stringResource(R.string.join_schedule_dialog_button),
                         style = AikuTypography.Body1_SemiBold,
                         color = AikuColors.White,
                     )
@@ -102,6 +101,16 @@ fun JoinScheduleDialog(
         }
     }
 }
+
+data class GroupSchedule(
+    val id: Long,
+    val hostName: String,
+    val scheduleName: String,
+    val location: String,
+    val participantCount: Int,
+    val scheduleStatus: ScheduleStatus,
+    val time: Long,
+)
 
 @Composable
 private fun TextWithLeadingIcon(

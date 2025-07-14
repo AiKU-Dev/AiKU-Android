@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.common
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -21,10 +21,10 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 
 @Composable
-fun EmptyStateCard(
+fun EmptyPlaceholder(
     title: String,
     buttonText: String,
     onClickButton: () -> Unit,
@@ -41,8 +41,8 @@ fun EmptyStateCard(
             color = AikuColors.Typo
         )
         Image(
-            painter = painterResource(R.drawable.presentation_char_running_boy),
-            contentDescription = stringResource(R.string.presentation_char_running_boy_description),
+            painter = painterResource(R.drawable.img_char_running_boy),
+            contentDescription = stringResource(R.string.char_running_boy_description),
             modifier = Modifier.padding(16.dp)
         )
         AikuButton(
@@ -74,9 +74,9 @@ fun EmptyStateCard(
 @Composable
 private fun EmptyStateCardPreview() {
     AiKUTheme {
-        EmptyStateCard(
-            title = stringResource(R.string.presentation_home_no_group),
-            buttonText = stringResource(R.string.presentation_home_no_group_button),
+        EmptyPlaceholder(
+            title = stringResource(R.string.group_empty_message),
+            buttonText = stringResource(R.string.group_empty_button),
             onClickButton = {},
         )
     }

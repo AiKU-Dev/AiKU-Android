@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -42,26 +42,27 @@ import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
+import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
+import com.hyunjung.aiku.core.ui.component.dialog.CreateGroupDialog
+import com.hyunjung.aiku.core.ui.component.group.GroupOverviewCard
+import com.hyunjung.aiku.core.ui.component.schedule.UpcomingScheduleCard
+import com.hyunjung.aiku.core.ui.component.schedule.UpcomingSchedulePlaceholder
 import com.hyunjung.aiku.presentation.R
-import com.hyunjung.aiku.presentation.home.component.CreateGroupDialog
-import com.hyunjung.aiku.presentation.home.component.EmptyScheduleCard
-import com.hyunjung.aiku.presentation.home.component.EmptyStateCard
-import com.hyunjung.aiku.presentation.home.component.HomeGroupOverviewCard
-import com.hyunjung.aiku.presentation.home.component.HomeScheduleCard
 import com.hyunjung.aiku.presentation.home.model.HomeGroupUiState
 import com.hyunjung.aiku.presentation.home.model.HomeScheduleUiState
 import com.hyunjung.aiku.presentation.home.viewmodel.HomeViewModel
-import com.hyunjung.aiku.presentation.ui.AikuLogoTopAppBar
-import com.hyunjung.aiku.presentation.ui.AikuNavigationBar
-import com.hyunjung.aiku.presentation.ui.AikuNavigationBarDefaults
-import com.hyunjung.aiku.presentation.ui.AikuPreviewTheme
-import com.hyunjung.aiku.presentation.ui.AikuTopAppBarDefaults
+import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
+import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
+import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBarDefaults
+import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
+import com.hyunjung.aiku.core.ui.component.common.AikuTopAppBarDefaults
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import com.hyunjung.aiku.core.ui.R as UiRes
 
 private const val Threshold = 5
 
@@ -135,7 +136,7 @@ fun HomeContent(
                 ),
         ) {
             TodaySchedulesSection(
-                title = stringResource(R.string.presentation_home_schedule_title),
+                title = stringResource(R.string.feature_home_schedule_title),
                 todaySchedules = todaySchedules,
                 homeScheduleUiState = scheduleUiState,
                 onScheduleClick = { groupId, scheduleId ->
@@ -145,7 +146,7 @@ fun HomeContent(
             )
             Spacer(Modifier.height(24.dp))
             GroupOverviewsSection(
-                title = stringResource(R.string.presentation_home_group_title, userNickname),
+                title = stringResource(R.string.feature_home_group_title, userNickname),
                 groups = groups,
                 groupUiState = groupUiState,
                 onGroupClick = {
@@ -184,7 +185,7 @@ fun HomeContent(
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Add,
-                    contentDescription = stringResource(R.string.presentation_home_fab_add_group),
+                    contentDescription = stringResource(R.string.feature_home_fab_add_group),
                     modifier = Modifier
                         .size(36.dp)
                 )
@@ -234,7 +235,7 @@ private fun TodaySchedulesSection(
         )
         Spacer(Modifier.height(12.dp))
         if (todaySchedules.isEmpty()) {
-            EmptyScheduleCard()
+            UpcomingSchedulePlaceholder()
         } else {
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -243,7 +244,7 @@ private fun TodaySchedulesSection(
                     items = todaySchedules,
                     key = { it.scheduleId }
                 ) { schedule ->
-                    HomeScheduleCard(
+                    UpcomingScheduleCard(
                         groupName = schedule.groupName,
                         location = schedule.location.locationName,
                         isRunning = schedule.scheduleStatus == ScheduleStatus.RUNNING,
@@ -290,9 +291,9 @@ private fun GroupOverviewsSection(
         )
         Spacer(Modifier.height(12.dp))
         if (groups.isEmpty()) {
-            EmptyStateCard(
-                title = stringResource(R.string.presentation_group_empty_message),
-                buttonText = stringResource(R.string.presentation_home_no_group_button),
+            EmptyPlaceholder(
+                title = stringResource(UiRes.string.group_empty_message),
+                buttonText = stringResource(UiRes.string.group_empty_button),
                 onClickButton = onOpenCreateGroupDialog,
                 modifier = Modifier.fillMaxSize()
             )
@@ -305,7 +306,7 @@ private fun GroupOverviewsSection(
                     items = groups,
                     key = { it.groupId }
                 ) { group ->
-                    HomeGroupOverviewCard(
+                    GroupOverviewCard(
                         groupName = group.groupName,
                         time = group.lastScheduleTime,
                         onClick = { onGroupClick(group.groupId) },

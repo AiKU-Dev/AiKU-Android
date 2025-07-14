@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.ui
+package com.hyunjung.aiku.core.ui.component.common
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -39,6 +39,7 @@ import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
+import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 
 @Composable

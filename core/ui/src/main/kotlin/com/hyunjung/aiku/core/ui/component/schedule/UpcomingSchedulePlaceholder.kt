@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.presentation.home.component
+package com.hyunjung.aiku.core.ui.component.schedule
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -24,10 +24,10 @@ import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
-import com.hyunjung.aiku.presentation.R
+import com.hyunjung.aiku.core.ui.R
 
 @Composable
-fun EmptyScheduleCard(
+fun UpcomingSchedulePlaceholder(
     modifier: Modifier = Modifier
 ) {
     DashBorderSurface(
@@ -38,7 +38,8 @@ fun EmptyScheduleCard(
         ),
         modifier = modifier.size(
             width = 140.dp,
-            height = 130.dp),
+            height = 130.dp
+        ),
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -46,12 +47,12 @@ fun EmptyScheduleCard(
         ) {
             Image(
                 modifier = Modifier.size(48.dp),
-                painter = painterResource(id = R.drawable.presentation_char_head_unknown),
-                contentDescription = stringResource(id = R.string.presentation_char_head_unknown_description)
+                painter = painterResource(id = R.drawable.img_char_head_unknown),
+                contentDescription = stringResource(id = R.string.char_head_unknown_description)
             )
             Text(
                 modifier = Modifier.padding(top = 4.dp),
-                text = stringResource(id = R.string.presentation_home_no_schedule),
+                text = stringResource(id = R.string.schedule_empty_message),
                 style = AikuTypography.Caption1_Medium
             )
         }
@@ -94,7 +95,7 @@ private fun EmptyScheduleCardPreview() {
         Box(
             modifier = Modifier.padding(20.dp)
         ) {
-            EmptyScheduleCard()
+            UpcomingSchedulePlaceholder()
         }
     }
 }
