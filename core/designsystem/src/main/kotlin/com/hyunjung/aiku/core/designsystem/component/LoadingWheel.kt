@@ -31,7 +31,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import kotlinx.coroutines.launch
 
 @Composable
@@ -67,8 +66,8 @@ fun AikuLoadingWheel(
         label = "wheel rotation animation",
     )
 
-    val baseLineColor = AikuColors.Green05
-    val progressLineColor = AikuColors.White
+    val baseLineColor = AiKUTheme.colors.green05
+    val progressLineColor = AiKUTheme.colors.white
 
     val colorAnimValues = (0 until NUM_OF_LINES).map { index ->
         infiniteTransition.animateColor(

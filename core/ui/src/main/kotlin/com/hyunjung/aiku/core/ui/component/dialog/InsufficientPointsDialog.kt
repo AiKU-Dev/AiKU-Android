@@ -26,7 +26,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
@@ -42,7 +41,7 @@ fun InsufficientPointsDialog(
         Column(
             modifier = Modifier
                 .background(
-                    color = AikuColors.White,
+                    color = AiKUTheme.colors.white,
                     shape = RoundedCornerShape(10.dp),
                 )
                 .padding(16.dp),
@@ -51,13 +50,13 @@ fun InsufficientPointsDialog(
             Text(
                 text = stringResource(R.string.insufficient_points_dialog_title),
                 style = AikuTypography.Subtitle1,
-                color = AikuColors.Typo,
+                color = AiKUTheme.colors.typo,
             )
             Text(
                 text = stringResource(R.string.insufficient_points_dialog_message),
                 textAlign = TextAlign.Center,
                 style = AikuTypography.Caption1_Medium,
-                color = AikuColors.Typo,
+                color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(top = 12.dp),
             )
             Column(
@@ -69,11 +68,11 @@ fun InsufficientPointsDialog(
                 Text(
                     text = stringResource(R.string.insufficient_points_dialog_current_points_label),
                     style = AikuTypography.Caption1_Medium,
-                    color = AikuColors.Typo,
+                    color = AiKUTheme.colors.typo,
                 )
                 AikuSurface(
                     shape = RoundedCornerShape(16.dp),
-                    border = BorderStroke(width = 2.dp, color = AikuColors.CobaltBlue),
+                    border = BorderStroke(width = 2.dp, color = AiKUTheme.colors.cobaltBlue),
                     modifier = Modifier.padding(top = 8.dp)
                 ) {
                     Row(
@@ -90,7 +89,7 @@ fun InsufficientPointsDialog(
                         Text(
                             text = stringResource(R.string.point_unit, points),
                             style = textStyle,
-                            color = AikuColors.CobaltBlue,
+                            color = AiKUTheme.colors.cobaltBlue,
                         )
                     }
                 }

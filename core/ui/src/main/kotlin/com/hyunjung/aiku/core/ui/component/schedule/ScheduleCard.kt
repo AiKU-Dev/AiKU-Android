@@ -17,14 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
@@ -39,14 +37,6 @@ val ScheduleStatus.label: String
         ScheduleStatus.TERMINATED -> "종료"
     }
 
-val ScheduleStatus.color: Color
-    get() = when (this) {
-        ScheduleStatus.WAITING -> AikuColors.Purple05
-        ScheduleStatus.RUNNING -> AikuColors.Green05
-        ScheduleStatus.BEFORE_JOIN -> AikuColors.Yellow05
-        ScheduleStatus.TERMINATED -> AikuColors.Gray03
-    }
-
 @Composable
 fun ScheduleCard(
     onClick: () -> Unit,
@@ -57,9 +47,16 @@ fun ScheduleCard(
     modifier: Modifier = Modifier
 ) {
     val formatter = remember { SimpleDateFormat("yyyy. MM. dd E | a hh:mm", Locale.KOREAN) }
+
+    val scheduleStatusColor = when (scheduleStatus) {
+        ScheduleStatus.WAITING -> AiKUTheme.colors.purple05
+        ScheduleStatus.RUNNING -> AiKUTheme.colors.green05
+        ScheduleStatus.BEFORE_JOIN -> AiKUTheme.colors.yellow05
+        ScheduleStatus.TERMINATED -> AiKUTheme.colors.gray03
+    }
     AikuClickableSurface(
         onClick = onClick,
-        color = AikuColors.White,
+        color = AiKUTheme.colors.white,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp),
         modifier = modifier,
@@ -71,7 +68,7 @@ fun ScheduleCard(
         ) {
             VerticalDivider(
                 thickness = 8.dp,
-                color = scheduleStatus.color,
+                color = scheduleStatusColor,
             )
             Column(
                 modifier = Modifier.padding(12.dp)
@@ -88,10 +85,10 @@ fun ScheduleCard(
                     Text(
                         text = scheduleStatus.label,
                         style = AikuTypography.Caption1_SemiBold,
-                        color = AikuColors.White,
+                        color = AiKUTheme.colors.white,
                         modifier = Modifier
                             .background(
-                                color = scheduleStatus.color,
+                                color = scheduleStatusColor,
                                 shape = RoundedCornerShape(30.dp)
                             )
                             .padding(
@@ -108,7 +105,7 @@ fun ScheduleCard(
                     Icon(
                         painter = AikuIcons.Location,
                         contentDescription = stringResource(R.string.ic_location_description),
-                        tint = AikuColors.Gray00
+                        tint = AiKUTheme.colors.gray00
                     )
                     Text(
                         text = location,
@@ -116,7 +113,7 @@ fun ScheduleCard(
                     )
                 }
                 HorizontalDivider(
-                    color = AikuColors.Gray02,
+                    color = AiKUTheme.colors.gray02,
                     modifier = Modifier.padding(vertical = 12.dp)
                 )
                 Text(

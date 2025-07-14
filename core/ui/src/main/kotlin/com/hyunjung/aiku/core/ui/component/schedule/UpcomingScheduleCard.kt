@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
@@ -54,7 +53,7 @@ fun UpcomingScheduleCard(
         onClick = onClick,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(10.dp),
-        color = if (isRunning) AikuColors.Green05 else AikuColors.Purple05
+        color = if (isRunning) AiKUTheme.colors.green05 else AiKUTheme.colors.purple05
     ) {
         val fontScale = LocalDensity.current.fontScale
         val maxScale = 1.3f
@@ -74,7 +73,7 @@ fun UpcomingScheduleCard(
                 Text(
                     text = groupName,
                     style = AikuTypography.Caption1,
-                    color = AikuColors.Gray04,
+                    color = AiKUTheme.colors.gray04,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -93,13 +92,13 @@ fun UpcomingScheduleCard(
                     shape = RoundedCornerShape(10.dp),
                     border = BorderStroke(
                         width = 1.dp,
-                        color = AikuColors.White
+                        color = AiKUTheme.colors.white
                     ),
                 ) {
                     Text(
                         text = statusLabel,
                         style = AikuTypography.Caption1_SemiBold,
-                        color = AikuColors.White,
+                        color = AiKUTheme.colors.white,
                         modifier = Modifier.padding(
                             horizontal = 8.dp,
                             vertical = 4.dp

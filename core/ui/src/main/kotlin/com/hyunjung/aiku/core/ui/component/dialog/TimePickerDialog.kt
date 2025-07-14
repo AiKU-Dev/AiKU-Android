@@ -29,7 +29,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.util.Calendar
@@ -69,7 +68,7 @@ fun TimePickerDialog(
             modifier = modifier
                 .fillMaxWidth()
                 .background(
-                    color = AikuColors.White,
+                    color = AiKUTheme.colors.white,
                     shape = RoundedCornerShape(10.dp),
                 )
                 .padding(vertical = 20.dp)
@@ -91,7 +90,7 @@ fun TimePickerDialog(
                 )
                 VerticalDivider(
                     modifier = Modifier.height(itemHeight),
-                    color = AikuColors.Typo
+                    color = AiKUTheme.colors.typo
                 )
                 Picker(
                     items = hourRange,
@@ -106,7 +105,7 @@ fun TimePickerDialog(
                 )
                 VerticalDivider(
                     modifier = Modifier.height(itemHeight),
-                    color = AikuColors.Typo
+                    color = AiKUTheme.colors.typo
                 )
                 Picker(
                     items = minRange,

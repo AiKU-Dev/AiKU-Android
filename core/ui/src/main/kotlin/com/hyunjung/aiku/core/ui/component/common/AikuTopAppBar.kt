@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
@@ -36,7 +36,7 @@ fun AikuLogoTopAppBar(
     modifier: Modifier = Modifier,
     title: String = "AiKU",
     colors: AikuTopAppBarColors = AikuTopAppBarDefaults.topAppBarColors(
-        titleContentColor = AikuColors.CobaltBlue,
+        titleContentColor = AiKUTheme.colors.cobaltBlue,
     ),
 ) {
     val composeNavigator = currentComposeNavigator
@@ -207,17 +207,12 @@ object AikuTopAppBarDefaults {
     val ActionsSpacing: Dp = 4.dp
     val TopAppBarHeight: Dp = 52.dp
 
-    val TitleContentColor: Color = AikuColors.Typo
-    val ContainerColor: Color = AikuColors.Gray01
-    val ActionIconContentColor: Color = Color.Unspecified
-    val NavigationIconContentColor: Color = AikuColors.Gray04
-
     @Composable
     fun topAppBarColors(
-        containerColor: Color = ContainerColor,
-        titleContentColor: Color = TitleContentColor,
-        actionIconContentColor: Color = ActionIconContentColor,
-        navigationIconContentColor: Color = NavigationIconContentColor
+        containerColor: Color = AiKUTheme.colors.gray01,
+        titleContentColor: Color = AiKUTheme.colors.typo,
+        actionIconContentColor: Color = Color.Unspecified,
+        navigationIconContentColor: Color = AiKUTheme.colors.gray04
     ): AikuTopAppBarColors = AikuTopAppBarColors(
         containerColor = containerColor,
         titleColor = titleContentColor,

@@ -22,7 +22,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
@@ -38,7 +37,7 @@ fun CreateGroupDialog(
         Column(
             modifier = Modifier
                 .background(
-                    color = AikuColors.White,
+                    color = AiKUTheme.colors.white,
                     shape = RoundedCornerShape(10.dp),
                 )
                 .padding(16.dp),

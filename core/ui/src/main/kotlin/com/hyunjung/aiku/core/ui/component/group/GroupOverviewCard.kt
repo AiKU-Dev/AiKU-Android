@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
@@ -49,7 +48,7 @@ fun GroupOverviewCard(
         onClick = onClick,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(10.dp),
-        color = AikuColors.White,
+        color = AiKUTheme.colors.white,
         modifier = modifier
             .fillMaxWidth()
     ) {
@@ -72,7 +71,7 @@ fun GroupOverviewCard(
                     Text(
                         text = groupName,
                         style = AikuTypography.Body1_SemiBold,
-                        color = AikuColors.Typo,
+                        color = AiKUTheme.colors.typo,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -83,7 +82,7 @@ fun GroupOverviewCard(
                             formattedTime,
                         ),
                         style = AikuTypography.Body2,
-                        color = AikuColors.Typo
+                        color = AiKUTheme.colors.typo
                     )
                 }
                 Spacer(Modifier.weight(1f))
@@ -118,7 +117,7 @@ private fun ProfileWithBadge(
             modifier = Modifier
                 .size(50.dp)
                 .background(
-                    color = AikuColors.Gray02,
+                    color = AiKUTheme.colors.gray02,
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -132,11 +131,11 @@ private fun ProfileWithBadge(
         Text(
             text = badgeLabel,
             style = AikuTypography.Caption1_Medium,
-            color = AikuColors.White,
+            color = AiKUTheme.colors.white,
             modifier = Modifier
                 .offset(x = 40.dp, y = 4.dp)
                 .background(
-                    color = AikuColors.Gray06,
+                    color = AiKUTheme.colors.gray06,
                     shape = RoundedCornerShape(20.dp)
                 )
                 .padding(horizontal = 4.dp)

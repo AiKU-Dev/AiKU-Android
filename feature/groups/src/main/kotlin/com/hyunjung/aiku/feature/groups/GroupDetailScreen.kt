@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.component.common.AikuTabs
@@ -152,7 +151,7 @@ private fun MemberTabContent(
                                     id = 0,
                                     avatar = painterResource(UiRes.drawable.img_char_head_unknown),
                                     name = stringResource(R.string.group_detail_member_section_invite),
-                                    backgroundColor = AikuColors.Gray02,
+                                    backgroundColor = AiKUTheme.colors.gray02,
                                 ),
                                 contentDescription = stringResource(R.string.group_detail_member_section_invite),
                                 onClick = onInviteClick,
@@ -213,7 +212,7 @@ private fun ScheduleTabContent(
                                     groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
                                 ),
                                 style = AikuTypography.Caption1_SemiBold,
-                                color = AikuColors.Typo,
+                                color = AiKUTheme.colors.typo,
                             )
                         }
                         items(
@@ -272,7 +271,7 @@ private fun MemberAvatarCard(
             Text(
                 text = member.name,
                 style = AikuTypography.Body2_SemiBold,
-                color = AikuColors.Typo,
+                color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
@@ -321,31 +320,31 @@ private fun GroupDetailScreenMemberTabPreview() {
                 id = 1,
                 avatar = painterResource(UiRes.drawable.img_char_head_boy),
                 name = "사용자1",
-                backgroundColor = AikuColors.Green05,
+                backgroundColor = AiKUTheme.colors.green05,
             ),
             Member(
                 id = 2,
                 avatar = painterResource(UiRes.drawable.img_char_head_baby),
                 name = "사용자2",
-                backgroundColor = AikuColors.Yellow05,
+                backgroundColor = AiKUTheme.colors.yellow05,
             ),
             Member(
                 id = 3,
                 avatar = painterResource(UiRes.drawable.img_char_head_scratch),
                 name = "abcdef",
-                backgroundColor = AikuColors.Purple05,
+                backgroundColor = AiKUTheme.colors.purple05,
             ),
             Member(
                 id = 4,
                 avatar = painterResource(UiRes.drawable.img_char_head_girl),
                 name = "ABCDEF",
-                backgroundColor = AikuColors.Yellow05,
+                backgroundColor = AiKUTheme.colors.yellow05,
             ),
             Member(
                 id = 5,
                 avatar = painterResource(UiRes.drawable.img_char_head_baby),
                 name = "사용자5",
-                backgroundColor = AikuColors.Green05,
+                backgroundColor = AiKUTheme.colors.green05,
             ),
 
             )

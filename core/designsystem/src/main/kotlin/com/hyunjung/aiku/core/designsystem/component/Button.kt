@@ -29,7 +29,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 
 @Composable
@@ -137,10 +136,10 @@ object AikuButtonDefaults {
 
     @Composable
     fun buttonColors(
-        containerColor: Color = AikuColors.Green05,
-        contentColor: Color = AikuColors.White,
-        disabledContainerColor: Color = AikuColors.Gray02,
-        disabledContentColor: Color = AikuColors.White
+        containerColor: Color = AiKUTheme.colors.green05,
+        contentColor: Color = AiKUTheme.colors.white,
+        disabledContainerColor: Color = AiKUTheme.colors.gray02,
+        disabledContentColor: Color = AiKUTheme.colors.white
     ): ButtonColors {
         return ButtonDefaults.buttonColors(
             containerColor = containerColor,

@@ -31,7 +31,6 @@ import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextFi
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.component.dialog.DatePickerDialog
 import com.hyunjung.aiku.core.ui.component.dialog.TimePickerDialog
@@ -109,7 +108,7 @@ fun CreateGroupScheduleScreen(
                     maxLength = 15,
                     placeholder = stringResource(R.string.create_group_schedule_name_placeholder),
                     showIndicator = false,
-                    colors = AikuTextFieldDefaults.colors(containerColor = AikuColors.Gray01),
+                    colors = AikuTextFieldDefaults.colors(containerColor = AiKUTheme.colors.gray01),
                     shape = RoundedCornerShape(8.dp),
                     contentPadding = PaddingValues(ScheduleFormPadding),
                     isError = nameValidationError != ScheduleNameValidationError.NONE,
@@ -159,8 +158,8 @@ fun CreateGroupScheduleScreen(
                     contentPadding = PaddingValues(16.dp),
                     modifier = Modifier.fillMaxWidth(),
                     colors = AikuButtonDefaults.buttonColors(
-                        containerColor = AikuColors.Gray01,
-                        contentColor = AikuColors.Gray03,
+                        containerColor = AiKUTheme.colors.gray01,
+                        contentColor = AiKUTheme.colors.gray03,
                     )
                 ) {
                     Box(Modifier.fillMaxWidth()) {
@@ -207,7 +206,7 @@ private fun ScheduleForm(
         Text(
             text = title,
             style = AikuTypography.Subtitle2,
-            color = AikuColors.Typo,
+            color = AiKUTheme.colors.typo,
             modifier = Modifier.padding(bottom = 12.dp)
         )
         content()
@@ -215,7 +214,7 @@ private fun ScheduleForm(
             Text(
                 text = it,
                 style = AikuTypography.Caption1,
-                color = AikuColors.Typo,
+                color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
             )
         }
@@ -237,8 +236,8 @@ private fun ScheduleDropdownSelector(
         contentPadding = PaddingValues(16.dp),
         modifier = modifier,
         colors = AikuButtonDefaults.buttonColors(
-            containerColor = AikuColors.Gray01,
-            contentColor = AikuColors.Gray03,
+            containerColor = AiKUTheme.colors.gray01,
+            contentColor = AiKUTheme.colors.gray03,
         )
     ) {
         Box(Modifier.fillMaxWidth()) {

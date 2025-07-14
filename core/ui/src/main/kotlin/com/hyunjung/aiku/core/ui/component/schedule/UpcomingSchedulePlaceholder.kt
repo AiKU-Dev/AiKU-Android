@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
@@ -33,7 +32,7 @@ fun UpcomingSchedulePlaceholder(
     DashBorderSurface(
         cornerRadius = 10.dp,
         border = BorderStroke(
-            color = AikuColors.Gray03,
+            color = AiKUTheme.colors.gray03,
             width = 1.dp
         ),
         modifier = modifier.size(

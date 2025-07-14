@@ -19,7 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import kotlinx.coroutines.delay
@@ -36,18 +36,18 @@ fun SplashScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(AikuColors.Green05),
+            .background(AiKUTheme.colors.green05),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = stringResource(R.string.app_title),
-                color = AikuColors.CobaltBlue,
+                color = AiKUTheme.colors.cobaltBlue,
                 style = AikuTypography.Subtitle4_G
             )
             Text(
                 text = stringResource(R.string.app_name),
-                color = AikuColors.CobaltBlue,
+                color = AiKUTheme.colors.cobaltBlue,
                 style = AikuTypography.Headline1_G
             )
             Spacer(modifier = Modifier.padding(24.dp))

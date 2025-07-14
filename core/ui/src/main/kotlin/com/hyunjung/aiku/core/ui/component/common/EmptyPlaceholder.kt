@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
@@ -38,7 +37,7 @@ fun EmptyPlaceholder(
         Text(
             text = title,
             style = AikuTypography.Subtitle3_G,
-            color = AikuColors.Typo
+            color = AiKUTheme.colors.typo
         )
         Image(
             painter = painterResource(R.drawable.img_char_running_boy),
@@ -52,19 +51,19 @@ fun EmptyPlaceholder(
                 minHeight = 38.dp
             ),
             colors = AikuButtonDefaults.buttonColors(
-                containerColor = AikuColors.Gray01,
+                containerColor = AiKUTheme.colors.gray01,
             ),
             shape = RoundedCornerShape(30.dp),
             contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
             border = BorderStroke(
-                color = AikuColors.CobaltBlue,
+                color = AiKUTheme.colors.cobaltBlue,
                 width = 2.dp
             )
         ) {
             Text(
                 text = buttonText,
                 style = AikuTypography.Body1_SemiBold,
-                color = AikuColors.CobaltBlue
+                color = AiKUTheme.colors.cobaltBlue
             )
         }
     }

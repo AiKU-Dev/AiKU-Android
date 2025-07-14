@@ -18,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 
 @Composable
@@ -31,13 +30,13 @@ fun AikuTabs(
     TabRow(
         selectedTabIndex = selectedIndex,
         containerColor = Color.Transparent,
-        contentColor = AikuColors.Typo,
+        contentColor = AiKUTheme.colors.typo,
         indicator = { tabPositions ->
             if (selectedIndex < tabPositions.size) {
                 TabRowDefaults.AikuIndicator(
                     height = 4.dp,
                     shape = RoundedCornerShape(2.dp),
-                    color = AikuColors.Green05,
+                    color = AiKUTheme.colors.green05,
                     modifier = Modifier
                         .tabIndicatorOffset(tabPositions[selectedIndex])
                 )
@@ -50,7 +49,7 @@ fun AikuTabs(
             Tab(
                 selected = isSelected,
                 onClick = { if (!isSelected) onTabSelected(index) },
-                unselectedContentColor = AikuColors.Gray03,
+                unselectedContentColor = AiKUTheme.colors.gray03,
                 modifier = Modifier.padding(bottom = 12.dp)
             ) {
                 Text(
@@ -65,7 +64,7 @@ fun AikuTabs(
 @Composable
 private fun TabRowDefaults.AikuIndicator(
     modifier: Modifier = Modifier,
-    color: Color = AikuColors.Green05,
+    color: Color = AiKUTheme.colors.green05,
     shape: RoundedCornerShape = RoundedCornerShape(2.dp),
     height: Dp = 4.dp
 ) {

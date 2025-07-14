@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 
 
 @Composable
@@ -25,7 +25,7 @@ fun AikuDialog(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = AikuColors.Gray06.copy(alpha = 0.5f))
+                .background(color = AiKUTheme.colors.gray06.copy(alpha = 0.5f))
                 .padding(32.dp),
             contentAlignment = Alignment.Center
         ) {

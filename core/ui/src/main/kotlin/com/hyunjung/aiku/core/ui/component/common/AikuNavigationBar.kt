@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
@@ -62,8 +62,9 @@ fun AikuNavigationBar(
         AikuIcons.Account,
     )
 
+    val borderColor = AiKUTheme.colors.gray02
     AikuSurface(
-        color = AikuColors.Gray01,
+        color = AiKUTheme.colors.gray01,
         modifier = modifier
     ) {
         Row(
@@ -75,7 +76,7 @@ fun AikuNavigationBar(
                     .selectableGroup()
                     .drawBehind {
                         drawLine(
-                            color = AikuColors.Gray02,
+                            color = borderColor,
                             start = Offset(0f, 0f),
                             end = Offset(size.width, 0f),
                             strokeWidth = 1.dp.toPx()
@@ -117,7 +118,7 @@ private fun RowScope.AikuNavigationBarItem(
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
 
     val color by animateColorAsState(
-        targetValue = if (selected) AikuColors.Green05 else AikuColors.Gray03,
+        targetValue = if (selected) AiKUTheme.colors.green05 else AiKUTheme.colors.gray03,
         animationSpec = tween(AikuNavigationBarDefaults.ITEM_ANIMATION_DURATION_MILLIS)
     )
 

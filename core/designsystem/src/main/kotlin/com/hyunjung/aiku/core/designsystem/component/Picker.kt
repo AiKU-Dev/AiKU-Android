@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapNotNull
@@ -133,8 +132,8 @@ fun <T> Picker(
                             textStyle.fontWeight
                         },
                         color = lerp(
-                            AikuColors.Typo,
-                            AikuColors.Gray03,
+                            AiKUTheme.colors.typo,
+                            AiKUTheme.colors.gray03,
                             fraction
                         )
                     ),

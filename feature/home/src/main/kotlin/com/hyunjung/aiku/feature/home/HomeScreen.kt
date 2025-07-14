@@ -34,7 +34,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.Location
@@ -116,7 +116,7 @@ fun HomeContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(color = AikuColors.Gray01),
+            .background(color = AiKUTheme.colors.gray01),
     ) {
         AikuLogoTopAppBar(
             modifier = Modifier.align(Alignment.TopStart),
@@ -175,7 +175,7 @@ fun HomeContent(
                 shape = CircleShape,
                 shadowElevation = 8.dp,
                 colors = AikuButtonDefaults.buttonColors(
-                    containerColor = AikuColors.CobaltBlue
+                    containerColor = AiKUTheme.colors.cobaltBlue
                 ),
                 contentPadding = PaddingValues(12.dp),
             ) {
@@ -221,13 +221,13 @@ private fun TodaySchedulesSection(
         Text(
             text = today,
             style = AikuTypography.Subtitle2_G,
-            color = AikuColors.Typo
+            color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(8.dp))
         Text(
             text = title,
             style = AikuTypography.Body2,
-            color = AikuColors.Typo
+            color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(12.dp))
         if (todaySchedules.isEmpty()) {
@@ -283,7 +283,7 @@ private fun GroupOverviewsSection(
         Text(
             text = title,
             style = AikuTypography.Subtitle4_G,
-            color = AikuColors.Typo
+            color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(12.dp))
         if (groups.isEmpty()) {
