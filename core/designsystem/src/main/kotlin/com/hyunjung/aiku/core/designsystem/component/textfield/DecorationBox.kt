@@ -36,7 +36,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 
 private const val PlaceholderAnimationDuration = 83
 private const val PlaceholderAnimationDelay = 67
@@ -124,7 +124,7 @@ internal fun AikuDecorationBox(
                 Box(Modifier.graphicsLayer { alpha = placeholderOpacity.value }) {
                     Decoration(
                         contentColor = colors.placeholderColor,
-                        textStyle = AikuTypography.Body1,
+                        textStyle = AiKUTheme.typography.body1,
                         content = placeholder
                     )
                 }
@@ -156,7 +156,7 @@ internal fun AikuDecorationBox(
             @Composable {
                 Decoration(
                     contentColor = colors.supportingColor(isError),
-                    textStyle = AikuTypography.Caption1,
+                    textStyle = AiKUTheme.typography.caption1,
                     content = it
                 )
             }
@@ -223,7 +223,7 @@ private fun AikuTextFieldLayer(
     paddingValues: PaddingValues,
     containerColor: Color,
 ) {
-    Column{
+    Column {
         AikuSurface(
             shape = shape,
             color = containerColor,

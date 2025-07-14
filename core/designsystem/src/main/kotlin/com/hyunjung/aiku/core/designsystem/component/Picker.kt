@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapNotNull
 import kotlin.math.abs
@@ -40,8 +39,8 @@ fun <T> Picker(
     modifier: Modifier = Modifier,
     startIndex: Int = 0,
     visibleItemsCount: Int = 3,
-    textStyle: TextStyle = AikuTypography.Subtitle3,
-    selectedTextStyle: TextStyle = AikuTypography.Subtitle2,
+    textStyle: TextStyle = AiKUTheme.typography.subtitle3,
+    selectedTextStyle: TextStyle = AiKUTheme.typography.subtitle2,
     itemPadding: PaddingValues = PaddingValues(8.dp),
     isInfinity: Boolean = false
 ) {

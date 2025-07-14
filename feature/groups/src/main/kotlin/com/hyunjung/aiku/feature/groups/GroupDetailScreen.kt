@@ -30,10 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.component.common.AikuTabs
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
+import com.hyunjung.aiku.core.ui.component.schedule.ScheduleCard
 import com.hyunjung.aiku.core.ui.R as UiRes
 
 enum class GroupDetailTab(val label: String) {
@@ -211,13 +211,13 @@ private fun ScheduleTabContent(
                                     groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
                                     groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
                                 ),
-                                style = AikuTypography.Caption1_SemiBold,
+                                style = AiKUTheme.typography.caption1SemiBold,
                                 color = AiKUTheme.colors.typo,
                             )
                         }
                         items(
                             items = groupScheduleUiState.schedules, key = { it.id }) {
-                            GroupScheduleCard(
+                            ScheduleCard(
                                 onClick = { onScheduleClick(it.id) },
                                 scheduleName = it.scheduleName,
                                 location = it.location,
@@ -230,17 +230,6 @@ private fun ScheduleTabContent(
             }
         }
     }
-}
-
-@Composable
-fun GroupScheduleCard(
-    onClick: () -> Unit,
-    scheduleName: String,
-    location: String,
-    time: Long,
-    scheduleStatus: ScheduleStatus
-) {
-    TODO("Not yet implemented")
 }
 
 @Composable
@@ -270,7 +259,7 @@ private fun MemberAvatarCard(
             )
             Text(
                 text = member.name,
-                style = AikuTypography.Body2_SemiBold,
+                style = AiKUTheme.typography.body2SemiBold,
                 color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(top = 8.dp)
             )
@@ -292,7 +281,7 @@ private fun AdContainer(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "광고", style = AikuTypography.Subtitle3_G
+                text = "광고", style = AiKUTheme.typography.subtitle3G
             )
         }
     }

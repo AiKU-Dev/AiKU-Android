@@ -29,7 +29,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 
 @Composable
 fun AikuButton(
@@ -61,7 +60,7 @@ fun AikuButton(
     ) {
         ProvideContentColorTextStyle(
             contentColor = contentColor,
-            textStyle = AikuTypography.Subtitle3_SemiBold
+            textStyle = AiKUTheme.typography.subtitle3SemiBold
         ) {
             Row(
                 Modifier
@@ -99,7 +98,7 @@ private fun AikuButtonPreview() {
         ) {
             Text(
                 text = "내용 입력",
-                style = AikuTypography.Subtitle3_SemiBold
+                style = AiKUTheme.typography.subtitle3SemiBold
             )
         }
     }
@@ -117,7 +116,7 @@ private fun DisabledAikuButtonPreview() {
         ) {
             Text(
                 text = "내용 입력",
-                style = AikuTypography.Subtitle3_SemiBold
+                style = AiKUTheme.typography.subtitle3SemiBold
             )
         }
     }

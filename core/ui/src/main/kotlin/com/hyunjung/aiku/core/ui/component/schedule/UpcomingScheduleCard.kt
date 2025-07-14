@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -72,18 +71,18 @@ fun UpcomingScheduleCard(
             ) {
                 Text(
                     text = groupName,
-                    style = AikuTypography.Caption1,
+                    style = AiKUTheme.typography.caption1,
                     color = AiKUTheme.colors.gray04,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = formatter.format(time),
-                    style = AikuTypography.Subtitle3_SemiBold,
+                    style = AiKUTheme.typography.subtitle3SemiBold,
                 )
                 Text(
                     text = location,
-                    style = AikuTypography.Caption1_Medium,
+                    style = AiKUTheme.typography.caption1Medium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -97,7 +96,7 @@ fun UpcomingScheduleCard(
                 ) {
                     Text(
                         text = statusLabel,
-                        style = AikuTypography.Caption1_SemiBold,
+                        style = AiKUTheme.typography.caption1SemiBold,
                         color = AiKUTheme.colors.white,
                         modifier = Modifier.padding(
                             horizontal = 8.dp,

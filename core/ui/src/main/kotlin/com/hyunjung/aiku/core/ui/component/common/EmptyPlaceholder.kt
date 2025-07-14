@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
 @Composable
@@ -36,7 +35,7 @@ fun EmptyPlaceholder(
     ) {
         Text(
             text = title,
-            style = AikuTypography.Subtitle3_G,
+            style = AiKUTheme.typography.subtitle3G,
             color = AiKUTheme.colors.typo
         )
         Image(
@@ -62,7 +61,7 @@ fun EmptyPlaceholder(
         ) {
             Text(
                 text = buttonText,
-                style = AikuTypography.Body1_SemiBold,
+                style = AiKUTheme.typography.body1SemiBold,
                 color = AiKUTheme.colors.cobaltBlue
             )
         }

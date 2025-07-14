@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.R
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 
 @Composable
 fun AikuLimitedTextField(
@@ -30,7 +29,7 @@ fun AikuLimitedTextField(
     maxLength: Int,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    textStyle: TextStyle = AikuTypography.Body1,
+    textStyle: TextStyle = AiKUTheme.typography.body1,
     placeholder: String = "",
     supporting: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
@@ -57,7 +56,7 @@ fun AikuLimitedTextField(
         trailing = {
             Text(
                 text = "${value.length}/$maxLength",
-                style = AikuTypography.Caption1,
+                style = AiKUTheme.typography.caption1,
                 color = colors.trailingColor
             )
         },
@@ -85,7 +84,7 @@ fun AikuTextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = AikuTypography.Body1,
+    textStyle: TextStyle = AiKUTheme.typography.body1,
     placeholder: @Composable (() -> Unit)? = null,
     leading: @Composable (() -> Unit)? = null,
     trailing: @Composable (() -> Unit)? = null,
@@ -185,7 +184,7 @@ private fun AikuDefaultTextFiledPreview() {
             supporting = {
                 Text(
                     text = "supportingText",
-                    style = AikuTypography.Caption1
+                    style = AiKUTheme.typography.caption1
                 )
             },
             placeholder = {
@@ -208,7 +207,7 @@ private fun AikuErrorDefaultTextFiledPreview() {
             supporting = {
                 Text(
                     text = "특수문자는 입력 불가합니다",
-                    style = AikuTypography.Caption1
+                    style = AiKUTheme.typography.caption1
                 )
             },
             placeholder = { Text(text = "placeholder") },

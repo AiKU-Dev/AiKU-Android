@@ -26,7 +26,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
 @Composable
@@ -49,13 +48,13 @@ fun InsufficientPointsDialog(
         ) {
             Text(
                 text = stringResource(R.string.insufficient_points_dialog_title),
-                style = AikuTypography.Subtitle1,
+                style = AiKUTheme.typography.subtitle1,
                 color = AiKUTheme.colors.typo,
             )
             Text(
                 text = stringResource(R.string.insufficient_points_dialog_message),
                 textAlign = TextAlign.Center,
-                style = AikuTypography.Caption1_Medium,
+                style = AiKUTheme.typography.caption1Medium,
                 color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(top = 12.dp),
             )
@@ -63,11 +62,11 @@ fun InsufficientPointsDialog(
                 modifier = Modifier.padding(top = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val textStyle = AikuTypography.Body2_SemiBold
+                val textStyle = AiKUTheme.typography.body2SemiBold
                 val iconSize = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
                 Text(
                     text = stringResource(R.string.insufficient_points_dialog_current_points_label),
-                    style = AikuTypography.Caption1_Medium,
+                    style = AiKUTheme.typography.caption1Medium,
                     color = AiKUTheme.colors.typo,
                 )
                 AikuSurface(
@@ -104,7 +103,7 @@ fun InsufficientPointsDialog(
             ) {
                 Text(
                     text = stringResource(R.string.insufficient_points_dialog_button),
-                    style = AikuTypography.Body1_SemiBold,
+                    style = AiKUTheme.typography.body1SemiBold,
                 )
             }
         }

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -70,7 +69,7 @@ fun GroupOverviewCard(
                 Column {
                     Text(
                         text = groupName,
-                        style = AikuTypography.Body1_SemiBold,
+                        style = AiKUTheme.typography.body1SemiBold,
                         color = AiKUTheme.colors.typo,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -81,7 +80,7 @@ fun GroupOverviewCard(
                             R.string.group_card_recent_schedule,
                             formattedTime,
                         ),
-                        style = AikuTypography.Body2,
+                        style = AiKUTheme.typography.body2,
                         color = AiKUTheme.colors.typo
                     )
                 }
@@ -130,7 +129,7 @@ private fun ProfileWithBadge(
         }
         Text(
             text = badgeLabel,
-            style = AikuTypography.Caption1_Medium,
+            style = AiKUTheme.typography.caption1Medium,
             color = AiKUTheme.colors.white,
             modifier = Modifier
                 .offset(x = 40.dp, y = 4.dp)

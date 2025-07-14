@@ -25,7 +25,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
 import java.text.SimpleDateFormat
@@ -50,7 +49,7 @@ fun JoinScheduleDialog(
         ) {
             Text(
                 text = schedule.scheduleName,
-                style = AikuTypography.Subtitle1,
+                style = AiKUTheme.typography.subtitle1,
                 color = AiKUTheme.colors.typo,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
@@ -79,7 +78,7 @@ fun JoinScheduleDialog(
             Column {
                 Text(
                     text = stringResource(R.string.join_schedule_dialog_point_notice),
-                    style = AikuTypography.Body2,
+                    style = AiKUTheme.typography.body2,
                     color = AiKUTheme.colors.red01,
                     modifier = Modifier.padding(8.dp)
                 )
@@ -92,7 +91,7 @@ fun JoinScheduleDialog(
                 ) {
                     Text(
                         text = stringResource(R.string.join_schedule_dialog_button),
-                        style = AikuTypography.Body1_SemiBold,
+                        style = AiKUTheme.typography.body1SemiBold,
                         color = AiKUTheme.colors.white,
                     )
                 }
@@ -117,7 +116,7 @@ private fun TextWithLeadingIcon(
     painter: Painter,
     modifier: Modifier = Modifier
 ) {
-    val textStyle = AikuTypography.Body1
+    val textStyle = AiKUTheme.typography.body1
     val iconColor = AiKUTheme.colors.gray03
     val iconSize = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
 

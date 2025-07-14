@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
@@ -140,7 +139,7 @@ private fun RowScope.AikuNavigationBarItem(
         Spacer(Modifier.height(AikuNavigationBarDefaults.NavigationBarItemVerticalPadding))
         Text(
             text = label,
-            style = AikuTypography.Caption1_Medium,
+            style = AiKUTheme.typography.caption1Medium,
             color = color,
         )
     }

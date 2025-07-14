@@ -22,7 +22,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
 @Composable
@@ -45,7 +44,7 @@ fun CreateGroupDialog(
         ) {
             Text(
                 text = stringResource(R.string.create_group_dialog_title),
-                style = AikuTypography.Body1_SemiBold,
+                style = AiKUTheme.typography.body1SemiBold,
             )
             Spacer(Modifier.height(32.dp))
             AikuLimitedTextField(
@@ -77,7 +76,7 @@ fun CreateGroupDialog(
             ) {
                 Text(
                     text = stringResource(R.string.create_group_dialog_button),
-                    style = AikuTypography.Body1_SemiBold
+                    style = AiKUTheme.typography.body1SemiBold
                 )
             }
         }

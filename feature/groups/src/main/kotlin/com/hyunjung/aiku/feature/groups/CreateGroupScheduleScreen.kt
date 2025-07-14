@@ -31,7 +31,6 @@ import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextFi
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.component.dialog.DatePickerDialog
 import com.hyunjung.aiku.core.ui.component.dialog.TimePickerDialog
 import java.text.SimpleDateFormat
@@ -147,7 +146,7 @@ fun CreateGroupScheduleScreen(
             ScheduleForm(
                 title = stringResource(R.string.create_group_schedule_location_title)
             ) {
-                val textStyle = AikuTypography.Caption1_Medium
+                val textStyle = AiKUTheme.typography.caption1Medium
                 val iconSize = with(LocalDensity.current) { textStyle.lineHeight.toDp() * 1.2f }
 
                 val locationName = scheduleFormState.location.takeIf { it.isNotBlank() }
@@ -165,7 +164,7 @@ fun CreateGroupScheduleScreen(
                     Box(Modifier.fillMaxWidth()) {
                         Text(
                             text = locationName,
-                            style = AikuTypography.Body2,
+                            style = AiKUTheme.typography.body2,
                             modifier = Modifier.align(Alignment.CenterStart)
                         )
                         Icon(
@@ -189,7 +188,7 @@ fun CreateGroupScheduleScreen(
         ) {
             Text(
                 text = stringResource(R.string.create_group_schedule_button_create),
-                style = AikuTypography.Subtitle3_SemiBold,
+                style = AiKUTheme.typography.subtitle3SemiBold,
             )
         }
     }
@@ -205,7 +204,7 @@ private fun ScheduleForm(
     Column(modifier = modifier) {
         Text(
             text = title,
-            style = AikuTypography.Subtitle2,
+            style = AiKUTheme.typography.subtitle2,
             color = AiKUTheme.colors.typo,
             modifier = Modifier.padding(bottom = 12.dp)
         )
@@ -213,7 +212,7 @@ private fun ScheduleForm(
         supporting?.let {
             Text(
                 text = it,
-                style = AikuTypography.Caption1,
+                style = AiKUTheme.typography.caption1,
                 color = AiKUTheme.colors.typo,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
             )
@@ -228,7 +227,7 @@ private fun ScheduleDropdownSelector(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val textStyle = AikuTypography.Caption1_Medium
+    val textStyle = AiKUTheme.typography.caption1Medium
     val iconSize = with(LocalDensity.current) { textStyle.lineHeight.toDp() * 1.2f }
 
     AikuButton(

@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
@@ -45,7 +44,7 @@ fun AikuLogoTopAppBar(
         title = {
             Text(
                 text = title,
-                style = AikuTypography.Headline3_G,
+                style = AiKUTheme.typography.headline3G,
             )
         },
         actionsContent = {
@@ -86,7 +85,7 @@ fun AikuTopAppBarWithNavigation(
         title = {
             Text(
                 text = title,
-                style = AikuTypography.Subtitle2,
+                style = AiKUTheme.typography.subtitle2,
                 color = LocalContentColor.current
             )
         },

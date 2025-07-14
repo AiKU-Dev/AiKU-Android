@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
 @Composable
@@ -52,7 +51,7 @@ fun UpcomingSchedulePlaceholder(
             Text(
                 modifier = Modifier.padding(top = 4.dp),
                 text = stringResource(id = R.string.schedule_empty_message),
-                style = AikuTypography.Caption1_Medium
+                style = AiKUTheme.typography.caption1Medium
             )
         }
     }

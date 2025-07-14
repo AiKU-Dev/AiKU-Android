@@ -18,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 
 @Composable
 fun AikuTabs(
@@ -54,7 +53,7 @@ fun AikuTabs(
             ) {
                 Text(
                     text = label,
-                    style = AikuTypography.Subtitle4_G
+                    style = AiKUTheme.typography.subtitle4G
                 )
             }
         }

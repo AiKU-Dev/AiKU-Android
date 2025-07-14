@@ -30,7 +30,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.util.Calendar
 
@@ -42,8 +41,8 @@ fun DatePickerDialog(
     modifier: Modifier = Modifier,
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(8.dp),
-    textStyle: TextStyle = AikuTypography.Subtitle3,
-    selectedTextStyle: TextStyle = AikuTypography.Subtitle2,
+    textStyle: TextStyle = AiKUTheme.typography.subtitle3,
+    selectedTextStyle: TextStyle = AiKUTheme.typography.subtitle2,
 ) {
 
     val newCalendar = remember { Calendar.getInstance() }

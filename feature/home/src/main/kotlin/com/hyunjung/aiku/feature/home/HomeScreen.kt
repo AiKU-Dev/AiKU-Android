@@ -35,7 +35,6 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.Location
 import com.hyunjung.aiku.core.model.Schedule
@@ -220,13 +219,13 @@ private fun TodaySchedulesSection(
     Column(modifier = modifier) {
         Text(
             text = today,
-            style = AikuTypography.Subtitle2_G,
+            style = AiKUTheme.typography.subtitle2G,
             color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(8.dp))
         Text(
             text = title,
-            style = AikuTypography.Body2,
+            style = AiKUTheme.typography.body2,
             color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(12.dp))
@@ -282,7 +281,7 @@ private fun GroupOverviewsSection(
     Column(modifier = modifier) {
         Text(
             text = title,
-            style = AikuTypography.Subtitle4_G,
+            style = AiKUTheme.typography.subtitle4G,
             color = AiKUTheme.colors.typo
         )
         Spacer(Modifier.height(12.dp))

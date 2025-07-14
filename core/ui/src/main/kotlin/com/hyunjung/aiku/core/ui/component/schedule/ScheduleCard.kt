@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
 import java.text.SimpleDateFormat
@@ -80,11 +79,11 @@ fun ScheduleCard(
                 ) {
                     Text(
                         text = scheduleName,
-                        style = AikuTypography.Subtitle3_Bold
+                        style = AiKUTheme.typography.subtitle3Bold
                     )
                     Text(
                         text = scheduleStatus.label,
-                        style = AikuTypography.Caption1_SemiBold,
+                        style = AiKUTheme.typography.caption1SemiBold,
                         color = AiKUTheme.colors.white,
                         modifier = Modifier
                             .background(
@@ -109,7 +108,7 @@ fun ScheduleCard(
                     )
                     Text(
                         text = location,
-                        style = AikuTypography.Caption1,
+                        style = AiKUTheme.typography.caption1,
                     )
                 }
                 HorizontalDivider(
@@ -118,7 +117,7 @@ fun ScheduleCard(
                 )
                 Text(
                     text = formatter.format(time),
-                    style = AikuTypography.Caption1,
+                    style = AiKUTheme.typography.caption1,
                 )
             }
         }
