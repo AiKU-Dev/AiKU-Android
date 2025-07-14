@@ -31,6 +31,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.home)
+    implementation(projects.feature.login)
+    implementation(projects.feature.groups)
+
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.network)
@@ -52,6 +56,4 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.kotlin.test)
-
-    implementation(project(":presentation"))
 }
