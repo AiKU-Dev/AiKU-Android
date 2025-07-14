@@ -14,18 +14,16 @@
         android:theme="@style/Theme.AiKU"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.splash.SplashActivity"
+            android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.AiKU">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AiKU" />
     </application>
 
 </manifest>

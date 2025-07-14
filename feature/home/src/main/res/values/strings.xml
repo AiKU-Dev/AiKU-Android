@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_home_schedule_title">오늘 내 약속</string>
+    <string name="feature_home_group_title">%1$s\'s Group</string>
+    <string name="feature_home_fab_add_group">그룹 추가</string>
+</resources>
