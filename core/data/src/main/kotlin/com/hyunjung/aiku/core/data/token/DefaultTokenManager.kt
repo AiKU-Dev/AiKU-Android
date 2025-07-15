@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.core.data.token
 
+import com.hyunjung.aiku.core.auth.TokenManager
 import com.hyunjung.aiku.core.datastore.AikuPreferencesDataSource
 import com.hyunjung.aiku.core.model.AuthTokens
 import kotlinx.coroutines.flow.first
@@ -14,6 +15,6 @@ class DefaultTokenManager @Inject constructor(
     override suspend fun getRefreshToken(): String =
         aikuPreferencesDatasource.userAuthData.first().refreshToken
 
-    override suspend fun setTokens(authTokens: AuthTokens) =
-        aikuPreferencesDatasource.setTokens(authTokens)
+    override suspend fun setTokens(accessToken: String, refreshToken: String) =
+        aikuPreferencesDatasource.setTokens(AuthTokens(accessToken, refreshToken))
 }

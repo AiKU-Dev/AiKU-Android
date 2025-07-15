@@ -4,7 +4,7 @@ import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
 import com.hyunjung.aiku.core.data.repository.DefaultScheduleRepository
 import com.hyunjung.aiku.core.data.repository.DefaultUserAuthRepository
 import com.hyunjung.aiku.core.data.token.DefaultTokenManager
-import com.hyunjung.aiku.core.data.token.TokenManager
+import com.hyunjung.aiku.core.auth.TokenManager
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
