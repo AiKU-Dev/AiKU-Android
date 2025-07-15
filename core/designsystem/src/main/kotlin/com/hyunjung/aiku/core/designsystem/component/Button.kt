@@ -9,15 +9,15 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -34,7 +34,7 @@ fun AikuButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = AikuButtonDefaults.DefaultShape,
-    colors: ButtonColors = AikuButtonDefaults.buttonColors(),
+    colors: AikuButtonColors = AikuButtonDefaults.buttonColors(),
     border: BorderStroke? = null,
     shadowElevation: Dp = 0.dp,
     contentPadding: PaddingValues = AikuButtonDefaults.ContentPadding,
@@ -137,12 +137,50 @@ object AikuButtonDefaults {
         contentColor: Color = AiKUTheme.colors.white,
         disabledContainerColor: Color = AiKUTheme.colors.gray02,
         disabledContentColor: Color = AiKUTheme.colors.white
-    ): ButtonColors {
-        return ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            contentColor = contentColor,
-            disabledContainerColor = disabledContainerColor,
-            disabledContentColor = disabledContentColor
-        )
+    ): AikuButtonColors = AikuButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
+    )
+}
+
+@Immutable
+class AikuButtonColors(
+    val containerColor: Color,
+    val contentColor: Color,
+    val disabledContainerColor: Color,
+    val disabledContentColor: Color,
+) {
+    fun copy(
+        containerColor: Color = this.containerColor,
+        contentColor: Color = this.contentColor,
+        disabledContainerColor: Color = this.disabledContainerColor,
+        disabledContentColor: Color = this.disabledContentColor
+    ) = AikuButtonColors(
+        containerColor.takeOrElse { this.containerColor },
+        contentColor.takeOrElse { this.contentColor },
+        disabledContainerColor.takeOrElse { this.disabledContainerColor },
+        disabledContentColor.takeOrElse { this.disabledContentColor }
+    )
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AikuButtonColors) return false
+
+        if (containerColor != other.containerColor) return false
+        if (contentColor != other.contentColor) return false
+        if (disabledContainerColor != other.disabledContainerColor) return false
+        if (disabledContentColor != other.disabledContentColor) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = containerColor.hashCode()
+        result = 31 * result + contentColor.hashCode()
+        result = 31 * result + disabledContainerColor.hashCode()
+        result = 31 * result + disabledContentColor.hashCode()
+        return result
     }
 }

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuIconButton
+import com.hyunjung.aiku.core.designsystem.component.AikuIconButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
@@ -55,7 +55,7 @@ fun AikuLogoTopAppBar(
                     painter = AikuIcons.Aku,
                     contentDescription = "AkuChargingStation",
                     size = AikuTopAppBarDefaults.ActionIconSize,
-                    colors = IconButtonDefaults.iconButtonColors(
+                    colors = AikuIconButtonDefaults.iconButtonColors(
                         contentColor = colors.actionIconColor
                     )
                 )

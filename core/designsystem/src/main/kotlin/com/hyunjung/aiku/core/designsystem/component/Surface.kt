@@ -9,7 +9,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.Stable
@@ -24,6 +23,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -64,7 +64,7 @@ fun AikuClickableSurface(
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
-    indication: Indication = ripple(),
+    indication: Indication? = null,
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -72,7 +72,8 @@ fun AikuClickableSurface(
             interactionSource = interactionSource,
             indication = indication,
             enabled = enabled,
-            onClick = onClick
+            onClick = onClick,
+            role = Role.Button
         ),
         shape = shape,
         color = color,
@@ -94,7 +95,7 @@ fun AikuSelectableSurface(
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
-    indication: Indication = ripple(),
+    indication: Indication? = null,
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -125,7 +126,7 @@ fun AikuCheckableSurface(
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
-    indication: Indication = ripple(),
+    indication: Indication? = null,
     content: @Composable () -> Unit
 ) {
     AikuSurface(
