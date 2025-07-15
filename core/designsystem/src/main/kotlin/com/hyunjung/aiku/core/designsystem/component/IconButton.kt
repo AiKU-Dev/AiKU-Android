@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ripple
@@ -44,7 +43,7 @@ fun AikuIconButton(
         colors = colors,
         interactionSource = interactionSource
     ) {
-        Icon(
+        AikuIcon(
             imageVector = imageVector,
             contentDescription = contentDescription,
         )
@@ -72,7 +71,7 @@ fun AikuIconButton(
         colors = colors,
         interactionSource = interactionSource
     ) {
-        Icon(
+        AikuIcon(
             painter = painter,
             contentDescription = contentDescription,
         )

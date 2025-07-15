@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,13 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
+import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
@@ -167,7 +166,7 @@ fun CreateGroupScheduleScreen(
                             style = AiKUTheme.typography.body2,
                             modifier = Modifier.align(Alignment.CenterStart)
                         )
-                        Icon(
+                        AikuIcon(
                             painter = AikuIcons.Search,
                             contentDescription = stringResource(R.string.create_group_schedule_location_description),
                             modifier = Modifier
@@ -243,8 +242,8 @@ private fun ScheduleDropdownSelector(
                 style = textStyle,
                 modifier = Modifier.align(Alignment.CenterStart)
             )
-            Icon(
-                painter = rememberVectorPainter(AikuIcons.ChevronDown),
+            AikuIcon(
+                imageVector = AikuIcons.ChevronDown,
                 contentDescription = contentDescription,
                 modifier = Modifier
                     .size(iconSize)
