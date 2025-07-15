@@ -1,5 +1,6 @@
 [versions]
 androidGradlePlugin = "8.9.3"
+androidxDataStore = "1.1.7"
 coreSplashscreen = "1.0.1"
 kotlin = "2.1.10"
 coreKtx = "1.16.0"
@@ -23,6 +24,8 @@ gmsPlugin = "4.4.2"
 androidxComposeFoundation = "1.8.2"
 androidDesugarJdkLibs = "2.1.5"
 secretsPlugin = "2.0.1"
+protobuf = "4.31.1"
+protobufPlugin = "0.9.5"
 
 [libraries]
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -72,6 +75,9 @@ androidx-compose-material-iconsExtended = { group = "androidx.compose.material",
 kakao-auth = { module = "com.kakao.sdk:v2-auth", version.ref = "kakao" }
 kakao-common = { module = "com.kakao.sdk:v2-common", version.ref = "kakao" }
 kakao-user = { module = "com.kakao.sdk:v2-user", version.ref = "kakao" }
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+androidx-dataStore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -93,6 +99,7 @@ room = { id = "androidx.room", version.ref = "room" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 
 # Plugins defined by this project
 aiku-android-application = { id = "aiku.android.application" }
