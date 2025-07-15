@@ -18,14 +18,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         val secretsFile = rootProject.file("secrets.properties")
-        val kakaoKey = if (secretsFile.exists()) {
-            val properties = Properties().apply {
-                secretsFile.inputStream().use { load(it) }
-            }
-            properties.getProperty("KAKAO_NATIVE_APP_KEY", "")
-        } else {
-            ""
+        val kakaoKey = Properties().run {
+            if (secretsFile.exists()) secretsFile.inputStream().use { load(it) }
+            getProperty("KAKAO_NATIVE_APP_KEY", "")
         }
+
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"$kakaoKey\"")
 
         manifestPlaceholders["kakaoScheme"] = "kakao$kakaoKey"
         manifestPlaceholders["kakaoKey"] = kakaoKey
