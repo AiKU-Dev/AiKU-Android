@@ -8,14 +8,6 @@ plugins {
     alias(libs.plugins.mapsplatform.secrets.plugin)
 }
 
-val secrets = Properties().apply {
-    rootProject
-        .file("secrets.properties")
-        .takeIf { it.exists() }
-        ?.inputStream()
-        ?.use(::load)
-}
-
 android {
     namespace = "com.hyunjung.aiku"
 
@@ -23,17 +15,19 @@ android {
         applicationId = "com.hyunjung.aiku"
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        secrets.forEach { key, value ->
-            buildConfigField(
-                "String",
-                key as String,
-                "\"${value as String}\""
-            )
+
+        val secretsFile = rootProject.file("secrets.properties")
+        val kakaoKey = if (secretsFile.exists()) {
+            val properties = Properties().apply {
+                secretsFile.inputStream().use { load(it) }
+            }
+            properties.load(secretsFile.inputStream())
+            properties.getProperty("KAKAO_NATIVE_APP_KEY", "")
+        } else {
+            ""
         }
 
-        val kakaoKey = secrets.getProperty("KAKAO_NATIVE_APP_KEY") ?: ""
         manifestPlaceholders["kakaoScheme"] = "kakao$kakaoKey"
         manifestPlaceholders["kakaoKey"] = kakaoKey
     }
