@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -27,9 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -49,7 +47,7 @@ fun GroupOverviewCard(
         onClick = onClick,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(10.dp),
-        color = AikuColors.White,
+        color = AiKUTheme.colors.white,
         modifier = modifier
             .fillMaxWidth()
     ) {
@@ -69,21 +67,19 @@ fun GroupOverviewCard(
                 ),
             ) {
                 Column {
-                    Text(
+                    AikuText(
                         text = groupName,
-                        style = AikuTypography.Body1_SemiBold,
-                        color = AikuColors.Typo,
+                        style = AiKUTheme.typography.body1SemiBold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Spacer(Modifier.height(4.dp))
-                    Text(
+                    AikuText(
                         text = stringResource(
                             R.string.group_card_recent_schedule,
                             formattedTime,
                         ),
-                        style = AikuTypography.Body2,
-                        color = AikuColors.Typo
+                        style = AiKUTheme.typography.body2,
                     )
                 }
                 Spacer(Modifier.weight(1f))
@@ -118,7 +114,7 @@ private fun ProfileWithBadge(
             modifier = Modifier
                 .size(50.dp)
                 .background(
-                    color = AikuColors.Gray02,
+                    color = AiKUTheme.colors.gray02,
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -129,14 +125,14 @@ private fun ProfileWithBadge(
                 modifier = Modifier.size(32.dp)
             )
         }
-        Text(
+        AikuText(
             text = badgeLabel,
-            style = AikuTypography.Caption1_Medium,
-            color = AikuColors.White,
+            style = AiKUTheme.typography.caption1Medium,
+            color = AiKUTheme.colors.white,
             modifier = Modifier
                 .offset(x = 40.dp, y = 4.dp)
                 .background(
-                    color = AikuColors.Gray06,
+                    color = AiKUTheme.colors.gray06,
                     shape = RoundedCornerShape(20.dp)
                 )
                 .padding(horizontal = 4.dp)

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary -->
+    <color name="cobalt_blue">#201CAF</color>
+
+    <!-- Green -->
+    <color name="green_01">#F1FCF8</color>
+    <color name="green_02">#C7F3E1</color>
+    <color name="green_03">#B0EEF4</color>
+    <color name="green_04">#8DE7C2</color>
+    <color name="green_05">#76E2B5</color>
+
+    <!-- Purple -->
+    <color name="purple_01">#FAFAFE</color>
+    <color name="purple_02">#EAEAFD</color>
+    <color name="purple_03">#E1E1FC</color>
+    <color name="purple_04">#D5D4FA</color>
+    <color name="purple_05">#CCCBF9</color>
+
+    <!-- Yellow -->
+    <color name="yellow_01">#FFFDF3</color>
+    <color name="yellow_02">#FEF6CF</color>
+    <color name="yellow_03">#FDF3BB</color>
+    <color name="yellow_04">#FDEE9D</color>
+    <color name="yellow_05">#FCEA89</color>
+    <color name="aku_yellow">#F6D72F</color>
+
+    <!-- Gray -->
+    <color name="gray_00">#B5B5BB</color>
+    <color name="gray_01">#F3F4F5</color>
+    <color name="gray_02">#DCDCDD</color>
+    <color name="gray_03">#979798</color>
+    <color name="gray_04">#565657</color>
+    <color name="gray_05">#333335</color>
+    <color name="gray_06">#171719</color>
+
+    <!-- Etc -->
+    <color name="white">#FFFFFF</color>
+    <color name="typo">#1E1927</color>
+    <color name="red_01">#F66879</color>
+    <color name="orange_01">#FF601C</color>
+    <color name="hurry_red">#FD1E1E</color>
+    <color name="love_pink">#FC2EAA</color>
+    <color name="sorry_green">#08DE6A</color>
+    <color name="baby_pink">#FDE1E4</color>
+    <color name="sky_blue">#A6A4DF</color>
+</resources>

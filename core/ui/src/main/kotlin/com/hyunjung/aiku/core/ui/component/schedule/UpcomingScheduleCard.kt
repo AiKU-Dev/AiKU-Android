@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -21,9 +20,8 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -54,7 +52,7 @@ fun UpcomingScheduleCard(
         onClick = onClick,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(10.dp),
-        color = if (isRunning) AikuColors.Green05 else AikuColors.Purple05
+        color = if (isRunning) AiKUTheme.colors.green05 else AiKUTheme.colors.purple05
     ) {
         val fontScale = LocalDensity.current.fontScale
         val maxScale = 1.3f
@@ -71,20 +69,20 @@ fun UpcomingScheduleCard(
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(
+                AikuText(
                     text = groupName,
-                    style = AikuTypography.Caption1,
-                    color = AikuColors.Gray04,
+                    style = AiKUTheme.typography.caption1,
+                    color = AiKUTheme.colors.gray04,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(
+                AikuText(
                     text = formatter.format(time),
-                    style = AikuTypography.Subtitle3_SemiBold,
+                    style = AiKUTheme.typography.subtitle3SemiBold,
                 )
-                Text(
+                AikuText(
                     text = location,
-                    style = AikuTypography.Caption1_Medium,
+                    style = AiKUTheme.typography.caption1Medium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -93,13 +91,13 @@ fun UpcomingScheduleCard(
                     shape = RoundedCornerShape(10.dp),
                     border = BorderStroke(
                         width = 1.dp,
-                        color = AikuColors.White
+                        color = AiKUTheme.colors.white
                     ),
                 ) {
-                    Text(
+                    AikuText(
                         text = statusLabel,
-                        style = AikuTypography.Caption1_SemiBold,
-                        color = AikuColors.White,
+                        style = AiKUTheme.typography.caption1SemiBold,
+                        color = AiKUTheme.colors.white,
                         modifier = Modifier.padding(
                             horizontal = 8.dp,
                             vertical = 4.dp

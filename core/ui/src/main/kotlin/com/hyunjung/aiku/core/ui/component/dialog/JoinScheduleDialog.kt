@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,10 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
+import com.hyunjung.aiku.core.designsystem.component.AikuIcon
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.model.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
 import java.text.SimpleDateFormat
@@ -44,15 +42,14 @@ fun JoinScheduleDialog(
         Column(
             modifier = Modifier
                 .background(
-                    color = AikuColors.White,
+                    color = AiKUTheme.colors.white,
                     shape = RoundedCornerShape(10.dp),
                 )
                 .padding(16.dp),
         ) {
-            Text(
+            AikuText(
                 text = schedule.scheduleName,
-                style = AikuTypography.Subtitle1,
-                color = AikuColors.Typo,
+                style = AiKUTheme.typography.subtitle1,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -78,10 +75,10 @@ fun JoinScheduleDialog(
                 )
             }
             Column {
-                Text(
+                AikuText(
                     text = stringResource(R.string.join_schedule_dialog_point_notice),
-                    style = AikuTypography.Body2,
-                    color = AikuColors.Red01,
+                    style = AiKUTheme.typography.body2,
+                    color = AiKUTheme.colors.red01,
                     modifier = Modifier.padding(8.dp)
                 )
                 AikuButton(
@@ -91,11 +88,7 @@ fun JoinScheduleDialog(
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(12.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.join_schedule_dialog_button),
-                        style = AikuTypography.Body1_SemiBold,
-                        color = AikuColors.White,
-                    )
+                    AikuText(text = stringResource(R.string.join_schedule_dialog_button))
                 }
             }
         }
@@ -118,24 +111,23 @@ private fun TextWithLeadingIcon(
     painter: Painter,
     modifier: Modifier = Modifier
 ) {
-    val textStyle = AikuTypography.Body1
-    val iconColor = AikuColors.Gray03
+    val textStyle = AiKUTheme.typography.body1
+    val iconColor = AiKUTheme.colors.gray03
     val iconSize = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
 
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
+        AikuIcon(
             painter = painter,
             contentDescription = null,
             tint = iconColor,
             modifier = modifier.size(iconSize)
         )
-        Text(
+        AikuText(
             text = text,
             style = textStyle,
-            color = AikuColors.Typo,
             modifier = Modifier.padding(start = 12.dp)
         )
     }

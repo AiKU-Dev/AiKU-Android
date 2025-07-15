@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -27,8 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapNotNull
 import kotlin.math.abs
@@ -41,8 +38,8 @@ fun <T> Picker(
     modifier: Modifier = Modifier,
     startIndex: Int = 0,
     visibleItemsCount: Int = 3,
-    textStyle: TextStyle = AikuTypography.Subtitle3,
-    selectedTextStyle: TextStyle = AikuTypography.Subtitle2,
+    textStyle: TextStyle = AiKUTheme.typography.subtitle3,
+    selectedTextStyle: TextStyle = AiKUTheme.typography.subtitle2,
     itemPadding: PaddingValues = PaddingValues(8.dp),
     isInfinity: Boolean = false
 ) {
@@ -117,7 +114,7 @@ fun <T> Picker(
                     mutableStateOf(if (getItem(index) == null) "" else getItem(index).toString())
                 }
 
-                Text(
+                AikuText(
                     text = currentItemText,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -133,8 +130,8 @@ fun <T> Picker(
                             textStyle.fontWeight
                         },
                         color = lerp(
-                            AikuColors.Typo,
-                            AikuColors.Gray03,
+                            AiKUTheme.colors.typo,
+                            AiKUTheme.colors.gray03,
                             fraction
                         )
                     ),

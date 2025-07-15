@@ -15,10 +15,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,9 +29,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
+import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.designsystem.component.AikuText
+import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.Location
 import com.hyunjung.aiku.core.model.Schedule
@@ -116,7 +114,7 @@ fun HomeContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(color = AikuColors.Gray01),
+            .background(color = AiKUTheme.colors.gray01),
     ) {
         AikuLogoTopAppBar(
             modifier = Modifier.align(Alignment.TopStart),
@@ -175,12 +173,12 @@ fun HomeContent(
                 shape = CircleShape,
                 shadowElevation = 8.dp,
                 colors = AikuButtonDefaults.buttonColors(
-                    containerColor = AikuColors.CobaltBlue
+                    containerColor = AiKUTheme.colors.cobaltBlue
                 ),
                 contentPadding = PaddingValues(12.dp),
             ) {
-                Icon(
-                    imageVector = Icons.Rounded.Add,
+                AikuIcon(
+                    imageVector = AikuIcons.Add,
                     contentDescription = stringResource(R.string.feature_home_fab_add_group),
                     modifier = Modifier
                         .size(36.dp)
@@ -218,16 +216,14 @@ private fun TodaySchedulesSection(
     }
 
     Column(modifier = modifier) {
-        Text(
+        AikuText(
             text = today,
-            style = AikuTypography.Subtitle2_G,
-            color = AikuColors.Typo
+            style = AiKUTheme.typography.subtitle2G,
         )
         Spacer(Modifier.height(8.dp))
-        Text(
+        AikuText(
             text = title,
-            style = AikuTypography.Body2,
-            color = AikuColors.Typo
+            style = AiKUTheme.typography.body2,
         )
         Spacer(Modifier.height(12.dp))
         if (todaySchedules.isEmpty()) {
@@ -280,10 +276,9 @@ private fun GroupOverviewsSection(
     }
 
     Column(modifier = modifier) {
-        Text(
+        AikuText(
             text = title,
-            style = AikuTypography.Subtitle4_G,
-            color = AikuColors.Typo
+            style = AiKUTheme.typography.subtitle4G,
         )
         Spacer(Modifier.height(12.dp))
         if (groups.isEmpty()) {

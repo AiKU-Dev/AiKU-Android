@@ -1,25 +1,27 @@
 package com.hyunjung.aiku.core.designsystem.component.textfield
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 
 object AikuTextFieldDefaults {
     val shape = RectangleShape
     val contentPadding = PaddingValues(0.dp)
 
+    @Composable
     fun colors(
-        textColor: Color = AikuColors.Typo,
+        textColor: Color = AiKUTheme.colors.typo,
         containerColor: Color = Color.Unspecified,
-        cursorColor: Color = AikuColors.Typo,
-        indicatorColor: Color = AikuColors.Gray03,
-        leadingColor: Color = AikuColors.Gray03,
-        trailingColor: Color = AikuColors.Gray03,
-        placeholderColor: Color = AikuColors.Gray03,
-        supportingColor: Color = AikuColors.Typo,
-        errorSupportingColor: Color = AikuColors.HurryRed,
+        cursorColor: Color = AiKUTheme.colors.typo,
+        indicatorColor: Color = AiKUTheme.colors.gray03,
+        leadingColor: Color = AiKUTheme.colors.gray03,
+        trailingColor: Color = AiKUTheme.colors.gray03,
+        placeholderColor: Color = AiKUTheme.colors.gray03,
+        supportingColor: Color = AiKUTheme.colors.typo,
+        errorSupportingColor: Color = AiKUTheme.colors.hurryRed,
     ): AikuTextFieldColors = AikuTextFieldColors(
         textColor = textColor,
         containerColor = containerColor,

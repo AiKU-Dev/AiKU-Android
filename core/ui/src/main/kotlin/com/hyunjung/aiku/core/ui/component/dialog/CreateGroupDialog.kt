@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,10 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
 @Composable
@@ -38,15 +36,15 @@ fun CreateGroupDialog(
         Column(
             modifier = Modifier
                 .background(
-                    color = AikuColors.White,
+                    color = AiKUTheme.colors.white,
                     shape = RoundedCornerShape(10.dp),
                 )
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
+            AikuText(
                 text = stringResource(R.string.create_group_dialog_title),
-                style = AikuTypography.Body1_SemiBold,
+                style = AiKUTheme.typography.body1SemiBold,
             )
             Spacer(Modifier.height(32.dp))
             AikuLimitedTextField(
@@ -59,7 +57,10 @@ fun CreateGroupDialog(
                 maxLength = 15,
                 isError = validationResult != GroupNameValidationResult.NONE,
                 supporting = {
-                    Text(text = stringResource(validationResult.stringResId))
+                    AikuText(
+                        text = stringResource(validationResult.stringResId),
+                        style = AiKUTheme.typography.caption1
+                    )
                 }
             )
             Spacer(Modifier.height(56.dp))
@@ -76,10 +77,7 @@ fun CreateGroupDialog(
                     .fillMaxWidth(),
                 enabled = groupName.isNotBlank() && validationResult == GroupNameValidationResult.NONE,
             ) {
-                Text(
-                    text = stringResource(R.string.create_group_dialog_button),
-                    style = AikuTypography.Body1_SemiBold
-                )
+                AikuText(text = stringResource(R.string.create_group_dialog_button))
             }
         }
     }

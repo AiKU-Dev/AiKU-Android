@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,9 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 
 @Composable
@@ -35,10 +33,9 @@ fun EmptyPlaceholder(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
+        AikuText(
             text = title,
-            style = AikuTypography.Subtitle3_G,
-            color = AikuColors.Typo
+            style = AiKUTheme.typography.subtitle3G,
         )
         Image(
             painter = painterResource(R.drawable.img_char_running_boy),
@@ -52,19 +49,19 @@ fun EmptyPlaceholder(
                 minHeight = 38.dp
             ),
             colors = AikuButtonDefaults.buttonColors(
-                containerColor = AikuColors.Gray01,
+                containerColor = AiKUTheme.colors.gray01,
             ),
             shape = RoundedCornerShape(30.dp),
             contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
             border = BorderStroke(
-                color = AikuColors.CobaltBlue,
+                color = AiKUTheme.colors.cobaltBlue,
                 width = 2.dp
             )
         ) {
-            Text(
+            AikuText(
                 text = buttonText,
-                style = AikuTypography.Body1_SemiBold,
-                color = AikuColors.CobaltBlue
+                style = AiKUTheme.typography.body1SemiBold,
+                color = AiKUTheme.colors.cobaltBlue
             )
         }
     }

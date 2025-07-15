@@ -13,6 +13,6 @@ fun AikuPreviewTheme(
     CompositionLocalProvider(
         LocalComposeNavigator provides AikuComposeNavigator()
     ) {
-        AiKUTheme(content)
+        AiKUTheme(content = content)
     }
 }

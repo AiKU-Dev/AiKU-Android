@@ -1,6 +1,7 @@
 package com.hyunjung.aiku.core.designsystem.icon
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.MoreHoriz
@@ -12,6 +13,7 @@ import com.hyunjung.aiku.core.designsystem.R
 object AikuIcons {
     val Account: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_account)
+    val Add = Icons.Rounded.Add
     val Aku: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_aku)
     val ArrowBackIosNew = Icons.Rounded.ArrowBackIosNew

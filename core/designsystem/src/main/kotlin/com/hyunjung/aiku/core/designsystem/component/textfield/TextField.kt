@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,8 +19,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.R
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 
 @Composable
 fun AikuLimitedTextField(
@@ -30,7 +29,7 @@ fun AikuLimitedTextField(
     maxLength: Int,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    textStyle: TextStyle = AikuTypography.Body1,
+    textStyle: TextStyle = AiKUTheme.typography.body1,
     placeholder: String = "",
     supporting: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
@@ -53,11 +52,17 @@ fun AikuLimitedTextField(
             }
             onValueChange(updatedText)
         },
-        placeholder = { Text(text = placeholder) },
+        placeholder = {
+            AikuText(
+                text = placeholder,
+                style = AiKUTheme.typography.body1,
+                color = colors.placeholderColor
+            )
+        },
         trailing = {
-            Text(
+            AikuText(
                 text = "${value.length}/$maxLength",
-                style = AikuTypography.Caption1,
+                style = AiKUTheme.typography.caption1,
                 color = colors.trailingColor
             )
         },
@@ -85,7 +90,7 @@ fun AikuTextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = AikuTypography.Body1,
+    textStyle: TextStyle = AiKUTheme.typography.body1,
     placeholder: @Composable (() -> Unit)? = null,
     leading: @Composable (() -> Unit)? = null,
     trailing: @Composable (() -> Unit)? = null,
@@ -183,13 +188,10 @@ private fun AikuDefaultTextFiledPreview() {
             value = "Aiku 그룹",
             onValueChange = {},
             supporting = {
-                Text(
-                    text = "supportingText",
-                    style = AikuTypography.Caption1
-                )
+                AikuText(text = "supportingText")
             },
             placeholder = {
-                Text(text = "placeholder")
+                AikuText(text = "placeholder")
             },
             singleLine = true,
             modifier = Modifier.padding(20.dp)
@@ -205,13 +207,8 @@ private fun AikuErrorDefaultTextFiledPreview() {
             value = "Aiku 그룹!@#",
             onValueChange = {},
             isError = true,
-            supporting = {
-                Text(
-                    text = "특수문자는 입력 불가합니다",
-                    style = AikuTypography.Caption1
-                )
-            },
-            placeholder = { Text(text = "placeholder") },
+            supporting = { AikuText(text = "특수문자는 입력 불가합니다") },
+            placeholder = { AikuText(text = "placeholder") },
             singleLine = true,
             modifier = Modifier.padding(20.dp)
         )

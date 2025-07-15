@@ -17,8 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
@@ -36,7 +34,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.designsystem.component.LocalAikuTextStyle
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 
 private const val PlaceholderAnimationDuration = 83
 private const val PlaceholderAnimationDelay = 67
@@ -124,7 +124,7 @@ internal fun AikuDecorationBox(
                 Box(Modifier.graphicsLayer { alpha = placeholderOpacity.value }) {
                     Decoration(
                         contentColor = colors.placeholderColor,
-                        textStyle = AikuTypography.Body1,
+                        textStyle = AiKUTheme.typography.body1,
                         content = placeholder
                     )
                 }
@@ -136,6 +136,7 @@ internal fun AikuDecorationBox(
             @Composable {
                 Decoration(
                     contentColor = colors.leadingColor,
+                    textStyle = AiKUTheme.typography.caption1,
                     content = it
                 )
             }
@@ -146,6 +147,7 @@ internal fun AikuDecorationBox(
             @Composable {
                 Decoration(
                     contentColor = colors.trailingColor,
+                    textStyle = AiKUTheme.typography.caption1,
                     content = it
                 )
             }
@@ -156,7 +158,7 @@ internal fun AikuDecorationBox(
             @Composable {
                 Decoration(
                     contentColor = colors.supportingColor(isError),
-                    textStyle = AikuTypography.Caption1,
+                    textStyle = AiKUTheme.typography.caption1,
                     content = it
                 )
             }
@@ -195,10 +197,10 @@ internal fun AikuDecorationBox(
 
 @Composable
 private fun Decoration(contentColor: Color, textStyle: TextStyle, content: @Composable () -> Unit) {
-    val mergedStyle = LocalTextStyle.current.merge(textStyle)
+    val mergedStyle = LocalAikuTextStyle.current.merge(textStyle)
     CompositionLocalProvider(
-        LocalContentColor provides contentColor,
-        LocalTextStyle provides mergedStyle,
+        LocalAikuContentColor provides contentColor,
+        LocalAikuTextStyle provides mergedStyle,
         content = content
     )
 }
@@ -206,7 +208,7 @@ private fun Decoration(contentColor: Color, textStyle: TextStyle, content: @Comp
 @Composable
 private fun Decoration(contentColor: Color, content: @Composable () -> Unit) {
     CompositionLocalProvider(
-        LocalContentColor provides contentColor,
+        LocalAikuContentColor provides contentColor,
         content = content
     )
 }
@@ -223,7 +225,7 @@ private fun AikuTextFieldLayer(
     paddingValues: PaddingValues,
     containerColor: Color,
 ) {
-    Column{
+    Column {
         AikuSurface(
             shape = shape,
             color = containerColor,

@@ -18,9 +18,6 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -33,10 +30,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
@@ -62,8 +61,9 @@ fun AikuNavigationBar(
         AikuIcons.Account,
     )
 
+    val borderColor = AiKUTheme.colors.gray02
     AikuSurface(
-        color = AikuColors.Gray01,
+        color = AiKUTheme.colors.gray01,
         modifier = modifier
     ) {
         Row(
@@ -75,7 +75,7 @@ fun AikuNavigationBar(
                     .selectableGroup()
                     .drawBehind {
                         drawLine(
-                            color = AikuColors.Gray02,
+                            color = borderColor,
                             start = Offset(0f, 0f),
                             end = Offset(size.width, 0f),
                             strokeWidth = 1.dp.toPx()
@@ -91,7 +91,7 @@ fun AikuNavigationBar(
                 AikuNavigationBarItem(
                     label = label,
                     icon = {
-                        Icon(
+                        AikuIcon(
                             painter = icons[index],
                             contentDescription = null,
                         )
@@ -117,7 +117,7 @@ private fun RowScope.AikuNavigationBarItem(
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
 
     val color by animateColorAsState(
-        targetValue = if (selected) AikuColors.Green05 else AikuColors.Gray03,
+        targetValue = if (selected) AiKUTheme.colors.green05 else AiKUTheme.colors.gray03,
         animationSpec = tween(AikuNavigationBarDefaults.ITEM_ANIMATION_DURATION_MILLIS)
     )
 
@@ -135,11 +135,11 @@ private fun RowScope.AikuNavigationBarItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        CompositionLocalProvider(LocalContentColor provides color, content = icon)
+        CompositionLocalProvider(LocalAikuContentColor provides color, content = icon)
         Spacer(Modifier.height(AikuNavigationBarDefaults.NavigationBarItemVerticalPadding))
-        Text(
+        AikuText(
             text = label,
-            style = AikuTypography.Caption1_Medium,
+            style = AiKUTheme.typography.caption1Medium,
             color = color,
         )
     }

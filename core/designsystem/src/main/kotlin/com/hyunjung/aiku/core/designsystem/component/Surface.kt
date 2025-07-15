@@ -9,9 +9,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.Text
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -25,9 +24,11 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 
 @Composable
 @NonRestartableComposable
@@ -35,22 +36,27 @@ fun AikuSurface(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
     color: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     content: @Composable () -> Unit
 ) {
-    Box(
-        modifier =
-            modifier
-                .surface(
-                    shape = shape,
-                    backgroundColor = color,
-                    border = border,
-                    shadowElevation = with(LocalDensity.current) { shadowElevation.toPx() }
-                ),
-        propagateMinConstraints = true,
+    CompositionLocalProvider(
+        LocalAikuContentColor provides contentColor,
     ) {
-        content()
+        Box(
+            modifier =
+                modifier
+                    .surface(
+                        shape = shape,
+                        backgroundColor = color,
+                        border = border,
+                        shadowElevation = with(LocalDensity.current) { shadowElevation.toPx() }
+                    ),
+            propagateMinConstraints = true,
+        ) {
+            content()
+        }
     }
 }
 
@@ -62,10 +68,11 @@ fun AikuClickableSurface(
     enabled: Boolean = true,
     shape: Shape = RectangleShape,
     color: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
-    indication: Indication = ripple(),
+    indication: Indication? = null,
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -73,10 +80,12 @@ fun AikuClickableSurface(
             interactionSource = interactionSource,
             indication = indication,
             enabled = enabled,
-            onClick = onClick
+            onClick = onClick,
+            role = Role.Button
         ),
         shape = shape,
         color = color,
+        contentColor = contentColor,
         shadowElevation = shadowElevation,
         border = border,
         content = content
@@ -92,10 +101,11 @@ fun AikuSelectableSurface(
     enabled: Boolean = true,
     shape: Shape = RectangleShape,
     color: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
-    indication: Indication = ripple(),
+    indication: Indication? = null,
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -108,6 +118,7 @@ fun AikuSelectableSurface(
         ),
         shape = shape,
         color = color,
+        contentColor = contentColor,
         shadowElevation = shadowElevation,
         border = border,
         content = content
@@ -123,10 +134,11 @@ fun AikuCheckableSurface(
     enabled: Boolean = true,
     shape: Shape = RectangleShape,
     color: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
-    indication: Indication = ripple(),
+    indication: Indication? = null,
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -139,6 +151,7 @@ fun AikuCheckableSurface(
         ),
         shape = shape,
         color = color,
+        contentColor = contentColor,
         shadowElevation = shadowElevation,
         border = border,
         content = content
@@ -172,7 +185,7 @@ private fun Modifier.surface(
 @Composable
 fun AikuSurfacePreview() {
     AikuSurface {
-        Text(text = "Default Surface")
+        AikuText(text = "Default Surface")
     }
 }
 
@@ -180,7 +193,7 @@ fun AikuSurfacePreview() {
 @Composable
 fun ClickableAikuSurfacePreview() {
     AikuClickableSurface(onClick = {}) {
-        Text(text = "Clickable Surface")
+        AikuText(text = "Clickable Surface")
     }
 }
 
@@ -193,7 +206,7 @@ fun SelectableAikuSurfacePreview() {
         selected = selected,
         onClick = { selected = !selected }
     ) {
-        Text(text = if (selected) "Selected" else "Not Selected")
+        AikuText(text = if (selected) "Selected" else "Not Selected")
     }
 }
 
@@ -206,7 +219,7 @@ fun ToggleableAikuSurfacePreview() {
         checked = checked,
         onCheckedChange = { checked = it }
     ) {
-        Text(text = if (checked) "Checked" else "Unchecked")
+        AikuText(text = if (checked) "Checked" else "Unchecked")
     }
 }
 

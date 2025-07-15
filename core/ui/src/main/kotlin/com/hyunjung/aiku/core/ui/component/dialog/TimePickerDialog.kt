@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -27,10 +25,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
+import com.hyunjung.aiku.core.designsystem.component.AikuText
+import com.hyunjung.aiku.core.designsystem.component.AikuVerticalDivider
 import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
 import com.hyunjung.aiku.core.ui.R
 import java.util.Calendar
 
@@ -42,8 +40,8 @@ fun TimePickerDialog(
     modifier: Modifier = Modifier,
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(8.dp),
-    textStyle: TextStyle = AikuTypography.Subtitle3,
-    selectedTextStyle: TextStyle = AikuTypography.Subtitle2,
+    textStyle: TextStyle = AiKUTheme.typography.subtitle3,
+    selectedTextStyle: TextStyle = AiKUTheme.typography.subtitle2,
 ) {
     val currentAMPM = calendar.get(Calendar.AM_PM)
     val currentHour = calendar.get(Calendar.HOUR)
@@ -69,7 +67,7 @@ fun TimePickerDialog(
             modifier = modifier
                 .fillMaxWidth()
                 .background(
-                    color = AikuColors.White,
+                    color = AiKUTheme.colors.white,
                     shape = RoundedCornerShape(10.dp),
                 )
                 .padding(vertical = 20.dp)
@@ -89,10 +87,7 @@ fun TimePickerDialog(
                     selectedTextStyle = selectedTextStyle,
                     itemPadding = itemPadding,
                 )
-                VerticalDivider(
-                    modifier = Modifier.height(itemHeight),
-                    color = AikuColors.Typo
-                )
+                AikuVerticalDivider(modifier = Modifier.height(itemHeight))
                 Picker(
                     items = hourRange,
                     onItemSelected = { selectedHour = it.toInt() },
@@ -104,10 +99,7 @@ fun TimePickerDialog(
                     itemPadding = itemPadding,
                     isInfinity = true,
                 )
-                VerticalDivider(
-                    modifier = Modifier.height(itemHeight),
-                    color = AikuColors.Typo
-                )
+                AikuVerticalDivider(modifier = Modifier.height(itemHeight))
                 Picker(
                     items = minRange,
                     onItemSelected = { selectedMin = it.toInt() },
@@ -132,7 +124,7 @@ fun TimePickerDialog(
                     .heightIn(min = 54.dp)
                     .padding(horizontal = 20.dp)
             ) {
-                Text(text = stringResource(R.string.date_picker_dialog_button))
+                AikuText(text = stringResource(R.string.date_picker_dialog_button))
             }
         }
     }

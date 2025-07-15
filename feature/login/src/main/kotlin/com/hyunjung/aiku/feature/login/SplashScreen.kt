@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -19,9 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hyunjung.aiku.core.designsystem.theme.AikuColors
-import com.hyunjung.aiku.core.designsystem.theme.AikuTypography
+import com.hyunjung.aiku.core.designsystem.component.AikuText
+import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
+import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 import kotlinx.coroutines.delay
 
 @Composable
@@ -36,19 +36,19 @@ fun SplashScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(AikuColors.Green05),
+            .background(AiKUTheme.colors.green05),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
+            AikuText(
                 text = stringResource(R.string.app_title),
-                color = AikuColors.CobaltBlue,
-                style = AikuTypography.Subtitle4_G
+                color = AiKUTheme.colors.cobaltBlue,
+                style = AiKUTheme.typography.subtitle4G
             )
-            Text(
+            AikuText(
                 text = stringResource(R.string.app_name),
-                color = AikuColors.CobaltBlue,
-                style = AikuTypography.Headline1_G
+                color = AiKUTheme.colors.cobaltBlue,
+                style = AiKUTheme.typography.headline1G
             )
             Spacer(modifier = Modifier.padding(24.dp))
             SplashCharactersRow()
@@ -87,5 +87,7 @@ private fun SplashCharactersRow() {
 @Preview
 @Composable
 private fun SplashScreenPreview() {
-    SplashScreen(onSplashFinished = {})
+    AikuPreviewTheme {
+        SplashScreen(onSplashFinished = {})
+    }
 }
