@@ -134,7 +134,7 @@ fun HomeContent(
                 todaySchedules = todaySchedules,
                 homeScheduleUiState = scheduleUiState,
                 onScheduleClick = { groupId, scheduleId ->
-                    composeNavigator.navigate(AikuScreen.ScheduleDetail(groupId, scheduleId))
+                    composeNavigator.navigate(AikuScreen.ScheduleDetailRoute(groupId, scheduleId))
                 },
                 loadNextSchedulePage = loadNextSchedulePage,
             )
@@ -144,14 +144,14 @@ fun HomeContent(
                 groups = groups,
                 groupUiState = groupUiState,
                 onGroupClick = {
-                    composeNavigator.navigate(AikuScreen.GroupDetail(it))
+                    composeNavigator.navigate(AikuScreen.GroupDetailRoute(it))
                 },
                 onOpenCreateGroupDialog = onOpenCreateGroupDialog,
                 loadNextGroupPage = loadNextGroupPage,
             )
         }
         AikuNavigationBar(
-            currentScreen = AikuScreen.Home,
+            currentScreen = AikuScreen.HomeRoute,
             modifier = Modifier.align(Alignment.BottomStart),
         )
         if (groupUiState == HomeGroupUiState.Loading ||

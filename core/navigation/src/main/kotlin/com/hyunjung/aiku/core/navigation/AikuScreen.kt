@@ -5,29 +5,40 @@ import kotlinx.serialization.Serializable
 sealed interface AikuScreen {
 
     @Serializable
-    data object Login : AikuScreen
+    data object SplashRoute : AikuScreen
 
     @Serializable
-    data object SignUp : AikuScreen
+    data object LoginRoute : AikuScreen
 
     @Serializable
-    data object Terms : AikuScreen
+    data object SignUpRoute : AikuScreen
 
     @Serializable
-    data object Home : AikuScreen
+    data object TermsRoute : AikuScreen
 
     @Serializable
-    data object AkuChargingStation : AikuScreen
+    data object HomeRoute : AikuScreen
 
     @Serializable
-    data class GroupDetail(val groupId: Long) : AikuScreen
+    data object AkuChargingStationRoute : AikuScreen
 
     @Serializable
-    data object MyPage : AikuScreen
+    data class GroupDetailRoute(val groupId: Long) : AikuScreen
 
     @Serializable
-    data object Schedule : AikuScreen
+    data object MyPageRoute : AikuScreen
 
     @Serializable
-    data class ScheduleDetail(val groupId: Long, val scheduleId: Long) : AikuScreen
+    data object ScheduleRoute : AikuScreen
+
+    @Serializable
+    data class ScheduleDetailRoute(val groupId: Long, val scheduleId: Long) : AikuScreen
+}
+
+fun AikuScreen.isTopLevel(): Boolean {
+    return this::class in setOf(
+        AikuScreen.HomeRoute::class,
+        AikuScreen.MyPageRoute::class,
+        AikuScreen.ScheduleRoute::class
+    )
 }

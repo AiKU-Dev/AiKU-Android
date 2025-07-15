@@ -5,6 +5,11 @@
     <string name="app_name">AiKU</string>
     <string name="app_title">아이쿠! 또 지각이네?!</string>
 
+    <!-- top level destination title -->
+    <string name="top_level_destination_my_schedule">내 약속</string>
+    <string name="top_level_destination_home">홈</string>
+    <string name="top_level_destination_my_page">마이</string>
+
     <!-- image description -->
     <string name="char_head_unknown_description">Empty Schedule Illustration</string>
     <string name="char_running_boy_description">Empty State Illustration</string>

@@ -22,6 +22,23 @@ class AikuComposeNavigator @Inject constructor() : AppComposeNavigator<AikuScree
         )
     }
 
+    override fun navigateToTopLevelDestination(route: AikuScreen) {
+        if (!route.isTopLevel()) return
+
+        navigationCommands.tryEmit(
+            ComposeNavigationCommand.NavigateToRoute(
+                route,
+                navOptions {
+                    popUpTo(AikuScreen.HomeRoute) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            )
+        )
+    }
+
     override fun popUpTo(route: AikuScreen, inclusive: Boolean) {
         navigationCommands.tryEmit(ComposeNavigationCommand.PopUpToRoute(route, inclusive))
     }

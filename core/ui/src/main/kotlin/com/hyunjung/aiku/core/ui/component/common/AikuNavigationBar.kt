@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -38,6 +39,7 @@ import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
 import com.hyunjung.aiku.core.navigation.AikuScreen
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
+import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 
@@ -49,11 +51,15 @@ fun AikuNavigationBar(
 ) {
     val composeNavigator = currentComposeNavigator
 
-    val labels = listOf("내 약속", "홈", "마이")
+    val labels = listOf(
+        stringResource(R.string.top_level_destination_my_schedule),
+        stringResource(R.string.top_level_destination_home),
+        stringResource(R.string.top_level_destination_my_page),
+    )
     val screens = listOf(
-        AikuScreen.Schedule,
-        AikuScreen.Home,
-        AikuScreen.MyPage,
+        AikuScreen.ScheduleRoute,
+        AikuScreen.HomeRoute,
+        AikuScreen.MyPageRoute,
     )
     val icons = listOf(
         AikuIcons.Schedule,
@@ -97,7 +103,7 @@ fun AikuNavigationBar(
                         )
                     },
                     selected = screen == currentScreen,
-                    onClick = { composeNavigator.navigateAndClearBackStack(screen) },
+                    onClick = { composeNavigator.navigateToTopLevelDestination(screen) },
                 )
             }
         }
@@ -149,7 +155,7 @@ private fun RowScope.AikuNavigationBarItem(
 @Composable
 private fun AikuNavigationBarPreview() {
     AikuPreviewTheme {
-        AikuNavigationBar(AikuScreen.Home)
+        AikuNavigationBar(AikuScreen.HomeRoute)
     }
 }
 

@@ -51,7 +51,7 @@ fun AikuLogoTopAppBar(
                 LocalAikuContentColor provides Color.Unspecified
             ) {
                 AikuIconButton(
-                    onClick = { composeNavigator.navigate(route = AikuScreen.AkuChargingStation) },
+                    onClick = { composeNavigator.navigate(route = AikuScreen.AkuChargingStationRoute) },
                     painter = AikuIcons.Aku,
                     contentDescription = "AkuChargingStation",
                     size = AikuTopAppBarDefaults.ActionIconSize,
