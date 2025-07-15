@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.result
+package com.hyunjung.aiku.core.result
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

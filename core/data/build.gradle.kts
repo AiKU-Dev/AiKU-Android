@@ -15,6 +15,7 @@ android {
 dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.network)
+    implementation(projects.core.datastore)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
