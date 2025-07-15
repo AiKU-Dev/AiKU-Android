@@ -1,22 +1,45 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.aiku.android.application)
     alias(libs.plugins.aiku.android.application.compose)
     alias(libs.plugins.aiku.android.hilt)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.mapsplatform.secrets.plugin)
+}
+
+val secrets = Properties().apply {
+    rootProject
+        .file("secrets.properties")
+        .takeIf { it.exists() }
+        ?.inputStream()
+        ?.use(::load)
 }
 
 android {
     namespace = "com.hyunjung.aiku"
-    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.hyunjung.aiku"
-        minSdk = 24
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        secrets.forEach { key, value ->
+            buildConfigField(
+                "String",
+                key as String,
+                "\"${value as String}\""
+            )
+        }
+
+        val kakaoKey = secrets.getProperty("KAKAO_NATIVE_APP_KEY") ?: ""
+        manifestPlaceholders["kakaoScheme"] = "kakao$kakaoKey"
+        manifestPlaceholders["kakaoKey"] = kakaoKey
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -45,6 +68,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtimeCompose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kakao.auth)
+    implementation(libs.kakao.common)
 
     ksp(libs.hilt.compiler)
     kspTest(libs.hilt.compiler)
