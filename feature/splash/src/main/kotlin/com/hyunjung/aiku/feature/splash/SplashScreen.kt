@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.feature.login
+package com.hyunjung.aiku.feature.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,29 +12,47 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
-import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    onSplashFinished: () -> Unit
+    onLoginSuccess: () -> Unit,
+    onLoginRequired: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: SplashViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit) {
-        delay(2000)
-        onSplashFinished()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState) {
+        if (uiState is SplashUiState.NavigateToHome) {
+            onLoginSuccess()
+        }
+
+        if (uiState is SplashUiState.NavigateToLogin) {
+            onLoginRequired()
+        }
     }
 
+    SplashScreen(modifier)
+}
+
+@Composable
+private fun SplashScreen(modifier: Modifier = Modifier) {
+
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(AiKUTheme.colors.green05),
         contentAlignment = Alignment.Center
@@ -88,6 +106,6 @@ private fun SplashCharactersRow() {
 @Composable
 private fun SplashScreenPreview() {
     AikuPreviewTheme {
-        SplashScreen(onSplashFinished = {})
+        SplashScreen()
     }
 }

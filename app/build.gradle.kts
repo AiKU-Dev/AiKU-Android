@@ -48,10 +48,12 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.login)
     implementation(projects.feature.groups)
+    implementation(projects.feature.splash)
 
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.network)
+    implementation(projects.core.navigation)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
