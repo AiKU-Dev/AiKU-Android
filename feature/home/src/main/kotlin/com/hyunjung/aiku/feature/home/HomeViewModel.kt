@@ -6,8 +6,8 @@ import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.Schedule
-import com.hyunjung.aiku.core.network.result.Result
-import com.hyunjung.aiku.core.network.result.asResult
+import com.hyunjung.aiku.core.result.Result
+import com.hyunjung.aiku.core.result.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
