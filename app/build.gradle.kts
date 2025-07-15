@@ -22,7 +22,6 @@ android {
             val properties = Properties().apply {
                 secretsFile.inputStream().use { load(it) }
             }
-            properties.load(secretsFile.inputStream())
             properties.getProperty("KAKAO_NATIVE_APP_KEY", "")
         } else {
             ""
