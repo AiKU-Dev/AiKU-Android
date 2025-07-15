@@ -5,8 +5,9 @@ import com.hyunjung.aiku.core.model.AuthTokens
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.model.UserAuthData
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AikuPreferencesDataSource(
+class AikuPreferencesDataSource @Inject constructor(
     private val userPreferences: DataStore<UserPreferences>
 ) {
     val userAuthData = userPreferences.data.map {
