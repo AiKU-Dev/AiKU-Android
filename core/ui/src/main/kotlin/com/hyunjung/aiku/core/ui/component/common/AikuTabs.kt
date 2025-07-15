@@ -1,21 +1,13 @@
 package com.hyunjung.aiku.core.ui.component.common
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.designsystem.component.AikuHorizontalDivider
+import com.hyunjung.aiku.core.designsystem.component.AikuTab
+import com.hyunjung.aiku.core.designsystem.component.AikuTabRow
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 
@@ -26,26 +18,18 @@ fun AikuTabs(
     onTabSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    TabRow(
+    AikuTabRow(
         selectedTabIndex = selectedIndex,
-        containerColor = Color.Transparent,
-        contentColor = AiKUTheme.colors.typo,
-        indicator = { tabPositions ->
-            if (selectedIndex < tabPositions.size) {
-                TabRowDefaults.AikuIndicator(
-                    height = 4.dp,
-                    shape = RoundedCornerShape(2.dp),
-                    color = AiKUTheme.colors.green05,
-                    modifier = Modifier
-                        .tabIndicatorOffset(tabPositions[selectedIndex])
-                )
-            }
+        divider = {
+            AikuHorizontalDivider(
+                color = AiKUTheme.colors.gray02
+            )
         },
         modifier = modifier
     ) {
         tabs.forEachIndexed { index, label ->
             val isSelected = index == selectedIndex
-            Tab(
+            AikuTab(
                 selected = isSelected,
                 onClick = { if (!isSelected) onTabSelected(index) },
                 unselectedContentColor = AiKUTheme.colors.gray03,
@@ -58,21 +42,6 @@ fun AikuTabs(
             }
         }
     }
-}
-
-@Composable
-private fun TabRowDefaults.AikuIndicator(
-    modifier: Modifier = Modifier,
-    color: Color = AiKUTheme.colors.green05,
-    shape: RoundedCornerShape = RoundedCornerShape(2.dp),
-    height: Dp = 4.dp
-) {
-    Box(
-        modifier
-            .fillMaxWidth()
-            .height(height)
-            .background(color = color, shape = shape)
-    )
 }
 
 @Preview(showBackground = true)
