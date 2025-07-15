@@ -25,7 +25,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
-import com.hyunjung.aiku.core.navigation.AikuScreen
+import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
@@ -51,7 +51,7 @@ fun AikuLogoTopAppBar(
                 LocalAikuContentColor provides Color.Unspecified
             ) {
                 AikuIconButton(
-                    onClick = { composeNavigator.navigate(route = AikuScreen.AkuChargingStationRoute) },
+                    onClick = { composeNavigator.navigate(route = AikuRoute.AkuChargingStationRoute) },
                     painter = AikuIcons.Aku,
                     contentDescription = "AkuChargingStation",
                     size = AikuTopAppBarDefaults.ActionIconSize,

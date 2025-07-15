@@ -14,5 +14,5 @@ internal interface NavigationModule {
     @Singleton
     fun provideComposeNavigator(
         aikuComposeNavigator: AikuComposeNavigator,
-    ): AppComposeNavigator<AikuScreen>
+    ): AppComposeNavigator<AikuRoute>
 }

@@ -37,7 +37,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.designsystem.theme.LocalAikuContentColor
-import com.hyunjung.aiku.core.navigation.AikuScreen
+import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
@@ -45,7 +45,7 @@ import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun AikuNavigationBar(
-    currentScreen: AikuScreen,
+    currentScreen: AikuRoute,
     modifier: Modifier = Modifier,
     windowInsets: WindowInsets = AikuNavigationBarDefaults.windowInsets,
 ) {
@@ -57,9 +57,9 @@ fun AikuNavigationBar(
         stringResource(R.string.top_level_destination_my_page),
     )
     val screens = listOf(
-        AikuScreen.ScheduleRoute,
-        AikuScreen.HomeRoute,
-        AikuScreen.MyPageRoute,
+        AikuRoute.ScheduleRoute,
+        AikuRoute.HomeRoute,
+        AikuRoute.MyPageRoute,
     )
     val icons = listOf(
         AikuIcons.Schedule,
@@ -155,7 +155,7 @@ private fun RowScope.AikuNavigationBarItem(
 @Composable
 private fun AikuNavigationBarPreview() {
     AikuPreviewTheme {
-        AikuNavigationBar(AikuScreen.HomeRoute)
+        AikuNavigationBar(AikuRoute.HomeRoute)
     }
 }
 

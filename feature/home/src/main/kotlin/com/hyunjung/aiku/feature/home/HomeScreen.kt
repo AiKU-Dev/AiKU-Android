@@ -38,7 +38,7 @@ import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.Location
 import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.model.ScheduleStatus
-import com.hyunjung.aiku.core.navigation.AikuScreen
+import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
 import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
@@ -134,7 +134,7 @@ fun HomeContent(
                 todaySchedules = todaySchedules,
                 homeScheduleUiState = scheduleUiState,
                 onScheduleClick = { groupId, scheduleId ->
-                    composeNavigator.navigate(AikuScreen.ScheduleDetailRoute(groupId, scheduleId))
+                    composeNavigator.navigate(AikuRoute.ScheduleDetailRoute(groupId, scheduleId))
                 },
                 loadNextSchedulePage = loadNextSchedulePage,
             )
@@ -144,14 +144,14 @@ fun HomeContent(
                 groups = groups,
                 groupUiState = groupUiState,
                 onGroupClick = {
-                    composeNavigator.navigate(AikuScreen.GroupDetailRoute(it))
+                    composeNavigator.navigate(AikuRoute.GroupDetailRoute(it))
                 },
                 onOpenCreateGroupDialog = onOpenCreateGroupDialog,
                 loadNextGroupPage = loadNextGroupPage,
             )
         }
         AikuNavigationBar(
-            currentScreen = AikuScreen.HomeRoute,
+            currentScreen = AikuRoute.HomeRoute,
             modifier = Modifier.align(Alignment.BottomStart),
         )
         if (groupUiState == HomeGroupUiState.Loading ||

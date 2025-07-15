@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.navigation.AikuScreen
+import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.AppComposeNavigator
 import com.hyunjung.aiku.core.navigation.LocalComposeNavigator
 import com.hyunjung.aiku.ui.AikuApp
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
     @Inject
-    internal lateinit var composeNavigator: AppComposeNavigator<AikuScreen>
+    internal lateinit var composeNavigator: AppComposeNavigator<AikuRoute>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
