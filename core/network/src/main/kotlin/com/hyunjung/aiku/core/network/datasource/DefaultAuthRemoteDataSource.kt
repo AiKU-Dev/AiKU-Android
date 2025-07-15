@@ -7,8 +7,9 @@ import com.hyunjung.aiku.core.network.model.LoginResponse
 import com.hyunjung.aiku.core.network.resource.AuthResource
 import com.hyunjung.aiku.core.network.util.post
 import io.ktor.client.HttpClient
+import javax.inject.Inject
 
-class AuthRemoteDataSourceImpl(
+class DefaultAuthRemoteDataSource @Inject constructor(
     private val client: HttpClient
 ) : AuthRemoteDataSource {
     override suspend fun loginWithSocial(

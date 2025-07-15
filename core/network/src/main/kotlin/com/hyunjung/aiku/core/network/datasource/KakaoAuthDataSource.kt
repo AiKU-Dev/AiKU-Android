@@ -8,10 +8,11 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class KakaoAuthDataSource(
+class KakaoAuthDataSource @Inject constructor(
     private val kakaoUserApiClient: UserApiClient,
 ) : SocialAuthDataSource {
 

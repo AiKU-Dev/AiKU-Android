@@ -1,6 +1,8 @@
 package com.hyunjung.aiku.core.network.di
 
 import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.DefaultAuthRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.KakaoAuthDataSource
 import com.hyunjung.aiku.core.network.datasource.KtorGroupRemoteDataSource
@@ -25,6 +27,11 @@ internal interface KtorDataSourceModule {
     fun bindScheduleRemoteDataSource(
         scheduleRemoteDataSource: KtorScheduleRemoteDataSource
     ): ScheduleRemoteDataSource
+
+    @Binds
+    fun bindAuthRemoteDataSource(
+        authRemoteDataSource: DefaultAuthRemoteDataSource
+    ): AuthRemoteDataSource
 
     @Binds
     @SocialLogin(SocialType.KAKAO)
