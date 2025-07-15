@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuText
+import com.hyunjung.aiku.core.designsystem.component.AikuVerticalDivider
 import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
@@ -103,10 +103,7 @@ fun DatePickerDialog(
                     selectedTextStyle = selectedTextStyle,
                     itemPadding = itemPadding,
                 )
-                VerticalDivider(
-                    modifier = Modifier.height(itemHeight),
-                    color = AiKUTheme.colors.typo
-                )
+                AikuVerticalDivider(modifier = Modifier.height(itemHeight))
                 Picker(
                     items = monthRange,
                     onItemSelected = { selectedMonth = it - 1 },
@@ -117,10 +114,7 @@ fun DatePickerDialog(
                     selectedTextStyle = selectedTextStyle,
                     itemPadding = itemPadding
                 )
-                VerticalDivider(
-                    modifier = Modifier.height(itemHeight),
-                    color = AiKUTheme.colors.typo
-                )
+                AikuVerticalDivider(modifier = Modifier.height(itemHeight))
                 Picker(
                     items = dayRange,
                     onItemSelected = { selectedDay = it },

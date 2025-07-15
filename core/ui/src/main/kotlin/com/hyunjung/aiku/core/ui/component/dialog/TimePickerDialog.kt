@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuText
+import com.hyunjung.aiku.core.designsystem.component.AikuVerticalDivider
 import com.hyunjung.aiku.core.designsystem.component.Picker
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
@@ -87,10 +87,7 @@ fun TimePickerDialog(
                     selectedTextStyle = selectedTextStyle,
                     itemPadding = itemPadding,
                 )
-                VerticalDivider(
-                    modifier = Modifier.height(itemHeight),
-                    color = AiKUTheme.colors.typo
-                )
+                AikuVerticalDivider(modifier = Modifier.height(itemHeight))
                 Picker(
                     items = hourRange,
                     onItemSelected = { selectedHour = it.toInt() },
@@ -102,10 +99,7 @@ fun TimePickerDialog(
                     itemPadding = itemPadding,
                     isInfinity = true,
                 )
-                VerticalDivider(
-                    modifier = Modifier.height(itemHeight),
-                    color = AiKUTheme.colors.typo
-                )
+                AikuVerticalDivider(modifier = Modifier.height(itemHeight))
                 Picker(
                     items = minRange,
                     onItemSelected = { selectedMin = it.toInt() },

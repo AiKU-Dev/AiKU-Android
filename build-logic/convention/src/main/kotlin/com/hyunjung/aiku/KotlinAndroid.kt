@@ -48,8 +48,6 @@ internal fun Project.configureKotlinAndroid(
                     "-Xopt-in=kotlin.RequiresOptIn",
                     // Enable experimental coroutines APIs, including Flow
                     "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                    // Enable experimental compose APIs
-                    "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     "-Xopt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
                     "-Xopt-in=androidx.compose.animation.ExperimentalSharedTransitionApi",
                 )
