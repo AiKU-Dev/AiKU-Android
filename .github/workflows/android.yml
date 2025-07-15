@@ -45,4 +45,3 @@ jobs:
             --build-cache \
             --configure-on-demand \
             --configuration-cache \
-            --configuration-cache-parallel \
