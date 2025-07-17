@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
+import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.SocialType
@@ -54,6 +56,7 @@ fun SignInScreen(
                 socialType = SocialType.KAKAO
             )
         },
+        uiState = uiState,
         modifier = modifier
     )
 }
@@ -61,6 +64,7 @@ fun SignInScreen(
 @Composable
 private fun SignInScreen(
     modifier: Modifier = Modifier,
+    uiState: LoginUiState = LoginUiState.Idle,
     onKakaoLoginClick: () -> Unit = {}
 ) {
     Box(
@@ -90,17 +94,34 @@ private fun SignInScreen(
                 color = AiKUTheme.colors.cobaltBlue,
             )
             Spacer(Modifier.height(40.dp))
-            AikuButton(
-                onClick = onKakaoLoginClick,
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(0.dp)
+            if (uiState is LoginUiState.Idle) {
+                AikuButton(
+                    onClick = onKakaoLoginClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(0.dp)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.kakao_login_large_wide),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp)
+                    )
+                }
+            }
+        }
+        if (uiState is LoginUiState.Loading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        color = AiKUTheme.colors.gray06.copy(alpha = 0.5f)
+                    ),
+                contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(R.drawable.kakao_login_large_wide),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
+                AikuLoadingWheel(
+                    modifier = Modifier.size(80.dp),
+                    contentDescription = stringResource(R.string.feature_auth_signin_checking)
                 )
             }
         }

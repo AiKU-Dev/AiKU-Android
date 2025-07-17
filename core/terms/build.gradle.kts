@@ -6,8 +6,3 @@ plugins {
 android {
     namespace = "com.hyunjung.aiku.core.terms"
 }
-
-dependencies {
-    implementation(projects.core.designsystem)
-    implementation(projects.core.ui)
-}

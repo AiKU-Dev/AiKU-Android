@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.core.navigation
 
+import com.hyunjung.aiku.core.terms.TermsType
 import kotlinx.serialization.Serializable
 
 sealed interface AikuRoute {
@@ -26,6 +27,9 @@ sealed interface AikuRoute {
     data object ScheduleRoute : AikuRoute
 
     @Serializable
+    data class TermsDetailRoute(val termsType: TermsType) : AikuRoute
+
+    @Serializable
     data class ScheduleDetailRoute(val groupId: Long, val scheduleId: Long) : AikuRoute
 }
 
@@ -37,7 +41,10 @@ sealed interface AuthRoute : AikuRoute {
     data object SignInRoute : AuthRoute
 
     @Serializable
-    data object SignUpRoute : AuthRoute
+    data class SignUpRoute(val agreedTerms: List<TermsType>) : AuthRoute
+
+    @Serializable
+    data object SignUpTermsRoute : AuthRoute
 }
 
 fun AikuRoute.isTopLevel(): Boolean {

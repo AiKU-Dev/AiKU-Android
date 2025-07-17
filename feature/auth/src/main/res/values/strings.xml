@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_auth_signin_checking">로그인 기록 확인 중..</string>
+    <string name="feature_auth_signup_terms_hi_text">AiKU에\n오신 것을 환영합니다!</string>
+    <string name="feature_auth_signup_terms_agree_all">전체 동의</string>
+    <string name="feature_auth_signup_terms_agree_start">동의하고 시작하기</string>
+    <string name="feature_auth_signup_terms_label_required">%1$s(필수)</string>
+    <string name="feature_auth_signup_terms_label_optional">%1$s(선택)</string>
+</resources>

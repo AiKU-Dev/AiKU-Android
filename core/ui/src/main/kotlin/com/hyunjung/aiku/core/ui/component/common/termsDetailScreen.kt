@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.terms
+package com.hyunjung.aiku.core.ui.component.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,8 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.ui.component.common.AikuTopAppBarDefaults
-import com.hyunjung.aiku.core.ui.component.common.AikuTopAppBarWithNavigation
+import com.hyunjung.aiku.core.terms.TermsType
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable

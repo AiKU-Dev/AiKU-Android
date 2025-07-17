@@ -7,3 +7,7 @@ plugins {
 android {
     namespace = "com.hyunjung.aiku.feature.auth"
 }
+
+dependencies{
+    implementation(projects.core.terms)
+}
