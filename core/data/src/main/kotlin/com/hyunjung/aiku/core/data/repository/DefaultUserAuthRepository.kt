@@ -3,8 +3,8 @@ package com.hyunjung.aiku.core.data.repository
 import android.content.Context
 import com.hyunjung.aiku.core.datastore.AikuPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
-import com.hyunjung.aiku.core.model.AuthTokens
 import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.network.NetworkException
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.SocialAuthDataSource
 import com.hyunjung.aiku.core.network.di.SocialLogin
@@ -24,14 +24,20 @@ class DefaultUserAuthRepository @Inject constructor(
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
     }
 
-    override fun login(context: Context, socialType: SocialType): Flow<AuthTokens> = flow {
+    override fun login(context: Context, socialType: SocialType): Flow<Boolean> = flow {
         val idToken = connectSocialAccount(context, socialType)
-        val authTokens = authRemoteDataSource.loginWithSocial(
-            socialType = socialType,
-            idToken = idToken
-        )
-        aikuPreferencesDataSource.setCredentials(authTokens, socialType)
-        emit(authTokens)
+        try {
+            val authTokens = authRemoteDataSource.loginWithSocial(
+                socialType = socialType,
+                idToken = idToken
+            )
+            aikuPreferencesDataSource.setCredentials(authTokens, socialType)
+            emit(true)
+        } catch (e: NetworkException.NotFound) {
+            emit(false)
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun logout() {

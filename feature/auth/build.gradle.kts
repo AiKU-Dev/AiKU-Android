@@ -5,5 +5,5 @@ plugins {
 }
 
 android {
-    namespace = "com.hyunjung.aiku.feature.login"
+    namespace = "com.hyunjung.aiku.feature.auth"
 }

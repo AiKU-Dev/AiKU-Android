@@ -8,12 +8,6 @@ sealed interface AikuRoute {
     data object SplashRoute : AikuRoute
 
     @Serializable
-    data object LoginRoute : AikuRoute
-
-    @Serializable
-    data object SignUpRoute : AikuRoute
-
-    @Serializable
     data object TermsRoute : AikuRoute
 
     @Serializable
@@ -33,6 +27,17 @@ sealed interface AikuRoute {
 
     @Serializable
     data class ScheduleDetailRoute(val groupId: Long, val scheduleId: Long) : AikuRoute
+}
+
+sealed interface AuthRoute : AikuRoute {
+    @Serializable
+    data object AuthBaseRoute : AuthRoute
+
+    @Serializable
+    data object SignInRoute : AuthRoute
+
+    @Serializable
+    data object SignUpRoute : AuthRoute
 }
 
 fun AikuRoute.isTopLevel(): Boolean {

@@ -46,7 +46,7 @@ android {
 
 dependencies {
     implementation(projects.feature.home)
-    implementation(projects.feature.login)
+    implementation(projects.feature.auth)
     implementation(projects.feature.groups)
     implementation(projects.feature.splash)
 
@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kakao.auth)
     implementation(libs.kakao.common)
+    implementation(libs.kakao.user)
 
     ksp(libs.hilt.compiler)
     kspTest(libs.hilt.compiler)

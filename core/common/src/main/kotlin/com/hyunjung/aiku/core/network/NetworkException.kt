@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.util
+package com.hyunjung.aiku.core.network
 
 sealed class NetworkException(message: String? = null) : Exception(message) {
     object RequestTimeout : NetworkException("Request Timeout") {
@@ -19,6 +19,10 @@ sealed class NetworkException(message: String? = null) : Exception(message) {
 
     object NoInternet : NetworkException("No Internet Connection") {
         private fun readResolve(): Any = NoInternet
+    }
+
+    object NotFound : NetworkException("Not Found") {
+        private fun readResolve(): Any = NotFound
     }
 
     object PayloadTooLarge : NetworkException("Payload Too Large") {

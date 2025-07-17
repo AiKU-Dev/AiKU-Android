@@ -1,7 +1,8 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import android.content.Context
-import com.hyunjung.aiku.core.network.util.NetworkException
+import android.util.Log
+import com.hyunjung.aiku.core.network.NetworkException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -58,8 +59,11 @@ class KakaoAuthDataSource @Inject constructor(
             error != null -> {
                 val exception =
                     if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                        Log.d("testaaa", "로그인 실패1")
                         NetworkException.Unauthorized
                     } else {
+                        Log.d("testaaa", "${error}")
+                        Log.d("testaaa", "로그인 실패2")
                         NetworkException.Unknown
                     }
                 if (continuation.isActive) continuation.resumeWithException(exception)
@@ -67,8 +71,10 @@ class KakaoAuthDataSource @Inject constructor(
 
             token != null -> {
                 token.idToken?.let { idToken ->
+                    Log.d("testaaa", idToken)
                     if (continuation.isActive) continuation.resume(idToken)
                 } ?: run {
+                    Log.d("testaaa", "로그인 실패3")
                     if (continuation.isActive) continuation.resumeWithException(
                         NetworkException.Unauthorized
                     )
@@ -76,6 +82,7 @@ class KakaoAuthDataSource @Inject constructor(
             }
 
             else -> {
+                Log.d("testaaa", "로그인 실패4")
                 if (continuation.isActive) continuation.resumeWithException(NetworkException.Unknown)
             }
         }

@@ -1,5 +1,7 @@
 package com.hyunjung.aiku.core.network.util
 
+import android.util.Log
+import com.hyunjung.aiku.core.network.NetworkException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
@@ -42,7 +44,7 @@ suspend inline fun <reified T> safeCall(execute: () -> HttpResponse): T {
             throw NetworkException.Unknown
         }
     }
-
+    Log.d("testaaa", "HTTP 응답: $response")
     return handleResponse(response)
 }
 
@@ -50,6 +52,7 @@ suspend inline fun <reified T> handleResponse(response: HttpResponse): T =
     when (response.status.value) {
         in 200..299 -> response.body<T>()
         401 -> throw NetworkException.Unauthorized
+        404 -> throw NetworkException.NotFound
         408 -> throw NetworkException.RequestTimeout
         409 -> throw NetworkException.Conflict
         413 -> throw NetworkException.PayloadTooLarge
