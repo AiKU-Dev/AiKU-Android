@@ -1,12 +1,9 @@
 package com.hyunjung.aiku.feature.auth.signin
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,6 +25,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.ui.component.common.LoadingOverlayContainer
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 import com.hyunjung.aiku.feature.auth.R
 import com.hyunjung.aiku.core.ui.R as UiR
@@ -67,11 +65,17 @@ private fun SignInScreen(
     uiState: LoginUiState = LoginUiState.Idle,
     onKakaoLoginClick: () -> Unit = {}
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = AiKUTheme.colors.green05),
+    LoadingOverlayContainer(
+        isLoading = uiState is LoginUiState.Loading,
+        indicator = {
+            AikuLoadingWheel(
+                modifier = Modifier.size(80.dp),
+                contentDescription = stringResource(R.string.feature_auth_signin_checking),
+            )
+        },
+        color = AiKUTheme.colors.green05,
         contentAlignment = Alignment.Center,
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier
@@ -110,21 +114,6 @@ private fun SignInScreen(
                 }
             }
         }
-        if (uiState is LoginUiState.Loading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        color = AiKUTheme.colors.gray06.copy(alpha = 0.5f)
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                AikuLoadingWheel(
-                    modifier = Modifier.size(80.dp),
-                    contentDescription = stringResource(R.string.feature_auth_signin_checking)
-                )
-            }
-        }
     }
 }
 
@@ -132,6 +121,6 @@ private fun SignInScreen(
 @Composable
 private fun LoginScreenPreview() {
     AikuPreviewTheme {
-        SignInScreen()
+        SignInScreen(uiState = LoginUiState.Loading)
     }
 }
