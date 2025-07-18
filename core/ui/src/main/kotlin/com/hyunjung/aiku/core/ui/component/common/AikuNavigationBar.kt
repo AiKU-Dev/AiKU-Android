@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,7 +43,6 @@ import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
-
 @Composable
 fun AikuNavigationBar(
     currentScreen: AikuRoute,
@@ -50,24 +50,8 @@ fun AikuNavigationBar(
     windowInsets: WindowInsets = AikuNavigationBarDefaults.windowInsets,
 ) {
     val composeNavigator = currentComposeNavigator
-
-    val labels = listOf(
-        stringResource(R.string.top_level_destination_my_schedule),
-        stringResource(R.string.top_level_destination_home),
-        stringResource(R.string.top_level_destination_my_page),
-    )
-    val screens = listOf(
-        AikuRoute.ScheduleRoute,
-        AikuRoute.HomeRoute,
-        AikuRoute.MyPageRoute,
-    )
-    val icons = listOf(
-        AikuIcons.Schedule,
-        AikuIcons.Home,
-        AikuIcons.Account,
-    )
-
     val borderColor = AiKUTheme.colors.gray02
+
     AikuSurface(
         color = AiKUTheme.colors.gray01,
         modifier = modifier
@@ -92,15 +76,11 @@ fun AikuNavigationBar(
             ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            labels.forEachIndexed { index, label ->
-                val screen = screens[index]
+            AikuNavigationBarDefaults.items.forEach { (labelResId, icon, screen) ->
                 AikuNavigationBarItem(
-                    label = label,
+                    label = stringResource(labelResId),
                     icon = {
-                        AikuIcon(
-                            painter = icons[index],
-                            contentDescription = null,
-                        )
+                        AikuIcon(painter = icon, contentDescription = null)
                     },
                     selected = screen == currentScreen,
                     onClick = { composeNavigator.navigateToTopLevelDestination(screen) },
@@ -164,6 +144,25 @@ object AikuNavigationBarDefaults {
     const val ITEM_ANIMATION_DURATION_MILLIS: Int = 100
     val NavigationBarItemHorizontalPadding: Dp = 8.dp
     val NavigationBarItemVerticalPadding: Dp = 4.dp
+
+    val items: List<Triple<Int, Painter, AikuRoute>>
+        @Composable get() = listOf(
+            Triple(
+                R.string.top_level_destination_my_schedule,
+                AikuIcons.Schedule,
+                AikuRoute.ScheduleRoute
+            ),
+            Triple(
+                R.string.top_level_destination_home,
+                AikuIcons.Home,
+                AikuRoute.HomeRoute
+            ),
+            Triple(
+                R.string.top_level_destination_my_page,
+                AikuIcons.Account,
+                AikuRoute.MyPageRoute
+            ),
+        )
 
     val windowInsets: WindowInsets
         @Composable
