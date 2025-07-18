@@ -14,7 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.terms.TermsType
+import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
@@ -24,7 +25,7 @@ fun TermsDetailScreen(
 ) {
     val localContext = LocalContext.current
     val termsText = remember(termsType) {
-        localContext.resources.openRawResource(termsType.resId).bufferedReader()
+        localContext.resources.openRawResource(termsType.rawResId()).bufferedReader()
             .use { it.readText() }
     }
 
@@ -163,4 +164,11 @@ private fun TermsDetailScreenPreview() {
         """.trimIndent()
         )
     }
+}
+
+private fun TermsType.rawResId(): Int = when (this) {
+    TermsType.SERVICE -> R.raw.terms_service_ko
+    TermsType.PRIVACY -> R.raw.terms_privacy_ko
+    TermsType.LOCATION -> R.raw.terms_location_ko
+    TermsType.MARKETING -> R.raw.terms_marketing_ko
 }

@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.navigation
 
-import com.hyunjung.aiku.core.terms.TermsType
+import com.hyunjung.aiku.core.model.TermsType
 import kotlinx.serialization.Serializable
 
 sealed interface AikuRoute {

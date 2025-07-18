@@ -32,7 +32,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.terms.TermsType
+import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 import com.hyunjung.aiku.feature.auth.R
 import com.hyunjung.aiku.core.ui.R as UiR

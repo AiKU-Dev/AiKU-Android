@@ -7,7 +7,7 @@ import androidx.navigation.navigation
 import com.hyunjung.aiku.core.navigation.AuthRoute
 import com.hyunjung.aiku.core.navigation.navigateAndClearBackStack
 import com.hyunjung.aiku.core.navigation.navigateSingleTop
-import com.hyunjung.aiku.core.terms.TermsType
+import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.feature.auth.signin.SignInScreen
 import com.hyunjung.aiku.feature.auth.signup.SignUpScreen
 import com.hyunjung.aiku.feature.auth.signup.SignUpTermsScreen
