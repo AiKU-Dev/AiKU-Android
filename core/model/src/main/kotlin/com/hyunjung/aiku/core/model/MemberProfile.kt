@@ -1,8 +1,16 @@
 package com.hyunjung.aiku.core.model
 
-data class MemberProfile(
-    val profileType: String,
-    val profileImg: String? = null,
-    val profileCharacter: String? = null,
-    val profileBackground: String? = null
-)
+sealed interface MemberProfile {
+    val profileType: ProfileType
+
+    data class ImgProfile(
+        override val profileType: ProfileType = ProfileType.IMG,
+        val profileImg: String
+    ) : MemberProfile
+
+    data class CharProfile(
+        override val profileType: ProfileType = ProfileType.CHAR,
+        val profileCharacter: ProfileCharacter,
+        val profileBackground: ProfileBackground
+    ) : MemberProfile
+}

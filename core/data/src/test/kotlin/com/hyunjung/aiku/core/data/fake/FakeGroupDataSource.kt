@@ -4,6 +4,8 @@ import com.hyunjung.aiku.core.model.GroupDetail
 import com.hyunjung.aiku.core.model.GroupMember
 import com.hyunjung.aiku.core.model.GroupOverview
 import com.hyunjung.aiku.core.model.MemberProfile
+import com.hyunjung.aiku.core.model.ProfileBackground
+import com.hyunjung.aiku.core.model.ProfileCharacter
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import java.time.LocalDateTime
 
@@ -31,21 +33,14 @@ class FakeGroupDataSource : GroupRemoteDataSource {
             GroupMember(
                 memberId = 1L,
                 nickname = "지정희",
-                memberProfile = MemberProfile(
-                    profileType = "IMG",
-                    profileImg = "http://amazon.s3.image.jpg",
-                    profileCharacter = null,
-                    profileBackground = null
-                )
+                memberProfile = MemberProfile.ImgProfile(profileImg = "http://amazon.s3.image.jpg")
             ),
             GroupMember(
                 memberId = 2L,
                 nickname = "박소영",
-                memberProfile = MemberProfile(
-                    profileType = "CHAR",
-                    profileImg = null,
-                    profileCharacter = "C01",
-                    profileBackground = "RED"
+                memberProfile = MemberProfile.CharProfile(
+                    profileCharacter = ProfileCharacter.C01,
+                    profileBackground = ProfileBackground.GREEN
                 )
             )
         )

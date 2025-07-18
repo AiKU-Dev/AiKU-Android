@@ -89,7 +89,7 @@ fun SignUpTermsScreen(
         }
         Spacer(Modifier.height(12.dp))
         AikuText(
-            text = stringResource(R.string.feature_auth_signup_terms_hi_text),
+            text = stringResource(R.string.feature_auth_signup_terms_header),
             style = AiKUTheme.typography.headline3G,
         )
         Spacer(Modifier.weight(1f))
