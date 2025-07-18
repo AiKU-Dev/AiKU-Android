@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.hyunjung.aiku.core.datastore.UserPreferences
-import com.hyunjung.aiku.core.datastore.UserPreferencesSerializer
+import com.hyunjung.aiku.core.datastore.AuthPreferences
+import com.hyunjung.aiku.core.datastore.AuthPreferencesSerializer
 import com.hyunjung.aiku.core.network.AikuDispatchers.IO
 import com.hyunjung.aiku.core.network.Dispatcher
 import com.hyunjung.aiku.core.network.di.ApplicationScope
@@ -24,16 +24,16 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    internal fun providesUserPreferencesDataStore(
+    internal fun providesAuthPreferencesDataStore(
         @ApplicationContext context: Context,
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
         @ApplicationScope scope: CoroutineScope,
-        userPreferencesSerializer: UserPreferencesSerializer,
-    ): DataStore<UserPreferences> =
+        authPreferencesSerializer: AuthPreferencesSerializer,
+    ): DataStore<AuthPreferences> =
         DataStoreFactory.create(
-            serializer = userPreferencesSerializer,
+            serializer = authPreferencesSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
         ) {
-            context.dataStoreFile("user_preferences.pb")
+            context.dataStoreFile("auth_preferences.pb")
         }
 }

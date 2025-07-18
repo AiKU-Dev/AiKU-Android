@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.data.repository
 
 import android.content.Context
-import com.hyunjung.aiku.core.datastore.AikuPreferencesDataSource
+import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.network.NetworkException
@@ -17,10 +17,10 @@ import javax.inject.Inject
 class DefaultUserAuthRepository @Inject constructor(
     @SocialLogin(SocialType.KAKAO) private val kakao: SocialAuthDataSource,
     private val authRemoteDataSource: AuthRemoteDataSource,
-    private val aikuPreferencesDataSource: AikuPreferencesDataSource,
+    private val aikuAuthPreferencesDataSource: AikuAuthPreferencesDataSource,
 ) : UserAuthRepository {
 
-    override val isLoggedIn: Flow<Boolean> = aikuPreferencesDataSource.userAuthData.map {
+    override val isLoggedIn: Flow<Boolean> = aikuAuthPreferencesDataSource.userAuthData.map {
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
     }
 
@@ -31,7 +31,7 @@ class DefaultUserAuthRepository @Inject constructor(
                 socialType = socialType,
                 idToken = idToken
             )
-            aikuPreferencesDataSource.setCredentials(authTokens, socialType)
+            aikuAuthPreferencesDataSource.setCredentials(authTokens, socialType)
             emit(true)
         } catch (e: NetworkException.NotFound) {
             emit(false)
@@ -41,13 +41,13 @@ class DefaultUserAuthRepository @Inject constructor(
     }
 
     override suspend fun logout() {
-        val socialType = aikuPreferencesDataSource.userAuthData.first().socialType
+        val socialType = aikuAuthPreferencesDataSource.userAuthData.first().socialType
         if (socialType == null) return
 
         when (socialType) {
             SocialType.KAKAO -> kakao.logout()
         }
-        aikuPreferencesDataSource.clearCredentials()
+        aikuAuthPreferencesDataSource.clearCredentials()
     }
 
     private suspend fun connectSocialAccount(
