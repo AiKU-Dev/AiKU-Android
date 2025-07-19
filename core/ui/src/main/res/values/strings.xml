@@ -4,6 +4,7 @@
     <string name="point_unit">%1d 아쿠</string>
     <string name="app_name">AiKU</string>
     <string name="app_title">아이쿠! 또 지각이네?!</string>
+    <string name="confirm">확인</string>
 
     <!-- top level destination title -->
     <string name="top_level_destination_my_schedule">내 약속</string>
@@ -14,9 +15,19 @@
     <string name="char_head_unknown_description">Empty Schedule Illustration</string>
     <string name="char_running_boy_description">Empty State Illustration</string>
     <string name="char_head_no_hair_description">Default Profile Illustration</string>
+    <string name="char_head_baby">baby character</string>
+    <string name="char_head_boy">boy character</string>
+    <string name="char_head_girl">girl character</string>
+    <string name="char_head_scratch">scratch character</string>
 
     <!-- icon description -->
     <string name="ic_location_description">location icon</string>
+    <string name="ic_edit_description">수정 아이콘</string>
+
+    <!-- common -->
+    <string name="profile_image_picker_description">프로필 이미지</string>
+    <string name="nickname_placeholder">닉네임은 최대 6글자 입력 가능합니다</string>
+    <string name="check_duplicate">중복 확인</string>
 
     <!-- group -->
     <string name="group_empty_message">그룹을 만들어 보세요!</string>
@@ -37,7 +48,7 @@
     <string name="create_group_dialog_error_blank">그룹명을 입력해주세요</string>
     <string name="create_group_dialog_error_too_short">2자 이상 입력해주세요</string>
     <string name="create_group_dialog_error_special_chars">특수문자는 입력 불가합니다</string>
-    <string name="date_picker_dialog_button">확인</string>
+    <string name="character_picker_dialog_title">캐릭터를 선택해주세요!</string>
 
     <string name="insufficient_points_dialog_title">야쿠 부족</string>
     <string name="insufficient_points_dialog_message">야쿠가 부족합니다!\n광고 시청 후 야쿠를 충전해주세요.</string>

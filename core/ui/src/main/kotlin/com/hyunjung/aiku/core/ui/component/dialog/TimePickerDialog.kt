@@ -124,7 +124,7 @@ fun TimePickerDialog(
                     .heightIn(min = 54.dp)
                     .padding(horizontal = 20.dp)
             ) {
-                AikuText(text = stringResource(R.string.date_picker_dialog_button))
+                AikuText(text = stringResource(R.string.confirm))
             }
         }
     }
