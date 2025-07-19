@@ -43,7 +43,7 @@ fun NavGraphBuilder.authSection(
         }
         composable<AuthRoute.SignUpRoute> {
             SignUpScreen(
-                onLoginSuccess = onLoginSuccess,
+                onSignUpSuccess = onLoginSuccess,
             )
         }
     }

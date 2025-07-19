@@ -36,7 +36,6 @@ class SignInViewModel @Inject constructor(
                                 LoginUiState.NeedsSignUp
                             }
                         }
-
                         is Result.Error -> LoginUiState.Error(result.exception.message)
                     }
                 }
