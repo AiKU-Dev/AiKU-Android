@@ -10,7 +10,7 @@ interface AuthRepository {
 
     val isLoggedIn: Flow<Boolean>
 
-    fun login(context: Context, socialType: SocialType, idToken: String): Flow<Boolean>
+    fun login(socialType: SocialType, idToken: String): Flow<Boolean>
 
     fun connectSocialAccount(context: Context, type: SocialType): Flow<SocialLoginResult>
 
@@ -18,5 +18,5 @@ interface AuthRepository {
 
     suspend fun logout()
 
-    suspend fun signUp(signUpForm: SignUpForm)
+    suspend fun signUp(signUpForm: SignUpForm): Flow<Unit>
 }

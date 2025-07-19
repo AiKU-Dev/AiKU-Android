@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.util
+package com.hyunjung.aiku.core.network.extensions
 
 import android.util.Log
 import com.hyunjung.aiku.core.network.NetworkException
@@ -6,9 +6,11 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import io.ktor.client.plugins.resources.post
+import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
+import io.ktor.http.content.PartData
 import io.ktor.http.contentType
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.serialization.SerializationException
@@ -27,6 +29,15 @@ suspend inline fun <reified Resource : Any, reified Response : Any> HttpClient.p
     post(resource) {
         contentType(ContentType.Application.Json)
         setBody(body)
+    }
+}
+
+suspend inline fun <reified Resource : Any, reified Response : Any> HttpClient.submitFormWithBinaryData(
+    resource: Resource,
+    partsBuilder: () -> List<PartData>
+): Response = safeCall {
+    post(resource) {
+        setBody(MultiPartFormDataContent(partsBuilder()))
     }
 }
 

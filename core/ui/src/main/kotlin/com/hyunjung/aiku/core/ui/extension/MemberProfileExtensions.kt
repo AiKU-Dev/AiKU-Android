@@ -12,7 +12,7 @@ import com.hyunjung.aiku.core.model.MemberProfile
 fun MemberProfile.painter(): Painter = when (this) {
     is MemberProfile.Character -> profileCharacter.toPainter()
     is MemberProfile.RemoteImage -> rememberAsyncImagePainter(model = imageUrl)
-    is MemberProfile.GalleryImage -> rememberAsyncImagePainter(model = imageUri)
+    is MemberProfile.GalleryImage -> rememberAsyncImagePainter(model = file)
 }
 
 @Composable

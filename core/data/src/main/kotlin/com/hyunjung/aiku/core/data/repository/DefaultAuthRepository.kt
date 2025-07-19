@@ -26,7 +26,7 @@ class DefaultAuthRepository @Inject constructor(
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
     }
 
-    override fun login(context: Context, socialType: SocialType, idToken: String): Flow<Boolean> =
+    override fun login(socialType: SocialType, idToken: String): Flow<Boolean> =
         flow {
             try {
                 val authTokens = authRemoteDataSource.loginWithSocial(
@@ -52,8 +52,9 @@ class DefaultAuthRepository @Inject constructor(
         aikuAuthPreferencesDataSource.clearCredentials()
     }
 
-    override suspend fun signUp(signUpForm: SignUpForm) {
-        TODO("Not yet implemented")
+    override suspend fun signUp(signUpForm: SignUpForm): Flow<Unit> = flow {
+        authRemoteDataSource.signUp(signUpForm)
+        emit(Unit)
     }
 
     override fun connectSocialAccount(

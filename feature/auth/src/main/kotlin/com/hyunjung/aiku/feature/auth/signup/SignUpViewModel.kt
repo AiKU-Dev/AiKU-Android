@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+
     private val _snackbarMessage = MutableSharedFlow<SignUpSnackbarMessage>()
     val snackbarMessage = _snackbarMessage.asSharedFlow()
 
@@ -89,14 +91,69 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun submitSignUp() {
+        viewModelScope.launch {
+            _signUpProfileUiState.update { SignUpProfileUiState.Loading }
+            authRepository.signUp(_signUpFormState.value)
+                .asResult()
+                .collect { result ->
+                    when (result) {
+                        is Result.Loading -> {
+                            _signUpProfileUiState.update { SignUpProfileUiState.Loading }
+                        }
 
+                        is Result.Error -> {
+                            _signUpProfileUiState.update {
+                                SignUpProfileUiState.Error(result.exception.message)
+                            }
+                            _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)
+                        }
+
+                        is Result.Success -> {
+                            _snackbarMessage.emit(SignUpSnackbarMessage.SignUpSuccess)
+                            tryLoginAfterSignUp()
+                        }
+                    }
+                }
+        }
+    }
+
+    private suspend fun tryLoginAfterSignUp() {
+        authRepository.login(
+            _signUpFormState.value.socialType,
+            _signUpFormState.value.idToken
+        )
+            .asResult()
+            .filter { it !is Result.Loading }
+            .collect { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        _signUpProfileUiState.update { SignUpProfileUiState.Loading }
+                    }
+
+                    is Result.Error -> {
+                        _signUpProfileUiState.update {
+                            SignUpProfileUiState.Error(result.exception.message)
+                        }
+                        _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)
+                    }
+
+                    is Result.Success -> {
+                        _signUpProfileUiState.update { SignUpProfileUiState.Idle }
+                        if (result.data) {
+                            _signUpStep.update { SignUpStep.Success }
+                        } else {
+                            _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)
+                        }
+                    }
+                }
+            }
     }
 }
 
 sealed interface SignUpProfileUiState {
     data object Idle : SignUpProfileUiState
     data object Loading : SignUpProfileUiState
-    data class Error(val message: String) : SignUpProfileUiState
+    data class Error(val message: String?) : SignUpProfileUiState
 }
 
 sealed interface SignUpStep {
@@ -111,4 +168,5 @@ sealed class SignUpSnackbarMessage(val message: String) {
         SignUpSnackbarMessage("닉네임은 한글/영문만 가능하며, 최대 6자까지 입력할 수 있어요.")
 
     data object UnknownError : SignUpSnackbarMessage("알 수 없는 오류가 발생했습니다")
+    data object SignUpSuccess : SignUpSnackbarMessage("회원가입이 완료되었어요!")
 }

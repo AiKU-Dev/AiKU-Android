@@ -1,12 +1,14 @@
 package com.hyunjung.aiku.core.model
 
+import java.io.File
+
 sealed interface MemberProfile {
     data class RemoteImage(
         val imageUrl: String
     ) : MemberProfile
 
     data class GalleryImage(
-        val imageUri: String
+        val file: File,
     ) : MemberProfile
 
     data class Character(

@@ -1,6 +1,7 @@
 package com.hyunjung.aiku.feature.auth.signin
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
@@ -29,7 +30,7 @@ class SignInViewModel @Inject constructor(
             authRepository.connectSocialAccount(context, socialType)
                 .asResult()
                 .collect { result ->
-                    handleConnectResult(result, context, socialType)
+                    handleConnectResult(result, socialType)
                 }
         }
     }
@@ -40,7 +41,6 @@ class SignInViewModel @Inject constructor(
 
     private suspend fun handleConnectResult(
         result: Result<SocialLoginResult>,
-        context: Context,
         socialType: SocialType
     ) {
         when (result) {
@@ -48,7 +48,7 @@ class SignInViewModel @Inject constructor(
             is Result.Error -> _uiState.value = LoginUiState.Error(result.exception.message)
             is Result.Success -> {
                 val (idToken, email) = result.data
-                authRepository.login(context, socialType, idToken)
+                authRepository.login(socialType, idToken)
                     .asResult()
                     .filter { it !is Result.Loading }
                     .collect { loginResult ->
@@ -75,7 +75,10 @@ class SignInViewModel @Inject constructor(
                 )
             }
 
-            is Result.Error -> LoginUiState.Error(result.exception.message)
+            is Result.Error -> {
+                Log.d("testaaa", "${result.exception.message}")
+                LoginUiState.Error(result.exception.message)
+            }
         }
     }
 }
