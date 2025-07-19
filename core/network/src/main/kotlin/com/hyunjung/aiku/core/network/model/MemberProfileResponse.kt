@@ -15,15 +15,15 @@ data class MemberProfileResponse(
 
 fun MemberProfileResponse.toModel(): MemberProfile =
     if (profileType == "IMG" && !profileImg.isNullOrBlank()) {
-        MemberProfile.ImgProfile(profileImg = profileImg)
+        MemberProfile.RemoteImage(imageUrl = profileImg)
     } else {
-        MemberProfile.CharProfile(
+        MemberProfile.Character(
             profileCharacter = when (profileCharacter) {
-                "C01" -> ProfileCharacter.C01
-                "C02" -> ProfileCharacter.C02
-                "C03" -> ProfileCharacter.C03
-                "C04" -> ProfileCharacter.C04
-                else -> ProfileCharacter.C01
+                "C01" -> ProfileCharacter.BOY
+                "C02" -> ProfileCharacter.BABY
+                "C03" -> ProfileCharacter.SCRATCH
+                "C04" -> ProfileCharacter.GIRL
+                else -> ProfileCharacter.BOY
             },
             profileBackground = when (profileBackground) {
                 "GREEN" -> ProfileBackground.GREEN

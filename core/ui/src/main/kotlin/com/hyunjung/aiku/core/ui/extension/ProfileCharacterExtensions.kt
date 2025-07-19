@@ -11,10 +11,10 @@ import com.hyunjung.aiku.core.ui.R
 fun ProfileCharacter.toPainter(): Painter =
     painterResource(
         when (this) {
-            ProfileCharacter.C01 -> R.drawable.img_char_head_boy
-            ProfileCharacter.C02 -> R.drawable.img_char_head_baby
-            ProfileCharacter.C03 -> R.drawable.img_char_head_scratch
-            ProfileCharacter.C04 -> R.drawable.img_char_head_girl
+            ProfileCharacter.BOY -> R.drawable.img_char_head_boy
+            ProfileCharacter.BABY -> R.drawable.img_char_head_baby
+            ProfileCharacter.SCRATCH -> R.drawable.img_char_head_scratch
+            ProfileCharacter.GIRL -> R.drawable.img_char_head_girl
         }
     )
 
@@ -23,9 +23,9 @@ fun ProfileCharacter.toPainter(): Painter =
 fun ProfileCharacter.getDescription(): String =
     stringResource(
         when (this) {
-            ProfileCharacter.C01 -> R.string.char_head_boy
-            ProfileCharacter.C02 -> R.string.char_head_baby
-            ProfileCharacter.C03 -> R.string.char_head_scratch
-            ProfileCharacter.C04 -> R.string.char_head_girl
+            ProfileCharacter.BOY -> R.string.char_head_boy
+            ProfileCharacter.BABY -> R.string.char_head_baby
+            ProfileCharacter.SCRATCH -> R.string.char_head_scratch
+            ProfileCharacter.GIRL -> R.string.char_head_girl
         }
     )

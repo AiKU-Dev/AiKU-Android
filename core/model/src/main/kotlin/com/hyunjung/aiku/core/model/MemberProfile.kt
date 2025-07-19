@@ -1,15 +1,15 @@
 package com.hyunjung.aiku.core.model
 
 sealed interface MemberProfile {
-    val profileType: ProfileType
-
-    data class ImgProfile(
-        override val profileType: ProfileType = ProfileType.IMG,
-        val profileImg: String
+    data class RemoteImage(
+        val imageUrl: String
     ) : MemberProfile
 
-    data class CharProfile(
-        override val profileType: ProfileType = ProfileType.CHAR,
+    data class GalleryImage(
+        val imageUri: String
+    ) : MemberProfile
+
+    data class Character(
         val profileCharacter: ProfileCharacter,
         val profileBackground: ProfileBackground
     ) : MemberProfile

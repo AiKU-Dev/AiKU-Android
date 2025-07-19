@@ -36,16 +36,17 @@ import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.extension.getDescription
 import com.hyunjung.aiku.core.ui.extension.toColor
 import com.hyunjung.aiku.core.ui.extension.toPainter
+import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
-fun DefaultProfilePickerDialog(
-    charProfile: MemberProfile.CharProfile,
+fun CharacterProfilePickerDialog(
+    character: MemberProfile.Character,
     onDismiss: () -> Unit,
-    onCharacterProfileSelected: (MemberProfile.CharProfile) -> Unit,
+    onCharacterProfileSelected: (MemberProfile.Character) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedCharacter by remember { mutableStateOf(charProfile.profileCharacter) }
-    var selectedBackgroundColor by remember { mutableStateOf(charProfile.profileBackground) }
+    var selectedCharacter by remember { mutableStateOf(character.profileCharacter) }
+    var selectedBackgroundColor by remember { mutableStateOf(character.profileBackground) }
 
     AikuDialog(onDismiss = onDismiss) {
         Column(
@@ -128,7 +129,7 @@ fun DefaultProfilePickerDialog(
             AikuButton(
                 onClick = {
                     onCharacterProfileSelected(
-                        MemberProfile.CharProfile(
+                        MemberProfile.Character(
                             profileCharacter = selectedCharacter,
                             profileBackground = selectedBackgroundColor,
                         )
@@ -152,10 +153,10 @@ fun DefaultProfilePickerDialog(
 @Preview(showBackground = true)
 @Composable
 private fun CreateGroupDialogPreview() {
-    AiKUTheme {
-        DefaultProfilePickerDialog(
-            MemberProfile.CharProfile(
-                profileCharacter = ProfileCharacter.C01,
+    AikuPreviewTheme {
+        CharacterProfilePickerDialog(
+            MemberProfile.Character(
+                profileCharacter = ProfileCharacter.BOY,
                 profileBackground = ProfileBackground.GREEN,
             ),
             onDismiss = {},

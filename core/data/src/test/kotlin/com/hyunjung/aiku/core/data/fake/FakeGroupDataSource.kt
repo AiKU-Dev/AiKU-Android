@@ -33,13 +33,13 @@ class FakeGroupDataSource : GroupRemoteDataSource {
             GroupMember(
                 memberId = 1L,
                 nickname = "지정희",
-                memberProfile = MemberProfile.ImgProfile(profileImg = "http://amazon.s3.image.jpg")
+                memberProfile = MemberProfile.RemoteImage(imageUrl = "http://amazon.s3.image.jpg")
             ),
             GroupMember(
                 memberId = 2L,
                 nickname = "박소영",
-                memberProfile = MemberProfile.CharProfile(
-                    profileCharacter = ProfileCharacter.C01,
+                memberProfile = MemberProfile.Character(
+                    profileCharacter = ProfileCharacter.BOY,
                     profileBackground = ProfileBackground.GREEN
                 )
             )
