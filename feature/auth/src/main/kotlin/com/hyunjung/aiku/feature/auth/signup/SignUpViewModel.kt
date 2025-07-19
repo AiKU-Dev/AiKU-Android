@@ -4,21 +4,27 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.MemberProfile
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.core.navigation.AuthRoute
+import com.hyunjung.aiku.core.result.Result
+import com.hyunjung.aiku.core.result.asResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@HiltViewModel
 class SignUpViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _snackbarMessage = MutableSharedFlow<SignUpSnackbarMessage>()
@@ -48,6 +54,7 @@ class SignUpViewModel @Inject constructor(
 
     fun onNicknameChange(nickname: String) {
         _signUpFormState.update { it.copy(nickname = nickname) }
+        _signUpFormState.update { it.copy(isNicknameDuplicated = false) }
     }
 
     fun onProfileChange(memberProfile: MemberProfile) {
@@ -56,7 +63,24 @@ class SignUpViewModel @Inject constructor(
 
     fun checkNicknameDuplication() {
         viewModelScope.launch {
-            _snackbarMessage.emit(SignUpSnackbarMessage.DuplicateNickname)
+            if (!_signUpFormState.value.isNicknameValid) {
+                _snackbarMessage.emit(SignUpSnackbarMessage.InvalidNickname)
+                return@launch
+            }
+            val checkNicknameDuplicatedResult =
+                authRepository.checkNicknameDuplicated(_signUpFormState.value.nickname)
+                    .asResult()
+                    .first { it !is Result.Loading }
+
+            if (checkNicknameDuplicatedResult is Result.Success) {
+                if (checkNicknameDuplicatedResult.data) {
+                    _snackbarMessage.emit(SignUpSnackbarMessage.DuplicateNickname)
+                } else {
+                    _signUpFormState.update { it.copy(isNicknameDuplicated = true) }
+                }
+            } else if (checkNicknameDuplicatedResult is Result.Error) {
+                _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)
+            }
         }
     }
 
@@ -83,5 +107,8 @@ sealed interface SignUpStep {
 
 sealed class SignUpSnackbarMessage(val message: String) {
     data object DuplicateNickname : SignUpSnackbarMessage("이미 있는 닉네임입니다!")
+    data object InvalidNickname :
+        SignUpSnackbarMessage("닉네임은 한글/영문만 가능하며, 최대 6자까지 입력할 수 있어요.")
+
     data object UnknownError : SignUpSnackbarMessage("알 수 없는 오류가 발생했습니다")
 }

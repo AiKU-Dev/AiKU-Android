@@ -3,6 +3,7 @@ package com.hyunjung.aiku.core.data.repository
 import android.content.Context
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
+import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.network.NetworkException
@@ -25,20 +26,21 @@ class DefaultAuthRepository @Inject constructor(
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
     }
 
-    override fun login(context: Context, socialType: SocialType, idToken:String): Flow<Boolean> = flow {
-        try {
-            val authTokens = authRemoteDataSource.loginWithSocial(
-                socialType = socialType,
-                idToken = idToken
-            )
-            aikuAuthPreferencesDataSource.setCredentials(authTokens, socialType)
-            emit(true)
-        } catch (e: NetworkException.NotFound) {
-            emit(false)
-        } catch (e: Exception) {
-            throw e
+    override fun login(context: Context, socialType: SocialType, idToken: String): Flow<Boolean> =
+        flow {
+            try {
+                val authTokens = authRemoteDataSource.loginWithSocial(
+                    socialType = socialType,
+                    idToken = idToken
+                )
+                aikuAuthPreferencesDataSource.setCredentials(authTokens, socialType)
+                emit(true)
+            } catch (e: NetworkException.NotFound) {
+                emit(false)
+            } catch (e: Exception) {
+                throw e
+            }
         }
-    }
 
     override suspend fun logout() {
         val socialType = aikuAuthPreferencesDataSource.userAuthData.first().socialType
@@ -48,6 +50,10 @@ class DefaultAuthRepository @Inject constructor(
             SocialType.KAKAO -> kakao.logout()
         }
         aikuAuthPreferencesDataSource.clearCredentials()
+    }
+
+    override suspend fun signUp(signUpForm: SignUpForm) {
+        TODO("Not yet implemented")
     }
 
     override fun connectSocialAccount(
@@ -61,4 +67,7 @@ class DefaultAuthRepository @Inject constructor(
         )
     }
 
+    override fun checkNicknameDuplicated(nickname: String): Flow<Boolean> = flow {
+        emit(authRemoteDataSource.checkNicknameDuplicated(nickname))
+    }
 }
