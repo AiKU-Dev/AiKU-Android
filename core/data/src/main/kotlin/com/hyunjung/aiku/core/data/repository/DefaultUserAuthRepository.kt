@@ -3,6 +3,7 @@ package com.hyunjung.aiku.core.data.repository
 import android.content.Context
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
+import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.network.NetworkException
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
@@ -24,8 +25,7 @@ class DefaultUserAuthRepository @Inject constructor(
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
     }
 
-    override fun login(context: Context, socialType: SocialType): Flow<Boolean> = flow {
-        val idToken = connectSocialAccount(context, socialType)
+    override fun login(context: Context, socialType: SocialType, idToken:String): Flow<Boolean> = flow {
         try {
             val authTokens = authRemoteDataSource.loginWithSocial(
                 socialType = socialType,
@@ -50,10 +50,15 @@ class DefaultUserAuthRepository @Inject constructor(
         aikuAuthPreferencesDataSource.clearCredentials()
     }
 
-    private suspend fun connectSocialAccount(
+    override fun connectSocialAccount(
         context: Context,
-        type: SocialType
-    ): String = when (type) {
-        SocialType.KAKAO -> kakao.login(context)
+        type: SocialType,
+    ): Flow<SocialLoginResult> = flow {
+        emit(
+            when (type) {
+                SocialType.KAKAO -> kakao.login(context)
+            }
+        )
     }
+
 }

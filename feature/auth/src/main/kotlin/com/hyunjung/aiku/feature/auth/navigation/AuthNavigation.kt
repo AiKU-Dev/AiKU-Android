@@ -4,28 +4,33 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.core.navigation.AuthRoute
 import com.hyunjung.aiku.core.navigation.navigateAndClearBackStack
 import com.hyunjung.aiku.core.navigation.navigateSingleTop
-import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.feature.auth.signin.SignInScreen
 import com.hyunjung.aiku.feature.auth.signup.SignUpScreen
-import com.hyunjung.aiku.feature.auth.signup.SignUpTermsScreen
 
 fun NavController.navigateToSignInAndClearBackStack() =
     navigateAndClearBackStack(AuthRoute.SignInRoute)
 
-fun NavController.navigateToSignUpTermsAndClearBackStack() =
-    navigateAndClearBackStack(AuthRoute.SignUpTermsRoute)
-
-fun NavController.navigateToSignUpSingleTop(agreedTerms: List<TermsType>) =
-    navigateSingleTop(AuthRoute.SignUpRoute(agreedTerms))
+fun NavController.navigateToSignUpSingleTop(
+    socialType: SocialType,
+    idToken: String,
+    email: String,
+) = navigateSingleTop(
+    AuthRoute.SignUpRoute(
+        socialType = socialType,
+        idToken = idToken,
+        email = email,
+    )
+)
 
 
 fun NavGraphBuilder.authSection(
     onLoginSuccess: () -> Unit,
-    onSignUpRequired: () -> Unit,
-    onNavigateToSignUp: (List<TermsType>) -> Unit,
+    onSignUpRequired: (SocialType, String, String) -> Unit,
     onNavigateToTermsDetail: (TermsType) -> Unit,
 ) {
     navigation<AuthRoute.AuthBaseRoute>(startDestination = AuthRoute.SignInRoute) {
@@ -35,14 +40,9 @@ fun NavGraphBuilder.authSection(
                 onSignUpRequired = onSignUpRequired
             )
         }
-        composable<AuthRoute.SignUpTermsRoute> {
-            SignUpTermsScreen(
-                onAgreeClick = onNavigateToSignUp,
-                onTermsClick = onNavigateToTermsDetail,
-            )
-        }
         composable<AuthRoute.SignUpRoute> {
             SignUpScreen(
+                onTermsClick = onNavigateToTermsDetail,
                 onSignUpSuccess = onLoginSuccess,
             )
         }

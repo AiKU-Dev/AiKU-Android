@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.core.navigation
 
+import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.model.TermsType
 import kotlinx.serialization.Serializable
 
@@ -41,10 +42,11 @@ sealed interface AuthRoute : AikuRoute {
     data object SignInRoute : AuthRoute
 
     @Serializable
-    data class SignUpRoute(val agreedTerms: List<TermsType>) : AuthRoute
-
-    @Serializable
-    data object SignUpTermsRoute : AuthRoute
+    data class SignUpRoute(
+        val socialType: SocialType,
+        val idToken: String,
+        val email: String,
+    ) : AuthRoute
 }
 
 fun AikuRoute.isTopLevel(): Boolean {

@@ -1,6 +1,9 @@
 package com.hyunjung.aiku.core.model
 
 data class SignUpForm(
+    val idToken: String,
+    val socialType: SocialType,
+    val email: String,
     val nickname: String = "",
     val memberProfile: MemberProfile = MemberProfile.Character(
         profileCharacter = ProfileCharacter.BOY,

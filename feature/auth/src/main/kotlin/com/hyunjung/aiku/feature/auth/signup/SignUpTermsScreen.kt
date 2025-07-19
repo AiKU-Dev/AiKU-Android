@@ -38,8 +38,8 @@ import com.hyunjung.aiku.feature.auth.R
 import com.hyunjung.aiku.core.ui.R as UiR
 
 @Composable
-fun SignUpTermsScreen(
-    onAgreeClick: (List<TermsType>) -> Unit,
+internal fun SignUpTermsScreen(
+    onTermsAgreed: (List<TermsType>) -> Unit,
     onTermsClick: (TermsType) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -127,7 +127,7 @@ fun SignUpTermsScreen(
         }
 
         AikuButton(
-            onClick = { onAgreeClick(checkedStates.filterValues { it }.keys.toList()) },
+            onClick = { onTermsAgreed(checkedStates.filterValues { it }.keys.toList()) },
             enabled = allRequiredChecked,
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(vertical = 16.dp)
@@ -216,7 +216,7 @@ private fun TermsAgreementItem(
 private fun TermsAgreementItemPreview() {
     AikuPreviewTheme {
         SignUpTermsScreen(
-            onAgreeClick = {},
+            onTermsAgreed = {},
             onTermsClick = {},
         )
     }

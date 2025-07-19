@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.hyunjung.aiku.core.model.MemberProfile
 import com.hyunjung.aiku.core.model.SignUpForm
+import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.core.navigation.AuthRoute
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,19 +21,30 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
     private val _snackbarMessage = MutableSharedFlow<SignUpSnackbarMessage>()
     val snackbarMessage = _snackbarMessage.asSharedFlow()
 
-    private val _uiState: MutableStateFlow<SignUpUiState> =
-        MutableStateFlow(SignUpUiState.Idle)
-    val uiState: StateFlow<SignUpUiState> = _uiState.asStateFlow()
+    private val _signUpStep: MutableStateFlow<SignUpStep> =
+        MutableStateFlow(SignUpStep.Terms)
+    val signUpStep: StateFlow<SignUpStep> = _signUpStep.asStateFlow()
+
+    private val _signUpProfileUiState: MutableStateFlow<SignUpProfileUiState> =
+        MutableStateFlow(SignUpProfileUiState.Idle)
+    val signUpProfileUiState: StateFlow<SignUpProfileUiState> = _signUpProfileUiState.asStateFlow()
 
     private val _signUpFormState: MutableStateFlow<SignUpForm> = MutableStateFlow(
-        SignUpForm(agreedTerms = savedStateHandle.toRoute<AuthRoute.SignUpRoute>().agreedTerms)
+        SignUpForm(
+            idToken = savedStateHandle.toRoute<AuthRoute.SignUpRoute>().idToken,
+            email = savedStateHandle.toRoute<AuthRoute.SignUpRoute>().email,
+            socialType = savedStateHandle.toRoute<AuthRoute.SignUpRoute>().socialType,
+        )
     )
     val signUpFormState: StateFlow<SignUpForm> = _signUpFormState.asStateFlow()
 
+    fun onTermsAgreed(agreedTerms: List<TermsType>) {
+        _signUpFormState.update { it.copy(agreedTerms = agreedTerms) }
+        _signUpStep.update { SignUpStep.Profile }
+    }
 
     fun onNicknameChange(nickname: String) {
         _signUpFormState.update { it.copy(nickname = nickname) }
@@ -52,15 +64,21 @@ class SignUpViewModel @Inject constructor(
         _signUpFormState.update { it.copy(recommenderNickname = recommenderNickname) }
     }
 
-    fun submitSignUp(onSuccess: () -> Unit) {
+    fun submitSignUp() {
 
     }
 }
 
-sealed interface SignUpUiState {
-    data object Idle : SignUpUiState
-    data object Loading : SignUpUiState
-    data class Error(val message: String) : SignUpUiState
+sealed interface SignUpProfileUiState {
+    data object Idle : SignUpProfileUiState
+    data object Loading : SignUpProfileUiState
+    data class Error(val message: String) : SignUpProfileUiState
+}
+
+sealed interface SignUpStep {
+    data object Terms : SignUpStep
+    data object Profile : SignUpStep
+    data object Success : SignUpStep
 }
 
 sealed class SignUpSnackbarMessage(val message: String) {

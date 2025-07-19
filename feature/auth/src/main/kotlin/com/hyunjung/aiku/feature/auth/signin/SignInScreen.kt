@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.feature.auth.signin
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,16 +34,20 @@ import com.hyunjung.aiku.core.ui.R as UiR
 @Composable
 fun SignInScreen(
     onLoginSuccess: () -> Unit,
-    onSignUpRequired: () -> Unit,
+    onSignUpRequired: (SocialType, String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
     val localContext = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(uiState) {
-        when (uiState) {
+        when (val result = uiState) {
             is LoginUiState.Success -> onLoginSuccess()
-            is LoginUiState.NeedsSignUp -> onSignUpRequired()
+            is LoginUiState.NeedsSignUp -> {
+                viewModel.consumeUiState()
+                onSignUpRequired(result.socialType, result.idToken, result.email)
+            }
+
             else -> Unit
         }
     }
@@ -98,7 +103,7 @@ private fun SignInScreen(
                 color = AiKUTheme.colors.cobaltBlue,
             )
             Spacer(Modifier.height(40.dp))
-            if (uiState is LoginUiState.Idle) {
+            if (uiState !is LoginUiState.Loading) {
                 AikuButton(
                     onClick = onKakaoLoginClick,
                     modifier = Modifier.fillMaxWidth(),

@@ -11,7 +11,6 @@ import com.hyunjung.aiku.core.navigation.navigateSingleTop
 import com.hyunjung.aiku.core.ui.component.common.TermsDetailScreen
 import com.hyunjung.aiku.feature.auth.navigation.authSection
 import com.hyunjung.aiku.feature.auth.navigation.navigateToSignUpSingleTop
-import com.hyunjung.aiku.feature.auth.navigation.navigateToSignUpTermsAndClearBackStack
 import com.hyunjung.aiku.feature.splash.navigation.splashScreen
 import com.hyunjung.aiku.ui.AikuAppState
 
@@ -32,8 +31,7 @@ fun AikuNavHost(
 
         authSection(
             onLoginSuccess = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
-            onSignUpRequired = navController::navigateToSignUpTermsAndClearBackStack,
-            onNavigateToSignUp = navController::navigateToSignUpSingleTop,
+            onSignUpRequired = navController::navigateToSignUpSingleTop,
             onNavigateToTermsDetail = { termsType ->
                 navController.navigateSingleTop(AikuRoute.TermsDetailRoute(termsType))
             },
