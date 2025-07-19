@@ -3,12 +3,14 @@ package com.hyunjung.aiku.core.ui.component.common
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +28,8 @@ fun NicknameField(
     checkNicknameDuplication: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     AikuLimitedTextField(
         value = nickname,
         onValueChange = onNicknameChange,
@@ -33,7 +37,10 @@ fun NicknameField(
         maxLength = 6,
         supporting = {
             AikuClickableSurface(
-                onClick = checkNicknameDuplication,
+                onClick = {
+                    keyboardController?.hide()
+                    checkNicknameDuplication()
+                },
                 color = AiKUTheme.colors.gray01,
                 shape = RoundedCornerShape(4.dp),
                 border = BorderStroke(
@@ -50,6 +57,12 @@ fun NicknameField(
                 )
             }
         },
+        keyboardActions = KeyboardActions(
+            onDone = {
+                keyboardController?.hide()
+                checkNicknameDuplication()
+            }
+        ),
         colors = AikuTextFieldDefaults.colors(
             indicatorColor = AiKUTheme.colors.gray02
         ),
