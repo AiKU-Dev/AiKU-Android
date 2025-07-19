@@ -5,7 +5,7 @@ import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
 import kotlinx.coroutines.flow.Flow
 
-interface UserAuthRepository {
+interface AuthRepository {
     val isLoggedIn: Flow<Boolean>
     fun login(context: Context, socialType: SocialType, idToken: String): Flow<Boolean>
     fun connectSocialAccount(context: Context, type: SocialType): Flow<SocialLoginResult>

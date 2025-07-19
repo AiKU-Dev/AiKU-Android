@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.data.repository
 
 import android.content.Context
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
-import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
+import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.network.NetworkException
@@ -15,11 +15,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DefaultUserAuthRepository @Inject constructor(
+class DefaultAuthRepository @Inject constructor(
     @SocialLogin(SocialType.KAKAO) private val kakao: SocialAuthDataSource,
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val aikuAuthPreferencesDataSource: AikuAuthPreferencesDataSource,
-) : UserAuthRepository {
+) : AuthRepository {
 
     override val isLoggedIn: Flow<Boolean> = aikuAuthPreferencesDataSource.userAuthData.map {
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()

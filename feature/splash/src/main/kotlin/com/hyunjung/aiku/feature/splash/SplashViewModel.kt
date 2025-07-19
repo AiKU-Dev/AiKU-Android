@@ -2,7 +2,7 @@ package com.hyunjung.aiku.feature.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
+import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -12,9 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    userAuthRepository: UserAuthRepository
+    authRepository: AuthRepository
 ) : ViewModel() {
-    val uiState: StateFlow<SplashUiState> = userAuthRepository.isLoggedIn.map { isLoggedIn ->
+    val uiState: StateFlow<SplashUiState> = authRepository.isLoggedIn.map { isLoggedIn ->
         if (isLoggedIn) {
             SplashUiState.NavigateToHome
         } else {

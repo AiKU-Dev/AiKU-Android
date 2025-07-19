@@ -3,7 +3,7 @@ package com.hyunjung.aiku.feature.auth.signin
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hyunjung.aiku.core.domain.repository.UserAuthRepository
+import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.result.Result
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val userAuthRepository: UserAuthRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
@@ -26,7 +26,7 @@ class SignInViewModel @Inject constructor(
 
     fun login(context: Context, socialType: SocialType) {
         viewModelScope.launch {
-            userAuthRepository.connectSocialAccount(context, socialType)
+            authRepository.connectSocialAccount(context, socialType)
                 .asResult()
                 .collect { result ->
                     handleConnectResult(result, context, socialType)
@@ -48,7 +48,7 @@ class SignInViewModel @Inject constructor(
             is Result.Error -> _uiState.value = LoginUiState.Error(result.exception.message)
             is Result.Success -> {
                 val (idToken, email) = result.data
-                userAuthRepository.login(context, socialType, idToken)
+                authRepository.login(context, socialType, idToken)
                     .asResult()
                     .filter { it !is Result.Loading }
                     .collect { loginResult ->
