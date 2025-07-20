@@ -87,7 +87,7 @@ fun AikuText(
     minLines: Int = 1,
     inlineContent: Map<String, InlineTextContent> = mapOf(),
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = DefaultTextStyle
+    style: TextStyle = LocalAikuTextStyle.current
 ) {
     val textColor = color.takeOrElse { style.color.takeOrElse { AiKUTheme.colors.typo } }
 
