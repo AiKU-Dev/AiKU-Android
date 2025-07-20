@@ -1,5 +1,6 @@
 package com.hyunjung.aiku.feature.auth.signup
 
+import android.net.Uri
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,7 +48,8 @@ internal fun SignUpProfileScreen(
     uiState: SignUpProfileUiState = SignUpProfileUiState.Idle,
     snackbarHostState: AikuSnackbarHostState = AikuSnackbarHostState(),
     onNicknameChange: (String) -> Unit = {},
-    onProfileChange: (MemberProfile) -> Unit = {},
+    onCharacterProfileSelected: (MemberProfile.Character) -> Unit = {},
+    onAlbumImageSelected: (Uri) -> Unit = {},
     checkNicknameDuplication: () -> Unit = {},
     onRecommenderNicknameChange: (String) -> Unit = {},
     submitSignUp: () -> Unit = {},
@@ -91,8 +93,8 @@ internal fun SignUpProfileScreen(
                 isOptionMenuVisible = isOptionMenuVisible,
                 onProfileImageOptionMenuDisMiss = { isOptionMenuVisible = false },
                 onEditClick = { isOptionMenuVisible = true },
-                onCharacterProfileSelected = onProfileChange,
-                onAlbumImageSelected = onProfileChange,
+                onCharacterProfileSelected = onCharacterProfileSelected,
+                onAlbumImageSelected = onAlbumImageSelected,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
 

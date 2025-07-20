@@ -1,7 +1,6 @@
 package com.hyunjung.aiku.feature.auth.signin
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
@@ -76,7 +75,6 @@ class SignInViewModel @Inject constructor(
             }
 
             is Result.Error -> {
-                Log.d("testaaa", "${result.exception.message}")
                 LoginUiState.Error(result.exception.message)
             }
         }

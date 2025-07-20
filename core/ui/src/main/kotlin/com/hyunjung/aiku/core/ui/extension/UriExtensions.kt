@@ -5,18 +5,24 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.core.graphics.scale
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalUuidApi::class)
-internal fun Uri.toCompressedFile(
+suspend fun Uri.toCompressedFile(
     context: Context,
-    maxWidth: Int = 200,
-    quality: Int = 80
-): File {
-    val inputStream = context.contentResolver.openInputStream(this)
+    maxWidth: Int = 1280,
+    maxFileSizeInMB: Int = 5,
+    initialQuality: Int = 100,
+    minQuality: Int = 50,
+    dispatcher: CoroutineDispatcher = Dispatchers.IO // ✨ 주입 가능
+): File = withContext(dispatcher) {
+    val inputStream = context.contentResolver.openInputStream(this@toCompressedFile)
         ?: error("Failed to open InputStream from URI")
 
     val originalBitmap = BitmapFactory.decodeStream(inputStream)
@@ -33,9 +39,17 @@ internal fun Uri.toCompressedFile(
     val fileName = "compressed_${Uuid.random()}.jpg"
     val compressedFile = File(context.cacheDir, fileName)
 
-    FileOutputStream(compressedFile).use { out ->
-        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, quality, out)
+    var quality = initialQuality
+    var fileSize: Long
+
+    while (true) {
+        FileOutputStream(compressedFile).use { out ->
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, quality, out)
+        }
+        fileSize = compressedFile.length()
+        if (fileSize <= maxFileSizeInMB * 1024 * 1024 || quality <= minQuality) break
+        quality -= 5
     }
 
-    return compressedFile
+    compressedFile
 }
