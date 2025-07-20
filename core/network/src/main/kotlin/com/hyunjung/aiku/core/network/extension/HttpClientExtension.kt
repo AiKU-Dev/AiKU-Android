@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.extensions
+package com.hyunjung.aiku.core.network.extension
 
 import android.util.Log
 import com.hyunjung.aiku.core.network.exception.NetworkException
