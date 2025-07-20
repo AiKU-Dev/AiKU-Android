@@ -1,6 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import android.content.Context
+import android.util.Log
 import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.network.NetworkException
 import com.kakao.sdk.auth.model.OAuthToken
@@ -76,6 +77,7 @@ class KakaoAuthDataSource @Inject constructor(
                         } else {
                             val email = user?.kakaoAccount?.email
                             if (email != null) {
+                                Log.d("testaaa", idToken)
                                 if (continuation.isActive) continuation.resume(
                                     SocialLoginResult(
                                         idToken = idToken,

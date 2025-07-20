@@ -1,6 +1,5 @@
 package com.hyunjung.aiku.core.network.datasource
 
-import android.util.Log
 import com.hyunjung.aiku.core.model.AuthTokens
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialType
@@ -31,7 +30,6 @@ class DefaultAuthRemoteDataSource @Inject constructor(
     }
 
     override suspend fun signUp(signUpForm: SignUpForm) {
-        Log.d("testaaa", "${signUpForm.toString()}")
         client.submitFormWithBinaryData<UserResource, Unit>(
             resource = UserResource(),
             partsBuilder = {

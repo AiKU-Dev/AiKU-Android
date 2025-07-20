@@ -10,9 +10,6 @@ sealed interface AikuRoute {
     data object SplashRoute : AikuRoute
 
     @Serializable
-    data object TermsRoute : AikuRoute
-
-    @Serializable
     data object HomeRoute : AikuRoute
 
     @Serializable
