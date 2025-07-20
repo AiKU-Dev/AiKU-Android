@@ -3,9 +3,9 @@ package com.hyunjung.aiku.core.network.resource
 import io.ktor.resources.Resource
 
 @Resource("/groups")
-class Groups(val page: Int? = null) {
+class GroupResource(val page: Int? = null) {
     @Resource("{id}")
-    class Id(val parent: Groups = Groups(), val id: Long) {
+    class Id(val parent: GroupResource = GroupResource(), val id: Long) {
         @Resource("schedules")
         class Schedules(
             val parent: Id,
