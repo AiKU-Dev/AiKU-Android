@@ -6,7 +6,7 @@ import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.network.NetworkException
+import com.hyunjung.aiku.core.network.exception.NetworkException
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.SocialAuthDataSource
 import com.hyunjung.aiku.core.network.di.SocialLogin

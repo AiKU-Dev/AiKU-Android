@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.network.datasource
 
 import android.content.Context
 import com.hyunjung.aiku.core.model.SocialLoginResult
-import com.hyunjung.aiku.core.network.NetworkException
+import com.hyunjung.aiku.core.network.exception.NetworkException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -40,12 +40,10 @@ class KakaoAuthDataSource @Inject constructor(
     override suspend fun logout() =
         suspendCancellableCoroutine { continuation ->
             kakaoUserApiClient.logout { error ->
-                if (error != null) {
-                    if (continuation.isActive) {
-                        continuation.resumeWithException(NetworkException.Unknown)
-                    }
-                } else {
-                    if (continuation.isActive) {
+                if (continuation.isActive) {
+                    if (error != null) {
+                        continuation.resumeWithException(NetworkException.Unknown(error))
+                    } else {
                         continuation.resume(Unit)
                     }
                 }
@@ -59,9 +57,9 @@ class KakaoAuthDataSource @Inject constructor(
             error != null -> {
                 val exception =
                     if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                        NetworkException.Unauthorized
+                        NetworkException.Unauthorized()
                     } else {
-                        NetworkException.Unknown
+                        NetworkException.Unknown()
                     }
                 if (continuation.isActive) continuation.resumeWithException(exception)
             }
@@ -71,7 +69,7 @@ class KakaoAuthDataSource @Inject constructor(
                     kakaoUserApiClient.me { user, error ->
                         if (error != null) {
                             if (continuation.isActive) continuation.resumeWithException(
-                                NetworkException.Unknown
+                                NetworkException.Unknown()
                             )
                         } else {
                             val email = user?.kakaoAccount?.email
@@ -84,20 +82,20 @@ class KakaoAuthDataSource @Inject constructor(
                                 )
                             } else {
                                 if (continuation.isActive) continuation.resumeWithException(
-                                    NetworkException.Unauthorized
+                                    NetworkException.Unauthorized()
                                 )
                             }
                         }
                     }
                 } ?: run {
                     if (continuation.isActive) continuation.resumeWithException(
-                        NetworkException.Unauthorized
+                        NetworkException.Unauthorized()
                     )
                 }
             }
 
             else -> {
-                if (continuation.isActive) continuation.resumeWithException(NetworkException.Unknown)
+                if (continuation.isActive) continuation.resumeWithException(NetworkException.Unknown())
             }
         }
     }
