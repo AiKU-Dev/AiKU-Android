@@ -20,6 +20,7 @@ abstract class AppComposeNavigator<T : Any> : Navigator() {
     abstract fun navigate(route: T, optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null)
     abstract fun popUpTo(route: T, inclusive: Boolean)
     abstract fun navigateAndClearBackStack(route: T)
+    abstract fun navigateToTopLevelDestination(route: T)
 
     suspend fun handleNavigationCommands(navController: NavController) {
         navigationCommands

@@ -7,6 +7,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.runtime.Composable
@@ -39,6 +41,7 @@ fun AikuSurface(
     contentColor: Color = Color.Unspecified,
     shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -52,7 +55,8 @@ fun AikuSurface(
                         backgroundColor = color,
                         border = border,
                         shadowElevation = with(LocalDensity.current) { shadowElevation.toPx() }
-                    ),
+                    )
+                    .padding(contentPadding),
             propagateMinConstraints = true,
         ) {
             content()
@@ -73,6 +77,7 @@ fun AikuClickableSurface(
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
     indication: Indication? = null,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -88,6 +93,7 @@ fun AikuClickableSurface(
         contentColor = contentColor,
         shadowElevation = shadowElevation,
         border = border,
+        contentPadding = contentPadding,
         content = content
     )
 }
@@ -106,6 +112,7 @@ fun AikuSelectableSurface(
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
     indication: Indication? = null,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -121,6 +128,7 @@ fun AikuSelectableSurface(
         contentColor = contentColor,
         shadowElevation = shadowElevation,
         border = border,
+        contentPadding = contentPadding,
         content = content
     )
 }
@@ -139,6 +147,7 @@ fun AikuCheckableSurface(
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
     indication: Indication? = null,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable () -> Unit
 ) {
     AikuSurface(
@@ -154,6 +163,7 @@ fun AikuCheckableSurface(
         contentColor = contentColor,
         shadowElevation = shadowElevation,
         border = border,
+        contentPadding = contentPadding,
         content = content
     )
 }

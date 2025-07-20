@@ -5,7 +5,7 @@ import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 
-val LocalComposeNavigator: ProvidableCompositionLocal<AppComposeNavigator<AikuScreen>> =
+val LocalComposeNavigator: ProvidableCompositionLocal<AppComposeNavigator<AikuRoute>> =
     compositionLocalOf {
         error(
             "No AppComposeNavigator<AikuScreen> was provided." +
@@ -13,7 +13,7 @@ val LocalComposeNavigator: ProvidableCompositionLocal<AppComposeNavigator<AikuSc
         )
     }
 
-val currentComposeNavigator: AppComposeNavigator<AikuScreen>
+val currentComposeNavigator: AppComposeNavigator<AikuRoute>
     @Composable
     @ReadOnlyComposable
     get() = LocalComposeNavigator.current

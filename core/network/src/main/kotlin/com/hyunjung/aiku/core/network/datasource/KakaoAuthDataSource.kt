@@ -1,7 +1,9 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import android.content.Context
-import com.hyunjung.aiku.core.network.util.NetworkException
+import android.util.Log
+import com.hyunjung.aiku.core.model.SocialLoginResult
+import com.hyunjung.aiku.core.network.NetworkException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -16,7 +18,7 @@ class KakaoAuthDataSource @Inject constructor(
     private val kakaoUserApiClient: UserApiClient,
 ) : SocialAuthDataSource {
 
-    override suspend fun login(context: Context): String =
+    override suspend fun login(context: Context): SocialLoginResult =
         suspendCancellableCoroutine { continuation ->
             val callback = createKakaoLoginCallback(continuation)
 
@@ -52,7 +54,7 @@ class KakaoAuthDataSource @Inject constructor(
         }
 
     private fun createKakaoLoginCallback(
-        continuation: CancellableContinuation<String>,
+        continuation: CancellableContinuation<SocialLoginResult>,
     ): (OAuthToken?, Throwable?) -> Unit = { token, error ->
         when {
             error != null -> {
@@ -67,7 +69,28 @@ class KakaoAuthDataSource @Inject constructor(
 
             token != null -> {
                 token.idToken?.let { idToken ->
-                    if (continuation.isActive) continuation.resume(idToken)
+                    kakaoUserApiClient.me { user, error ->
+                        if (error != null) {
+                            if (continuation.isActive) continuation.resumeWithException(
+                                NetworkException.Unknown
+                            )
+                        } else {
+                            val email = user?.kakaoAccount?.email
+                            if (email != null) {
+                                Log.d("testaaa", idToken)
+                                if (continuation.isActive) continuation.resume(
+                                    SocialLoginResult(
+                                        idToken = idToken,
+                                        email = email
+                                    )
+                                )
+                            } else {
+                                if (continuation.isActive) continuation.resumeWithException(
+                                    NetworkException.Unauthorized
+                                )
+                            }
+                        }
+                    }
                 } ?: run {
                     if (continuation.isActive) continuation.resumeWithException(
                         NetworkException.Unauthorized

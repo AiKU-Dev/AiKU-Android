@@ -3,7 +3,7 @@ package com.hyunjung.aiku.core.network.resource
 import io.ktor.resources.Resource
 
 @Resource("/member")
-class Member {
+class MemberResource {
 
     @Resource("schedules")
     class Schedules(

@@ -19,6 +19,10 @@ object AikuIcons {
     val ArrowBackIosNew = Icons.Rounded.ArrowBackIosNew
     val Calendar: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_calendar)
+    val Check: Painter
+        @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_check)
+    val Edit: Painter
+        @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_edit)
     val Location: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_location)
     val ChevronDown = Icons.Rounded.KeyboardArrowDown

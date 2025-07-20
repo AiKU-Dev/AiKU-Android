@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.datasource.mock
 
-import com.hyunjung.aiku.core.network.resource.Groups
+import com.hyunjung.aiku.core.network.resource.GroupResource
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.engine.mock.respondError
@@ -13,12 +13,12 @@ import io.ktor.resources.href
 import io.ktor.resources.serialization.ResourcesFormat
 
 val groupMockEngine = MockEngine { request ->
-    val groupsPath = href(ResourcesFormat(), Groups(1))
-    val groupDetailPath = href(ResourcesFormat(), Groups.Id(id = 1L))
-    val postGroupsPath = href(ResourcesFormat(), Groups())
+    val groupResourcePath = href(ResourcesFormat(), GroupResource(1))
+    val groupDetailPath = href(ResourcesFormat(), GroupResource.Id(id = 1L))
+    val postGroupResourcePath = href(ResourcesFormat(), GroupResource())
 
     when {
-        request.method == HttpMethod.Get && request.url.fullPath == groupsPath -> respond(
+        request.method == HttpMethod.Get && request.url.fullPath == groupResourcePath -> respond(
             content = groupListJson,
             status = HttpStatusCode.OK,
             headers = headersOf(HttpHeaders.ContentType, "application/json")
@@ -30,7 +30,7 @@ val groupMockEngine = MockEngine { request ->
             headers = headersOf(HttpHeaders.ContentType, "application/json")
         )
 
-        request.method == HttpMethod.Post && request.url.fullPath == postGroupsPath -> {
+        request.method == HttpMethod.Post && request.url.fullPath == postGroupResourcePath -> {
             println("ddddddddddddddddddddd")
             respond(
                 content = """{"code":200,"message":"OK","result":null}""",

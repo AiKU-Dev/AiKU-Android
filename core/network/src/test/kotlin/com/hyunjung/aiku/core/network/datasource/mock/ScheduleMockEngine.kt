@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource.mock
 
-import com.hyunjung.aiku.core.network.resource.Groups
-import com.hyunjung.aiku.core.network.resource.Member
+import com.hyunjung.aiku.core.network.resource.GroupResource
+import com.hyunjung.aiku.core.network.resource.MemberResource
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.engine.mock.respondError
@@ -13,11 +13,11 @@ import io.ktor.resources.href
 import io.ktor.resources.serialization.ResourcesFormat
 
 val scheduleMockEngine = MockEngine { request ->
-    val memberSchedulePath = href(ResourcesFormat(), Member.Schedules())
-    val groupSchedulePath = href(ResourcesFormat(), Groups.Id.Schedules(parent = Groups.Id(id = 1L)))
+    val memberResourceSchedulePath = href(ResourcesFormat(), MemberResource.Schedules())
+    val groupSchedulePath = href(ResourcesFormat(), GroupResource.Id.Schedules(parent = GroupResource.Id(id = 1L)))
 
     when (request.url.fullPath) {
-        memberSchedulePath -> respond(
+        memberResourceSchedulePath -> respond(
             content = memberScheduleJson,
             status = HttpStatusCode.OK,
             headers = headersOf(HttpHeaders.ContentType, "application/json")

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_auth_signin_checking">로그인 기록 확인 중..</string>
+    <string name="feature_auth_signup_terms_header">AiKU에\n오신 것을 환영합니다!</string>
+    <string name="feature_auth_signup_terms_agree_all">전체 동의</string>
+    <string name="feature_auth_signup_terms_agree_start">동의하고 시작하기</string>
+    <string name="feature_auth_signup_terms_label_required">%1$s(필수)</string>
+    <string name="feature_auth_signup_terms_label_optional">%1$s(선택)</string>
+
+    <string name="feature_auth_signup_header">AiKU에\n오신 것을 환영합니다!</string>
+    <string name="feature_auth_signup_button">회원 가입</string>
+    <string name="feature_auth_signup_signup_recommend_nickname">추천인 닉네임 입력</string>
+    <string name="feature_auth_signup_checking">회원 가입 진행 중..</string>
+    <string name="feature_auth_signup_error_message">회원 가입 진행 중 일시적인 오류가 발생했습니다</string>
+</resources>

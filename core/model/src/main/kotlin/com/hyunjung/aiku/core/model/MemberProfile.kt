@@ -1,8 +1,18 @@
 package com.hyunjung.aiku.core.model
 
-data class MemberProfile(
-    val profileType: String,
-    val profileImg: String? = null,
-    val profileCharacter: String? = null,
-    val profileBackground: String? = null
-)
+import java.io.File
+
+sealed interface MemberProfile {
+    data class RemoteImage(
+        val imageUrl: String
+    ) : MemberProfile
+
+    data class GalleryImage(
+        val file: File,
+    ) : MemberProfile
+
+    data class Character(
+        val profileCharacter: ProfileCharacter,
+        val profileBackground: ProfileBackground
+    ) : MemberProfile
+}
