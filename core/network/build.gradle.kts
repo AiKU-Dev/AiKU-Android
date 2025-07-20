@@ -25,10 +25,6 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 
-    implementation(libs.kakao.auth)
-    implementation(libs.kakao.common)
-    implementation(libs.kakao.user)
-
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

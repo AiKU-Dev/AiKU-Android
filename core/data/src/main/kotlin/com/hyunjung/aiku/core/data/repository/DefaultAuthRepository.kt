@@ -1,15 +1,15 @@
 package com.hyunjung.aiku.core.data.repository
 
 import android.content.Context
+import com.hyunjung.aiku.core.data.social.SocialAuthManager
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialLoginResult
 import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.network.exception.NetworkException
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
-import com.hyunjung.aiku.core.network.datasource.SocialAuthDataSource
 import com.hyunjung.aiku.core.network.di.SocialLogin
+import com.hyunjung.aiku.core.network.exception.NetworkException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
-    @SocialLogin(SocialType.KAKAO) private val kakao: SocialAuthDataSource,
+    @SocialLogin(SocialType.KAKAO) private val kakao: SocialAuthManager,
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val aikuAuthPreferencesDataSource: AikuAuthPreferencesDataSource,
 ) : AuthRepository {
@@ -47,7 +47,7 @@ class DefaultAuthRepository @Inject constructor(
         if (socialType == null) return
 
         when (socialType) {
-            SocialType.KAKAO -> kakao.logout()
+            SocialType.KAKAO -> kakao.signOut()
         }
         aikuAuthPreferencesDataSource.clearCredentials()
     }
@@ -61,11 +61,9 @@ class DefaultAuthRepository @Inject constructor(
         context: Context,
         type: SocialType,
     ): Flow<SocialLoginResult> = flow {
-        emit(
-            when (type) {
-                SocialType.KAKAO -> kakao.login(context)
-            }
-        )
+        when (type) {
+            SocialType.KAKAO -> emit(kakao.signIn(context))
+        }
     }
 
     override fun checkNicknameDuplicated(nickname: String): Flow<Boolean> = flow {
