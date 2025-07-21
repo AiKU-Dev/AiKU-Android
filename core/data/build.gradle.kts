@@ -16,10 +16,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.network)
     implementation(projects.core.datastore)
-
-    implementation(libs.kakao.auth)
-    implementation(libs.kakao.common)
-    implementation(libs.kakao.user)
+    implementation(projects.core.authSocial)
 
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)

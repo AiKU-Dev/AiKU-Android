@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.social
+package com.hyunjung.aiku.core.auth.social
 
 sealed class SocialAuthException(
     override val message: String,

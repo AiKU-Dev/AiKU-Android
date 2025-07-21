@@ -63,9 +63,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtimeCompose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kakao.auth)
+
     implementation(libs.kakao.common)
-    implementation(libs.kakao.user)
 
     ksp(libs.hilt.compiler)
     kspTest(libs.hilt.compiler)

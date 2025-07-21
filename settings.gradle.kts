@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 rootProject.name = "AiKU"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":core")
+include(":core:auth-social")
 include(":core:common")
 include(":core:data")
 include(":core:datastore")

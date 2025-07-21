@@ -1,17 +1,17 @@
 package com.hyunjung.aiku.core.data.di
 
-import com.hyunjung.aiku.core.network.token.TokenManager
+import com.hyunjung.aiku.core.auth.social.SocialAuthManager
+import com.hyunjung.aiku.core.auth.social.di.SocialAuth
+import com.hyunjung.aiku.core.auth.social.kakao.KakaoAuthManager
 import com.hyunjung.aiku.core.data.repository.DefaultAuthRepository
 import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
 import com.hyunjung.aiku.core.data.repository.DefaultScheduleRepository
-import com.hyunjung.aiku.core.data.social.KakaoAuthManager
-import com.hyunjung.aiku.core.data.social.SocialAuthManager
 import com.hyunjung.aiku.core.data.token.DefaultTokenManager
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.network.di.SocialAuth
+import com.hyunjung.aiku.core.network.token.TokenManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
