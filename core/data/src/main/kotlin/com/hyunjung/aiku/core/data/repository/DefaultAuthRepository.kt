@@ -1,14 +1,14 @@
 package com.hyunjung.aiku.core.data.repository
 
 import android.content.Context
-import com.hyunjung.aiku.core.data.social.SocialAuthManager
+import com.hyunjung.aiku.core.auth.social.SocialAuthManager
+import com.hyunjung.aiku.core.auth.social.di.SocialAuth
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialSignInResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
-import com.hyunjung.aiku.core.network.di.SocialAuth
 import com.hyunjung.aiku.core.network.exception.NetworkException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first

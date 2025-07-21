@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.social
+package com.hyunjung.aiku.core.auth.social
 
 import android.content.Context
 import com.hyunjung.aiku.core.model.SocialSignInResult

@@ -1,6 +1,6 @@
-package com.hyunjung.aiku.core.data.social
+package com.hyunjung.aiku.core.auth.social
 
-sealed class SocialAuthException(
+internal sealed class SocialAuthException(
     override val message: String,
     override val cause: Throwable? = null
 ) : Exception(message, cause) {

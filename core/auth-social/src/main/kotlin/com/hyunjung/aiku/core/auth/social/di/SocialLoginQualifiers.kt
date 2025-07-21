@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.di
+package com.hyunjung.aiku.core.auth.social.di
 
 import com.hyunjung.aiku.core.model.SocialType
 import javax.inject.Qualifier

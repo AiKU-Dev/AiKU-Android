@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.data.di
+package com.hyunjung.aiku.core.auth.social.di
 
 import com.kakao.sdk.user.UserApiClient
 import dagger.Module
@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object  SocialModule {
+internal object AuthSocialSdkModule {
 
     @Provides
     @Singleton
