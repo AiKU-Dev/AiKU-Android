@@ -25,12 +25,13 @@ fun AikuNavHost(
         startDestination = AikuRoute.SplashRoute
     ) {
         splashScreen(
-            onLoginSuccess = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
-            onLoginRequired = { navController.navigateAndClearBackStack(AuthRoute.SignInRoute) },
+            onAuthenticated = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
+            onAuthenticationRequired = { navController.navigateAndClearBackStack(AuthRoute.SignInRoute) },
         )
 
         authSection(
-            onLoginSuccess = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
+            onSignInSuccess = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
+            onSignUpCompleted = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
             onSignUpRequired = navController::navigateToSignUpSingleTop,
             onNavigateToTermsDetail = { termsType ->
                 navController.navigateSingleTop(AikuRoute.TermsDetailRoute(termsType))

@@ -5,7 +5,7 @@ sealed class SocialAuthException(
     override val cause: Throwable? = null
 ) : Exception(message, cause) {
 
-    class Cancelled(cause: Throwable? = null) : SocialAuthException("Login Cancelled", cause)
+    class Cancelled(cause: Throwable? = null) : SocialAuthException("Sign in Cancelled", cause)
     class MissingIdToken(cause: Throwable? = null) :
         SocialAuthException("ID Token not provided", cause)
 

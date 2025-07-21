@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun SignUpScreen(
-    onSignUpSuccess: () -> Unit,
+    onSignUpCompleted: () -> Unit,
     onTermsClick: (TermsType) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel()
@@ -68,7 +68,7 @@ internal fun SignUpScreen(
                 modifier = modifier
             )
 
-            SignUpStep.Success -> onSignUpSuccess()
+            SignUpStep.Success -> onSignUpCompleted()
         }
     }
 }

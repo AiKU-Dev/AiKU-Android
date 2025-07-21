@@ -15,13 +15,13 @@ fun NavController.navigateToSplash() =
     }
 
 fun NavGraphBuilder.splashScreen(
-    onLoginSuccess: () -> Unit,
-    onLoginRequired: () -> Unit,
+    onAuthenticated: () -> Unit,
+    onAuthenticationRequired: () -> Unit,
 ) {
     composable<AikuRoute.SplashRoute> {
         SplashScreen(
-            onLoginSuccess = onLoginSuccess,
-            onLoginRequired = onLoginRequired
+            onAuthenticated = onAuthenticated,
+            onAuthenticationRequired = onAuthenticationRequired
         )
     }
 }

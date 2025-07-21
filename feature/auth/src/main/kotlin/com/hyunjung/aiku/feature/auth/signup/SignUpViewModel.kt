@@ -116,36 +116,36 @@ class SignUpViewModel @Inject constructor(
 
                         is Result.Success -> {
                             _snackbarMessage.emit(SignUpSnackbarMessage.SignUpSuccess)
-                            tryLoginAfterSignUp()
+                            signInAfterSignUp()
                         }
                     }
                 }
         }
     }
 
-    private suspend fun tryLoginAfterSignUp() {
-        authRepository.login(
+    private suspend fun signInAfterSignUp() {
+        authRepository.signIn(
             _signUpFormState.value.socialType,
             _signUpFormState.value.idToken
         )
             .asResult()
             .filter { it !is Result.Loading }
-            .collect { result ->
-                when (result) {
+            .collect { isSignedInResult ->
+                when (isSignedInResult) {
                     is Result.Loading -> {
                         _signUpProfileUiState.update { SignUpProfileUiState.Loading }
                     }
 
                     is Result.Error -> {
                         _signUpProfileUiState.update {
-                            SignUpProfileUiState.Error(result.exception.message)
+                            SignUpProfileUiState.Error(isSignedInResult.exception.message)
                         }
                         _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)
                     }
 
                     is Result.Success -> {
                         _signUpProfileUiState.update { SignUpProfileUiState.Idle }
-                        if (result.data) {
+                        if (isSignedInResult.data) {
                             _signUpStep.update { SignUpStep.Success }
                         } else {
                             _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)

@@ -5,10 +5,10 @@ import com.hyunjung.aiku.core.data.social.SocialAuthManager
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.SocialLoginResult
+import com.hyunjung.aiku.core.model.SocialSignInResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
-import com.hyunjung.aiku.core.network.di.SocialLogin
+import com.hyunjung.aiku.core.network.di.SocialAuth
 import com.hyunjung.aiku.core.network.exception.NetworkException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -17,19 +17,19 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
-    @SocialLogin(SocialType.KAKAO) private val kakao: SocialAuthManager,
+    @SocialAuth(SocialType.KAKAO) private val kakao: SocialAuthManager,
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val aikuAuthPreferencesDataSource: AikuAuthPreferencesDataSource,
 ) : AuthRepository {
 
-    override val isLoggedIn: Flow<Boolean> = aikuAuthPreferencesDataSource.userAuthData.map {
+    override val isSignedIn: Flow<Boolean> = aikuAuthPreferencesDataSource.userAuthData.map {
         it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
     }
 
-    override fun login(socialType: SocialType, idToken: String): Flow<Boolean> =
+    override fun signIn(socialType: SocialType, idToken: String): Flow<Boolean> =
         flow {
             try {
-                val authTokens = authRemoteDataSource.loginWithSocial(
+                val authTokens = authRemoteDataSource.signIn(
                     socialType = socialType,
                     idToken = idToken
                 )
@@ -42,7 +42,7 @@ class DefaultAuthRepository @Inject constructor(
             }
         }
 
-    override suspend fun logout() {
+    override suspend fun signOut() {
         val socialType = aikuAuthPreferencesDataSource.userAuthData.first().socialType
         if (socialType == null) return
 
@@ -60,7 +60,7 @@ class DefaultAuthRepository @Inject constructor(
     override fun connectSocialAccount(
         context: Context,
         type: SocialType,
-    ): Flow<SocialLoginResult> = flow {
+    ): Flow<SocialSignInResult> = flow {
         when (type) {
             SocialType.KAKAO -> emit(kakao.signIn(context))
         }

@@ -14,11 +14,11 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     authRepository: AuthRepository
 ) : ViewModel() {
-    val uiState: StateFlow<SplashUiState> = authRepository.isLoggedIn.map { isLoggedIn ->
-        if (isLoggedIn) {
-            SplashUiState.NavigateToHome
+    val uiState: StateFlow<SplashUiState> = authRepository.isSignedIn.map { isSignedIn ->
+        if (isSignedIn) {
+            SplashUiState.Authenticated
         } else {
-            SplashUiState.NavigateToLogin
+            SplashUiState.Unauthenticated
         }
     }.stateIn(
         scope = viewModelScope,
@@ -29,6 +29,6 @@ class SplashViewModel @Inject constructor(
 
 sealed interface SplashUiState {
     object Loading : SplashUiState
-    object NavigateToHome : SplashUiState
-    object NavigateToLogin : SplashUiState
+    object Authenticated : SplashUiState
+    object Unauthenticated : SplashUiState
 }

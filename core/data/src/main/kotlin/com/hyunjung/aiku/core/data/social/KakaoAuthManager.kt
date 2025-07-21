@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.data.social
 
 import android.content.Context
-import com.hyunjung.aiku.core.model.SocialLoginResult
+import com.hyunjung.aiku.core.model.SocialSignInResult
 import com.hyunjung.aiku.core.network.exception.NetworkException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -17,10 +17,10 @@ class KakaoAuthManager @Inject constructor(
     private val kakaoUserApiClient: UserApiClient,
 ) : SocialAuthManager {
 
-    override suspend fun signIn(context: Context): SocialLoginResult =
+    override suspend fun signIn(context: Context): SocialSignInResult =
         suspendCancellableCoroutine { continuation ->
             val callback = { token: OAuthToken?, error: Throwable? ->
-                handleLoginCallback(token, error, continuation)
+                signInCallback(token, error, continuation)
             }
 
 
@@ -43,10 +43,10 @@ class KakaoAuthManager @Inject constructor(
         }
     }
 
-    private fun handleLoginCallback(
+    private fun signInCallback(
         token: OAuthToken?,
         error: Throwable?,
-        continuation: CancellableContinuation<SocialLoginResult>
+        continuation: CancellableContinuation<SocialSignInResult>
     ) {
         if (!continuation.isActive) return
 
@@ -70,7 +70,7 @@ class KakaoAuthManager @Inject constructor(
 
             when {
                 user?.kakaoAccount?.email != null -> continuation.resume(
-                    SocialLoginResult(idToken, user.kakaoAccount!!.email!!)
+                    SocialSignInResult(idToken, user.kakaoAccount!!.email!!)
                 )
 
                 error != null -> continuation.resumeWithException(

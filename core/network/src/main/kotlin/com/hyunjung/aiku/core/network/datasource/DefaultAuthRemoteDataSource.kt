@@ -10,7 +10,7 @@ import com.hyunjung.aiku.core.network.extension.get
 import com.hyunjung.aiku.core.network.extension.post
 import com.hyunjung.aiku.core.network.extension.submitFormWithBinaryData
 import com.hyunjung.aiku.core.network.model.ApiResponse
-import com.hyunjung.aiku.core.network.model.LoginResponse
+import com.hyunjung.aiku.core.network.model.SignInResponse
 import com.hyunjung.aiku.core.network.model.NicknameExistenceResponse
 import com.hyunjung.aiku.core.network.resource.AuthResource
 import com.hyunjung.aiku.core.network.resource.UserResource
@@ -22,11 +22,11 @@ class DefaultAuthRemoteDataSource @Inject constructor(
     private val client: HttpClient
 ) : AuthRemoteDataSource {
 
-    override suspend fun loginWithSocial(
+    override suspend fun signIn(
         socialType: SocialType,
         idToken: String,
     ): AuthTokens = when (socialType) {
-        SocialType.KAKAO -> loginWithKakao(idToken)
+        SocialType.KAKAO -> signInWithKakao(idToken)
     }
 
     override suspend fun signUp(signUpForm: SignUpForm) {
@@ -48,10 +48,10 @@ class DefaultAuthRemoteDataSource @Inject constructor(
             resource = UserResource.CheckNickname(nickname = nickname)
         ).result.exist
 
-    private suspend fun loginWithKakao(
+    private suspend fun signInWithKakao(
         idToken: String,
     ): AuthTokens =
-        client.post<AuthResource.Kakao, ApiResponse<LoginResponse>>(
+        client.post<AuthResource.Kakao, ApiResponse<SignInResponse>>(
             resource = AuthResource.Kakao(),
             body = mapOf("idToken" to idToken),
         ).result.let { AuthTokens(it.accessToken, it.refreshToken) }

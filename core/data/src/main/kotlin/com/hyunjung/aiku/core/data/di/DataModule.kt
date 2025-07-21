@@ -11,7 +11,7 @@ import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.network.di.SocialLogin
+import com.hyunjung.aiku.core.network.di.SocialAuth
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -42,7 +42,7 @@ abstract class DataModule {
     ): TokenManager
 
     @Binds
-    @SocialLogin(SocialType.KAKAO)
+    @SocialAuth(SocialType.KAKAO)
     internal abstract fun bindKakaoAuthDataSource(
         kakaoAuthManager: KakaoAuthManager
     ): SocialAuthManager

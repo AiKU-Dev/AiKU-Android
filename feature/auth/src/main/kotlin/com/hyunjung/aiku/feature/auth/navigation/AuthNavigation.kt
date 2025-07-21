@@ -29,21 +29,22 @@ fun NavController.navigateToSignUpSingleTop(
 
 
 fun NavGraphBuilder.authSection(
-    onLoginSuccess: () -> Unit,
+    onSignInSuccess: () -> Unit,
+    onSignUpCompleted: () -> Unit,
     onSignUpRequired: (SocialType, String, String) -> Unit,
     onNavigateToTermsDetail: (TermsType) -> Unit,
 ) {
     navigation<AuthRoute.AuthBaseRoute>(startDestination = AuthRoute.SignInRoute) {
         composable<AuthRoute.SignInRoute> {
             SignInScreen(
-                onLoginSuccess = onLoginSuccess,
+                onSignInSuccess = onSignInSuccess,
                 onSignUpRequired = onSignUpRequired
             )
         }
         composable<AuthRoute.SignUpRoute> {
             SignUpScreen(
                 onTermsClick = onNavigateToTermsDetail,
-                onSignUpSuccess = onLoginSuccess,
+                onSignUpCompleted = onSignUpCompleted,
             )
         }
     }

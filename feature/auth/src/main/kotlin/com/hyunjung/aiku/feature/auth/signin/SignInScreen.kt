@@ -31,8 +31,8 @@ import com.hyunjung.aiku.feature.auth.R
 import com.hyunjung.aiku.core.ui.R as UiR
 
 @Composable
-fun SignInScreen(
-    onLoginSuccess: () -> Unit,
+internal fun SignInScreen(
+    onSignInSuccess: () -> Unit,
     onSignUpRequired: (SocialType, String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel()
@@ -41,8 +41,8 @@ fun SignInScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(uiState) {
         when (val result = uiState) {
-            is LoginUiState.Success -> onLoginSuccess()
-            is LoginUiState.NeedsSignUp -> {
+            is SignInUiState.Success -> onSignInSuccess()
+            is SignInUiState.NeedsSignUp -> {
                 viewModel.consumeUiState()
                 onSignUpRequired(result.socialType, result.idToken, result.email)
             }
@@ -52,8 +52,8 @@ fun SignInScreen(
     }
 
     SignInScreen(
-        onKakaoLoginClick = {
-            viewModel.login(
+        onKakaoSignInClick = {
+            viewModel.startAuthentication(
                 context = localContext,
                 socialType = SocialType.KAKAO
             )
@@ -66,11 +66,11 @@ fun SignInScreen(
 @Composable
 private fun SignInScreen(
     modifier: Modifier = Modifier,
-    uiState: LoginUiState = LoginUiState.Idle,
-    onKakaoLoginClick: () -> Unit = {}
+    uiState: SignInUiState = SignInUiState.Idle,
+    onKakaoSignInClick: () -> Unit = {}
 ) {
     LoadingOverlayContainer(
-        isLoading = uiState is LoginUiState.Loading,
+        isLoading = uiState is SignInUiState.Loading,
         indicator = {
             AikuLoadingWheel(
                 modifier = Modifier.size(80.dp),
@@ -102,9 +102,9 @@ private fun SignInScreen(
                 color = AiKUTheme.colors.cobaltBlue,
             )
             Spacer(Modifier.height(40.dp))
-            if (uiState !is LoginUiState.Loading) {
+            if (uiState !is SignInUiState.Loading) {
                 AikuButton(
-                    onClick = onKakaoLoginClick,
+                    onClick = onKakaoSignInClick,
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(0.dp)
                 ) {
@@ -123,8 +123,8 @@ private fun SignInScreen(
 
 @Preview
 @Composable
-private fun LoginScreenPreview() {
+private fun SignInScreenPreview() {
     AikuPreviewTheme {
-        SignInScreen(uiState = LoginUiState.Loading)
+        SignInScreen(uiState = SignInUiState.Loading)
     }
 }
