@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.data.di
 
-import com.hyunjung.aiku.core.auth.TokenManager
+import com.hyunjung.aiku.core.network.token.TokenManager
 import com.hyunjung.aiku.core.data.repository.DefaultAuthRepository
 import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
 import com.hyunjung.aiku.core.data.repository.DefaultScheduleRepository

@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.auth
+package com.hyunjung.aiku.core.network.token
 
 interface TokenManager {
     suspend fun getAccessToken(): String

@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.di
 
-import com.hyunjung.aiku.core.auth.TokenManager
+import com.hyunjung.aiku.core.network.token.TokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

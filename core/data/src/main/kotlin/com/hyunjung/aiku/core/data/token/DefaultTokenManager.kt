@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.data.token
 
-import com.hyunjung.aiku.core.auth.TokenManager
+import com.hyunjung.aiku.core.network.token.TokenManager
 import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
 import com.hyunjung.aiku.core.model.AuthTokens
 import kotlinx.coroutines.flow.first
