@@ -6,9 +6,9 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.hyunjung.aiku.core.datastore.AuthPreferences
 import com.hyunjung.aiku.core.datastore.AuthPreferencesSerializer
-import com.hyunjung.aiku.core.network.AikuDispatchers.IO
-import com.hyunjung.aiku.core.network.Dispatcher
-import com.hyunjung.aiku.core.network.di.ApplicationScope
+import com.hyunjung.aiku.core.coroutine.AikuDispatchers.IO
+import com.hyunjung.aiku.core.coroutine.Dispatcher
+import com.hyunjung.aiku.core.coroutine.di.ApplicationScope
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

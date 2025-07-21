@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network
+package com.hyunjung.aiku.core.coroutine
 
 import javax.inject.Qualifier
 import kotlin.annotation.AnnotationRetention.RUNTIME
