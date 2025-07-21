@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.kakao.common)
+    implementation(libs.kakao.auth)
 
     ksp(libs.hilt.compiler)
     kspTest(libs.hilt.compiler)
