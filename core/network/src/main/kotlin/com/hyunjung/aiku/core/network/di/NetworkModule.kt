@@ -8,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.cio.CIOEngineConfig
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
@@ -73,7 +74,7 @@ internal object NetworkModule {
 
 private fun provideHttpClient(
     json: Json,
-    block: HttpClientConfig<*>.() -> Unit = {}
+    block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {}
 ): HttpClient = HttpClient(CIO) {
 
     defaultRequest {
