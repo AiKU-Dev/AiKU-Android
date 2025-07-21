@@ -1,11 +1,10 @@
 package com.hyunjung.aiku.feature.auth.signin
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
-import com.hyunjung.aiku.core.model.SocialLoginResult
+import com.hyunjung.aiku.core.model.SocialSignInResult
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.result.Result
 import com.hyunjung.aiku.core.result.asResult
@@ -22,53 +21,53 @@ class SignInViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
-    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<SignInUiState>(SignInUiState.Idle)
+    val uiState: StateFlow<SignInUiState> = _uiState.asStateFlow()
 
-    fun login(context: Context, socialType: SocialType) {
+    fun startAuthentication(context: Context, socialType: SocialType) {
         viewModelScope.launch {
             authRepository.connectSocialAccount(context, socialType)
                 .asResult()
                 .collect { result ->
-                    handleConnectResult(result, socialType)
+                    signIn(result, socialType)
                 }
         }
     }
 
     fun consumeUiState() {
-        _uiState.value = LoginUiState.Idle
+        _uiState.value = SignInUiState.Idle
     }
 
-    private suspend fun handleConnectResult(
-        result: Result<SocialLoginResult>,
+    private suspend fun signIn(
+        result: Result<SocialSignInResult>,
         socialType: SocialType
     ) {
         when (result) {
-            is Result.Loading -> _uiState.value = LoginUiState.Loading
-            is Result.Error -> _uiState.value = LoginUiState.Error(result.exception.message)
+            is Result.Loading -> _uiState.value = SignInUiState.Loading
+            is Result.Error -> _uiState.value = SignInUiState.Error(result.exception.message)
             is Result.Success -> {
                 val (idToken, email) = result.data
-                authRepository.login(socialType, idToken)
+                authRepository.signIn(socialType, idToken)
                     .asResult()
                     .filter { it !is Result.Loading }
-                    .collect { loginResult ->
-                        handleLoginResult(loginResult, socialType, idToken, email)
+                    .collect { isSignedInResult ->
+                        handleSignInResult(isSignedInResult, socialType, idToken, email)
                     }
             }
         }
     }
 
-    private fun handleLoginResult(
-        result: Result<Boolean>,
+    private fun handleSignInResult(
+        isSignedInResult: Result<Boolean>,
         socialType: SocialType,
         idToken: String,
         email: String,
     ) {
-        _uiState.value = when (result) {
-            is Result.Loading -> LoginUiState.Loading
+        _uiState.value = when (isSignedInResult) {
+            is Result.Loading -> SignInUiState.Loading
             is Result.Success -> {
-                if (result.data) LoginUiState.Success
-                else LoginUiState.NeedsSignUp(
+                if (isSignedInResult.data) SignInUiState.Success
+                else SignInUiState.NeedsSignUp(
                     socialType = socialType,
                     idToken = idToken,
                     email = email
@@ -76,19 +75,18 @@ class SignInViewModel @Inject constructor(
             }
 
             is Result.Error -> {
-                Log.d("testaaa", "${result.exception.message}")
-                LoginUiState.Error(result.exception.message)
+                SignInUiState.Error(isSignedInResult.exception.message)
             }
         }
     }
 }
 
-sealed interface LoginUiState {
-    data object Idle : LoginUiState
-    data object Loading : LoginUiState
-    data object Success : LoginUiState
+sealed interface SignInUiState {
+    data object Idle : SignInUiState
+    data object Loading : SignInUiState
+    data object Success : SignInUiState
     data class NeedsSignUp(val socialType: SocialType, val idToken: String, val email: String) :
-        LoginUiState
+        SignInUiState
 
-    data class Error(val message: String?) : LoginUiState
+    data class Error(val message: String?) : SignInUiState
 }

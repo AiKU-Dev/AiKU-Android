@@ -1,7 +1,6 @@
 package com.hyunjung.aiku.core.network.di
 
-import com.hyunjung.aiku.core.auth.TokenManager
-import com.kakao.sdk.user.UserApiClient
+import com.hyunjung.aiku.core.network.token.TokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,10 +27,6 @@ internal object NetworkModule {
     fun providesNetworkJson(): Json = Json {
         ignoreUnknownKeys = true
     }
-
-    @Provides
-    @Singleton
-    fun provideUserApiClient(): UserApiClient = UserApiClient.instance
 
     @Provides
     @Singleton

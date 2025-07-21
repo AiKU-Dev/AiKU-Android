@@ -6,4 +6,4 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 
 @Qualifier
 @Retention(RUNTIME)
-annotation class SocialLogin(val type: SocialType)
+annotation class SocialAuth(val type: SocialType)

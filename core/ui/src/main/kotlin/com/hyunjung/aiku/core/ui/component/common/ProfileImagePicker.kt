@@ -28,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,7 +43,6 @@ import com.hyunjung.aiku.core.ui.component.dialog.CharacterProfilePickerDialog
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
 import com.hyunjung.aiku.core.ui.extension.padding
 import com.hyunjung.aiku.core.ui.extension.painter
-import com.hyunjung.aiku.core.ui.extension.toCompressedFile
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
@@ -54,21 +52,14 @@ fun ProfileImagePicker(
     onProfileImageOptionMenuDisMiss: () -> Unit,
     onEditClick: () -> Unit,
     onCharacterProfileSelected: (MemberProfile.Character) -> Unit,
-    onAlbumImageSelected: (MemberProfile.GalleryImage) -> Unit,
+    onAlbumImageSelected: (Uri) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val localContext = LocalContext.current
     var showCharacterPicker by remember { mutableStateOf(false) }
 
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            onAlbumImageSelected(
-                MemberProfile.GalleryImage(uri.toCompressedFile(localContext))
-            )
-        }
-    }
+    ) { uri: Uri? -> uri?.let { onAlbumImageSelected(uri) } }
 
     if (showCharacterPicker) {
         val character = memberProfile as? MemberProfile.Character

@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.network.extensions
+package com.hyunjung.aiku.core.network.extension
 
 import com.hyunjung.aiku.core.model.MemberProfile
 import com.hyunjung.aiku.core.model.SignUpForm

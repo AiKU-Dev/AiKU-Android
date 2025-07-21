@@ -5,16 +5,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.snackbar.AikuSnackbarHostState
+import com.hyunjung.aiku.core.model.MemberProfile
 import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.ui.extension.toCompressedFile
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun SignUpScreen(
-    onSignUpSuccess: () -> Unit,
+    onSignUpCompleted: () -> Unit,
     onTermsClick: (TermsType) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel()
@@ -24,6 +29,9 @@ internal fun SignUpScreen(
     val signUpStep by viewModel.signUpStep.collectAsStateWithLifecycle()
 
     val snackbarHostState = remember { AikuSnackbarHostState() }
+
+    val localContext = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         viewModel.snackbarMessage.collectLatest {
@@ -43,14 +51,24 @@ internal fun SignUpScreen(
                 signUpFormState = signUpFormState,
                 snackbarHostState = snackbarHostState,
                 onNicknameChange = viewModel::onNicknameChange,
-                onProfileChange = viewModel::onProfileChange,
+                onCharacterProfileSelected = viewModel::onProfileChange,
+                onAlbumImageSelected = { uri ->
+                    coroutineScope.launch {
+                        try {
+                            val file = uri.toCompressedFile(localContext)
+                            viewModel.onProfileChange(MemberProfile.GalleryImage(file))
+                        } catch (_: Exception) {
+                            viewModel.onAlbumImageCompressionFailed()
+                        }
+                    }
+                },
                 checkNicknameDuplication = viewModel::checkNicknameDuplication,
                 onRecommenderNicknameChange = viewModel::onRecommenderNicknameChange,
                 submitSignUp = viewModel::submitSignUp,
                 modifier = modifier
             )
 
-            SignUpStep.Success -> onSignUpSuccess()
+            SignUpStep.Success -> onSignUpCompleted()
         }
     }
 }

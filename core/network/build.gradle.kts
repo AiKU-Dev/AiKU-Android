@@ -15,7 +15,6 @@ android {
 
 dependencies {
     implementation(projects.core.model)
-    implementation(projects.core.common)
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.core)
@@ -24,10 +23,6 @@ dependencies {
     implementation(libs.ktor.client.auth)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
-
-    implementation(libs.kakao.auth)
-    implementation(libs.kakao.common)
-    implementation(libs.kakao.user)
 
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)

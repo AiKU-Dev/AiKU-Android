@@ -28,20 +28,19 @@ import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun SplashScreen(
-    onLoginSuccess: () -> Unit,
-    onLoginRequired: () -> Unit,
+    onAuthenticated: () -> Unit,
+    onAuthenticationRequired: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState) {
-        if (uiState is SplashUiState.NavigateToHome) {
-            onLoginSuccess()
-        }
 
-        if (uiState is SplashUiState.NavigateToLogin) {
-            onLoginRequired()
+        when (uiState) {
+            is SplashUiState.Authenticated -> onAuthenticated()
+            is SplashUiState.Unauthenticated -> onAuthenticationRequired()
+            else -> Unit
         }
     }
 

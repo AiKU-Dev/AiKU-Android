@@ -5,7 +5,7 @@ import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialType
 
 interface AuthRemoteDataSource {
-    suspend fun loginWithSocial(
+    suspend fun signIn(
         socialType: SocialType,
         idToken: String,
     ): AuthTokens

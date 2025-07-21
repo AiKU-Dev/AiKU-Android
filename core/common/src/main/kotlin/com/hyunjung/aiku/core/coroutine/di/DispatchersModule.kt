@@ -1,8 +1,8 @@
-package com.hyunjung.aiku.core.network.di
+package com.hyunjung.aiku.core.coroutine.di
 
-import com.hyunjung.aiku.core.network.Dispatcher
-import com.hyunjung.aiku.core.network.AikuDispatchers.IO
-import com.hyunjung.aiku.core.network.AikuDispatchers.Default
+import com.hyunjung.aiku.core.coroutine.Dispatcher
+import com.hyunjung.aiku.core.coroutine.AikuDispatchers.IO
+import com.hyunjung.aiku.core.coroutine.AikuDispatchers.Default
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
