@@ -106,22 +106,20 @@ internal fun SignUpTermsScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             termsTypes.forEach { termsType ->
-                val label = stringResource(
-                    id = if (termsType.isRequired) {
-                        R.string.feature_auth_signup_terms_label_required
-                    } else {
-                        R.string.feature_auth_signup_terms_label_optional
-                    },
-                    termsType.title
-                )
-
                 TermsAgreementItem(
-                    label = label,
+                    label = stringResource(
+                        if (termsType.isRequired) {
+                            R.string.feature_auth_signup_terms_label_required
+                        } else {
+                            R.string.feature_auth_signup_terms_label_optional
+                        },
+                        termsType.title
+                    ),
                     checked = checkedStates[termsType] == true,
                     onCheckedChange = { isChecked ->
                         checkedStates[termsType] = isChecked
                     },
-                    onTermsClick = { onTermsClick(termsType) },
+                    onLabelClick = { onTermsClick(termsType) },
                 )
             }
         }
@@ -179,7 +177,7 @@ private fun TermsAgreementItem(
     label: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    onTermsClick: () -> Unit,
+    onLabelClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -205,7 +203,7 @@ private fun TermsAgreementItem(
             modifier = Modifier.clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = onTermsClick
+                onClick = onLabelClick
             )
         )
     }

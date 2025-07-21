@@ -33,7 +33,7 @@ fun AikuNavHost(
             onSignInSuccess = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
             onSignUpCompleted = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
             onSignUpRequired = navController::navigateToSignUpSingleTop,
-            onNavigateToTermsDetail = { termsType ->
+            onTermsClick = { termsType ->
                 navController.navigateSingleTop(AikuRoute.TermsDetailRoute(termsType))
             },
         )

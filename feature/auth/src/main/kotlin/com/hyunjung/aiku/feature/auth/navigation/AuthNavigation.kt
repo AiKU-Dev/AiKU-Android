@@ -32,7 +32,7 @@ fun NavGraphBuilder.authSection(
     onSignInSuccess: () -> Unit,
     onSignUpCompleted: () -> Unit,
     onSignUpRequired: (SocialType, String, String) -> Unit,
-    onNavigateToTermsDetail: (TermsType) -> Unit,
+    onTermsClick: (TermsType) -> Unit,
 ) {
     navigation<AuthRoute.AuthBaseRoute>(startDestination = AuthRoute.SignInRoute) {
         composable<AuthRoute.SignInRoute> {
@@ -43,7 +43,7 @@ fun NavGraphBuilder.authSection(
         }
         composable<AuthRoute.SignUpRoute> {
             SignUpScreen(
-                onTermsClick = onNavigateToTermsDetail,
+                onTermsClick = onTermsClick,
                 onSignUpCompleted = onSignUpCompleted,
             )
         }
