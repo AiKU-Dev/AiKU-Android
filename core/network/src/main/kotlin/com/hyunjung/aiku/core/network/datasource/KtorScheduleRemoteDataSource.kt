@@ -2,6 +2,7 @@ package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.network.di.AuthorizedClient
 import com.hyunjung.aiku.core.network.model.ApiResponse
 import com.hyunjung.aiku.core.network.model.GroupSchedulesResultResponse
 import com.hyunjung.aiku.core.network.model.SchedulesResultResponse
@@ -15,7 +16,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 class KtorScheduleRemoteDataSource @Inject constructor(
-    private val client: HttpClient
+    @AuthorizedClient private val client: HttpClient
 ) : ScheduleRemoteDataSource {
     override suspend fun getSchedules(
         page: Int,

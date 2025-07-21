@@ -15,7 +15,9 @@ android {
 
 dependencies {
     implementation(projects.core.model)
+    implementation(projects.core.authToken)
 
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)

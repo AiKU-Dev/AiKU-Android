@@ -13,10 +13,12 @@ android {
 }
 
 dependencies {
+
+    implementation(projects.core.authSocial)
+    implementation(projects.core.authToken)
+    implementation(projects.core.datastore)
     implementation(projects.core.domain)
     implementation(projects.core.network)
-    implementation(projects.core.datastore)
-    implementation(projects.core.authSocial)
 
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)

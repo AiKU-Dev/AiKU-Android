@@ -1,11 +1,12 @@
 package com.hyunjung.aiku.core.network.di
 
-import com.hyunjung.aiku.core.network.token.TokenManager
+import com.hyunjung.aiku.core.auth.token.TokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
@@ -15,8 +16,18 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthorizedClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class UnauthenticatedClient
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,28 +41,52 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(
+    @AuthorizedClient
+    fun provideAuthorizedHttpClient(
         json: Json,
-        tokenManager: TokenManager,
-    ): HttpClient = HttpClient(CIO) {
-        defaultRequest {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "aiku.duckdns.org"
-            }
-        }
-        install(Resources)
-        install(ContentNegotiation) {
-            json(json)
-        }
+        tokenManager: TokenManager
+    ): HttpClient = provideHttpClient(json = json) {
+
         install(Auth) {
             bearer {
                 loadTokens {
-                    val access = tokenManager.getAccessToken()
-                    val refresh = tokenManager.getRefreshToken()
-                    BearerTokens(accessToken = access, refreshToken = refresh)
+                    val access = tokenManager.accessToken.first()
+                    val refresh = tokenManager.refreshToken.first()
+                    BearerTokens(access, refresh)
                 }
+
+                refreshTokens {
+                    val newTokens = tokenManager.updateTokens()
+                    BearerTokens(newTokens.accessToken, newTokens.refreshToken)
+                }
+
+                sendWithoutRequest { true }
             }
         }
     }
+
+    @Provides
+    @Singleton
+    @UnauthenticatedClient
+    fun provideUnauthenticatedHttpClient(json: Json): HttpClient = provideHttpClient(json = json)
+}
+
+private fun provideHttpClient(
+    json: Json,
+    block: HttpClientConfig<*>.() -> Unit = {}
+): HttpClient = HttpClient(CIO) {
+
+    defaultRequest {
+        url {
+            protocol = URLProtocol.HTTPS
+            host = "aiku.duckdns.org"
+        }
+    }
+
+    install(Resources)
+    install(ContentNegotiation) {
+        json(json)
+    }
+
+    block()
 }

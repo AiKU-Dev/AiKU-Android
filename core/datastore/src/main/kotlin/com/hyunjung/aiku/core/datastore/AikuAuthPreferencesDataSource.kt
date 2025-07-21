@@ -1,35 +1,33 @@
 package com.hyunjung.aiku.core.datastore
 
 import androidx.datastore.core.DataStore
-import com.hyunjung.aiku.core.model.AuthTokens
 import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.datastore.SocialType as SocialTypeProto
-import com.hyunjung.aiku.core.model.UserAuthData
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import com.hyunjung.aiku.core.datastore.SocialType as SocialTypeProto
 
 class AikuAuthPreferencesDataSource @Inject constructor(
     private val authPreferences: DataStore<AuthPreferences>
 ) {
-    val userAuthData = authPreferences.data.map {
-        UserAuthData(
-            accessToken = it.accessToken,
-            refreshToken = it.refreshToken,
-            socialType = when (it.socialType) {
-                SocialTypeProto.KAKAO -> SocialType.KAKAO
-                else -> null
-            }
-        )
+
+    val accessToken = authPreferences.data.map { it.accessToken }
+    val refreshToken = authPreferences.data.map { it.refreshToken }
+    val socialType = authPreferences.data.map {
+        when (it.socialType) {
+            SocialTypeProto.KAKAO -> SocialType.KAKAO
+            else -> null
+        }
     }
 
     suspend fun setCredentials(
-        authTokens: AuthTokens,
+        accessToken: String,
+        refreshToken: String,
         socialType: SocialType,
     ) {
         authPreferences.updateData {
             it.copy {
-                this.accessToken = authTokens.accessToken
-                this.refreshToken = authTokens.refreshToken
+                this.accessToken = accessToken
+                this.refreshToken = refreshToken
                 this.socialType = when (socialType) {
                     SocialType.KAKAO -> SocialTypeProto.KAKAO
                 }
@@ -37,11 +35,11 @@ class AikuAuthPreferencesDataSource @Inject constructor(
         }
     }
 
-    suspend fun setTokens(authTokens: AuthTokens) {
+    suspend fun setTokens(accessToken: String, refreshToken: String) {
         authPreferences.updateData {
             it.copy {
-                this.accessToken = authTokens.accessToken
-                this.refreshToken = authTokens.refreshToken
+                this.accessToken = accessToken
+                this.refreshToken = refreshToken
             }
         }
     }
