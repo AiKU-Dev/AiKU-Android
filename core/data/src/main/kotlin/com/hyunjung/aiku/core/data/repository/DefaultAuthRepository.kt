@@ -35,7 +35,7 @@ class DefaultAuthRepository @Inject constructor(
                 )
                 aikuAuthPreferencesDataSource.setCredentials(authTokens, socialType)
                 emit(true)
-            } catch (e: NetworkException.NotFound) {
+            } catch (_: NetworkException.NotFound) {
                 emit(false)
             } catch (e: Exception) {
                 throw e
