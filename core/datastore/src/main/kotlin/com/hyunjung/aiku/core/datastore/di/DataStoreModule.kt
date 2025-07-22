@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.hyunjung.aiku.core.datastore.AuthPreferences
-import com.hyunjung.aiku.core.datastore.AuthPreferencesSerializer
 import com.hyunjung.aiku.core.coroutine.AikuDispatchers.IO
 import com.hyunjung.aiku.core.coroutine.Dispatcher
 import com.hyunjung.aiku.core.coroutine.di.ApplicationScope
+import com.hyunjung.aiku.core.datastore.AuthSession
+import com.hyunjung.aiku.core.datastore.AuthSessionSerializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,16 +24,16 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    internal fun providesAuthPreferencesDataStore(
+    internal fun providesAuthSessionDataStore(
         @ApplicationContext context: Context,
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
         @ApplicationScope scope: CoroutineScope,
-        authPreferencesSerializer: AuthPreferencesSerializer,
-    ): DataStore<AuthPreferences> =
+        authSessionSerializer: AuthSessionSerializer,
+    ): DataStore<AuthSession> =
         DataStoreFactory.create(
-            serializer = authPreferencesSerializer,
+            serializer = authSessionSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
         ) {
-            context.dataStoreFile("auth_preferences.pb")
+            context.dataStoreFile("auth_session.pb")
         }
 }

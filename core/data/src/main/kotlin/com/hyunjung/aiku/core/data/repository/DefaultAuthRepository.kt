@@ -3,7 +3,7 @@ package com.hyunjung.aiku.core.data.repository
 import android.content.Context
 import com.hyunjung.aiku.core.auth.social.SocialAuthManager
 import com.hyunjung.aiku.core.auth.social.di.SocialAuth
-import com.hyunjung.aiku.core.datastore.AuthPreferencesDataSource
+import com.hyunjung.aiku.core.datastore.AuthSessionDataSource
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialSignInResult
@@ -19,11 +19,11 @@ import javax.inject.Inject
 class DefaultAuthRepository @Inject constructor(
     @SocialAuth(SocialType.KAKAO) private val kakao: SocialAuthManager,
     private val authRemoteDataSource: AuthRemoteDataSource,
-    private val authPreferencesDataSource: AuthPreferencesDataSource,
+    private val authSessionDataSource: AuthSessionDataSource,
 ) : AuthRepository {
 
     override val isSignedIn: Flow<Boolean> =
-        authPreferencesDataSource.accessToken.map { it.isNotEmpty() }
+        authSessionDataSource.accessToken.map { it.isNotEmpty() }
 
     override fun signIn(socialType: SocialType, idToken: String): Flow<Boolean> = flow {
         try {
@@ -32,7 +32,7 @@ class DefaultAuthRepository @Inject constructor(
                 idToken = idToken
             )
 
-            authPreferencesDataSource.setCredentials(
+            authSessionDataSource.setCredentials(
                 accessToken = authTokens.accessToken,
                 refreshToken = authTokens.refreshToken,
                 socialType = socialType
@@ -47,14 +47,14 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override suspend fun signOut() {
-        val socialType = authPreferencesDataSource.socialType.first()
+        val socialType = authSessionDataSource.socialType.first()
         if (socialType == null) return
 
         when (socialType) {
             SocialType.KAKAO -> kakao.signOut()
         }
 
-        authPreferencesDataSource.clearCredentials()
+        authSessionDataSource.clearCredentials()
     }
 
     override suspend fun signUp(signUpForm: SignUpForm): Flow<Unit> = flow {

@@ -2,8 +2,8 @@ package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.GroupDetail
 import com.hyunjung.aiku.core.model.GroupOverview
-import com.hyunjung.aiku.core.model.profile.UserProfile
 import com.hyunjung.aiku.core.model.profile.AvatarCharacter
+import com.hyunjung.aiku.core.model.profile.MemberProfile
 import com.hyunjung.aiku.core.network.datasource.mock.groupMockEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -43,8 +43,8 @@ class KtorGroupDataSourceImplTest {
         assertEquals("산학협력프로젝트", result.groupName)
         assertEquals(2, result.members.size)
         assertEquals("지정희", result.members[0].nickname)
-        val resultMemberProfile = result.members[0].userProfile
-        if(resultMemberProfile is UserProfile.Avatar) {
+        val resultMemberProfile = result.members[0].memberProfile
+        if (resultMemberProfile is MemberProfile.Avatar) {
             assertEquals(AvatarCharacter.BOY, resultMemberProfile.avatarCharacter)
         }
     }

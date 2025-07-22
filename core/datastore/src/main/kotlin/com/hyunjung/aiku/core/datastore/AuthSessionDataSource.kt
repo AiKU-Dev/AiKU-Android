@@ -5,13 +5,13 @@ import com.hyunjung.aiku.core.model.SocialType
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class AuthPreferencesDataSource @Inject constructor(
-    private val authPreferences: DataStore<AuthPreferences>
+class AuthSessionDataSource @Inject constructor(
+    private val authSession: DataStore<AuthSession>
 ) {
 
-    val accessToken = authPreferences.data.map { it.accessToken }
-    val refreshToken = authPreferences.data.map { it.refreshToken }
-    val socialType = authPreferences.data.map {
+    val accessToken = authSession.data.map { it.accessToken }
+    val refreshToken = authSession.data.map { it.refreshToken }
+    val socialType = authSession.data.map {
         when (it.socialType) {
             SocialTypeProto.KAKAO -> SocialType.KAKAO
             else -> null
@@ -23,7 +23,7 @@ class AuthPreferencesDataSource @Inject constructor(
         refreshToken: String,
         socialType: SocialType,
     ) {
-        authPreferences.updateData {
+        authSession.updateData {
             it.copy {
                 this.accessToken = accessToken
                 this.refreshToken = refreshToken
@@ -35,7 +35,7 @@ class AuthPreferencesDataSource @Inject constructor(
     }
 
     suspend fun setTokens(accessToken: String, refreshToken: String) {
-        authPreferences.updateData {
+        authSession.updateData {
             it.copy {
                 this.accessToken = accessToken
                 this.refreshToken = refreshToken
@@ -44,7 +44,7 @@ class AuthPreferencesDataSource @Inject constructor(
     }
 
     suspend fun clearCredentials() {
-        authPreferences.updateData {
+        authSession.updateData {
             it.copy {
                 this.accessToken = ""
                 this.refreshToken = ""
