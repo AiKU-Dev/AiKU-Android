@@ -12,5 +12,5 @@ interface AuthRemoteDataSource {
 
     suspend fun checkNicknameDuplicated(nickname: String): Boolean
 
-    suspend fun refreshTokens(refreshToken: String): AuthTokens
+    suspend fun refreshTokens(currentTokens: AuthTokens): AuthTokens
 }

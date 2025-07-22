@@ -17,10 +17,12 @@ import com.hyunjung.aiku.core.network.resource.AuthResource
 import com.hyunjung.aiku.core.network.resource.UserResource
 import io.ktor.client.HttpClient
 import io.ktor.client.request.forms.formData
+import io.ktor.http.HttpHeaders
+import io.ktor.http.headers
 import javax.inject.Inject
 
 class DefaultAuthRemoteDataSource @Inject constructor(
-    @UnauthenticatedClient private val unauthenticatedClient: HttpClient,
+    @UnauthenticatedClient private val client: HttpClient,
 ) : AuthRemoteDataSource {
 
     override suspend fun signIn(
@@ -31,7 +33,7 @@ class DefaultAuthRemoteDataSource @Inject constructor(
     }
 
     override suspend fun signUp(signUpForm: SignUpForm) {
-        unauthenticatedClient.submitFormWithBinaryData<UserResource, Unit>(
+        client.submitFormWithBinaryData<UserResource, Unit>(
             resource = UserResource(),
             partsBuilder = {
                 formData {
@@ -45,20 +47,30 @@ class DefaultAuthRemoteDataSource @Inject constructor(
     }
 
     override suspend fun checkNicknameDuplicated(nickname: String): Boolean =
-        unauthenticatedClient.get<UserResource.CheckNickname, ApiResponse<NicknameExistenceResponse>>(
+        client.get<UserResource.CheckNickname, ApiResponse<NicknameExistenceResponse>>(
             resource = UserResource.CheckNickname(nickname = nickname)
         ).result.exist
 
-    override suspend fun refreshTokens(refreshToken: String): AuthTokens =
-        unauthenticatedClient.post<AuthResource.Refresh, ApiResponse<SignInResponse>>(
+    override suspend fun refreshTokens(currentTokens: AuthTokens): AuthTokens {
+
+        val (accessToken, refreshToken) = currentTokens
+
+        val newTokens = client.post<AuthResource.Refresh, ApiResponse<SignInResponse>>(
             resource = AuthResource.Refresh(),
-            body = mapOf("refreshToken" to refreshToken),
-        ).result.let { AuthTokens(it.accessToken, it.refreshToken) }
+            body = mapOf("refreshToken" to refreshToken)
+        ) {
+            headers {
+                append(HttpHeaders.Authorization, "Bearer $accessToken")
+            }
+        }.result.let { AuthTokens(it.accessToken, it.refreshToken) }
+
+        return newTokens
+    }
 
     private suspend fun signInWithKakao(
         idToken: String,
     ): AuthTokens =
-        unauthenticatedClient.post<AuthResource.SignIn.Kakao, ApiResponse<SignInResponse>>(
+        client.post<AuthResource.SignIn.Kakao, ApiResponse<SignInResponse>>(
             resource = AuthResource.SignIn.Kakao(),
             body = mapOf("idToken" to idToken),
         ).result.let { AuthTokens(it.accessToken, it.refreshToken) }

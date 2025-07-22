@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import io.ktor.client.plugins.resources.post
+import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
@@ -31,6 +32,19 @@ suspend inline fun <reified Resource : Any, reified Response : Any> HttpClient.p
     post(resource) {
         contentType(ContentType.Application.Json)
         setBody(body)
+    }
+}
+
+suspend inline fun <reified Resource : Any, reified Response : Any> HttpClient.post(
+    resource: Resource,
+    body: Any,
+    builder: HttpRequestBuilder.() -> Unit = {}
+): Response = safeCall {
+    post(resource) {
+        contentType(ContentType.Application.Json)
+        setBody(body)
+
+        builder()
     }
 }
 
