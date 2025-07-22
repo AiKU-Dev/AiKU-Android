@@ -3,7 +3,7 @@ syntax = "proto3";
 option java_package = "com.hyunjung.aiku.core.datastore";
 option java_multiple_files = true;
 
-enum SocialType {
+enum SocialTypeProto {
   UNSPECIFIED = 0;
   KAKAO = 1;
 }

@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import com.hyunjung.aiku.core.model.SocialType
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import com.hyunjung.aiku.core.datastore.SocialType as SocialTypeProto
 
 class AikuAuthPreferencesDataSource @Inject constructor(
     private val authPreferences: DataStore<AuthPreferences>
