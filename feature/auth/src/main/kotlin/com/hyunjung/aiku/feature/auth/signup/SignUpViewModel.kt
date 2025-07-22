@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
-import com.hyunjung.aiku.core.model.profile.UserProfile
+import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.core.navigation.AuthRoute
@@ -59,8 +59,8 @@ class SignUpViewModel @Inject constructor(
         _signUpFormState.update { it.copy(isNicknameDuplicated = false) }
     }
 
-    fun onProfileChange(userProfile: UserProfile) {
-        _signUpFormState.update { it.copy(userProfile = userProfile) }
+    fun onProfileChange(userProfileImage: UserProfileImage) {
+        _signUpFormState.update { it.copy(userProfileImage = userProfileImage) }
     }
 
     fun onAlbumImageCompressionFailed() {

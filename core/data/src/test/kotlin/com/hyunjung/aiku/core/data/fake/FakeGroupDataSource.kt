@@ -3,9 +3,9 @@ package com.hyunjung.aiku.core.data.fake
 import com.hyunjung.aiku.core.model.GroupDetail
 import com.hyunjung.aiku.core.model.GroupMember
 import com.hyunjung.aiku.core.model.GroupOverview
-import com.hyunjung.aiku.core.model.profile.AvatarBackground
-import com.hyunjung.aiku.core.model.profile.AvatarCharacter
-import com.hyunjung.aiku.core.model.profile.MemberProfile
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.MemberProfileImage
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import java.time.LocalDateTime
 
@@ -33,14 +33,14 @@ class FakeGroupDataSource : GroupRemoteDataSource {
             GroupMember(
                 memberId = 1L,
                 nickname = "지정희",
-                memberProfile = MemberProfile.Image(imageUrl = "http://amazon.s3.image.jpg")
+                memberProfileImage = MemberProfileImage.Photo(url = "http://amazon.s3.image.jpg")
             ),
             GroupMember(
                 memberId = 2L,
                 nickname = "박소영",
-                memberProfile = MemberProfile.Avatar(
-                    avatarCharacter = AvatarCharacter.BOY,
-                    avatarBackground = AvatarBackground.GREEN
+                memberProfileImage = MemberProfileImage.Avatar(
+                    type = AvatarType.BOY,
+                    backgroundColor = ProfileBackgroundColor.GREEN
                 )
             )
         )

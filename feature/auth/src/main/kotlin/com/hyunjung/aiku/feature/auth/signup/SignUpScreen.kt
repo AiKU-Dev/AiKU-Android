@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.snackbar.AikuSnackbarHostState
-import com.hyunjung.aiku.core.model.profile.UserProfile
+import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import com.hyunjung.aiku.core.model.TermsType
 import com.hyunjung.aiku.core.ui.extension.toCompressedFile
 import kotlinx.coroutines.flow.collectLatest
@@ -56,7 +56,7 @@ internal fun SignUpScreen(
                     coroutineScope.launch {
                         try {
                             val file = uri.toCompressedFile(localContext)
-                            viewModel.onProfileChange(UserProfile.Image(file))
+                            viewModel.onProfileChange(UserProfileImage.Photo(file))
                         } catch (_: Exception) {
                             viewModel.onAlbumImageCompressionFailed()
                         }

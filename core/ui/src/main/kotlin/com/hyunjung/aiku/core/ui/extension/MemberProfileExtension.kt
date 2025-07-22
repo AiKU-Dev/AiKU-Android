@@ -6,21 +6,21 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.hyunjung.aiku.core.model.profile.UserProfile
+import com.hyunjung.aiku.core.model.profile.UserProfileImage
 
 @Composable
-fun UserProfile.painter(): Painter = when (this) {
-    is UserProfile.Avatar -> avatarCharacter.toPainter()
-    is UserProfile.Image -> rememberAsyncImagePainter(model = file)
+fun UserProfileImage.painter(): Painter = when (this) {
+    is UserProfileImage.Avatar -> type.toPainter()
+    is UserProfileImage.Photo -> rememberAsyncImagePainter(model = file)
 }
 
 @Composable
-fun UserProfile.backgroundColor(): Color = when (this) {
-    is UserProfile.Avatar -> avatarBackground.toColor()
+fun UserProfileImage.backgroundColor(): Color = when (this) {
+    is UserProfileImage.Avatar -> backgroundColor.toColor()
     else -> Color.Unspecified
 }
 
-fun UserProfile.padding(): Dp = when (this) {
-    is UserProfile.Avatar -> 20.dp
+fun UserProfileImage.padding(): Dp = when (this) {
+    is UserProfileImage.Avatar -> 20.dp
     else -> 0.dp
 }
