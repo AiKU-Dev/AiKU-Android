@@ -22,33 +22,38 @@ class DefaultAuthRepository @Inject constructor(
     private val aikuAuthPreferencesDataSource: AikuAuthPreferencesDataSource,
 ) : AuthRepository {
 
-    override val isSignedIn: Flow<Boolean> = aikuAuthPreferencesDataSource.userAuthData.map {
-        it.accessToken.isNotEmpty() && it.refreshToken.isNotEmpty()
+    override val isSignedIn: Flow<Boolean> =
+        aikuAuthPreferencesDataSource.accessToken.map { it.isNotEmpty() }
+
+    override fun signIn(socialType: SocialType, idToken: String): Flow<Boolean> = flow {
+        try {
+            val authTokens = authRemoteDataSource.signIn(
+                socialType = socialType,
+                idToken = idToken
+            )
+
+            aikuAuthPreferencesDataSource.setCredentials(
+                accessToken = authTokens.accessToken,
+                refreshToken = authTokens.refreshToken,
+                socialType = socialType
+            )
+
+            emit(true)
+        } catch (_: NetworkException.NotFound) {
+            emit(false)
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
-    override fun signIn(socialType: SocialType, idToken: String): Flow<Boolean> =
-        flow {
-            try {
-                val authTokens = authRemoteDataSource.signIn(
-                    socialType = socialType,
-                    idToken = idToken
-                )
-                aikuAuthPreferencesDataSource.setCredentials(authTokens, socialType)
-                emit(true)
-            } catch (_: NetworkException.NotFound) {
-                emit(false)
-            } catch (e: Exception) {
-                throw e
-            }
-        }
-
     override suspend fun signOut() {
-        val socialType = aikuAuthPreferencesDataSource.userAuthData.first().socialType
+        val socialType = aikuAuthPreferencesDataSource.socialType.first()
         if (socialType == null) return
 
         when (socialType) {
             SocialType.KAKAO -> kakao.signOut()
         }
+
         aikuAuthPreferencesDataSource.clearCredentials()
     }
 

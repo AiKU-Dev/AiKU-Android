@@ -31,6 +31,7 @@ rootProject.name = "AiKU"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":core:auth-social")
+include(":core:auth-token")
 include(":core:common")
 include(":core:data")
 include(":core:datastore")
