@@ -5,7 +5,7 @@ import com.hyunjung.aiku.core.model.SocialType
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class AikuAuthPreferencesDataSource @Inject constructor(
+class AuthPreferencesDataSource @Inject constructor(
     private val authPreferences: DataStore<AuthPreferences>
 ) {
 

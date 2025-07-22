@@ -3,7 +3,7 @@ package com.hyunjung.aiku.core.data.repository
 import android.content.Context
 import com.hyunjung.aiku.core.auth.social.SocialAuthManager
 import com.hyunjung.aiku.core.auth.social.di.SocialAuth
-import com.hyunjung.aiku.core.datastore.AikuAuthPreferencesDataSource
+import com.hyunjung.aiku.core.datastore.AuthPreferencesDataSource
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialSignInResult
@@ -19,11 +19,11 @@ import javax.inject.Inject
 class DefaultAuthRepository @Inject constructor(
     @SocialAuth(SocialType.KAKAO) private val kakao: SocialAuthManager,
     private val authRemoteDataSource: AuthRemoteDataSource,
-    private val aikuAuthPreferencesDataSource: AikuAuthPreferencesDataSource,
+    private val authPreferencesDataSource: AuthPreferencesDataSource,
 ) : AuthRepository {
 
     override val isSignedIn: Flow<Boolean> =
-        aikuAuthPreferencesDataSource.accessToken.map { it.isNotEmpty() }
+        authPreferencesDataSource.accessToken.map { it.isNotEmpty() }
 
     override fun signIn(socialType: SocialType, idToken: String): Flow<Boolean> = flow {
         try {
@@ -32,7 +32,7 @@ class DefaultAuthRepository @Inject constructor(
                 idToken = idToken
             )
 
-            aikuAuthPreferencesDataSource.setCredentials(
+            authPreferencesDataSource.setCredentials(
                 accessToken = authTokens.accessToken,
                 refreshToken = authTokens.refreshToken,
                 socialType = socialType
@@ -47,14 +47,14 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override suspend fun signOut() {
-        val socialType = aikuAuthPreferencesDataSource.socialType.first()
+        val socialType = authPreferencesDataSource.socialType.first()
         if (socialType == null) return
 
         when (socialType) {
             SocialType.KAKAO -> kakao.signOut()
         }
 
-        aikuAuthPreferencesDataSource.clearCredentials()
+        authPreferencesDataSource.clearCredentials()
     }
 
     override suspend fun signUp(signUpForm: SignUpForm): Flow<Unit> = flow {
