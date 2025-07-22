@@ -32,7 +32,7 @@ import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextFi
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextField
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.MemberProfile
+import com.hyunjung.aiku.core.model.profile.UserProfile
 import com.hyunjung.aiku.core.model.SignUpForm
 import com.hyunjung.aiku.core.model.SocialType
 import com.hyunjung.aiku.core.ui.component.common.LoadingOverlayContainer
@@ -48,7 +48,7 @@ internal fun SignUpProfileScreen(
     uiState: SignUpProfileUiState = SignUpProfileUiState.Idle,
     snackbarHostState: AikuSnackbarHostState = AikuSnackbarHostState(),
     onNicknameChange: (String) -> Unit = {},
-    onCharacterProfileSelected: (MemberProfile.Character) -> Unit = {},
+    onCharacterProfileSelected: (UserProfile.Avatar) -> Unit = {},
     onAlbumImageSelected: (Uri) -> Unit = {},
     checkNicknameDuplication: () -> Unit = {},
     onRecommenderNicknameChange: (String) -> Unit = {},
@@ -89,7 +89,7 @@ internal fun SignUpProfileScreen(
 
             Spacer(Modifier.height(32.dp))
             ProfileImagePicker(
-                memberProfile = signUpFormState.memberProfile,
+                userProfile = signUpFormState.userProfile,
                 isOptionMenuVisible = isOptionMenuVisible,
                 onProfileImageOptionMenuDisMiss = { isOptionMenuVisible = false },
                 onEditClick = { isOptionMenuVisible = true },

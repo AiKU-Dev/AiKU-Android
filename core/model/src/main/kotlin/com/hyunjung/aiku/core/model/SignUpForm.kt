@@ -1,13 +1,17 @@
 package com.hyunjung.aiku.core.model
 
+import com.hyunjung.aiku.core.model.profile.AvatarBackground
+import com.hyunjung.aiku.core.model.profile.AvatarCharacter
+import com.hyunjung.aiku.core.model.profile.UserProfile
+
 data class SignUpForm(
     val idToken: String,
     val socialType: SocialType,
     val email: String,
     val nickname: String = "",
-    val memberProfile: MemberProfile = MemberProfile.Character(
-        profileCharacter = ProfileCharacter.BOY,
-        profileBackground = ProfileBackground.GREEN,
+    val userProfile: UserProfile = UserProfile.Avatar(
+        avatarCharacter = AvatarCharacter.BOY,
+        avatarBackground = AvatarBackground.GREEN,
     ),
     val isNicknameDuplicated: Boolean = false,
     val recommenderNickname: String = "",
