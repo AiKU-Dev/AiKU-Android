@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
-import com.hyunjung.aiku.core.model.GroupOverview
+import com.hyunjung.aiku.core.model.group.GroupSummary
 import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.result.Result
 import com.hyunjung.aiku.core.result.asResult
@@ -32,8 +32,8 @@ class HomeViewModel @Inject constructor(
     private val _todaySchedules: MutableStateFlow<List<Schedule>> = MutableStateFlow(emptyList())
     val todaySchedules: StateFlow<List<Schedule>> = _todaySchedules
 
-    private val _groups: MutableStateFlow<List<GroupOverview>> = MutableStateFlow(emptyList())
-    val groups: StateFlow<List<GroupOverview>> = _groups
+    private val _groups: MutableStateFlow<List<GroupSummary>> = MutableStateFlow(emptyList())
+    val groups: StateFlow<List<GroupSummary>> = _groups
 
     // todo : replace with actual user nickname fetching logic
     val userNickName: StateFlow<String> = MutableStateFlow("Nickname")

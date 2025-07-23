@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.data.fake
 
-import com.hyunjung.aiku.core.model.GroupSchedule
+import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.Location
 import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.model.ScheduleStatus

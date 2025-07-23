@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.datasource
 
-import com.hyunjung.aiku.core.model.GroupSchedule
+import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.Schedule
 import com.hyunjung.aiku.core.network.datasource.mock.scheduleMockEngine
 import io.ktor.client.HttpClient

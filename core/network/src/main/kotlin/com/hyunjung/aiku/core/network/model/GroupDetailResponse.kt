@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.model.GroupDetail
+import com.hyunjung.aiku.core.model.group.GroupDetail
 import kotlinx.serialization.Serializable
 
 @Serializable

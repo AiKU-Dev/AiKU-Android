@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.data.repository
 
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
-import com.hyunjung.aiku.core.model.GroupDetail
-import com.hyunjung.aiku.core.model.GroupOverview
+import com.hyunjung.aiku.core.model.group.GroupDetail
+import com.hyunjung.aiku.core.model.group.GroupSummary
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,7 +12,7 @@ internal class DefaultGroupRepository @Inject constructor(
     private val groupRemoteDataSource: GroupRemoteDataSource
 ) : GroupRepository {
 
-    override fun getGroups(page: Int): Flow<List<GroupOverview>> = flow {
+    override fun getGroups(page: Int): Flow<List<GroupSummary>> = flow {
         emit(groupRemoteDataSource.getGroups(page))
     }
 
