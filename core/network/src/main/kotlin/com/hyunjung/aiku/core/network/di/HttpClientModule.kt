@@ -32,21 +32,19 @@ annotation class UnauthenticatedClient
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule {
+internal object HttpClientModule {
 
     @Provides
     @Singleton
-    fun providesNetworkJson(): Json = Json {
-        ignoreUnknownKeys = true
-    }
+    @UnauthenticatedClient
+    internal fun provideUnauthenticatedHttpClient(): HttpClient = aikuHttpClient()
 
     @Provides
     @Singleton
     @AuthorizedClient
-    fun provideAuthorizedHttpClient(
-        json: Json,
+    internal fun provideAuthorizedHttpClient(
         tokenManager: TokenManager
-    ): HttpClient = provideHttpClient(json = json) {
+    ): HttpClient = aikuHttpClient {
 
         install(Auth) {
             bearer {
@@ -65,15 +63,9 @@ internal object NetworkModule {
             }
         }
     }
-
-    @Provides
-    @Singleton
-    @UnauthenticatedClient
-    fun provideUnauthenticatedHttpClient(json: Json): HttpClient = provideHttpClient(json = json)
 }
 
-private fun provideHttpClient(
-    json: Json,
+private fun aikuHttpClient(
     block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {}
 ): HttpClient = HttpClient(CIO) {
 
@@ -86,7 +78,9 @@ private fun provideHttpClient(
 
     install(Resources)
     install(ContentNegotiation) {
-        json(json)
+        json(Json {
+            ignoreUnknownKeys = true
+        })
     }
 
     block()
