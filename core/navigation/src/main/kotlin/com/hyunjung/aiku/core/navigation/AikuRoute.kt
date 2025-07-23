@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.navigation
 
-import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.model.auth.SocialType
+import com.hyunjung.aiku.core.model.auth.TermsType
 import kotlinx.serialization.Serializable
 
 sealed interface AikuRoute {

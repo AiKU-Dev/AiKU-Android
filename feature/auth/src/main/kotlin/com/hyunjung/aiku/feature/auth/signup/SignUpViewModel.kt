@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.TermsType
 import com.hyunjung.aiku.core.navigation.AuthRoute
 import com.hyunjung.aiku.core.result.Result
 import com.hyunjung.aiku.core.result.asResult

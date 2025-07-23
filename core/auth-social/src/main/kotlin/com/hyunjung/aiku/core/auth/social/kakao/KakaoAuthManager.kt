@@ -3,7 +3,7 @@ package com.hyunjung.aiku.core.auth.social.kakao
 import android.content.Context
 import com.hyunjung.aiku.core.auth.social.SocialAuthException
 import com.hyunjung.aiku.core.auth.social.SocialAuthManager
-import com.hyunjung.aiku.core.model.SocialSignInResult
+import com.hyunjung.aiku.core.model.auth.SocialSignInResult
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause

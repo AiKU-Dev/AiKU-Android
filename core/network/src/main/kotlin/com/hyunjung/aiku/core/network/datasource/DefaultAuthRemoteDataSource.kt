@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.auth.token.model.AuthTokens
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.SocialType
 import com.hyunjung.aiku.core.network.di.UnauthenticatedClient
 import com.hyunjung.aiku.core.network.extension.appendAgreementFields
 import com.hyunjung.aiku.core.network.extension.appendBaseFields

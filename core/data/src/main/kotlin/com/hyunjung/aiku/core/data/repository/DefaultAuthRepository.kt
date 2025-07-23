@@ -6,9 +6,9 @@ import com.hyunjung.aiku.core.auth.social.di.SocialAuth
 import com.hyunjung.aiku.core.datastore.AuthSessionStore
 import com.hyunjung.aiku.core.datastore.UserDataStore
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.SocialSignInResult
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.SocialSignInResult
+import com.hyunjung.aiku.core.model.auth.SocialType
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
 import com.hyunjung.aiku.core.network.exception.NetworkException
 import kotlinx.coroutines.flow.Flow

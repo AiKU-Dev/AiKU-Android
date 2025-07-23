@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.auth.social.di
 
 import com.hyunjung.aiku.core.auth.social.SocialAuthManager
 import com.hyunjung.aiku.core.auth.social.kakao.KakaoAuthManager
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SocialType
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
