@@ -7,8 +7,8 @@ import androidx.datastore.dataStoreFile
 import com.hyunjung.aiku.core.coroutine.AikuDispatchers.IO
 import com.hyunjung.aiku.core.coroutine.Dispatcher
 import com.hyunjung.aiku.core.coroutine.di.ApplicationScope
-import com.hyunjung.aiku.core.datastore.AuthSession
-import com.hyunjung.aiku.core.datastore.AuthSessionSerializer
+import com.hyunjung.aiku.core.datastore.AuthSessionProto
+import com.hyunjung.aiku.core.datastore.AuthSessionProtoSerializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,18 +20,18 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataStoreModule {
+internal object DataStoreModule {
 
     @Provides
     @Singleton
-    internal fun providesAuthSessionDataStore(
+    internal fun providesAuthSessionStore(
         @ApplicationContext context: Context,
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
         @ApplicationScope scope: CoroutineScope,
-        authSessionSerializer: AuthSessionSerializer,
-    ): DataStore<AuthSession> =
+        authSessionProtoSerializer: AuthSessionProtoSerializer,
+    ): DataStore<AuthSessionProto> =
         DataStoreFactory.create(
-            serializer = authSessionSerializer,
+            serializer = authSessionProtoSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
         ) {
             context.dataStoreFile("auth_session.pb")
