@@ -1,6 +1,5 @@
 package com.hyunjung.aiku.core.network.extension
 
-import android.util.Log
 import com.hyunjung.aiku.core.network.exception.NetworkException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -57,7 +56,6 @@ suspend inline fun <reified T> executeNetworkCall(execute: () -> HttpResponse): 
         throw NetworkException.Unknown(e)
     }
 
-    Log.d("testaaa", "HTTP 응답: $response")
     return parseResponseBody(response)
 }
 

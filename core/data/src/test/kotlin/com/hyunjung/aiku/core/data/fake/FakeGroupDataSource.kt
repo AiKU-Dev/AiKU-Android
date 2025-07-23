@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 class FakeGroupDataSource : GroupRemoteDataSource {
 
-    override suspend fun getGroups(page: Int): List<GroupSummary> = listOf(
+    override suspend fun getGroupSummaries(page: Int): List<GroupSummary> = listOf(
         GroupSummary(
             groupId = 1L,
             groupName = "전공기초프로젝트",
@@ -26,7 +26,7 @@ class FakeGroupDataSource : GroupRemoteDataSource {
         )
     )
 
-    override suspend fun getGroupById(id: Long): GroupDetail = GroupDetail(
+    override suspend fun getGroupDetail(id: Long): GroupDetail = GroupDetail(
         groupId = id,
         groupName = "산학협력프로젝트",
         members = listOf(
@@ -46,5 +46,5 @@ class FakeGroupDataSource : GroupRemoteDataSource {
         )
     )
 
-    override suspend fun addGroup(name: String): Result<Unit> = Result.success(Unit)
+    override suspend fun createGroup(name: String): Result<Unit> = Result.success(Unit)
 }

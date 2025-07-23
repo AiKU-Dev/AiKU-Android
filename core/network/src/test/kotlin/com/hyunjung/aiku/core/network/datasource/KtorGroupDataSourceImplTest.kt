@@ -30,7 +30,7 @@ class KtorGroupDataSourceImplTest {
 
     @Test
     fun `getGroups returns expected list`() = runTest {
-        val result: List<GroupSummary> = subject.getGroups(page = 1)
+        val result: List<GroupSummary> = subject.getGroupSummaries(page = 1)
         assertEquals(2, result.size)
         assertEquals("전공기초프로젝트", result[0].groupName)
         assertEquals("산학협력프로젝트", result[1].groupName)
@@ -38,7 +38,7 @@ class KtorGroupDataSourceImplTest {
 
     @Test
     fun `getGroup returns correct group detail`() = runTest {
-        val result: GroupDetail = subject.getGroupById(id = 1L)
+        val result: GroupDetail = subject.getGroupDetail(id = 1L)
         assertEquals(1L, result.groupId)
         assertEquals("산학협력프로젝트", result.groupName)
         assertEquals(2, result.members.size)
@@ -51,7 +51,7 @@ class KtorGroupDataSourceImplTest {
 
     @Test
     fun `addGroup returns success`() = runTest {
-        val result = subject.addGroup("새로운 그룹")
+        val result = subject.createGroup("새로운 그룹")
         assertEquals(true, result.isSuccess)
     }
 }

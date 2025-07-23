@@ -13,13 +13,13 @@ internal class DefaultGroupRepository @Inject constructor(
 ) : GroupRepository {
 
     override fun getGroups(page: Int): Flow<List<GroupSummary>> = flow {
-        emit(groupRemoteDataSource.getGroups(page))
+        emit(groupRemoteDataSource.getGroupSummaries(page))
     }
 
     override fun getGroupById(id: Long): Flow<GroupDetail> = flow {
-        emit(groupRemoteDataSource.getGroupById(id))
+        emit(groupRemoteDataSource.getGroupDetail(id))
     }
 
     override suspend fun setGroup(name: String): Result<Unit> =
-        groupRemoteDataSource.addGroup(name)
+        groupRemoteDataSource.createGroup(name)
 }
