@@ -9,6 +9,8 @@ import com.hyunjung.aiku.core.coroutine.Dispatcher
 import com.hyunjung.aiku.core.coroutine.di.ApplicationScope
 import com.hyunjung.aiku.core.datastore.AuthSessionProto
 import com.hyunjung.aiku.core.datastore.AuthSessionProtoSerializer
+import com.hyunjung.aiku.core.datastore.UserDataProto
+import com.hyunjung.aiku.core.datastore.UserDataProtoSerializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +37,20 @@ internal object DataStoreModule {
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
         ) {
             context.dataStoreFile("auth_session.pb")
+        }
+
+    @Provides
+    @Singleton
+    internal fun providesUserDataStore(
+        @ApplicationContext context: Context,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+        @ApplicationScope scope: CoroutineScope,
+        userDataProtoSerializer: UserDataProtoSerializer,
+    ): DataStore<UserDataProto> =
+        DataStoreFactory.create(
+            serializer = userDataProtoSerializer,
+            scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
+        ) {
+            context.dataStoreFile("user_data.pb")
         }
 }
