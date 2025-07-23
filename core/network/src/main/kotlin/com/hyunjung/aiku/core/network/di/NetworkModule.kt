@@ -13,20 +13,20 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class KtorDataSourceModule {
+internal abstract class NetworkModule {
 
     @Binds
-    internal abstract fun bindGroupRemoteDataSource(
+    abstract fun bindAuthRemoteDataSource(
+        authRemoteDataSource: DefaultAuthRemoteDataSource
+    ): AuthRemoteDataSource
+
+    @Binds
+    abstract fun bindGroupRemoteDataSource(
         groupRemoteDataSource: KtorGroupRemoteDataSource
     ): GroupRemoteDataSource
 
     @Binds
-    internal abstract fun bindScheduleRemoteDataSource(
+    abstract fun bindScheduleRemoteDataSource(
         scheduleRemoteDataSource: KtorScheduleRemoteDataSource
     ): ScheduleRemoteDataSource
-
-    @Binds
-    internal abstract fun bindAuthRemoteDataSource(
-        authRemoteDataSource: DefaultAuthRemoteDataSource
-    ): AuthRemoteDataSource
 }
