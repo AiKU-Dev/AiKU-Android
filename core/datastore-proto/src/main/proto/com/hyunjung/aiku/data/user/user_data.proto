@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.hyunjung.aiku.core.datastore";
+option java_multiple_files = true;
+
+import "com/hyunjung/aiku/data/profile/avatar.proto";
+
+message UserDataProto {
+  string email = 1;
+  string nickname = 2;
+
+  oneof profile_image {
+      AvatarProto avatar = 4;
+      string file_path = 5;
+    }
+}
