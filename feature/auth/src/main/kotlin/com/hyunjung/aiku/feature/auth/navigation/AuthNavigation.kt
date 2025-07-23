@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.hyunjung.aiku.core.model.SocialType
-import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.model.auth.SocialType
+import com.hyunjung.aiku.core.model.auth.TermsType
 import com.hyunjung.aiku.core.navigation.AuthRoute
 import com.hyunjung.aiku.core.navigation.navigateAndClearBackStack
 import com.hyunjung.aiku.core.navigation.navigateSingleTop

@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.model.auth.TermsType
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 

@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.model
+package com.hyunjung.aiku.core.model.auth
 
 enum class TermsType(
     val title: String,

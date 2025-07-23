@@ -34,10 +34,10 @@ import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.GroupOverview
-import com.hyunjung.aiku.core.model.Location
-import com.hyunjung.aiku.core.model.Schedule
-import com.hyunjung.aiku.core.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.schedule.Location
+import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
@@ -93,7 +93,7 @@ fun HomeContent(
     scheduleUiState: HomeScheduleUiState,
     groupUiState: HomeGroupUiState,
     userNickname: String,
-    groups: List<GroupOverview>,
+    groups: List<GroupSummary>,
     todaySchedules: List<Schedule>,
     loadNextSchedulePage: () -> Unit,
     loadNextGroupPage: () -> Unit,
@@ -252,7 +252,7 @@ private fun TodaySchedulesSection(
 @Composable
 private fun GroupOverviewsSection(
     title: String,
-    groups: List<GroupOverview>,
+    groups: List<GroupSummary>,
     groupUiState: HomeGroupUiState,
     onGroupClick: (Long) -> Unit,
     onOpenCreateGroupDialog: () -> Unit,
@@ -415,61 +415,61 @@ private val mockSchedules = listOf(
     )
 )
 private val mockGroups = listOf(
-    GroupOverview(
+    GroupSummary(
         groupId = 1,
         groupName = "그룹 1",
         memberSize = 138,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 2,
         groupName = "그룹 2",
         memberSize = 6,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 3,
         groupName = "그룹 3",
         memberSize = 48,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 4,
         groupName = "그룹 4",
         memberSize = 8,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 5,
         groupName = "그룹 5",
         memberSize = 33,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 6,
         groupName = "그룹 6",
         memberSize = 120,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 7,
         groupName = "그룹 7",
         memberSize = 20,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 8,
         groupName = "그룹 8",
         memberSize = 37,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 9,
         groupName = "그룹 9",
         memberSize = 41,
         lastScheduleTime = previewLocalDateTime
     ),
-    GroupOverview(
+    GroupSummary(
         groupId = 10,
         groupName = "그룹 10",
         memberSize = 44,

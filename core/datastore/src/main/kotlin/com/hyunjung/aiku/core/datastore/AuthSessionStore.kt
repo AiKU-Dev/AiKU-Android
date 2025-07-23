@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.datastore
 
 import androidx.datastore.core.DataStore
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SocialType
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 

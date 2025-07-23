@@ -1,9 +1,9 @@
 package com.hyunjung.aiku.core.domain.repository
 
 import android.content.Context
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.SocialSignInResult
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.SocialSignInResult
+import com.hyunjung.aiku.core.model.auth.SocialType
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {

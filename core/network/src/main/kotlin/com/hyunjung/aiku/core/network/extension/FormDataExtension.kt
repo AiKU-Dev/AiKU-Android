@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.extension
 
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.TermsType
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import io.ktor.client.request.forms.FormBuilder
 import io.ktor.http.Headers

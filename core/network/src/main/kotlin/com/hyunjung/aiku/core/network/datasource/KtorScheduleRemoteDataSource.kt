@@ -1,8 +1,9 @@
 package com.hyunjung.aiku.core.network.datasource
 
-import com.hyunjung.aiku.core.model.GroupSchedule
-import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.group.GroupSchedule
+import com.hyunjung.aiku.core.model.schedule.Schedule
 import com.hyunjung.aiku.core.network.di.AuthorizedClient
+import com.hyunjung.aiku.core.network.extension.get
 import com.hyunjung.aiku.core.network.model.ApiResponse
 import com.hyunjung.aiku.core.network.model.GroupSchedulesResultResponse
 import com.hyunjung.aiku.core.network.model.SchedulesResultResponse
@@ -11,7 +12,6 @@ import com.hyunjung.aiku.core.network.resource.GroupResource
 import com.hyunjung.aiku.core.network.resource.MemberResource
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.resources.get
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -23,7 +23,13 @@ class KtorScheduleRemoteDataSource @Inject constructor(
         startDate: LocalDateTime?,
         endDate: LocalDateTime?
     ): List<Schedule> =
-        client.get(MemberResource.Schedules(page, startDate?.toString(), endDate?.toString()))
+        client.get(
+            MemberResource.Schedules(
+                page = page,
+                startDate = startDate?.toString(),
+                endDate = endDate?.toString()
+            )
+        )
             .body<ApiResponse<SchedulesResultResponse>>()
             .result.data.map { it.toModel() }
 

@@ -33,8 +33,8 @@ import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextField
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.SocialType
 import com.hyunjung.aiku.core.ui.component.common.LoadingOverlayContainer
 import com.hyunjung.aiku.core.ui.component.common.NicknameField
 import com.hyunjung.aiku.core.ui.component.common.ProfileImagePicker

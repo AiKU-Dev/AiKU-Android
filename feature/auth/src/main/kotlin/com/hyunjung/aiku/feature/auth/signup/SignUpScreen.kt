@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.snackbar.AikuSnackbarHostState
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
-import com.hyunjung.aiku.core.model.TermsType
+import com.hyunjung.aiku.core.model.auth.TermsType
 import com.hyunjung.aiku.core.ui.extension.toCompressedFile
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

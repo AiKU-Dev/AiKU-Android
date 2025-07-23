@@ -1,93 +1,32 @@
 package com.hyunjung.aiku.core.network.di
 
-import com.hyunjung.aiku.core.auth.token.TokenManager
+import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.DefaultAuthRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorGroupRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorScheduleRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.engine.cio.CIOEngineConfig
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerTokens
-import io.ktor.client.plugins.auth.providers.bearer
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.resources.Resources
-import io.ktor.http.URLProtocol
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.flow.first
-import kotlinx.serialization.json.Json
-import javax.inject.Qualifier
-import javax.inject.Singleton
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class AuthorizedClient
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class UnauthenticatedClient
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule {
+internal abstract class NetworkModule {
 
-    @Provides
-    @Singleton
-    fun providesNetworkJson(): Json = Json {
-        ignoreUnknownKeys = true
-    }
+    @Binds
+    abstract fun bindAuthRemoteDataSource(
+        authRemoteDataSource: DefaultAuthRemoteDataSource
+    ): AuthRemoteDataSource
 
-    @Provides
-    @Singleton
-    @AuthorizedClient
-    fun provideAuthorizedHttpClient(
-        json: Json,
-        tokenManager: TokenManager
-    ): HttpClient = provideHttpClient(json = json) {
+    @Binds
+    abstract fun bindGroupRemoteDataSource(
+        groupRemoteDataSource: KtorGroupRemoteDataSource
+    ): GroupRemoteDataSource
 
-        install(Auth) {
-            bearer {
-                loadTokens {
-                    val access = tokenManager.accessToken.first()
-                    val refresh = tokenManager.refreshToken.first()
-                    BearerTokens(access, refresh)
-                }
-
-                refreshTokens {
-                    val newTokens = tokenManager.updateTokens()
-                    BearerTokens(newTokens.accessToken, newTokens.refreshToken)
-                }
-
-                sendWithoutRequest { true }
-            }
-        }
-    }
-
-    @Provides
-    @Singleton
-    @UnauthenticatedClient
-    fun provideUnauthenticatedHttpClient(json: Json): HttpClient = provideHttpClient(json = json)
-}
-
-private fun provideHttpClient(
-    json: Json,
-    block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {}
-): HttpClient = HttpClient(CIO) {
-
-    defaultRequest {
-        url {
-            protocol = URLProtocol.HTTPS
-            host = "aiku.duckdns.org"
-        }
-    }
-
-    install(Resources)
-    install(ContentNegotiation) {
-        json(json)
-    }
-
-    block()
+    @Binds
+    abstract fun bindScheduleRemoteDataSource(
+        scheduleRemoteDataSource: KtorScheduleRemoteDataSource
+    ): ScheduleRemoteDataSource
 }

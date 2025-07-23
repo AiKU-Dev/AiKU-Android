@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.model
+package com.hyunjung.aiku.core.model.auth
 
 data class SocialSignInResult(
     val idToken: String,

@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.auth.token.model.AuthTokens
-import com.hyunjung.aiku.core.model.SignUpForm
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SignUpForm
+import com.hyunjung.aiku.core.model.auth.SocialType
 
 interface AuthRemoteDataSource {
 

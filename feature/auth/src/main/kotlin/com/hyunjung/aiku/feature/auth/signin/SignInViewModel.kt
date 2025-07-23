@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
-import com.hyunjung.aiku.core.model.SocialSignInResult
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SocialSignInResult
+import com.hyunjung.aiku.core.model.auth.SocialType
 import com.hyunjung.aiku.core.result.Result
 import com.hyunjung.aiku.core.result.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel

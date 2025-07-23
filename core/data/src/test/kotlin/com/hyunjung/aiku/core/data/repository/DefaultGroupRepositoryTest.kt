@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.data.repository
 
 import com.hyunjung.aiku.core.data.fake.FakeGroupDataSource
-import com.hyunjung.aiku.core.model.GroupDetail
-import com.hyunjung.aiku.core.model.GroupOverview
+import com.hyunjung.aiku.core.model.group.GroupDetail
+import com.hyunjung.aiku.core.model.group.GroupSummary
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.MemberProfileImage
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
@@ -25,7 +25,7 @@ class DefaultGroupRepositoryTest {
 
     @Test
     fun `getGroups returns expected list`() = runTest {
-        val result: List<GroupOverview> = subject.getGroups(page = 1).first()
+        val result: List<GroupSummary> = subject.getGroups(page = 1).first()
         assertEquals(2, result.size)
         assertEquals("전공기초프로젝트", result[0].groupName)
         assertEquals("산학협력프로젝트", result[1].groupName)

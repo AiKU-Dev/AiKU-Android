@@ -24,7 +24,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.SocialType
+import com.hyunjung.aiku.core.model.auth.SocialType
 import com.hyunjung.aiku.core.ui.component.common.LoadingOverlayContainer
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 import com.hyunjung.aiku.feature.auth.R
