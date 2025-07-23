@@ -29,9 +29,9 @@ import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.MemberProfile
-import com.hyunjung.aiku.core.model.ProfileBackground
-import com.hyunjung.aiku.core.model.ProfileCharacter
+import com.hyunjung.aiku.core.model.profile.UserProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.extension.getDescription
 import com.hyunjung.aiku.core.ui.extension.toColor
@@ -40,13 +40,13 @@ import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun CharacterProfilePickerDialog(
-    character: MemberProfile.Character,
+    avatar: UserProfileImage.Avatar,
     onDismiss: () -> Unit,
-    onCharacterProfileSelected: (MemberProfile.Character) -> Unit,
+    onCharacterProfileSelected: (UserProfileImage.Avatar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedCharacter by remember { mutableStateOf(character.profileCharacter) }
-    var selectedBackgroundColor by remember { mutableStateOf(character.profileBackground) }
+    var selectedCharacter by remember { mutableStateOf(avatar.type) }
+    var selectedBackgroundColor by remember { mutableStateOf(avatar.backgroundColor) }
 
     AikuDialog(onDismiss = onDismiss) {
         Column(
@@ -82,7 +82,7 @@ fun CharacterProfilePickerDialog(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                ProfileCharacter.entries.forEach { character ->
+                AvatarType.entries.forEach { character ->
                     AikuClickableSurface(
                         onClick = { selectedCharacter = character },
                         color = AiKUTheme.colors.gray02,
@@ -109,7 +109,7 @@ fun CharacterProfilePickerDialog(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.padding(vertical = 20.dp)
             ) {
-                ProfileBackground.entries.forEach { background ->
+                ProfileBackgroundColor.entries.forEach { background ->
                     AikuClickableSurface(
                         onClick = { selectedBackgroundColor = background },
                         color = background.toColor(),
@@ -129,9 +129,9 @@ fun CharacterProfilePickerDialog(
             AikuButton(
                 onClick = {
                     onCharacterProfileSelected(
-                        MemberProfile.Character(
-                            profileCharacter = selectedCharacter,
-                            profileBackground = selectedBackgroundColor,
+                        UserProfileImage.Avatar(
+                            type = selectedCharacter,
+                            backgroundColor = selectedBackgroundColor,
                         )
                     )
                     onDismiss()
@@ -155,9 +155,9 @@ fun CharacterProfilePickerDialog(
 private fun CreateGroupDialogPreview() {
     AikuPreviewTheme {
         CharacterProfilePickerDialog(
-            MemberProfile.Character(
-                profileCharacter = ProfileCharacter.BOY,
-                profileBackground = ProfileBackground.GREEN,
+            UserProfileImage.Avatar(
+                type = AvatarType.BOY,
+                backgroundColor = ProfileBackgroundColor.GREEN,
             ),
             onDismiss = {},
             onCharacterProfileSelected = {}

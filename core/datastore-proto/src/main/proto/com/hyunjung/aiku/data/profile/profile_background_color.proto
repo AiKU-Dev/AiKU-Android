@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.hyunjung.aiku.core.datastore";
+option java_multiple_files = true;
+
+enum ProfileBackgroundColorProto {
+  GREEN = 0;
+  YELLOW = 1;
+  PURPLE = 2;
+  GRAY = 3;
+}

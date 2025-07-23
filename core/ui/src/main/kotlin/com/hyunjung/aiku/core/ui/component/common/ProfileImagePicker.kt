@@ -35,9 +35,9 @@ import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.MemberProfile
-import com.hyunjung.aiku.core.model.ProfileBackground
-import com.hyunjung.aiku.core.model.ProfileCharacter
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.component.dialog.CharacterProfilePickerDialog
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
@@ -47,11 +47,11 @@ import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun ProfileImagePicker(
-    memberProfile: MemberProfile,
+    userProfileImage: UserProfileImage,
     isOptionMenuVisible: Boolean,
     onProfileImageOptionMenuDisMiss: () -> Unit,
     onEditClick: () -> Unit,
-    onCharacterProfileSelected: (MemberProfile.Character) -> Unit,
+    onCharacterProfileSelected: (UserProfileImage.Avatar) -> Unit,
     onAlbumImageSelected: (Uri) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -62,13 +62,13 @@ fun ProfileImagePicker(
     ) { uri: Uri? -> uri?.let { onAlbumImageSelected(uri) } }
 
     if (showCharacterPicker) {
-        val character = memberProfile as? MemberProfile.Character
-            ?: MemberProfile.Character(
-                profileCharacter = ProfileCharacter.BOY,
-                profileBackground = ProfileBackground.GREEN
+        val avatar = userProfileImage as? UserProfileImage.Avatar
+            ?: UserProfileImage.Avatar(
+                type = AvatarType.BOY,
+                backgroundColor = ProfileBackgroundColor.GREEN
             )
         CharacterProfilePickerDialog(
-            character = character,
+            avatar = avatar,
             onDismiss = { showCharacterPicker = false },
             onCharacterProfileSelected = onCharacterProfileSelected,
         )
@@ -78,15 +78,15 @@ fun ProfileImagePicker(
         Box(modifier = Modifier.align(Alignment.Center)) {
             AikuClickableSurface(
                 onClick = onEditClick,
-                color = memberProfile.backgroundColor(),
+                color = userProfileImage.backgroundColor(),
                 shape = CircleShape,
             ) {
                 Image(
-                    painter = memberProfile.painter(),
+                    painter = userProfileImage.painter(),
                     contentDescription = stringResource(R.string.profile_image_picker_description),
                     modifier = Modifier
                         .size(148.dp)
-                        .padding(memberProfile.padding()),
+                        .padding(userProfileImage.padding()),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -178,9 +178,9 @@ private fun ProfileImageOptionItem(
 private fun ProfileImagePickerCollapsedPreview() {
     AikuPreviewTheme {
         ProfileImagePicker(
-            memberProfile = MemberProfile.Character(
-                profileCharacter = ProfileCharacter.BOY,
-                profileBackground = ProfileBackground.GREEN
+            userProfileImage = UserProfileImage.Avatar(
+                type = AvatarType.BOY,
+                backgroundColor = ProfileBackgroundColor.GREEN
             ),
             isOptionMenuVisible = false,
             onProfileImageOptionMenuDisMiss = {},
@@ -197,9 +197,9 @@ private fun ProfileImagePickerCollapsedPreview() {
 private fun ProfileImagePickerExpandedPreview() {
     AikuPreviewTheme {
         ProfileImagePicker(
-            memberProfile = MemberProfile.Character(
-                profileCharacter = ProfileCharacter.BOY,
-                profileBackground = ProfileBackground.GREEN
+            userProfileImage = UserProfileImage.Avatar(
+                type = AvatarType.BOY,
+                backgroundColor = ProfileBackgroundColor.GREEN
             ),
             isOptionMenuVisible = true,
             onProfileImageOptionMenuDisMiss = {},

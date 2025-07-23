@@ -18,7 +18,7 @@ package com.hyunjung.aiku.core.datastore
 
 import javax.inject.Inject
 
-class AuthPreferencesSerializer @Inject constructor() : ProtoSerializer<AuthPreferences>(
-    defaultInstance = AuthPreferences.getDefaultInstance(),
-    parse = AuthPreferences::parseFrom
+internal class AuthSessionProtoSerializer @Inject constructor() : ProtoSerializer<AuthSessionProto>(
+    defaultInstance = AuthSessionProto.getDefaultInstance(),
+    parse = AuthSessionProto::parseFrom
 )

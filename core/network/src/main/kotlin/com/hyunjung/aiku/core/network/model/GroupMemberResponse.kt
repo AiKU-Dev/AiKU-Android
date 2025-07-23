@@ -14,5 +14,5 @@ fun GroupMemberResponse.toModel(): GroupMember =
     GroupMember(
         memberId = memberId,
         nickname = nickname,
-        memberProfile = memberProfile.toModel()
+        memberProfileImage = memberProfile.toModel()
     )

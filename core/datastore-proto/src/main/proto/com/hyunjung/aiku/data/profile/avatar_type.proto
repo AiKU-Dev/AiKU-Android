@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.hyunjung.aiku.core.datastore";
+option java_multiple_files = true;
+
+enum AvatarTypeProto {
+  BOY = 0;
+  BABY = 1;
+  SCRATCH = 2;
+  GIRL = 3;
+}

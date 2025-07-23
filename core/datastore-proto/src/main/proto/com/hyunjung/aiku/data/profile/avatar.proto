@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.hyunjung.aiku.core.datastore";
+option java_multiple_files = true;
+
+import "com/hyunjung/aiku/data/profile/avatar_type.proto";
+import "com/hyunjung/aiku/data/profile/profile_background_color.proto";
+
+message AvatarProto {
+  AvatarTypeProto type = 1;
+  ProfileBackgroundColorProto background_color = 2;
+}

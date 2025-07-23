@@ -39,7 +39,7 @@ class DefaultAuthRemoteDataSource @Inject constructor(
         client.post(UserResource()) {
             setBody(MultiPartFormDataContent(formData {
                 appendBaseFields(signUpForm)
-                appendProfileFields(signUpForm.memberProfile)
+                appendProfileFields(signUpForm.userProfileImage)
                 appendAgreementFields(signUpForm.agreedTerms)
                 append("recommenderNickname", signUpForm.recommenderNickname)
             }))

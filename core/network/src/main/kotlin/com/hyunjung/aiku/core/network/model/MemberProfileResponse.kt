@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.model.MemberProfile
-import com.hyunjung.aiku.core.model.ProfileBackground
-import com.hyunjung.aiku.core.model.ProfileCharacter
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.MemberProfileImage
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,24 +13,24 @@ data class MemberProfileResponse(
     val profileBackground: String? = null
 )
 
-fun MemberProfileResponse.toModel(): MemberProfile =
+fun MemberProfileResponse.toModel(): MemberProfileImage =
     if (profileType == "IMG" && !profileImg.isNullOrBlank()) {
-        MemberProfile.RemoteImage(imageUrl = profileImg)
+        MemberProfileImage.Photo(url = profileImg)
     } else {
-        MemberProfile.Character(
-            profileCharacter = when (profileCharacter) {
-                "C01" -> ProfileCharacter.BOY
-                "C02" -> ProfileCharacter.BABY
-                "C03" -> ProfileCharacter.SCRATCH
-                "C04" -> ProfileCharacter.GIRL
-                else -> ProfileCharacter.BOY
+        MemberProfileImage.Avatar(
+            type = when (profileCharacter) {
+                "C01" -> AvatarType.BOY
+                "C02" -> AvatarType.BABY
+                "C03" -> AvatarType.SCRATCH
+                "C04" -> AvatarType.GIRL
+                else -> AvatarType.BOY
             },
-            profileBackground = when (profileBackground) {
-                "GREEN" -> ProfileBackground.GREEN
-                "YELLOW" -> ProfileBackground.YELLOW
-                "PURPLE" -> ProfileBackground.PURPLE
-                "GRAY" -> ProfileBackground.GRAY
-                else -> ProfileBackground.GREEN
+            backgroundColor = when (profileBackground) {
+                "GREEN" -> ProfileBackgroundColor.GREEN
+                "YELLOW" -> ProfileBackgroundColor.YELLOW
+                "PURPLE" -> ProfileBackgroundColor.PURPLE
+                "GRAY" -> ProfileBackgroundColor.GRAY
+                else -> ProfileBackgroundColor.GREEN
             }
         )
     }
