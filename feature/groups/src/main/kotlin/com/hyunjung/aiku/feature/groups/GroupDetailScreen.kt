@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.component.common.AikuTabs
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.component.schedule.ScheduleCard

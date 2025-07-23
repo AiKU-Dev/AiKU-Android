@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.model
+package com.hyunjung.aiku.core.model.schedule
 
 import java.time.LocalDateTime
 

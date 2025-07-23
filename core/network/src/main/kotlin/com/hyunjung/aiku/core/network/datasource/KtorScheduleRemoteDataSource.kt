@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.group.GroupSchedule
-import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.schedule.Schedule
 import com.hyunjung.aiku.core.network.di.AuthorizedClient
 import com.hyunjung.aiku.core.network.model.ApiResponse
 import com.hyunjung.aiku.core.network.model.GroupSchedulesResultResponse

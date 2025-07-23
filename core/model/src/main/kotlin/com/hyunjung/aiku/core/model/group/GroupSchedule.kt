@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.model.group
 
-import com.hyunjung.aiku.core.model.Location
-import com.hyunjung.aiku.core.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.schedule.Location
+import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import java.time.LocalDateTime
 
 data class GroupSchedule(

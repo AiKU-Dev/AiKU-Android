@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.domain.repository
 
 import com.hyunjung.aiku.core.model.group.GroupSchedule
-import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.schedule.Schedule
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 

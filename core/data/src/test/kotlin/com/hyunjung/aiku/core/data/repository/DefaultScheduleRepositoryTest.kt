@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.data.repository
 
 import com.hyunjung.aiku.core.data.fake.FakeScheduleDataSource
 import com.hyunjung.aiku.core.model.group.GroupSchedule
-import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.schedule.Schedule
 import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

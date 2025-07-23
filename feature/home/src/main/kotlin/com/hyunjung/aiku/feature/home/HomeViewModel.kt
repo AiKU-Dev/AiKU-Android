@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.model.group.GroupSummary
-import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.schedule.Schedule
 import com.hyunjung.aiku.core.result.Result
 import com.hyunjung.aiku.core.result.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel

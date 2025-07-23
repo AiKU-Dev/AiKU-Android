@@ -35,9 +35,9 @@ import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.group.GroupSummary
-import com.hyunjung.aiku.core.model.Location
-import com.hyunjung.aiku.core.model.Schedule
-import com.hyunjung.aiku.core.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.schedule.Location
+import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar

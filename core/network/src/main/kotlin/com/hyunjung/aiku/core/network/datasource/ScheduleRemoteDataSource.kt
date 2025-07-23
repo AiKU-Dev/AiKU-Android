@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.group.GroupSchedule
-import com.hyunjung.aiku.core.model.Schedule
+import com.hyunjung.aiku.core.model.schedule.Schedule
 import java.time.LocalDateTime
 
 interface ScheduleRemoteDataSource {

@@ -25,7 +25,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.ScheduleStatus
+import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
 import java.text.SimpleDateFormat
 import java.util.Locale
