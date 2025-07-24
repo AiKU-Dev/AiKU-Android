@@ -34,6 +34,8 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun HomeScreen(
+    onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
+    onGroupSummaryClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -57,6 +59,8 @@ fun HomeScreen(
         userNickname = userNickname,
         lazyPagingSchedules = lazyPagingSchedules,
         lazyPagingGroupSummaries = lazyPagingGroupSummaries,
+        onScheduleClick = onScheduleClick,
+        onGroupSummaryClick = onGroupSummaryClick,
         onShowCreateGroupDialog = { showCreateGroupDialog = true },
         modifier = modifier,
     )
@@ -67,6 +71,8 @@ private fun HomeScreen(
     userNickname: String,
     lazyPagingSchedules: LazyPagingItems<Schedule>,
     lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
+    onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
+    onGroupSummaryClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -83,8 +89,7 @@ private fun HomeScreen(
         ) {
             UpcomingScheduleContent(
                 lazyPagingSchedules = lazyPagingSchedules,
-                // todo : navigation 연결
-                onScheduleClick = { groupId, scheduleId -> },
+                onScheduleClick = onScheduleClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 12.dp)
@@ -92,8 +97,7 @@ private fun HomeScreen(
             GroupSummaryContent(
                 userNickname = userNickname,
                 lazyPagingGroupSummaries = lazyPagingGroupSummaries,
-                // todo : navigation 연결
-                onGroupClick = {},
+                onGroupSummaryClick = onGroupSummaryClick,
                 onShowCreateGroupDialog = onShowCreateGroupDialog,
                 modifier = Modifier.weight(1f)
             )
@@ -135,6 +139,8 @@ private fun HomeScreenPreview() {
             userNickname = "아이쿠",
             lazyPagingSchedules = lazyPagingSchedules,
             lazyPagingGroupSummaries = lazyPagingGroupSummaries,
+            onScheduleClick = { _, _ -> },
+            onGroupSummaryClick = {},
             onShowCreateGroupDialog = {},
         )
     }

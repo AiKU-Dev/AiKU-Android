@@ -41,7 +41,7 @@ import kotlinx.coroutines.flow.flowOf
 internal fun GroupSummaryContent(
     userNickname: String,
     lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
-    onGroupClick: (Long) -> Unit,
+    onGroupSummaryClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -58,7 +58,7 @@ internal fun GroupSummaryContent(
             GroupSummaryList(
                 lazyPagingGroupSummaries = lazyPagingGroupSummaries,
                 isEmpty = isGroupListEmpty,
-                onGroupSummaryClick = onGroupClick,
+                onGroupSummaryClick = onGroupSummaryClick,
                 onShowCreateGroupDialog = onShowCreateGroupDialog,
             )
 
@@ -161,7 +161,7 @@ private fun GroupSummaryContentPreview(
         GroupSummaryContent(
             userNickname = "아이쿠",
             lazyPagingGroupSummaries = lazyPagingGroupSummaries,
-            onGroupClick = {},
+            onGroupSummaryClick = {},
             onShowCreateGroupDialog = {},
             modifier = Modifier.padding(20.dp)
         )
