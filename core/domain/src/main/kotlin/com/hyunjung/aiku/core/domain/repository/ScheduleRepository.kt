@@ -1,21 +1,20 @@
 package com.hyunjung.aiku.core.domain.repository
 
+import androidx.paging.PagingData
 import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.schedule.Schedule
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
 interface ScheduleRepository {
-    fun getSchedules(
-        page: Int = 1,
+    fun getSchedulePagingData(
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
-    ): Flow<List<Schedule>>
+    ): Flow<PagingData<Schedule>>
 
-    fun getGroupSchedules(
+    fun getGroupSchedulePagingData(
         groupId: Long,
-        page: Int = 1,
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
-    ): Flow<List<GroupSchedule>>
+    ): Flow<PagingData<GroupSchedule>>
 }
