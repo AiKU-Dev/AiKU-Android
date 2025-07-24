@@ -7,6 +7,7 @@ class MemberResource {
 
     @Resource("schedules")
     class Schedules(
+        val parent: MemberResource = MemberResource(),
         val page: Int = 1,
         val startDate: String? = null,
         val endDate: String? = null,
