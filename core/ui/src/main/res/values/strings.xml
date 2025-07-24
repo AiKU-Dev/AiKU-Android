@@ -36,13 +36,6 @@
     <string name="schedule_status_waiting">대기 중</string>
 
     <!-- dialog -->
-    <string name="create_group_dialog_title">그룹 생성</string>
-    <string name="create_group_dialog_placeholder">그룹 이름을 입력하세요</string>
-    <string name="create_group_dialog_supporting_text">최대 15자 입력이 가능합니다</string>
-    <string name="create_group_dialog_button">생성하기</string>
-    <string name="create_group_dialog_error_blank">그룹명을 입력해주세요</string>
-    <string name="create_group_dialog_error_too_short">2자 이상 입력해주세요</string>
-    <string name="create_group_dialog_error_special_chars">특수문자는 입력 불가합니다</string>
     <string name="character_picker_dialog_title">캐릭터를 선택해주세요!</string>
 
     <string name="insufficient_points_dialog_title">야쿠 부족</string>

@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.ui.component.dialog
+package com.hyunjung.aiku.feature.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,10 +22,10 @@ import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextField
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.ui.R
+import com.hyunjung.aiku.feature.home.R
 
 @Composable
-fun CreateGroupDialog(
+internal fun CreateGroupDialog(
     onDismiss: () -> Unit,
     onCreateGroup: (String) -> Unit,
 ) {
@@ -37,13 +37,13 @@ fun CreateGroupDialog(
             modifier = Modifier
                 .background(
                     color = AiKUTheme.colors.white,
-                    shape = RoundedCornerShape(10.dp),
+                    shape = RoundedCornerShape(12.dp),
                 )
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AikuText(
-                text = stringResource(R.string.create_group_dialog_title),
+                text = stringResource(R.string.feature_home_create_group_dialog_title),
                 style = AiKUTheme.typography.body1SemiBold,
             )
             Spacer(Modifier.height(32.dp))
@@ -53,7 +53,7 @@ fun CreateGroupDialog(
                     groupName = it
                     validationResult = validateGroupName(it)
                 },
-                placeholder = stringResource(R.string.create_group_dialog_placeholder),
+                placeholder = stringResource(R.string.feature_home_create_group_dialog_placeholder),
                 maxLength = 15,
                 isError = validationResult != GroupNameValidationResult.NONE,
                 supporting = {
@@ -77,7 +77,7 @@ fun CreateGroupDialog(
                     .fillMaxWidth(),
                 enabled = groupName.isNotBlank() && validationResult == GroupNameValidationResult.NONE,
             ) {
-                AikuText(text = stringResource(R.string.create_group_dialog_button))
+                AikuText(text = stringResource(R.string.feature_home_create_group_dialog_button))
             }
         }
     }
@@ -95,10 +95,10 @@ private fun CreateGroupDialogPreview() {
 }
 
 private enum class GroupNameValidationResult(val stringResId: Int) {
-    NONE(R.string.create_group_dialog_supporting_text),
-    EMPTY(R.string.create_group_dialog_error_blank),
-    TOO_SHORT(R.string.create_group_dialog_error_too_short),
-    INVALID_CHARACTERS(R.string.create_group_dialog_error_special_chars)
+    NONE(R.string.feature_home_create_group_dialog_supporting_text),
+    EMPTY(R.string.feature_home_create_group_dialog_error_blank),
+    TOO_SHORT(R.string.feature_home_create_group_dialog_error_too_short),
+    INVALID_CHARACTERS(R.string.feature_home_create_group_dialog_error_special_chars)
 }
 
 private fun validateGroupName(groupName: String): GroupNameValidationResult {
