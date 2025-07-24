@@ -23,7 +23,7 @@ class UserDataStore @Inject constructor(
         userdataProto.updateData { it.copy { this.nickname = nickname } }
     }
 
-    suspend fun setProfile(profileImage: UserProfileImage) {
+    suspend fun setProfileImage(profileImage: UserProfileImage) {
         userdataProto.updateData {
             it.copy {
                 when (profileImage) {
