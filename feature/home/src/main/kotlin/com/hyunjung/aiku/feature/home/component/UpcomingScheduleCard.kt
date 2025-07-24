@@ -1,9 +1,9 @@
-package com.hyunjung.aiku.core.ui.component.schedule
+package com.hyunjung.aiku.feature.home.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,7 +27,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun UpcomingScheduleCard(
+internal fun UpcomingScheduleCard(
     groupName: String,
     location: String,
     time: LocalDateTime,
@@ -44,14 +44,10 @@ fun UpcomingScheduleCard(
     val formatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     AikuClickableSurface(
-        modifier = modifier
-            .size(
-                width = 140.dp,
-                height = 130.dp,
-            ),
+        modifier = modifier.size(width = 140.dp, height = 132.dp),
         onClick = onClick,
         shadowElevation = 4.dp,
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(8.dp),
         color = if (isRunning) AiKUTheme.colors.green05 else AiKUTheme.colors.purple05
     ) {
         val fontScale = LocalDensity.current.fontScale
@@ -93,15 +89,12 @@ fun UpcomingScheduleCard(
                         width = 1.dp,
                         color = AiKUTheme.colors.white
                     ),
+                    contentColor = AiKUTheme.colors.white,
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                 ) {
                     AikuText(
                         text = statusLabel,
                         style = AiKUTheme.typography.caption1SemiBold,
-                        color = AiKUTheme.colors.white,
-                        modifier = Modifier.padding(
-                            horizontal = 8.dp,
-                            vertical = 4.dp
-                        )
                     )
                 }
             }
@@ -114,16 +107,13 @@ fun UpcomingScheduleCard(
 @Composable
 private fun ScheduleCardPreview() {
     AiKUTheme {
-        Box(
+        UpcomingScheduleCard(
+            onClick = {},
+            groupName = "가나다라마바사아자차카타파하",
+            location = "홍대입구역1번 출구 스타벅스 앞",
+            time = LocalDateTime.parse("2025-06-30T12:12:12"),
+            isRunning = true,
             modifier = Modifier.padding(20.dp)
-        ) {
-            UpcomingScheduleCard(
-                onClick = {},
-                groupName = "가나다라마바사아자차카타파하",
-                location = "홍대입구역1번 출구 스타벅스 앞",
-                time = LocalDateTime.parse("2025-06-30T12:12:12"),
-                isRunning = true
-            )
-        }
+        )
     }
 }

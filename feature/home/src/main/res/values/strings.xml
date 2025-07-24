@@ -3,4 +3,7 @@
     <string name="feature_home_schedule_title">오늘 내 약속</string>
     <string name="feature_home_group_title">%1$s\'s Group</string>
     <string name="feature_home_fab_add_group">그룹 추가</string>
+
+    <!-- upcoming schedule -->
+    <string name="feature_home_upcoming_schedule_placeholder_message">아직 약속이 없어요</string>
 </resources>

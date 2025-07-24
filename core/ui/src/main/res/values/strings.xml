@@ -38,7 +38,6 @@
     <string name="group_card_badge_member_over_limit">99+</string>
 
     <!-- schedule -->
-    <string name="schedule_empty_message">아직 약속이 없어요</string>
     <string name="schedule_status_running">진행 중</string>
     <string name="schedule_status_waiting">대기 중</string>
 
