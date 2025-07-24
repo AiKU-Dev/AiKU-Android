@@ -12,4 +12,5 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.paging.compose)
 }
