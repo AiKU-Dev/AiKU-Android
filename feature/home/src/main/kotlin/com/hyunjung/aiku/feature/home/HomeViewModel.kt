@@ -6,19 +6,23 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
+import com.hyunjung.aiku.core.domain.repository.UserDataRepository
 import com.hyunjung.aiku.core.model.group.GroupSummary
 import com.hyunjung.aiku.core.model.schedule.Schedule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    userDataRepository: UserDataRepository,
     scheduleRepository: ScheduleRepository,
-    private val groupRepository: GroupRepository,
+    private val groupRepository: GroupRepository
 ) : ViewModel() {
 
     val groupSummaryPagingData: Flow<PagingData<GroupSummary>> =
@@ -29,8 +33,9 @@ class HomeViewModel @Inject constructor(
         scheduleRepository.getSchedulePagingData()
             .cachedIn(viewModelScope)
 
-    // todo : replace with actual user nickname fetching logic
-    val userNickName: StateFlow<String> = MutableStateFlow("Nickname")
+    val userNickName: StateFlow<String> = userDataRepository.userData
+        .map { it.nickname }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), "")
 
     fun createGroup(name: String) {
         viewModelScope.launch { groupRepository.createGroup(name) }
