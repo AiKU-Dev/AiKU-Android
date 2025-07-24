@@ -26,17 +26,19 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hyunjung.aiku.core.designsystem.R
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun AikuLoadingWheel(
-    contentDescription: String,
     modifier: Modifier = Modifier,
+    contentDescription: String? = null,
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "wheel transition")
 
@@ -85,6 +87,9 @@ fun AikuLoadingWheel(
             label = "wheel color animation",
         )
     }
+
+    val contentDescription =
+        contentDescription ?: stringResource(R.string.core_designsystem_loading_wheel_description)
 
     Canvas(
         modifier = modifier

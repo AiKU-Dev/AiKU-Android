@@ -11,7 +11,8 @@ import com.hyunjung.aiku.core.navigation.navigateSingleTop
 import com.hyunjung.aiku.core.ui.component.common.TermsDetailScreen
 import com.hyunjung.aiku.feature.auth.navigation.authSection
 import com.hyunjung.aiku.feature.auth.navigation.navigateToSignUpSingleTop
-import com.hyunjung.aiku.feature.home.HomeScreen
+import com.hyunjung.aiku.feature.home.navigation.homeSection
+import com.hyunjung.aiku.feature.home.navigation.navigateToHomeClearBackStack
 import com.hyunjung.aiku.feature.splash.navigation.splashScreen
 import com.hyunjung.aiku.ui.AikuAppState
 
@@ -26,22 +27,24 @@ fun AikuNavHost(
         startDestination = AikuRoute.SplashRoute
     ) {
         splashScreen(
-            onAuthenticated = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
+            onAuthenticated = navController::navigateToHomeClearBackStack,
             onAuthenticationRequired = { navController.navigateAndClearBackStack(AuthRoute.SignInRoute) },
         )
 
         authSection(
-            onSignInSuccess = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
-            onSignUpCompleted = { navController.navigateAndClearBackStack(AikuRoute.HomeRoute) },
+            onSignInSuccess = navController::navigateToHomeClearBackStack,
+            onSignUpCompleted = navController::navigateToHomeClearBackStack,
             onSignUpRequired = navController::navigateToSignUpSingleTop,
             onTermsClick = { termsType ->
                 navController.navigateSingleTop(AikuRoute.TermsDetailRoute(termsType))
             },
         )
 
-        composable<AikuRoute.HomeRoute> {
-            HomeScreen()
-        }
+        homeSection(
+            // todo : navigate
+            onScheduleClick = { groupId, scheduleId -> },
+            onGroupSummaryClick = { groupId -> },
+        )
 
         composable<AikuRoute.TermsDetailRoute> { backStackEntry ->
             val termsType =

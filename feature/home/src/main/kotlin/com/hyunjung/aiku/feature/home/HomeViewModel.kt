@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,13 +21,9 @@ class HomeViewModel @Inject constructor(
     private val groupRepository: GroupRepository,
 ) : ViewModel() {
 
-    private val refreshTrigger = MutableStateFlow(false)
-
     val groupSummaryPagingData: Flow<PagingData<GroupSummary>> =
-        refreshTrigger.flatMapLatest {
-            groupRepository.getGroupSummaryPagingData()
-                .cachedIn(viewModelScope)
-        }
+        groupRepository.getGroupSummaryPagingData()
+            .cachedIn(viewModelScope)
 
     val schedulePagingData: Flow<PagingData<Schedule>> =
         scheduleRepository.getSchedulePagingData()
@@ -37,24 +32,8 @@ class HomeViewModel @Inject constructor(
     // todo : replace with actual user nickname fetching logic
     val userNickName: StateFlow<String> = MutableStateFlow("Nickname")
 
-    private val _isCreateGroupDialogVisible = MutableStateFlow(false)
-    val isCreateGroupDialogVisible: StateFlow<Boolean> = _isCreateGroupDialogVisible
-
-
-    fun openCreateGroupDialog() {
-        _isCreateGroupDialogVisible.value = true
-    }
-
-    fun dismissCreateGroupDialog() {
-        _isCreateGroupDialogVisible.value = false
-    }
-
     fun createGroup(name: String) {
-        viewModelScope.launch {
-            groupRepository.createGroup(name)
-            refreshTrigger.value = true
-            dismissCreateGroupDialog()
-        }
+        viewModelScope.launch { groupRepository.createGroup(name) }
     }
 
 }

@@ -1,10 +1,11 @@
-package com.hyunjung.aiku.core.ui.component.schedule
+package com.hyunjung.aiku.feature.home.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -22,37 +23,40 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.ui.R
+import com.hyunjung.aiku.feature.home.R
+import com.hyunjung.aiku.core.ui.R as UiR
 
 @Composable
-fun UpcomingSchedulePlaceholder(
+internal fun UpcomingSchedulePlaceholder(
     modifier: Modifier = Modifier
 ) {
-    DashBorderSurface(
-        cornerRadius = 10.dp,
-        border = BorderStroke(
-            color = AiKUTheme.colors.gray03,
-            width = 1.dp
-        ),
-        modifier = modifier.size(
-            width = 140.dp,
-            height = 130.dp
-        ),
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+    Box(modifier.fillMaxWidth()) {
+        DashBorderSurface(
+            cornerRadius = 10.dp,
+            border = BorderStroke(
+                color = AiKUTheme.colors.gray03,
+                width = 1.dp
+            ),
+            modifier = Modifier.size(
+                width = 140.dp,
+                height = 130.dp
+            ),
         ) {
-            Image(
-                modifier = Modifier.size(48.dp),
-                painter = painterResource(id = R.drawable.img_char_head_unknown),
-                contentDescription = stringResource(id = R.string.char_head_unknown_description)
-            )
-            AikuText(
-                modifier = Modifier.padding(top = 4.dp),
-                text = stringResource(id = R.string.schedule_empty_message),
-                style = AiKUTheme.typography.caption1Medium
-            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    modifier = Modifier.size(48.dp),
+                    painter = painterResource(id = UiR.drawable.img_char_head_unknown),
+                    contentDescription = stringResource(id = UiR.string.char_head_unknown_description)
+                )
+                AikuText(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = stringResource(id = R.string.feature_home_upcoming_schedule_placeholder_message),
+                    style = AiKUTheme.typography.caption1Medium
+                )
+            }
         }
     }
 }

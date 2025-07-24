@@ -72,9 +72,10 @@ fun EmptyPlaceholder(
 private fun EmptyStateCardPreview() {
     AiKUTheme {
         EmptyPlaceholder(
-            title = stringResource(R.string.group_empty_message),
-            buttonText = stringResource(R.string.group_empty_button),
+            title = "그룹을 만들어 보세요!",
+            buttonText = "+ 그룹 만들기",
             onClickButton = {},
+            modifier = Modifier.padding(20.dp)
         )
     }
 }
