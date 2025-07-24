@@ -9,4 +9,6 @@ android {
 dependencies {
     api(projects.core.model)
     api(libs.kotlinx.coroutines.core)
+    api(libs.androidx.paging.compose)
+    api(libs.androidx.paging.runtime)
 }
