@@ -11,7 +11,7 @@ import com.hyunjung.aiku.core.navigation.navigateSingleTop
 import com.hyunjung.aiku.core.ui.component.common.TermsDetailScreen
 import com.hyunjung.aiku.feature.auth.navigation.authSection
 import com.hyunjung.aiku.feature.auth.navigation.navigateToSignUpSingleTop
-import com.hyunjung.aiku.feature.home.navigation.homeSection
+import com.hyunjung.aiku.feature.home.navigation.homeScreen
 import com.hyunjung.aiku.feature.home.navigation.navigateToHomeClearBackStack
 import com.hyunjung.aiku.feature.splash.navigation.splashScreen
 import com.hyunjung.aiku.ui.AikuAppState
@@ -40,7 +40,7 @@ fun AikuNavHost(
             },
         )
 
-        homeSection(
+        homeScreen(
             // todo : navigate
             onScheduleClick = { groupId, scheduleId -> },
             onGroupSummaryClick = { groupId -> },
