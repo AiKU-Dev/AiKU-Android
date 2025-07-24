@@ -1,9 +1,10 @@
-package com.hyunjung.aiku.core.ui.component.group
+package com.hyunjung.aiku.feature.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,12 +28,13 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.ui.R
+import com.hyunjung.aiku.feature.home.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import com.hyunjung.aiku.core.ui.R as UiR
 
 @Composable
-fun GroupOverviewCard(
+internal fun GroupSummaryCard(
     onClick: () -> Unit,
     groupName: String,
     time: LocalDateTime?,
@@ -41,20 +42,21 @@ fun GroupOverviewCard(
     modifier: Modifier = Modifier,
 ) {
     val formatter = DateTimeFormatter.ofPattern("yy.MM.dd  HH:mm")
-    val formattedTime =
-        time?.format(formatter) ?: stringResource(R.string.schedule_empty_message)
+    val formattedTime = time?.format(formatter)
+        ?: stringResource(R.string.feature_home_upcoming_schedule_placeholder_message)
+
     AikuClickableSurface(
         onClick = onClick,
         shadowElevation = 4.dp,
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(8.dp),
         color = AiKUTheme.colors.white,
+        contentPadding = PaddingValues(16.dp),
         modifier = modifier
             .fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
-                .height(82.dp)
-                .padding(16.dp),
+                .height(80.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             val fontScale = LocalDensity.current.fontScale
@@ -76,34 +78,29 @@ fun GroupOverviewCard(
                     Spacer(Modifier.height(4.dp))
                     AikuText(
                         text = stringResource(
-                            R.string.group_card_recent_schedule,
+                            R.string.feature_home_group_card_recent_schedule,
                             formattedTime,
                         ),
                         style = AiKUTheme.typography.body2,
                     )
                 }
                 Spacer(Modifier.weight(1f))
-                ProfileWithBadge(
+                AvatarWithBadge(
                     memberSize = memberSize,
-                    avatar = painterResource(R.drawable.img_char_head_nohair),
-                    contentDescription = stringResource(R.string.char_head_no_hair_description)
+                    contentDescription = stringResource(UiR.string.char_head_no_hair_description)
                 )
             }
         }
     }
 }
 
-/**
- * 프로필 이미지와 뱃지(멤버 수) UI
- */
 @Composable
-private fun ProfileWithBadge(
+private fun AvatarWithBadge(
     memberSize: Int,
-    avatar: Painter,
     contentDescription: String?,
 ) {
     val badgeLabel = if (memberSize >= 100) {
-        stringResource(R.string.group_card_badge_member_over_limit)
+        stringResource(R.string.feature_home_group_card_badge_member_over_limit)
     } else {
         "$memberSize"
     }
@@ -112,7 +109,7 @@ private fun ProfileWithBadge(
     ) {
         Box(
             modifier = Modifier
-                .size(50.dp)
+                .size(52.dp)
                 .background(
                     color = AiKUTheme.colors.gray02,
                     shape = CircleShape
@@ -120,7 +117,7 @@ private fun ProfileWithBadge(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = avatar,
+                painter = painterResource(UiR.drawable.img_char_head_nohair),
                 contentDescription = contentDescription,
                 modifier = Modifier.size(32.dp)
             )
@@ -145,11 +142,12 @@ private fun ProfileWithBadge(
 @Composable
 private fun GroupCardPreview() {
     AiKUTheme {
-        GroupOverviewCard(
+        GroupSummaryCard(
             groupName = "그룹 1",
             time = null,
             onClick = {},
-            memberSize = 18
+            memberSize = 18,
+            modifier = Modifier.padding(20.dp)
         )
     }
 }

@@ -31,12 +31,6 @@
     <string name="profile_image_option_Menu_character">기본 이미지로 설정</string>
     <string name="profile_image_option_Menu_gallery">앨범에서 선택</string>
 
-    <!-- group -->
-    <string name="group_empty_message">그룹을 만들어 보세요!</string>
-    <string name="group_empty_button">+ 그룹 만들기</string>
-    <string name="group_card_recent_schedule">최근 약속 %1$s</string>
-    <string name="group_card_badge_member_over_limit">99+</string>
-
     <!-- schedule -->
     <string name="schedule_status_running">진행 중</string>
     <string name="schedule_status_waiting">대기 중</string>
