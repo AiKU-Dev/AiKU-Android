@@ -68,6 +68,7 @@ internal fun CreateGroupDialog(
                 onClick = {
                     val result = validateGroupName(groupName)
                     if (result == GroupNameValidationResult.NONE) {
+                        onDismiss()
                         onCreateGroup(groupName)
                     } else {
                         validationResult = result

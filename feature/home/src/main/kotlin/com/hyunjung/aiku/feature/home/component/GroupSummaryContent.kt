@@ -42,7 +42,7 @@ internal fun GroupSummaryContent(
     userNickname: String,
     lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
     onGroupClick: (Long) -> Unit,
-    onOpenCreateGroupDialog: () -> Unit,
+    onShowCreateGroupDialog: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -59,11 +59,11 @@ internal fun GroupSummaryContent(
                 lazyPagingGroupSummaries = lazyPagingGroupSummaries,
                 isEmpty = isGroupListEmpty,
                 onGroupSummaryClick = onGroupClick,
-                onOpenCreateGroupDialog = onOpenCreateGroupDialog,
+                onShowCreateGroupDialog = onShowCreateGroupDialog,
             )
 
             if (!isGroupListEmpty) {
-                CreateGroupButton(onClick = onOpenCreateGroupDialog)
+                CreateGroupButton(onClick = onShowCreateGroupDialog)
             }
         }
     }
@@ -74,7 +74,7 @@ private fun GroupSummaryList(
     lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
     isEmpty: Boolean,
     onGroupSummaryClick: (Long) -> Unit,
-    onOpenCreateGroupDialog: () -> Unit,
+    onShowCreateGroupDialog: () -> Unit,
 ) {
     LazyPagingColumn(
         refreshLoadState = lazyPagingGroupSummaries.loadState.refresh,
@@ -86,7 +86,7 @@ private fun GroupSummaryList(
             EmptyPlaceholder(
                 title = stringResource(R.string.feature_home_group_empty_message),
                 buttonText = stringResource(R.string.feature_home_group_empty_button),
-                onClickButton = onOpenCreateGroupDialog,
+                onClickButton = onShowCreateGroupDialog,
                 modifier = Modifier.fillMaxSize()
             )
         },
@@ -162,7 +162,7 @@ private fun GroupSummaryContentPreview(
             userNickname = "아이쿠",
             lazyPagingGroupSummaries = lazyPagingGroupSummaries,
             onGroupClick = {},
-            onOpenCreateGroupDialog = {},
+            onShowCreateGroupDialog = {},
             modifier = Modifier.padding(20.dp)
         )
     }
