@@ -6,6 +6,7 @@ import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
@@ -50,6 +51,48 @@ fun LazyPagingRow(
                 reverseLayout = reverseLayout,
                 horizontalArrangement = horizontalArrangement,
                 verticalAlignment = verticalAlignment,
+                flingBehavior = flingBehavior,
+                userScrollEnabled = userScrollEnabled,
+                overscrollEffect = overscrollEffect,
+                content = content
+            )
+        }
+    )
+}
+
+@Composable
+fun LazyPagingColumn(
+    refreshLoadState: LoadState,
+    isEmpty: Boolean,
+    loading: @Composable () -> Unit,
+    error: @Composable (Throwable) -> Unit,
+    empty: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    reverseLayout: Boolean = false,
+    verticalArrangement: Arrangement.Vertical =
+        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
+    userScrollEnabled: Boolean = true,
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
+    content: LazyListScope.() -> Unit
+) {
+    RefreshStateLayout(
+        refreshLoadState = refreshLoadState,
+        isEmpty = isEmpty,
+        empty = empty,
+        modifier = modifier,
+        error = error,
+        loading = loading,
+        content = {
+            LazyColumn(
+                state = state,
+                contentPadding = contentPadding,
+                reverseLayout = reverseLayout,
+                verticalArrangement = verticalArrangement,
+                horizontalAlignment = horizontalAlignment,
                 flingBehavior = flingBehavior,
                 userScrollEnabled = userScrollEnabled,
                 overscrollEffect = overscrollEffect,
