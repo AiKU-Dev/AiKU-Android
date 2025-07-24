@@ -1,6 +1,5 @@
 package com.hyunjung.aiku.feature.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +30,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
+import com.hyunjung.aiku.core.designsystem.component.AikuScaffold
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
@@ -42,8 +42,6 @@ import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.navigation.currentComposeNavigator
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
 import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
-import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBarDefaults
-import com.hyunjung.aiku.core.ui.component.common.AikuTopAppBarDefaults
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.component.dialog.CreateGroupDialog
 import com.hyunjung.aiku.core.ui.component.group.GroupOverviewCard
@@ -97,23 +95,15 @@ private fun HomeScreen(
             onCreateGroup = { onCreateGroup(it) }
         )
     }
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = AiKUTheme.colors.gray01),
-    ) {
-        AikuLogoTopAppBar(
-            modifier = Modifier.align(Alignment.TopStart),
-        )
+    AikuScaffold(
+        modifier = modifier,
+        topBar = { AikuLogoTopAppBar() },
+        bottomBar = { AikuNavigationBar(AikuRoute.HomeRoute) }
+    ) { paddingValues ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    start = 20.dp,
-                    end = 20.dp,
-                    top = AikuTopAppBarDefaults.TopAppBarHeight,
-                    bottom = AikuNavigationBarDefaults.NavigationBarHeight
-                ),
+                .padding(paddingValues)
+                .padding(horizontal = 20.dp),
         ) {
             TodaySchedulesSection(
                 title = stringResource(R.string.feature_home_schedule_title),
@@ -121,8 +111,8 @@ private fun HomeScreen(
                 onScheduleClick = { groupId, scheduleId ->
                     composeNavigator.navigate(AikuRoute.ScheduleDetailRoute(groupId, scheduleId))
                 },
+                modifier = Modifier.padding(vertical = 12.dp)
             )
-            Spacer(Modifier.height(12.dp))
             GroupOverviewsSection(
                 title = stringResource(R.string.feature_home_group_title, userNickname),
                 groupSummaryPagingData = groupSummaryPagingData,
@@ -133,10 +123,6 @@ private fun HomeScreen(
                 modifier = Modifier.weight(1f)
             )
         }
-        AikuNavigationBar(
-            currentScreen = AikuRoute.HomeRoute,
-            modifier = Modifier.align(Alignment.BottomStart),
-        )
     }
 }
 
