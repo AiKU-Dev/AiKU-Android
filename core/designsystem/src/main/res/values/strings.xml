@@ -2,4 +2,5 @@
 <resources>
     <string name="core_designsystem_navigation_icon_description">navigation icon</string>
     <string name="core_designsystem_text_field_error_default">잘못된 입력입니다</string>
+    <string name="core_designsystem_loading_wheel_description">로딩중 입니다</string>
 </resources>
