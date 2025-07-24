@@ -63,7 +63,7 @@ class DefaultAuthRepository @Inject constructor(
         authRemoteDataSource.signUp(signUpForm)
         userDataStore.setEmail(signUpForm.email)
         userDataStore.setNickname(signUpForm.nickname)
-        userDataStore.setProfile(signUpForm.userProfileImage)
+        userDataStore.setProfileImage(signUpForm.userProfileImage)
         emit(Unit)
     }
 
