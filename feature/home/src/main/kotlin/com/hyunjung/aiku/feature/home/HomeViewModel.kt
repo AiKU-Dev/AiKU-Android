@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,8 +36,8 @@ class HomeViewModel @Inject constructor(
         .map { it.nickname }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), "")
 
-    fun createGroup(name: String) {
-        viewModelScope.launch { groupRepository.createGroup(name) }
+    suspend fun createGroup(name: String) {
+        groupRepository.createGroup(name)
     }
 
 }

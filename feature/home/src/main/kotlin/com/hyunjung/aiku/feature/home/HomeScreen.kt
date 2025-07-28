@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +32,7 @@ import com.hyunjung.aiku.feature.home.component.CreateGroupDialog
 import com.hyunjung.aiku.feature.home.component.GroupSummaryContent
 import com.hyunjung.aiku.feature.home.component.UpcomingScheduleContent
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -45,12 +47,16 @@ fun HomeScreen(
     val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
     var showCreateGroupDialog by remember { mutableStateOf(false) }
 
+    val coroutineScope = rememberCoroutineScope()
+
     if (showCreateGroupDialog) {
         CreateGroupDialog(
             onDismiss = { showCreateGroupDialog = false },
-            onCreateGroup = {
-                viewModel.createGroup(it)
-                lazyPagingGroupSummaries.refresh()
+            onCreateGroup = { groupName ->
+                coroutineScope.launch {
+                    viewModel.createGroup(groupName)
+                    lazyPagingGroupSummaries.refresh()
+                }
             }
         )
     }

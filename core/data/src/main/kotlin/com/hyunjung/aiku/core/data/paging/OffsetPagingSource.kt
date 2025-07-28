@@ -3,9 +3,11 @@ package com.hyunjung.aiku.core.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.hyunjung.aiku.core.data.paging.PagingDefaults.INITIAL_PAGE
+import com.hyunjung.aiku.core.data.paging.PagingDefaults.PAGE_SIZE
 
 internal class OffsetPagingSource<T : Any>(
     private val initialPage: Int = INITIAL_PAGE,
+    private val pageSize: Int = PAGE_SIZE,
     private val fetch: suspend (page: Int) -> List<T>,
 ) : PagingSource<Int, T>() {
 
@@ -21,11 +23,12 @@ internal class OffsetPagingSource<T : Any>(
 
         return try {
             val items = fetch(page)
+            val hasNext = items.size > pageSize
 
             LoadResult.Page(
-                data = items,
+                data = items.take(pageSize),
                 prevKey = if (page == initialPage) null else page - 1,
-                nextKey = if (items.size < params.loadSize) null else page + 1
+                nextKey = if (hasNext) page + 1 else null
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
