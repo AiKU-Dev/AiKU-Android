@@ -154,12 +154,12 @@ private fun MemberTabContent(
                 contentPadding = PaddingValues(vertical = 20.dp)
             ) {
                 // todo : 초대하기 UI
-                items(items = groupMembers, key = { it.memberId }) { member ->
+                items(items = groupMembers, key = { it.id }) { member ->
                     MemberAvatarCard(
                         member = member,
                         contentDescription = null,
                         onClick = {
-                            onMemberClick(member.memberId)
+                            onMemberClick(member.id)
                         }
                     )
                 }
@@ -216,11 +216,11 @@ private fun ScheduleTabContent(
 
             items(
                 count = lazyPagingGroupSchedules.itemCount,
-                key = { lazyPagingGroupSchedules[it]?.scheduleId ?: "group-schedule-$it" }
+                key = { lazyPagingGroupSchedules[it]?.id ?: "group-schedule-$it" }
             ) { index ->
                 lazyPagingGroupSchedules[index]?.let { groupSchedule ->
                     ScheduleCard(
-                        onClick = { onScheduleClick(groupSchedule.scheduleId) },
+                        onClick = { onScheduleClick(groupSchedule.id) },
                         scheduleName = groupSchedule.scheduleName,
                         location = groupSchedule.location,
                         time = groupSchedule.scheduleTime,
@@ -312,7 +312,7 @@ private fun GroupDetailScreenMemberTabPreview() {
     AiKUTheme {
         val groupMembers = listOf(
             GroupMember(
-                memberId = 1,
+                id = 1,
                 nickname = "사용자1",
                 memberProfileImage = MemberProfileImage.Avatar(
                     type = AvatarType.BOY,
@@ -320,7 +320,7 @@ private fun GroupDetailScreenMemberTabPreview() {
                 )
             ),
             GroupMember(
-                memberId = 2,
+                id = 2,
                 nickname = "사용자2",
                 memberProfileImage = MemberProfileImage.Avatar(
                     type = AvatarType.BABY,
@@ -328,7 +328,7 @@ private fun GroupDetailScreenMemberTabPreview() {
                 )
             ),
             GroupMember(
-                memberId = 3,
+                id = 3,
                 nickname = "abcdef",
                 memberProfileImage = MemberProfileImage.Avatar(
                     type = AvatarType.SCRATCH,
@@ -336,7 +336,7 @@ private fun GroupDetailScreenMemberTabPreview() {
                 )
             ),
             GroupMember(
-                memberId = 4,
+                id = 4,
                 nickname = "ABCDEF",
                 memberProfileImage = MemberProfileImage.Avatar(
                     type = AvatarType.GIRL,
@@ -344,7 +344,7 @@ private fun GroupDetailScreenMemberTabPreview() {
                 )
             ),
             GroupMember(
-                memberId = 5,
+                id = 5,
                 nickname = "사용자5",
                 memberProfileImage = MemberProfileImage.Avatar(
                     type = AvatarType.BABY,
@@ -395,7 +395,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
     AiKUTheme {
         val groupSchedules = listOf(
             GroupSchedule(
-                scheduleId = 0,
+                id = 0,
                 scheduleName = "약속 이름",
                 memberSize = 4,
                 location = Location(
@@ -408,7 +408,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
                 accept = true
             ),
             GroupSchedule(
-                scheduleId = 1,
+                id = 1,
                 scheduleName = "약속 이름",
                 memberSize = 4,
                 location = Location(
@@ -421,7 +421,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
                 accept = true
             ),
             GroupSchedule(
-                scheduleId = 2,
+                id = 2,
                 scheduleName = "약속 이름",
                 memberSize = 4,
                 location = Location(
@@ -434,7 +434,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
                 accept = false
             ),
             GroupSchedule(
-                scheduleId = 3,
+                id = 3,
                 scheduleName = "약속 이름",
                 memberSize = 4,
                 location = Location(
