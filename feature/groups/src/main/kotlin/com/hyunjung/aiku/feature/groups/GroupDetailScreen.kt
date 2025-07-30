@@ -22,31 +22,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.model.group.GroupMember
+import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.MemberProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.component.common.AikuTabs
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.component.schedule.ScheduleCard
-import com.hyunjung.aiku.core.ui.R as UiRes
+import com.hyunjung.aiku.core.ui.extension.backgroundColor
+import com.hyunjung.aiku.core.ui.extension.painter
 
 enum class GroupDetailTab(val label: String) {
     MEMBER("멤버"),
     SCHEDULE("약속"),
 }
-
-data class Member(
-    val id: Long,
-    val avatar: Painter,
-    val backgroundColor: Color,
-    val name: String,
-)
 
 data class GroupSchedule(
     val id: Long,
@@ -60,7 +56,7 @@ data class GroupSchedule(
 
 sealed interface MemberUiState {
     object Loading : MemberUiState
-    data class Success(val members: List<Member>) : MemberUiState {
+    data class Success(val members: List<GroupMember>) : MemberUiState {
         fun isEmpty(): Boolean = members.isEmpty()
     }
 }
@@ -145,27 +141,13 @@ private fun MemberTabContent(
                         verticalArrangement = Arrangement.spacedBy(24.dp),
                         contentPadding = PaddingValues(vertical = 20.dp)
                     ) {
-                        item {
-                            MemberAvatarCard(
-                                member = Member(
-                                    id = 0,
-                                    avatar = painterResource(UiRes.drawable.img_char_head_unknown),
-                                    name = stringResource(R.string.group_detail_member_section_invite),
-                                    backgroundColor = AiKUTheme.colors.gray02,
-                                ),
-                                contentDescription = stringResource(R.string.group_detail_member_section_invite),
-                                onClick = onInviteClick,
-                            )
-                        }
-                        items(items = memberUiState.members, key = { it.id }) { member ->
+                        // todo : 초대하기 UI
+                        items(items = memberUiState.members, key = { it.memberId }) { member ->
                             MemberAvatarCard(
                                 member = member,
-                                contentDescription = stringResource(
-                                    R.string.group_detail_member_section_avatar_description,
-                                    member.avatar
-                                ),
+                                contentDescription = null,
                                 onClick = {
-                                    onMemberClick(member.id)
+                                    onMemberClick(member.memberId)
                                 }
                             )
                         }
@@ -233,7 +215,7 @@ private fun ScheduleTabContent(
 
 @Composable
 private fun MemberAvatarCard(
-    member: Member,
+    member: GroupMember,
     contentDescription: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -247,17 +229,17 @@ private fun MemberAvatarCard(
             modifier = Modifier.clickable(onClick = onClick)
         ) {
             Image(
-                painter = member.avatar,
+                painter = member.memberProfileImage.painter(),
                 contentDescription = contentDescription,
                 modifier = Modifier
                     .size(64.dp)
                     .background(
-                        color = member.backgroundColor, shape = CircleShape
+                        color = member.memberProfileImage.backgroundColor(), shape = CircleShape
                     )
                     .padding(8.dp)
             )
             AikuText(
-                text = member.name,
+                text = member.nickname,
                 style = AiKUTheme.typography.body2SemiBold,
                 modifier = Modifier.padding(top = 8.dp)
             )
@@ -302,43 +284,53 @@ private fun GroupDetailScreenMemberTabEmptyPreview() {
 @Composable
 private fun GroupDetailScreenMemberTabPreview() {
     AiKUTheme {
-        val members = listOf(
-            Member(
-                id = 1,
-                avatar = painterResource(UiRes.drawable.img_char_head_boy),
-                name = "사용자1",
-                backgroundColor = AiKUTheme.colors.green05,
+        val groupMembers = listOf(
+            GroupMember(
+                memberId = 1,
+                nickname = "사용자1",
+                memberProfileImage = MemberProfileImage.Avatar(
+                    type = AvatarType.BOY,
+                    backgroundColor = ProfileBackgroundColor.GREEN
+                )
             ),
-            Member(
-                id = 2,
-                avatar = painterResource(UiRes.drawable.img_char_head_baby),
-                name = "사용자2",
-                backgroundColor = AiKUTheme.colors.yellow05,
+            GroupMember(
+                memberId = 2,
+                nickname = "사용자2",
+                memberProfileImage = MemberProfileImage.Avatar(
+                    type = AvatarType.BABY,
+                    backgroundColor = ProfileBackgroundColor.YELLOW
+                )
             ),
-            Member(
-                id = 3,
-                avatar = painterResource(UiRes.drawable.img_char_head_scratch),
-                name = "abcdef",
-                backgroundColor = AiKUTheme.colors.purple05,
+            GroupMember(
+                memberId = 3,
+                nickname = "abcdef",
+                memberProfileImage = MemberProfileImage.Avatar(
+                    type = AvatarType.SCRATCH,
+                    backgroundColor = ProfileBackgroundColor.PURPLE
+                )
             ),
-            Member(
-                id = 4,
-                avatar = painterResource(UiRes.drawable.img_char_head_girl),
-                name = "ABCDEF",
-                backgroundColor = AiKUTheme.colors.yellow05,
+            GroupMember(
+                memberId = 4,
+                nickname = "ABCDEF",
+                memberProfileImage = MemberProfileImage.Avatar(
+                    type = AvatarType.GIRL,
+                    backgroundColor = ProfileBackgroundColor.YELLOW
+                )
             ),
-            Member(
-                id = 5,
-                avatar = painterResource(UiRes.drawable.img_char_head_baby),
-                name = "사용자5",
-                backgroundColor = AiKUTheme.colors.green05,
-            ),
-
+            GroupMember(
+                memberId = 5,
+                nickname = "사용자5",
+                memberProfileImage = MemberProfileImage.Avatar(
+                    type = AvatarType.BABY,
+                    backgroundColor = ProfileBackgroundColor.GREEN
+                )
             )
+        )
+
         GroupDetailScreen(
             selectedTab = GroupDetailTab.MEMBER,
             onTabSelected = {},
-            memberUiState = MemberUiState.Success(members),
+            memberUiState = MemberUiState.Success(groupMembers),
             groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
         )
     }
