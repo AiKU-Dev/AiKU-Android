@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.feature.groups
+package com.hyunjung.aiku.feature.group.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

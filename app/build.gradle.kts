@@ -47,7 +47,6 @@ android {
 dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.auth)
-    implementation(projects.feature.groups)
     implementation(projects.feature.splash)
 
     implementation(projects.core.designsystem)
