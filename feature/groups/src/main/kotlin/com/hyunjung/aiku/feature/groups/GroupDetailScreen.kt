@@ -10,24 +10,36 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.model.group.GroupDetail
 import com.hyunjung.aiku.core.model.group.GroupMember
 import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.profile.AvatarType
@@ -40,65 +52,78 @@ import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.component.schedule.ScheduleCard
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
 import com.hyunjung.aiku.core.ui.extension.painter
+import com.hyunjung.aiku.core.ui.paging.LazyPagingRow
+import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDateTime
-
-enum class GroupDetailTab(val label: String) {
-    MEMBER("멤버"),
-    SCHEDULE("약속"),
-}
-
-sealed interface MemberUiState {
-    object Loading : MemberUiState
-    data class Success(val members: List<GroupMember>) : MemberUiState {
-        fun isEmpty(): Boolean = members.isEmpty()
-    }
-}
-
-sealed interface GroupScheduleUiState {
-    object Loading : GroupScheduleUiState
-    data class Success(
-        val schedules: List<GroupSchedule>
-    ) : GroupScheduleUiState {
-        fun isEmpty(): Boolean = schedules.isEmpty()
-    }
-}
 
 @Composable
 fun GroupDetailScreen(
+    modifier: Modifier = Modifier,
+    viewModel: GroupDetailViewModel = hiltViewModel()
+) {
+    val groupDetailUiState by viewModel.groupDetailUiState.collectAsStateWithLifecycle()
+    val lazyPagingGroupSchedules = viewModel.groupSchedulePagingData.collectAsLazyPagingItems()
+
+    var selectedTab by remember { mutableStateOf(GroupDetailTab.MEMBER) }
+
+    GroupDetailScreen(
+        selectedTab = selectedTab,
+        onTabSelected = { selectedTab = GroupDetailTab.entries[it] },
+        groupDetailUiState = groupDetailUiState,
+        lazyPagingGroupSchedules = lazyPagingGroupSchedules,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun GroupDetailScreen(
     selectedTab: GroupDetailTab,
     onTabSelected: (Int) -> Unit,
-    memberUiState: MemberUiState,
-    groupScheduleUiState: GroupScheduleUiState,
+    groupDetailUiState: GroupDetailUiState,
+    lazyPagingGroupSchedules: LazyPagingItems<GroupSchedule>,
     modifier: Modifier = Modifier,
 ) {
     val tabs = GroupDetailTab.entries
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        AdContainer()
-        Column(
-            modifier = Modifier.padding(20.dp)
-        ) {
-            AikuTabs(
-                tabs = tabs.map { it.label },
-                selectedIndex = tabs.indexOf(selectedTab),
-                onTabSelected = onTabSelected
-            )
-            when (selectedTab) {
-                GroupDetailTab.MEMBER -> {
-                    MemberTabContent(
-                        memberUiState = memberUiState,
-                        onMemberClick = {},
-                        onInviteClick = {},
-                    )
-                }
 
-                GroupDetailTab.SCHEDULE -> {
-                    ScheduleTabContent(
-                        groupScheduleUiState = groupScheduleUiState,
-                        onScheduleClick = {},
-                        onCreateSchedule = {},
+    when (groupDetailUiState) {
+        is GroupDetailUiState.Error -> {
+            // todo : error ui
+        }
+
+        is GroupDetailUiState.Loading -> {
+            // todo: loading ui
+        }
+
+        is GroupDetailUiState.Success -> {
+            Column(
+                modifier = modifier.fillMaxSize()
+            ) {
+                AdContainer()
+                Column(
+                    modifier = Modifier.padding(20.dp)
+                ) {
+                    AikuTabs(
+                        tabs = tabs.map { it.label },
+                        selectedIndex = tabs.indexOf(selectedTab),
+                        onTabSelected = onTabSelected
                     )
+                    when (selectedTab) {
+                        GroupDetailTab.MEMBER -> {
+                            MemberTabContent(
+                                groupMembers = groupDetailUiState.groupDetail.members,
+                                onMemberClick = {},
+                                onInviteClick = {},
+                            )
+                        }
+
+                        GroupDetailTab.SCHEDULE -> {
+                            ScheduleTabContent(
+                                lazyPagingGroupSchedules = lazyPagingGroupSchedules,
+                                onScheduleClick = {},
+                                onCreateSchedule = {},
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -107,7 +132,7 @@ fun GroupDetailScreen(
 
 @Composable
 private fun MemberTabContent(
-    memberUiState: MemberUiState,
+    groupMembers: List<GroupMember>,
     onMemberClick: (Long) -> Unit,
     onInviteClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -115,36 +140,28 @@ private fun MemberTabContent(
     Box(
         modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
-        when (memberUiState) {
-            is MemberUiState.Loading -> {
-                // todo: loading state
-            }
-
-            is MemberUiState.Success -> {
-                if (memberUiState.isEmpty()) {
-                    EmptyPlaceholder(
-                        title = stringResource(R.string.group_detail_member_section_empty_title),
-                        buttonText = stringResource(R.string.group_detail_member_section_empty_button),
-                        onClickButton = onInviteClick,
-                    )
-                } else {
-                    LazyVerticalGrid(
-                        modifier = Modifier.fillMaxSize(),
-                        columns = GridCells.Fixed(3),
-                        verticalArrangement = Arrangement.spacedBy(24.dp),
-                        contentPadding = PaddingValues(vertical = 20.dp)
-                    ) {
-                        // todo : 초대하기 UI
-                        items(items = memberUiState.members, key = { it.memberId }) { member ->
-                            MemberAvatarCard(
-                                member = member,
-                                contentDescription = null,
-                                onClick = {
-                                    onMemberClick(member.memberId)
-                                }
-                            )
+        if (groupMembers.isEmpty()) {
+            EmptyPlaceholder(
+                title = stringResource(R.string.group_detail_member_section_empty_title),
+                buttonText = stringResource(R.string.group_detail_member_section_empty_button),
+                onClickButton = onInviteClick,
+            )
+        } else {
+            LazyVerticalGrid(
+                modifier = Modifier.fillMaxSize(),
+                columns = GridCells.Fixed(3),
+                verticalArrangement = Arrangement.spacedBy(24.dp),
+                contentPadding = PaddingValues(vertical = 20.dp)
+            ) {
+                // todo : 초대하기 UI
+                items(items = groupMembers, key = { it.memberId }) { member ->
+                    MemberAvatarCard(
+                        member = member,
+                        contentDescription = null,
+                        onClick = {
+                            onMemberClick(member.memberId)
                         }
-                    }
+                    )
                 }
             }
         }
@@ -153,7 +170,7 @@ private fun MemberTabContent(
 
 @Composable
 private fun ScheduleTabContent(
-    groupScheduleUiState: GroupScheduleUiState,
+    lazyPagingGroupSchedules: LazyPagingItems<GroupSchedule>,
     onScheduleClick: (Long) -> Unit,
     onCreateSchedule: () -> Unit,
     modifier: Modifier = Modifier
@@ -161,45 +178,54 @@ private fun ScheduleTabContent(
     Box(
         modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
-        when (groupScheduleUiState) {
-            is GroupScheduleUiState.Loading -> {
-                // todo : Loading State
-            }
+        LazyPagingRow(
+            refreshLoadState = lazyPagingGroupSchedules.loadState.refresh,
+            isEmpty = lazyPagingGroupSchedules.itemCount == 0,
+            loading = { AikuLoadingWheel() },
+            empty = {
+                EmptyPlaceholder(
+                    title = stringResource(R.string.group_detail_schedule_section_empty_title),
+                    buttonText = stringResource(R.string.group_detail_schedule_section_empty_button),
+                    onClickButton = onCreateSchedule,
+                )
+            },
+            error = { throwable ->
+                // todo : Error UI 교체
+                AikuText(
+                    text = "${throwable.message}",
+                    style = AiKUTheme.typography.body1SemiBold
+                )
+            },
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 132.dp)
+                .padding(vertical = 12.dp),
+        ) {
+            // todo : stick header 수정
+//            item {
+//                AikuText(
+//                    text = stringResource(
+//                        R.string.group_detail_schedule_section_schedule_status_summary,
+//                        groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
+//                        groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
+//                    ),
+//                    style = AiKUTheme.typography.caption1SemiBold,
+//                )
+//            }
 
-            is GroupScheduleUiState.Success -> {
-                if (groupScheduleUiState.isEmpty()) {
-                    EmptyPlaceholder(
-                        title = stringResource(R.string.group_detail_schedule_section_empty_title),
-                        buttonText = stringResource(R.string.group_detail_schedule_section_empty_button),
-                        onClickButton = onCreateSchedule,
+            items(
+                count = lazyPagingGroupSchedules.itemCount,
+                key = { lazyPagingGroupSchedules[it]?.scheduleId ?: "group-schedule-$it" }
+            ) { index ->
+                lazyPagingGroupSchedules[index]?.let { groupSchedule ->
+                    ScheduleCard(
+                        onClick = { onScheduleClick(groupSchedule.scheduleId) },
+                        scheduleName = groupSchedule.scheduleName,
+                        location = groupSchedule.location,
+                        time = groupSchedule.scheduleTime,
+                        scheduleStatus = groupSchedule.scheduleStatus
                     )
-                } else {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                        contentPadding = PaddingValues(vertical = 20.dp)
-                    ) {
-                        item {
-                            AikuText(
-                                text = stringResource(
-                                    R.string.group_detail_schedule_section_schedule_status_summary,
-                                    groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.RUNNING }.size,
-                                    groupScheduleUiState.schedules.filter { it.scheduleStatus == ScheduleStatus.WAITING }.size
-                                ),
-                                style = AiKUTheme.typography.caption1SemiBold,
-                            )
-                        }
-                        items(
-                            items = groupScheduleUiState.schedules, key = { it.scheduleId }) {
-                            ScheduleCard(
-                                onClick = { onScheduleClick(it.scheduleId) },
-                                scheduleName = it.scheduleName,
-                                location = it.location,
-                                time = it.scheduleTime,
-                                scheduleStatus = it.scheduleStatus
-                            )
-                        }
-                    }
                 }
             }
         }
@@ -267,8 +293,15 @@ private fun GroupDetailScreenMemberTabEmptyPreview() {
         GroupDetailScreen(
             selectedTab = GroupDetailTab.MEMBER,
             onTabSelected = {},
-            memberUiState = MemberUiState.Success(emptyList()),
-            groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
+            groupDetailUiState = GroupDetailUiState.Success(
+                GroupDetail(
+                    groupId = 0,
+                    groupName = "그룹 이름",
+                    members = emptyList()
+                )
+            ),
+            lazyPagingGroupSchedules = flowOf(PagingData.empty<GroupSchedule>())
+                .collectAsLazyPagingItems(),
         )
     }
 }
@@ -323,8 +356,15 @@ private fun GroupDetailScreenMemberTabPreview() {
         GroupDetailScreen(
             selectedTab = GroupDetailTab.MEMBER,
             onTabSelected = {},
-            memberUiState = MemberUiState.Success(groupMembers),
-            groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
+            groupDetailUiState = GroupDetailUiState.Success(
+                GroupDetail(
+                    groupId = 0,
+                    groupName = "그룹 이름",
+                    members = groupMembers
+                )
+            ),
+            lazyPagingGroupSchedules = flowOf(PagingData.empty<GroupSchedule>())
+                .collectAsLazyPagingItems(),
         )
     }
 }
@@ -336,8 +376,15 @@ private fun GroupDetailScreenScheduleTabEmptyPreview() {
         GroupDetailScreen(
             selectedTab = GroupDetailTab.SCHEDULE,
             onTabSelected = {},
-            memberUiState = MemberUiState.Success(emptyList()),
-            groupScheduleUiState = GroupScheduleUiState.Success(emptyList())
+            groupDetailUiState = GroupDetailUiState.Success(
+                GroupDetail(
+                    groupId = 0,
+                    groupName = "그룹 이름",
+                    members = emptyList()
+                )
+            ),
+            lazyPagingGroupSchedules = flowOf(PagingData.empty<GroupSchedule>())
+                .collectAsLazyPagingItems(),
         )
     }
 }
@@ -401,11 +448,35 @@ private fun GroupDetailScreenScheduleTabPreview() {
             )
         )
 
+        val lazyPagingGroupSchedules = flowOf(
+            PagingData.from(
+                data = groupSchedules,
+                sourceLoadStates =
+                    LoadStates(
+                        refresh = LoadState.NotLoading(false),
+                        append = LoadState.NotLoading(false),
+                        prepend = LoadState.NotLoading(false),
+                    ),
+            ),
+        ).collectAsLazyPagingItems()
+
+
         GroupDetailScreen(
             selectedTab = GroupDetailTab.SCHEDULE,
             onTabSelected = {},
-            memberUiState = MemberUiState.Success(emptyList()),
-            groupScheduleUiState = GroupScheduleUiState.Success(groupSchedules)
+            groupDetailUiState = GroupDetailUiState.Success(
+                GroupDetail(
+                    groupId = 0,
+                    groupName = "그룹 이름",
+                    members = emptyList()
+                )
+            ),
+            lazyPagingGroupSchedules = lazyPagingGroupSchedules,
         )
     }
+}
+
+private enum class GroupDetailTab(val label: String) {
+    MEMBER("멤버"),
+    SCHEDULE("약속"),
 }
