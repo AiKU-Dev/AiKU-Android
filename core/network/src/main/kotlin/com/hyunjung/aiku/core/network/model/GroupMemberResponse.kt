@@ -12,7 +12,7 @@ data class GroupMemberResponse(
 
 fun GroupMemberResponse.toModel(): GroupMember =
     GroupMember(
-        memberId = memberId,
+        id = memberId,
         nickname = nickname,
         memberProfileImage = memberProfile.toModel()
     )

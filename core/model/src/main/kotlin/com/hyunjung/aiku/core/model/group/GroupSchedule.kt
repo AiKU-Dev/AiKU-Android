@@ -5,7 +5,7 @@ import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import java.time.LocalDateTime
 
 data class GroupSchedule(
-    val scheduleId: Long,
+    val id: Long,
     val scheduleName: String,
     val location: Location,
     val scheduleTime: LocalDateTime,

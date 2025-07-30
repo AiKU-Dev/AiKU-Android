@@ -37,7 +37,7 @@ class FakeScheduleDataSource : ScheduleRemoteDataSource {
         endDate: LocalDateTime?
     ): List<GroupSchedule> = listOf(
         GroupSchedule(
-            scheduleId = 6L,
+            id = 6L,
             scheduleName = "운영체제",
             location = Location(
                 latitude = 127.1,
