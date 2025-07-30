@@ -29,30 +29,23 @@ import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.group.GroupMember
+import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.MemberProfileImage
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.schedule.Location
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.component.common.AikuTabs
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.component.schedule.ScheduleCard
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
 import com.hyunjung.aiku.core.ui.extension.painter
+import java.time.LocalDateTime
 
 enum class GroupDetailTab(val label: String) {
     MEMBER("멤버"),
     SCHEDULE("약속"),
 }
-
-data class GroupSchedule(
-    val id: Long,
-    val hostName: String,
-    val scheduleName: String,
-    val location: String,
-    val participantCount: Int,
-    val scheduleStatus: ScheduleStatus,
-    val time: Long,
-)
 
 sealed interface MemberUiState {
     object Loading : MemberUiState
@@ -197,12 +190,12 @@ private fun ScheduleTabContent(
                             )
                         }
                         items(
-                            items = groupScheduleUiState.schedules, key = { it.id }) {
+                            items = groupScheduleUiState.schedules, key = { it.scheduleId }) {
                             ScheduleCard(
-                                onClick = { onScheduleClick(it.id) },
+                                onClick = { onScheduleClick(it.scheduleId) },
                                 scheduleName = it.scheduleName,
                                 location = it.location,
-                                time = it.time,
+                                time = it.scheduleTime,
                                 scheduleStatus = it.scheduleStatus
                             )
                         }
@@ -355,42 +348,59 @@ private fun GroupDetailScreenScheduleTabPreview() {
     AiKUTheme {
         val groupSchedules = listOf(
             GroupSchedule(
-                id = 0,
-                hostName = "홍길동",
-                participantCount = 4,
+                scheduleId = 0,
                 scheduleName = "약속 이름",
-                location = "홍대 입구역 1번 출구",
+                memberSize = 4,
+                location = Location(
+                    locationName = "홍대 입구역 1번 출구",
+                    latitude = 37.566535,
+                    longitude = 126.977969
+                ),
                 scheduleStatus = ScheduleStatus.WAITING,
-                time = 1734048000000L,
+                scheduleTime = LocalDateTime.of(2024, 12, 13, 18, 0),
+                accept = true
             ),
             GroupSchedule(
-                id = 1,
-                hostName = "홍길동",
-                participantCount = 4,
+                scheduleId = 1,
                 scheduleName = "약속 이름",
-                location = "홍대 입구역 1번 출구",
+                memberSize = 4,
+                location = Location(
+                    locationName = "홍대 입구역 1번 출구",
+                    latitude = 37.566535,
+                    longitude = 126.977969
+                ),
                 scheduleStatus = ScheduleStatus.RUNNING,
-                time = 1734048000000L,
+                scheduleTime = LocalDateTime.of(2024, 12, 13, 18, 0),
+                accept = true
             ),
             GroupSchedule(
-                id = 2,
-                hostName = "홍길동",
-                participantCount = 4,
+                scheduleId = 2,
                 scheduleName = "약속 이름",
-                location = "홍대 입구역 1번 출구",
+                memberSize = 4,
+                location = Location(
+                    locationName = "홍대 입구역 1번 출구",
+                    latitude = 37.566535,
+                    longitude = 126.977969
+                ),
                 scheduleStatus = ScheduleStatus.BEFORE_JOIN,
-                time = 1734048000000L,
+                scheduleTime = LocalDateTime.of(2024, 12, 13, 18, 0),
+                accept = false
             ),
             GroupSchedule(
-                id = 3,
-                hostName = "홍길동",
-                participantCount = 4,
+                scheduleId = 3,
                 scheduleName = "약속 이름",
-                location = "홍대 입구역 1번 출구",
+                memberSize = 4,
+                location = Location(
+                    locationName = "홍대 입구역 1번 출구",
+                    latitude = 37.566535,
+                    longitude = 126.977969
+                ),
                 scheduleStatus = ScheduleStatus.TERMINATED,
-                time = 1734048000000L,
-            ),
+                scheduleTime = LocalDateTime.of(2024, 12, 13, 18, 0),
+                accept = false
+            )
         )
+
         GroupDetailScreen(
             selectedTab = GroupDetailTab.SCHEDULE,
             onTabSelected = {},

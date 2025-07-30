@@ -23,9 +23,11 @@ import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.component.AikuVerticalDivider
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.model.schedule.Location
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
-import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 val ScheduleStatus.label: String
@@ -40,12 +42,14 @@ val ScheduleStatus.label: String
 fun ScheduleCard(
     onClick: () -> Unit,
     scheduleName: String,
-    location: String,
-    time: Long,
+    location: Location,
+    time: LocalDateTime,
     scheduleStatus: ScheduleStatus,
     modifier: Modifier = Modifier
 ) {
-    val formatter = remember { SimpleDateFormat("yyyy. MM. dd E | a hh:mm", Locale.KOREAN) }
+    val formatter = remember {
+        DateTimeFormatter.ofPattern("yyyy. MM. dd E | a hh:mm", Locale.KOREAN)
+    }
 
     val scheduleStatusColor = when (scheduleStatus) {
         ScheduleStatus.WAITING -> AiKUTheme.colors.purple05
@@ -107,7 +111,7 @@ fun ScheduleCard(
                         tint = AiKUTheme.colors.gray00
                     )
                     AikuText(
-                        text = location,
+                        text = location.locationName,
                         style = AiKUTheme.typography.caption1,
                     )
                 }
@@ -116,7 +120,7 @@ fun ScheduleCard(
                     modifier = Modifier.padding(vertical = 12.dp)
                 )
                 AikuText(
-                    text = formatter.format(time),
+                    text = time.format(formatter),
                     style = AiKUTheme.typography.caption1,
                 )
             }
@@ -131,8 +135,12 @@ private fun GroupScheduleCardPreview() {
         ScheduleCard(
             onClick = {},
             scheduleName = "약속 이름",
-            location = "홍대 입구역 1번 출구",
-            time = 1734048000000L,
+            location = Location(
+                locationName = "홍대 입구역 1번 출구",
+                latitude = 37.566535,
+                longitude = 126.977969
+            ),
+            time = LocalDateTime.of(2024, 12, 13, 18, 0),
             scheduleStatus = ScheduleStatus.WAITING
         )
     }
