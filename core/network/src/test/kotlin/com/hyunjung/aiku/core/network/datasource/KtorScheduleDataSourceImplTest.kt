@@ -38,7 +38,7 @@ class KtorScheduleDataSourceImplTest {
     fun `getGroupSchedules returns expected group schedule list`() = runTest {
         val result: List<GroupSchedule> = subject.getGroupSchedules(groupId = 1L)
         assertEquals(1, result.size)
-        assertEquals(6L, result[0].scheduleId)
+        assertEquals(6L, result[0].id)
         assertEquals(true, result[0].accept)
     }
 }

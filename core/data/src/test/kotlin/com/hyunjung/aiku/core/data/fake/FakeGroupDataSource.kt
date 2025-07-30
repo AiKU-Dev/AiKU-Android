@@ -31,12 +31,12 @@ class FakeGroupDataSource : GroupRemoteDataSource {
         groupName = "산학협력프로젝트",
         members = listOf(
             GroupMember(
-                memberId = 1L,
+                id = 1L,
                 nickname = "지정희",
                 memberProfileImage = MemberProfileImage.Photo(url = "http://amazon.s3.image.jpg")
             ),
             GroupMember(
-                memberId = 2L,
+                id = 2L,
                 nickname = "박소영",
                 memberProfileImage = MemberProfileImage.Avatar(
                     type = AvatarType.BOY,

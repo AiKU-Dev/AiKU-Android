@@ -8,6 +8,9 @@ import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import java.io.File
 
 internal fun UserDataProto.toModel(): UserData = UserData(
+    id = id,
+    kakaoId = kakaoId,
+    point = point,
     email = email,
     nickname = nickname,
     profileImage = when (profileImageCase) {

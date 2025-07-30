@@ -17,7 +17,7 @@ data class GroupScheduleResponse(
 )
 
 fun GroupScheduleResponse.toModel(): GroupSchedule = GroupSchedule(
-    scheduleId = scheduleId,
+    id = scheduleId,
     scheduleName = scheduleName,
     location = location.toModel(),
     scheduleTime = LocalDateTime.parse(scheduleTime),
