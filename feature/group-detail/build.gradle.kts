@@ -5,5 +5,5 @@ plugins {
 }
 
 android {
-    namespace = "com.hyunjung.aiku.feature.groups"
+    namespace = "com.hyunjung.aiku.feature.group.detail"
 }
