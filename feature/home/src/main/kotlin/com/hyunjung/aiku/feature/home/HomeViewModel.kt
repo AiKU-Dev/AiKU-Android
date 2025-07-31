@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.domain.repository.UserDataRepository
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     private val groupRepository: GroupRepository
 ) : ViewModel() {
 
-    val groupSummaryPagingData: Flow<PagingData<GroupSummary>> =
+    val joinedGroupPagingData: Flow<PagingData<JoinedGroup>> =
         groupRepository.getGroupSummaryPagingData()
             .cachedIn(viewModelScope)
 

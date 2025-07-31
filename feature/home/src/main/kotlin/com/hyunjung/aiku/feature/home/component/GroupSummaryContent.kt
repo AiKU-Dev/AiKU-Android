@@ -30,7 +30,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.paging.LazyPagingColumn
 import com.hyunjung.aiku.core.ui.preview.GroupSummaryPreviewParameterProvider
@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 internal fun GroupSummaryContent(
     userNickname: String,
-    lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
+    lazyPagingGroupSummaries: LazyPagingItems<JoinedGroup>,
     onGroupSummaryClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
     modifier: Modifier = Modifier,
@@ -71,7 +71,7 @@ internal fun GroupSummaryContent(
 
 @Composable
 private fun GroupSummaryList(
-    lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
+    lazyPagingGroupSummaries: LazyPagingItems<JoinedGroup>,
     isEmpty: Boolean,
     onGroupSummaryClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
@@ -103,13 +103,13 @@ private fun GroupSummaryList(
     ) {
         items(
             count = lazyPagingGroupSummaries.itemCount,
-            key = { lazyPagingGroupSummaries[it]?.groupId ?: "group-$it" }
+            key = { lazyPagingGroupSummaries[it]?.id ?: "group-$it" }
         ) { index ->
             lazyPagingGroupSummaries[index]?.let { group ->
                 GroupSummaryCard(
-                    groupName = group.groupName,
+                    groupName = group.name,
                     time = group.lastScheduleTime,
-                    onClick = { onGroupSummaryClick(group.groupId) },
+                    onClick = { onGroupSummaryClick(group.id) },
                     memberSize = group.memberSize
                 )
             }
@@ -143,7 +143,7 @@ private fun BoxScope.CreateGroupButton(onClick: () -> Unit) {
 @Composable
 private fun GroupSummaryContentPreview(
     @PreviewParameter(GroupSummaryPreviewParameterProvider::class)
-    groupSummaries: List<GroupSummary>
+    groupSummaries: List<JoinedGroup>
 ) {
     val lazyPagingGroupSummaries = flowOf(
         PagingData.from(

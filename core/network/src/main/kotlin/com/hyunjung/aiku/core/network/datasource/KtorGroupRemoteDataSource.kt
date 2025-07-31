@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.group.GroupDetail
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.network.di.AuthorizedClient
 import com.hyunjung.aiku.core.network.extension.get
 import com.hyunjung.aiku.core.network.extension.postJson
@@ -20,7 +20,7 @@ class KtorGroupRemoteDataSource @Inject constructor(
     @AuthorizedClient private val client: HttpClient
 ) : GroupRemoteDataSource {
 
-    override suspend fun getGroupSummaries(page: Int): List<GroupSummary> =
+    override suspend fun getGroupSummaries(page: Int): List<JoinedGroup> =
         client.get(GroupResource(page))
             .body<ApiResponse<GroupOverviewListResult>>()
             .result.data.map { it.toModel() }

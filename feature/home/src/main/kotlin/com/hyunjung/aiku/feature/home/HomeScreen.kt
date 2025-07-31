@@ -20,7 +20,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.hyunjung.aiku.core.designsystem.component.AikuScaffold
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
@@ -42,7 +42,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val lazyPagingSchedules = viewModel.upcomingSchedulePagingData.collectAsLazyPagingItems()
-    val lazyPagingGroupSummaries = viewModel.groupSummaryPagingData.collectAsLazyPagingItems()
+    val lazyPagingGroupSummaries = viewModel.joinedGroupPagingData.collectAsLazyPagingItems()
 
     val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
     var showCreateGroupDialog by remember { mutableStateOf(false) }
@@ -76,7 +76,7 @@ fun HomeScreen(
 private fun HomeScreen(
     userNickname: String,
     lazyPagingSchedules: LazyPagingItems<UpcomingSchedule>,
-    lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
+    lazyPagingGroupSummaries: LazyPagingItems<JoinedGroup>,
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     onGroupSummaryClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,

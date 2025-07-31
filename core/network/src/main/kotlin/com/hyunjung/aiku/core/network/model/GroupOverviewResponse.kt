@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.network.model
 
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 
@@ -12,10 +12,10 @@ data class GroupOverviewResponse(
     val lastScheduleTime: String?
 )
 
-fun GroupOverviewResponse.toModel(): GroupSummary =
-    GroupSummary(
-        groupId = groupId,
-        groupName = groupName,
+fun GroupOverviewResponse.toModel(): JoinedGroup =
+    JoinedGroup(
+        id = groupId,
+        name = groupName,
         memberSize = memberSize,
         lastScheduleTime = lastScheduleTime?.let { LocalDateTime.parse(lastScheduleTime) }
     )

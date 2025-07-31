@@ -295,8 +295,8 @@ private fun GroupDetailScreenMemberTabEmptyPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = emptyList()
                 )
             ),
@@ -358,8 +358,8 @@ private fun GroupDetailScreenMemberTabPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = groupMembers
                 )
             ),
@@ -378,8 +378,8 @@ private fun GroupDetailScreenScheduleTabEmptyPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = emptyList()
                 )
             ),
@@ -466,8 +466,8 @@ private fun GroupDetailScreenScheduleTabPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = emptyList()
                 )
             ),

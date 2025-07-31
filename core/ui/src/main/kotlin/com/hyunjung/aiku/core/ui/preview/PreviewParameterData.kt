@@ -1,6 +1,6 @@
 package com.hyunjung.aiku.core.ui.preview
 
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.schedule.Location
 import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
@@ -56,9 +56,9 @@ object PreviewParameterData {
     )
 
     val groupSummaries = (1..10).map {
-        GroupSummary(
-            groupId = it.toLong(),
-            groupName = "그룹 $it",
+        JoinedGroup(
+            id = it.toLong(),
+            name = "그룹 $it",
             memberSize = it,
             lastScheduleTime = previewLocalDateTime
         )

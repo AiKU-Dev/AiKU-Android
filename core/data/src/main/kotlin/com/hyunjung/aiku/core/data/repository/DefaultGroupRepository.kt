@@ -9,7 +9,7 @@ import com.hyunjung.aiku.core.data.paging.OffsetPagingSource
 import com.hyunjung.aiku.core.data.paging.PagingDefaults.PAGE_SIZE
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.model.group.GroupDetail
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +22,7 @@ internal class DefaultGroupRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : GroupRepository {
 
-    override fun getGroupSummaryPagingData(): Flow<PagingData<GroupSummary>> = Pager(
+    override fun getGroupSummaryPagingData(): Flow<PagingData<JoinedGroup>> = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE),
         pagingSourceFactory = {
             OffsetPagingSource { groupRemoteDataSource.getGroupSummaries(it) }

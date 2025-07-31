@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.model.group
 
 data class GroupDetail(
-    val groupId: Long,
-    val groupName: String,
-    val members: List<GroupMember>
-)
+    override val id: Long,
+    override val name: String,
+    val members: List<GroupMember>,
+) : GroupBase(id, name, members.size)

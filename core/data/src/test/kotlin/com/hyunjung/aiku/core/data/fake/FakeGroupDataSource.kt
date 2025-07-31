@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.data.fake
 
 import com.hyunjung.aiku.core.model.group.GroupDetail
 import com.hyunjung.aiku.core.model.group.GroupMember
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.MemberProfileImage
@@ -11,24 +11,24 @@ import java.time.LocalDateTime
 
 class FakeGroupDataSource : GroupRemoteDataSource {
 
-    override suspend fun getGroupSummaries(page: Int): List<GroupSummary> = listOf(
-        GroupSummary(
-            groupId = 1L,
-            groupName = "전공기초프로젝트",
+    override suspend fun getGroupSummaries(page: Int): List<JoinedGroup> = listOf(
+        JoinedGroup(
+            id = 1L,
+            name = "전공기초프로젝트",
             memberSize = 5,
             lastScheduleTime = LocalDateTime.parse("2024-07-30T12:12:12")
         ),
-        GroupSummary(
-            groupId = 2L,
-            groupName = "산학협력프로젝트",
+        JoinedGroup(
+            id = 2L,
+            name = "산학협력프로젝트",
             memberSize = 2,
             lastScheduleTime = null
         )
     )
 
     override suspend fun getGroupDetail(id: Long): GroupDetail = GroupDetail(
-        groupId = id,
-        groupName = "산학협력프로젝트",
+        id = id,
+        name = "산학협력프로젝트",
         members = listOf(
             GroupMember(
                 id = 1L,

@@ -1,11 +1,11 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.group.GroupDetail
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 
 interface GroupRemoteDataSource {
 
-    suspend fun getGroupSummaries(page: Int): List<GroupSummary>
+    suspend fun getGroupSummaries(page: Int): List<JoinedGroup>
 
     suspend fun getGroupDetail(id: Long): GroupDetail
     
