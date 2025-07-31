@@ -14,12 +14,12 @@ private val previewLocalDateTime = LocalDateTime.parse("2025-06-30T12:12:12")
 
 object PreviewParameterData {
 
-    val upcomingSchedules = listOf(
+    val upcomingSchedules = List(4) { index ->
         UpcomingSchedule(
             groupId = 1L,
-            groupName = "건국대학교",
-            id = 6L,
-            title = "산협프 회의",
+            groupName = "아이쿠 안드로이드",
+            id = (index + 1).toLong(),
+            title = "일정 ${index + 1}",
             location = Location(
                 latitude = 37.5407,
                 longitude = 127.0795,
@@ -27,37 +27,9 @@ object PreviewParameterData {
             ),
             scheduleTime = previewLocalDateTime,
             memberSize = 5,
-            scheduleStatus = ScheduleStatus.RUNNING
-        ),
-        UpcomingSchedule(
-            groupId = 1L,
-            groupName = "건국대학교",
-            id = 8L,
-            title = "팀 정기모임",
-            location = Location(
-                latitude = 37.5407,
-                longitude = 127.0795,
-                locationName = "공학관"
-            ),
-            scheduleTime = previewLocalDateTime,
-            memberSize = 5,
-            scheduleStatus = ScheduleStatus.TERMINATED
-        ),
-        UpcomingSchedule(
-            groupId = 1L,
-            groupName = "건국대학교",
-            id = 9L,
-            title = "스터디 회의",
-            location = Location(
-                latitude = 37.5407,
-                longitude = 127.0795,
-                locationName = "공학관"
-            ),
-            scheduleTime = previewLocalDateTime,
-            memberSize = 5,
-            scheduleStatus = ScheduleStatus.TERMINATED
+            scheduleStatus = ScheduleStatus.entries[index]
         )
-    )
+    }
 
     val JoinedGroups = (1..10).map {
         JoinedGroup(
