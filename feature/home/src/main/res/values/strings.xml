@@ -4,7 +4,7 @@
     <string name="feature_home_group_title">%1$s\'s Group</string>
     <string name="feature_home_fab_add_group">그룹 추가</string>
 
-    <!-- group summary -->
+    <!-- joined group -->
     <string name="feature_home_group_empty_message">그룹을 만들어 보세요!</string>
     <string name="feature_home_group_empty_button">+ 그룹 만들기</string>
     <string name="feature_home_group_card_recent_schedule">최근 약속 %1$s</string>

@@ -29,8 +29,8 @@ class DefaultGroupRepositoryTest {
     @Test
     fun `getGroup returns correct group detail`() = runTest {
         val result: GroupDetail = subject.getGroupDetail(id = 1L).first()
-        assertEquals(1L, result.groupId)
-        assertEquals("산학협력프로젝트", result.groupName)
+        assertEquals(1L, result.id)
+        assertEquals("산학협력프로젝트", result.name)
         assertEquals(2, result.members.size)
         assertEquals("지정희", result.members[0].nickname)
         val resultMemberProfile = result.members[0].memberProfileImage

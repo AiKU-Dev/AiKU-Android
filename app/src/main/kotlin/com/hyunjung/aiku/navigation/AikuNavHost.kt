@@ -43,7 +43,7 @@ fun AikuNavHost(
         homeScreen(
             // todo : navigate
             onScheduleClick = { groupId, scheduleId -> },
-            onGroupSummaryClick = { groupId -> },
+            onGroupClick = { groupId -> },
         )
 
         composable<AikuRoute.TermsDetailRoute> { backStackEntry ->

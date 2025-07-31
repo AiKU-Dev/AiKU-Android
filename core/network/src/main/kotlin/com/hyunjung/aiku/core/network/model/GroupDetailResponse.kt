@@ -12,8 +12,8 @@ data class GroupDetailResponse(
 
 fun GroupDetailResponse.toModel(): GroupDetail =
     GroupDetail(
-        groupId = groupId,
-        groupName = groupName,
+        id = groupId,
+        name = groupName,
         members = members.map { it.toModel() }
     )
 

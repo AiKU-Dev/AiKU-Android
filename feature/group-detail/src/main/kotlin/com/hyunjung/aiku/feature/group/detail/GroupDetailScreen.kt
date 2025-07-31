@@ -221,7 +221,7 @@ private fun ScheduleTabContent(
                 lazyPagingGroupSchedules[index]?.let { groupSchedule ->
                     ScheduleCard(
                         onClick = { onScheduleClick(groupSchedule.id) },
-                        scheduleName = groupSchedule.scheduleName,
+                        scheduleName = groupSchedule.title,
                         location = groupSchedule.location,
                         time = groupSchedule.scheduleTime,
                         scheduleStatus = groupSchedule.scheduleStatus
@@ -295,8 +295,8 @@ private fun GroupDetailScreenMemberTabEmptyPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = emptyList()
                 )
             ),
@@ -358,8 +358,8 @@ private fun GroupDetailScreenMemberTabPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = groupMembers
                 )
             ),
@@ -378,8 +378,8 @@ private fun GroupDetailScreenScheduleTabEmptyPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = emptyList()
                 )
             ),
@@ -396,7 +396,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
         val groupSchedules = listOf(
             GroupSchedule(
                 id = 0,
-                scheduleName = "약속 이름",
+                title = "약속 이름",
                 memberSize = 4,
                 location = Location(
                     locationName = "홍대 입구역 1번 출구",
@@ -409,7 +409,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
             ),
             GroupSchedule(
                 id = 1,
-                scheduleName = "약속 이름",
+                title = "약속 이름",
                 memberSize = 4,
                 location = Location(
                     locationName = "홍대 입구역 1번 출구",
@@ -422,7 +422,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
             ),
             GroupSchedule(
                 id = 2,
-                scheduleName = "약속 이름",
+                title = "약속 이름",
                 memberSize = 4,
                 location = Location(
                     locationName = "홍대 입구역 1번 출구",
@@ -435,7 +435,7 @@ private fun GroupDetailScreenScheduleTabPreview() {
             ),
             GroupSchedule(
                 id = 3,
-                scheduleName = "약속 이름",
+                title = "약속 이름",
                 memberSize = 4,
                 location = Location(
                     locationName = "홍대 입구역 1번 출구",
@@ -466,8 +466,8 @@ private fun GroupDetailScreenScheduleTabPreview() {
             onTabSelected = {},
             groupDetailUiState = GroupDetailUiState.Success(
                 GroupDetail(
-                    groupId = 0,
-                    groupName = "그룹 이름",
+                    id = 0,
+                    name = "그룹 이름",
                     members = emptyList()
                 )
             ),

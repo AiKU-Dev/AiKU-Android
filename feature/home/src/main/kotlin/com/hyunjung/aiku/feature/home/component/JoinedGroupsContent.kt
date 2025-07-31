@@ -30,23 +30,23 @@ import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.paging.LazyPagingColumn
-import com.hyunjung.aiku.core.ui.preview.GroupSummaryPreviewParameterProvider
+import com.hyunjung.aiku.core.ui.preview.JoinedGroupPreviewParameterProvider
 import com.hyunjung.aiku.feature.home.R
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-internal fun GroupSummaryContent(
+internal fun JoinedGroupsContent(
     userNickname: String,
-    lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
-    onGroupSummaryClick: (Long) -> Unit,
+    lazyPagingJoinedGroups: LazyPagingItems<JoinedGroup>,
+    onGroupClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
-    val isGroupListEmpty = lazyPagingGroupSummaries.itemCount == 0
+    val isEmptyJoinedGroup = lazyPagingJoinedGroups.itemCount == 0
 
     Column(modifier = modifier) {
         AikuText(
@@ -55,14 +55,14 @@ internal fun GroupSummaryContent(
         )
         Spacer(Modifier.height(12.dp))
         Box {
-            GroupSummaryList(
-                lazyPagingGroupSummaries = lazyPagingGroupSummaries,
-                isEmpty = isGroupListEmpty,
-                onGroupSummaryClick = onGroupSummaryClick,
+            JoinedGroupsPagingList(
+                lazyPagingJoinedGroups = lazyPagingJoinedGroups,
+                isEmpty = isEmptyJoinedGroup,
+                onGroupClick = onGroupClick,
                 onShowCreateGroupDialog = onShowCreateGroupDialog,
             )
 
-            if (!isGroupListEmpty) {
+            if (!isEmptyJoinedGroup) {
                 CreateGroupButton(onClick = onShowCreateGroupDialog)
             }
         }
@@ -70,14 +70,14 @@ internal fun GroupSummaryContent(
 }
 
 @Composable
-private fun GroupSummaryList(
-    lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
+private fun JoinedGroupsPagingList(
+    lazyPagingJoinedGroups: LazyPagingItems<JoinedGroup>,
     isEmpty: Boolean,
-    onGroupSummaryClick: (Long) -> Unit,
+    onGroupClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
 ) {
     LazyPagingColumn(
-        refreshLoadState = lazyPagingGroupSummaries.loadState.refresh,
+        refreshLoadState = lazyPagingJoinedGroups.loadState.refresh,
         isEmpty = isEmpty,
         loading = {
             AikuLoadingWheel(modifier = Modifier.size(80.dp))
@@ -102,14 +102,14 @@ private fun GroupSummaryList(
         modifier = Modifier.fillMaxSize()
     ) {
         items(
-            count = lazyPagingGroupSummaries.itemCount,
-            key = { lazyPagingGroupSummaries[it]?.groupId ?: "group-$it" }
+            count = lazyPagingJoinedGroups.itemCount,
+            key = { lazyPagingJoinedGroups[it]?.id ?: "group-$it" }
         ) { index ->
-            lazyPagingGroupSummaries[index]?.let { group ->
-                GroupSummaryCard(
-                    groupName = group.groupName,
+            lazyPagingJoinedGroups[index]?.let { group ->
+                JoinedGroupCard(
+                    groupName = group.name,
                     time = group.lastScheduleTime,
-                    onClick = { onGroupSummaryClick(group.groupId) },
+                    onClick = { onGroupClick(group.id) },
                     memberSize = group.memberSize
                 )
             }
@@ -141,13 +141,13 @@ private fun BoxScope.CreateGroupButton(onClick: () -> Unit) {
 
 @Preview
 @Composable
-private fun GroupSummaryContentPreview(
-    @PreviewParameter(GroupSummaryPreviewParameterProvider::class)
-    groupSummaries: List<GroupSummary>
+private fun JoinedGroupsContentPreview(
+    @PreviewParameter(JoinedGroupPreviewParameterProvider::class)
+    joinedGroups: List<JoinedGroup>
 ) {
-    val lazyPagingGroupSummaries = flowOf(
+    val lazyPagingJoinedGroups = flowOf(
         PagingData.from(
-            data = groupSummaries,
+            data = joinedGroups,
             sourceLoadStates =
                 LoadStates(
                     refresh = LoadState.NotLoading(false),
@@ -158,10 +158,10 @@ private fun GroupSummaryContentPreview(
     ).collectAsLazyPagingItems()
 
     AiKUTheme {
-        GroupSummaryContent(
+        JoinedGroupsContent(
             userNickname = "아이쿠",
-            lazyPagingGroupSummaries = lazyPagingGroupSummaries,
-            onGroupSummaryClick = {},
+            lazyPagingJoinedGroups = lazyPagingJoinedGroups,
+            onGroupClick = {},
             onShowCreateGroupDialog = {},
             modifier = Modifier.padding(20.dp)
         )

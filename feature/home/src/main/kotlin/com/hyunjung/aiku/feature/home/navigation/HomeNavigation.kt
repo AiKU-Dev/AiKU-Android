@@ -11,12 +11,12 @@ fun NavController.navigateToHomeClearBackStack() = navigateAndClearBackStack(Aik
 
 fun NavGraphBuilder.homeScreen(
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
-    onGroupSummaryClick: (Long) -> Unit,
+    onGroupClick: (Long) -> Unit,
 ) {
     composable<AikuRoute.HomeRoute> {
         HomeScreen(
             onScheduleClick = onScheduleClick,
-            onGroupSummaryClick = onGroupSummaryClick,
+            onGroupClick = onGroupClick,
         )
     }
 }

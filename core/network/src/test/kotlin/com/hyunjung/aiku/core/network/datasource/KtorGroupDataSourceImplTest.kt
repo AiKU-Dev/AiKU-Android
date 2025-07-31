@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.group.GroupDetail
-import com.hyunjung.aiku.core.model.group.GroupSummary
+import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.MemberProfileImage
 import com.hyunjung.aiku.core.network.datasource.mock.groupMockEngine
@@ -30,17 +30,17 @@ class KtorGroupDataSourceImplTest {
 
     @Test
     fun `getGroups returns expected list`() = runTest {
-        val result: List<GroupSummary> = subject.getGroupSummaries(page = 1)
+        val result: List<JoinedGroup> = subject.getJoinedGroups(page = 1)
         assertEquals(2, result.size)
-        assertEquals("전공기초프로젝트", result[0].groupName)
-        assertEquals("산학협력프로젝트", result[1].groupName)
+        assertEquals("전공기초프로젝트", result[0].name)
+        assertEquals("산학협력프로젝트", result[1].name)
     }
 
     @Test
     fun `getGroup returns correct group detail`() = runTest {
         val result: GroupDetail = subject.getGroupDetail(id = 1L)
-        assertEquals(1L, result.groupId)
-        assertEquals("산학협력프로젝트", result.groupName)
+        assertEquals(1L, result.id)
+        assertEquals("산학협력프로젝트", result.name)
         assertEquals(2, result.members.size)
         assertEquals("지정희", result.members[0].nickname)
         val resultMemberProfile = result.members[0].memberProfileImage

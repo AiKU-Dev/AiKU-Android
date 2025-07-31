@@ -22,10 +22,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.paging.LazyPagingRow
-import com.hyunjung.aiku.core.ui.preview.SchedulePreviewParameterProvider
+import com.hyunjung.aiku.core.ui.preview.UpcomingSchedulePreviewParameterProvider
 import com.hyunjung.aiku.feature.home.R
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
@@ -34,7 +34,7 @@ import java.util.Locale
 
 @Composable
 internal fun UpcomingScheduleContent(
-    lazyPagingSchedules: LazyPagingItems<Schedule>,
+    lazyPagingUpcomingSchedules: LazyPagingItems<UpcomingSchedule>,
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -52,8 +52,8 @@ internal fun UpcomingScheduleContent(
             style = AiKUTheme.typography.body2,
         )
         LazyPagingRow(
-            refreshLoadState = lazyPagingSchedules.loadState.refresh,
-            isEmpty = lazyPagingSchedules.itemCount == 0,
+            refreshLoadState = lazyPagingUpcomingSchedules.loadState.refresh,
+            isEmpty = lazyPagingUpcomingSchedules.itemCount == 0,
             loading = { AikuLoadingWheel() },
             empty = { UpcomingSchedulePlaceholder() },
             error = { throwable ->
@@ -70,10 +70,10 @@ internal fun UpcomingScheduleContent(
                 .padding(vertical = 12.dp),
         ) {
             items(
-                count = lazyPagingSchedules.itemCount,
-                key = { lazyPagingSchedules[it]?.scheduleId ?: "schedule-$it" }
+                count = lazyPagingUpcomingSchedules.itemCount,
+                key = { lazyPagingUpcomingSchedules[it]?.id ?: "schedule-$it" }
             ) { index ->
-                lazyPagingSchedules[index]?.let { schedule ->
+                lazyPagingUpcomingSchedules[index]?.let { schedule ->
                     UpcomingScheduleCard(
                         groupName = schedule.groupName,
                         location = schedule.location.locationName,
@@ -82,7 +82,7 @@ internal fun UpcomingScheduleContent(
                         onClick = {
                             onScheduleClick(
                                 schedule.groupId,
-                                schedule.scheduleId
+                                schedule.id
                             )
                         }
                     )
@@ -95,13 +95,13 @@ internal fun UpcomingScheduleContent(
 @Preview
 @Composable
 private fun UpcomingSchedulePreview(
-    @PreviewParameter(SchedulePreviewParameterProvider::class)
-    upcomingSchedules: List<Schedule>,
+    @PreviewParameter(UpcomingSchedulePreviewParameterProvider::class)
+    upcomingUpcomingSchedules: List<UpcomingSchedule>,
 ) {
 
-    val lazyPagingSchedules = flowOf(
+    val lazyPagingUpcomingSchedules = flowOf(
         PagingData.from(
-            data = upcomingSchedules,
+            data = upcomingUpcomingSchedules,
             sourceLoadStates =
                 LoadStates(
                     refresh = LoadState.NotLoading(false),
@@ -113,7 +113,7 @@ private fun UpcomingSchedulePreview(
 
     AiKUTheme {
         UpcomingScheduleContent(
-            lazyPagingSchedules = lazyPagingSchedules,
+            lazyPagingUpcomingSchedules = lazyPagingUpcomingSchedules,
             onScheduleClick = { _, _ -> },
             modifier = Modifier.padding(20.dp)
         )

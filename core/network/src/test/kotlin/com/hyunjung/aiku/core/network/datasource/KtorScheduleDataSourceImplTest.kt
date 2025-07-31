@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.datasource
 
 import com.hyunjung.aiku.core.model.group.GroupSchedule
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.network.datasource.mock.scheduleMockEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -28,9 +28,9 @@ class KtorScheduleDataSourceImplTest {
 
     @Test
     fun `getSchedules returns expected list`() = runTest {
-        val result: List<Schedule> = subject.getSchedules(page = 1)
+        val result: List<UpcomingSchedule> = subject.getUpcomingSchedules(page = 1)
         assertEquals(1, result.size)
-        assertEquals("운영체제", result[0].scheduleName)
+        assertEquals("운영체제", result[0].title)
         assertEquals("RUNNING", result[0].scheduleStatus.name)
     }
 
