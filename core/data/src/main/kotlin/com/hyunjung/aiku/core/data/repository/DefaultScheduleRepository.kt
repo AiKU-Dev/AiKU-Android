@@ -8,7 +8,7 @@ import com.hyunjung.aiku.core.coroutine.Dispatcher
 import com.hyunjung.aiku.core.data.paging.OffsetPagingSource
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.model.group.GroupSchedule
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ internal class DefaultScheduleRepository @Inject constructor(
     override fun getSchedulePagingData(
         startDate: LocalDateTime?,
         endDate: LocalDateTime?
-    ): Flow<PagingData<Schedule>> = Pager(
+    ): Flow<PagingData<UpcomingSchedule>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
             OffsetPagingSource { page ->

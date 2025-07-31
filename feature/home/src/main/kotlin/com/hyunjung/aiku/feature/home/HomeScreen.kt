@@ -21,13 +21,13 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.hyunjung.aiku.core.designsystem.component.AikuScaffold
 import com.hyunjung.aiku.core.model.group.GroupSummary
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
 import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.groupSummaries
-import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.schedules
+import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.upcomingSchedules
 import com.hyunjung.aiku.feature.home.component.CreateGroupDialog
 import com.hyunjung.aiku.feature.home.component.GroupSummaryContent
 import com.hyunjung.aiku.feature.home.component.UpcomingScheduleContent
@@ -41,7 +41,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val lazyPagingSchedules = viewModel.schedulePagingData.collectAsLazyPagingItems()
+    val lazyPagingSchedules = viewModel.upcomingSchedulePagingData.collectAsLazyPagingItems()
     val lazyPagingGroupSummaries = viewModel.groupSummaryPagingData.collectAsLazyPagingItems()
 
     val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
@@ -75,7 +75,7 @@ fun HomeScreen(
 @Composable
 private fun HomeScreen(
     userNickname: String,
-    lazyPagingSchedules: LazyPagingItems<Schedule>,
+    lazyPagingSchedules: LazyPagingItems<UpcomingSchedule>,
     lazyPagingGroupSummaries: LazyPagingItems<GroupSummary>,
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     onGroupSummaryClick: (Long) -> Unit,
@@ -117,7 +117,7 @@ private fun HomeScreenPreview() {
 
     val lazyPagingSchedules = flowOf(
         PagingData.from(
-            data = schedules,
+            data = upcomingSchedules,
             sourceLoadStates =
                 LoadStates(
                     refresh = LoadState.NotLoading(false),

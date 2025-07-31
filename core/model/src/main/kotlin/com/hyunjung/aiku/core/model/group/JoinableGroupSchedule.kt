@@ -5,13 +5,10 @@ import com.hyunjung.aiku.core.model.schedule.ScheduleBase
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import java.time.LocalDateTime
 
-data class GroupSchedule(
+data class JoinableGroupSchedule(
     override val id: Long,
     override val title: String,
     override val location: Location,
     override val scheduleTime: LocalDateTime,
-    override val scheduleStatus: ScheduleStatus,
-    val memberSize: Int,
-    val accept: Boolean
-) : ScheduleBase(id, title, location, scheduleTime, scheduleStatus)
-
+    val owner: GroupMember
+) : ScheduleBase(id, title, location, scheduleTime, ScheduleStatus.BEFORE_JOIN)

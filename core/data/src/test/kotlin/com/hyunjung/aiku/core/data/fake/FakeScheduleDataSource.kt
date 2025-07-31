@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.data.fake
 
 import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.schedule.Location
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
 import java.time.LocalDateTime
@@ -13,12 +13,12 @@ class FakeScheduleDataSource : ScheduleRemoteDataSource {
         page: Int,
         startDate: LocalDateTime?,
         endDate: LocalDateTime?
-    ): List<Schedule> = listOf(
-        Schedule(
+    ): List<UpcomingSchedule> = listOf(
+        UpcomingSchedule(
             groupId = 1L,
             groupName = "건국대학교",
-            scheduleId = 6L,
-            scheduleName = "운영체제",
+            id = 6L,
+            title = "운영체제",
             location = Location(
                 latitude = 127.1,
                 longitude = 111.1,
@@ -38,7 +38,7 @@ class FakeScheduleDataSource : ScheduleRemoteDataSource {
     ): List<GroupSchedule> = listOf(
         GroupSchedule(
             id = 6L,
-            scheduleName = "운영체제",
+            title = "운영체제",
             location = Location(
                 latitude = 127.1,
                 longitude = 111.1,

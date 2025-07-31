@@ -8,7 +8,7 @@ import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
 import com.hyunjung.aiku.core.domain.repository.UserDataRepository
 import com.hyunjung.aiku.core.model.group.GroupSummary
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
         groupRepository.getGroupSummaryPagingData()
             .cachedIn(viewModelScope)
 
-    val schedulePagingData: Flow<PagingData<Schedule>> =
+    val upcomingSchedulePagingData: Flow<PagingData<UpcomingSchedule>> =
         scheduleRepository.getSchedulePagingData()
             .cachedIn(viewModelScope)
 

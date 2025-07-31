@@ -1,10 +1,10 @@
 package com.hyunjung.aiku.core.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.hyunjung.aiku.core.model.schedule.Schedule
-import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.schedules
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
+import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.upcomingSchedules
 
-class SchedulePreviewParameterProvider : PreviewParameterProvider<List<Schedule>> {
+class SchedulePreviewParameterProvider : PreviewParameterProvider<List<UpcomingSchedule>> {
 
-    override val values: Sequence<List<Schedule>> = sequenceOf(schedules)
+    override val values: Sequence<List<UpcomingSchedule>> = sequenceOf(upcomingSchedules)
 }

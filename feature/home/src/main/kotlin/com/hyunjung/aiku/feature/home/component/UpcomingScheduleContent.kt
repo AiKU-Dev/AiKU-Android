@@ -22,7 +22,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.schedule.Schedule
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.paging.LazyPagingRow
 import com.hyunjung.aiku.core.ui.preview.SchedulePreviewParameterProvider
@@ -34,7 +34,7 @@ import java.util.Locale
 
 @Composable
 internal fun UpcomingScheduleContent(
-    lazyPagingSchedules: LazyPagingItems<Schedule>,
+    lazyPagingSchedules: LazyPagingItems<UpcomingSchedule>,
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -71,7 +71,7 @@ internal fun UpcomingScheduleContent(
         ) {
             items(
                 count = lazyPagingSchedules.itemCount,
-                key = { lazyPagingSchedules[it]?.scheduleId ?: "schedule-$it" }
+                key = { lazyPagingSchedules[it]?.id ?: "schedule-$it" }
             ) { index ->
                 lazyPagingSchedules[index]?.let { schedule ->
                     UpcomingScheduleCard(
@@ -82,7 +82,7 @@ internal fun UpcomingScheduleContent(
                         onClick = {
                             onScheduleClick(
                                 schedule.groupId,
-                                schedule.scheduleId
+                                schedule.id
                             )
                         }
                     )
@@ -96,12 +96,12 @@ internal fun UpcomingScheduleContent(
 @Composable
 private fun UpcomingSchedulePreview(
     @PreviewParameter(SchedulePreviewParameterProvider::class)
-    upcomingSchedules: List<Schedule>,
+    upcomingUpcomingSchedules: List<UpcomingSchedule>,
 ) {
 
     val lazyPagingSchedules = flowOf(
         PagingData.from(
-            data = upcomingSchedules,
+            data = upcomingUpcomingSchedules,
             sourceLoadStates =
                 LoadStates(
                     refresh = LoadState.NotLoading(false),
