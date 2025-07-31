@@ -20,7 +20,7 @@ class KtorGroupRemoteDataSource @Inject constructor(
     @AuthorizedClient private val client: HttpClient
 ) : GroupRemoteDataSource {
 
-    override suspend fun getGroupSummaries(page: Int): List<JoinedGroup> =
+    override suspend fun getJoinedGroups(page: Int): List<JoinedGroup> =
         client.get(GroupResource(page))
             .body<ApiResponse<GroupOverviewListResult>>()
             .result.data.map { it.toModel() }

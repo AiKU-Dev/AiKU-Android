@@ -21,14 +21,14 @@ internal class DefaultScheduleRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : ScheduleRepository {
 
-    override fun getSchedulePagingData(
+    override fun getUpcomingSchedulePagingData(
         startDate: LocalDateTime?,
         endDate: LocalDateTime?
     ): Flow<PagingData<UpcomingSchedule>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
             OffsetPagingSource { page ->
-                scheduleRemoteDataSource.getSchedules(
+                scheduleRemoteDataSource.getUpcomingSchedules(
                     page = page,
                     startDate = startDate,
                     endDate = endDate,

@@ -22,10 +22,10 @@ internal class DefaultGroupRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : GroupRepository {
 
-    override fun getGroupSummaryPagingData(): Flow<PagingData<JoinedGroup>> = Pager(
+    override fun getJoinedGroupsPagingData(): Flow<PagingData<JoinedGroup>> = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE),
         pagingSourceFactory = {
-            OffsetPagingSource { groupRemoteDataSource.getGroupSummaries(it) }
+            OffsetPagingSource { groupRemoteDataSource.getJoinedGroups(it) }
         }
     ).flow.flowOn(ioDispatcher)
 

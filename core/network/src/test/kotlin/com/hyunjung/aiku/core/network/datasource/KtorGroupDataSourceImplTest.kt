@@ -30,7 +30,7 @@ class KtorGroupDataSourceImplTest {
 
     @Test
     fun `getGroups returns expected list`() = runTest {
-        val result: List<JoinedGroup> = subject.getGroupSummaries(page = 1)
+        val result: List<JoinedGroup> = subject.getJoinedGroups(page = 1)
         assertEquals(2, result.size)
         assertEquals("전공기초프로젝트", result[0].name)
         assertEquals("산학협력프로젝트", result[1].name)

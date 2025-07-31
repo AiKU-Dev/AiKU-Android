@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 class FakeScheduleDataSource : ScheduleRemoteDataSource {
 
-    override suspend fun getSchedules(
+    override suspend fun getUpcomingSchedules(
         page: Int,
         startDate: LocalDateTime?,
         endDate: LocalDateTime?

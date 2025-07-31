@@ -5,7 +5,7 @@ import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import java.time.LocalDateTime
 
 interface ScheduleRemoteDataSource {
-    suspend fun getSchedules(
+    suspend fun getUpcomingSchedules(
         page: Int = 1,
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,

@@ -18,7 +18,7 @@ import javax.inject.Inject
 class KtorScheduleRemoteDataSource @Inject constructor(
     @AuthorizedClient private val client: HttpClient
 ) : ScheduleRemoteDataSource {
-    override suspend fun getSchedules(
+    override suspend fun getUpcomingSchedules(
         page: Int,
         startDate: LocalDateTime?,
         endDate: LocalDateTime?

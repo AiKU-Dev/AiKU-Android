@@ -26,10 +26,10 @@ import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.ui.component.common.AikuLogoTopAppBar
 import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
-import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.groupSummaries
+import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.JoinedGroups
 import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.upcomingSchedules
 import com.hyunjung.aiku.feature.home.component.CreateGroupDialog
-import com.hyunjung.aiku.feature.home.component.GroupSummaryContent
+import com.hyunjung.aiku.feature.home.component.JoinedGroupsContent
 import com.hyunjung.aiku.feature.home.component.UpcomingScheduleContent
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -37,12 +37,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
-    onGroupSummaryClick: (Long) -> Unit,
+    onGroupClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val lazyPagingSchedules = viewModel.upcomingSchedulePagingData.collectAsLazyPagingItems()
-    val lazyPagingGroupSummaries = viewModel.joinedGroupPagingData.collectAsLazyPagingItems()
+    val lazyPagingUpcomingSchedules = viewModel.upcomingSchedulePagingData.collectAsLazyPagingItems()
+    val lazyPagingJoinedGroups = viewModel.joinedGroupPagingData.collectAsLazyPagingItems()
 
     val userNickname by viewModel.userNickName.collectAsStateWithLifecycle()
     var showCreateGroupDialog by remember { mutableStateOf(false) }
@@ -55,7 +55,7 @@ fun HomeScreen(
             onCreateGroup = { groupName ->
                 coroutineScope.launch {
                     viewModel.createGroup(groupName)
-                    lazyPagingGroupSummaries.refresh()
+                    lazyPagingJoinedGroups.refresh()
                 }
             }
         )
@@ -63,10 +63,10 @@ fun HomeScreen(
 
     HomeScreen(
         userNickname = userNickname,
-        lazyPagingSchedules = lazyPagingSchedules,
-        lazyPagingGroupSummaries = lazyPagingGroupSummaries,
+        lazyPagingUpcomingSchedules = lazyPagingUpcomingSchedules,
+        lazyPagingJoinedGroups = lazyPagingJoinedGroups,
         onScheduleClick = onScheduleClick,
-        onGroupSummaryClick = onGroupSummaryClick,
+        onGroupClick = onGroupClick,
         onShowCreateGroupDialog = { showCreateGroupDialog = true },
         modifier = modifier,
     )
@@ -75,10 +75,10 @@ fun HomeScreen(
 @Composable
 private fun HomeScreen(
     userNickname: String,
-    lazyPagingSchedules: LazyPagingItems<UpcomingSchedule>,
-    lazyPagingGroupSummaries: LazyPagingItems<JoinedGroup>,
+    lazyPagingUpcomingSchedules: LazyPagingItems<UpcomingSchedule>,
+    lazyPagingJoinedGroups: LazyPagingItems<JoinedGroup>,
     onScheduleClick: (groupId: Long, scheduleId: Long) -> Unit,
-    onGroupSummaryClick: (Long) -> Unit,
+    onGroupClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -94,16 +94,16 @@ private fun HomeScreen(
                 .padding(horizontal = 20.dp),
         ) {
             UpcomingScheduleContent(
-                lazyPagingSchedules = lazyPagingSchedules,
+                lazyPagingUpcomingSchedules = lazyPagingUpcomingSchedules,
                 onScheduleClick = onScheduleClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 12.dp)
             )
-            GroupSummaryContent(
+            JoinedGroupsContent(
                 userNickname = userNickname,
-                lazyPagingGroupSummaries = lazyPagingGroupSummaries,
-                onGroupSummaryClick = onGroupSummaryClick,
+                lazyPagingJoinedGroups = lazyPagingJoinedGroups,
+                onGroupClick = onGroupClick,
                 onShowCreateGroupDialog = onShowCreateGroupDialog,
                 modifier = Modifier.weight(1f)
             )
@@ -115,7 +115,7 @@ private fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
 
-    val lazyPagingSchedules = flowOf(
+    val lazyPagingUpcomingSchedules = flowOf(
         PagingData.from(
             data = upcomingSchedules,
             sourceLoadStates =
@@ -127,9 +127,9 @@ private fun HomeScreenPreview() {
         ),
     ).collectAsLazyPagingItems()
 
-    val lazyPagingGroupSummaries = flowOf(
+    val lazyPagingJoinedGroups = flowOf(
         PagingData.from(
-            data = groupSummaries,
+            data = JoinedGroups,
             sourceLoadStates =
                 LoadStates(
                     refresh = LoadState.NotLoading(false),
@@ -143,10 +143,10 @@ private fun HomeScreenPreview() {
     AikuPreviewTheme {
         HomeScreen(
             userNickname = "아이쿠",
-            lazyPagingSchedules = lazyPagingSchedules,
-            lazyPagingGroupSummaries = lazyPagingGroupSummaries,
+            lazyPagingUpcomingSchedules = lazyPagingUpcomingSchedules,
+            lazyPagingJoinedGroups = lazyPagingJoinedGroups,
             onScheduleClick = { _, _ -> },
-            onGroupSummaryClick = {},
+            onGroupClick = {},
             onShowCreateGroupDialog = {},
         )
     }

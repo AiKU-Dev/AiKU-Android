@@ -28,7 +28,7 @@ class KtorScheduleDataSourceImplTest {
 
     @Test
     fun `getSchedules returns expected list`() = runTest {
-        val result: List<UpcomingSchedule> = subject.getSchedules(page = 1)
+        val result: List<UpcomingSchedule> = subject.getUpcomingSchedules(page = 1)
         assertEquals(1, result.size)
         assertEquals("운영체제", result[0].title)
         assertEquals("RUNNING", result[0].scheduleStatus.name)

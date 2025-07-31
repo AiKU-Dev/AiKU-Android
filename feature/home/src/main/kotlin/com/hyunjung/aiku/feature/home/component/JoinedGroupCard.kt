@@ -34,7 +34,7 @@ import java.time.format.DateTimeFormatter
 import com.hyunjung.aiku.core.ui.R as UiR
 
 @Composable
-internal fun GroupSummaryCard(
+internal fun JoinedGroupCard(
     onClick: () -> Unit,
     groupName: String,
     time: LocalDateTime?,
@@ -142,7 +142,7 @@ private fun AvatarWithBadge(
 @Composable
 private fun GroupCardPreview() {
     AiKUTheme {
-        GroupSummaryCard(
+        JoinedGroupCard(
             groupName = "그룹 1",
             time = null,
             onClick = {},

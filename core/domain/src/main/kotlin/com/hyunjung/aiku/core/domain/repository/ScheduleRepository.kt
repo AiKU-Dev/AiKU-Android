@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
 interface ScheduleRepository {
-    fun getSchedulePagingData(
+    fun getUpcomingSchedulePagingData(
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
     ): Flow<PagingData<UpcomingSchedule>>

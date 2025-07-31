@@ -25,11 +25,11 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val joinedGroupPagingData: Flow<PagingData<JoinedGroup>> =
-        groupRepository.getGroupSummaryPagingData()
+        groupRepository.getJoinedGroupsPagingData()
             .cachedIn(viewModelScope)
 
     val upcomingSchedulePagingData: Flow<PagingData<UpcomingSchedule>> =
-        scheduleRepository.getSchedulePagingData()
+        scheduleRepository.getUpcomingSchedulePagingData()
             .cachedIn(viewModelScope)
 
     val userNickName: StateFlow<String> = userDataRepository.userData

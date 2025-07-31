@@ -55,7 +55,7 @@ object PreviewParameterData {
         )
     )
 
-    val groupSummaries = (1..10).map {
+    val JoinedGroups = (1..10).map {
         JoinedGroup(
             id = it.toLong(),
             name = "그룹 $it",
