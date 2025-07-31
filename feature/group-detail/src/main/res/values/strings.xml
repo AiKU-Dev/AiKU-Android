@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="group_detail_member_section_empty_title">멤버를 초대해 보세요!</string>
-    <string name="group_detail_member_section_empty_button">+ 멤버 초대하기</string>
-    <string name="group_detail_member_section_invite">초대하기</string>
-    <string name="group_detail_member_section_avatar_description">%1$s의 프로필</string>
-    <string name="group_detail_schedule_section_empty_title">약속을 만들어 주세요!</string>
-    <string name="group_detail_schedule_section_empty_button">+ 약속 만들기</string>
-    <string name="group_detail_schedule_section_schedule_status_summary">진행중 %1$d | 대기중 %2$d</string>
+    <string name="group_detail_member_profile_image_description">%1$s 님의 프로필 이미지</string>
+    <string name="group_detail_member_tab_empty_title">멤버를 초대해 보세요!</string>
+    <string name="group_detail_member_tab_empty_button">+ 멤버 초대하기</string>
+    <string name="group_detail_member_tab_invite">초대하기</string>
+    <string name="group_detail_member_tab_avatar_description">%1$s의 프로필</string>
+    <string name="group_detail_schedule_tab_empty_title">약속을 만들어 주세요!</string>
+    <string name="group_detail_schedule_tab_empty_button">+ 약속 만들기</string>
+    <string name="group_detail_schedule_tab_schedule_status_summary">진행중 %1$d | 대기중 %2$d</string>
 
     <string name="create_group_schedule_name_default_supporting_text">최대 15자 입력이 가능합니다</string>
     <string name="create_group_schedule_name_error_blank">약속 이름을 입력해주세요</string>
