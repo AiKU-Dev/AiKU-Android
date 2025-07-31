@@ -4,7 +4,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.hyunjung.aiku.core.model.group.GroupMember
 import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.groupMembers
 
-class GroupMemberPreviewParameterProvider : PreviewParameterProvider<List<GroupMember>> {
+class GroupMemberListPreviewParameterProvider : PreviewParameterProvider<List<GroupMember>> {
 
-    override val values: Sequence<List<GroupMember>> = sequenceOf(groupMembers)
+    override val values: Sequence<List<GroupMember>> = sequenceOf(emptyList(), groupMembers)
 }

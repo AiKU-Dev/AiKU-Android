@@ -22,7 +22,7 @@ import com.hyunjung.aiku.core.model.profile.MemberProfileImage
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
 import com.hyunjung.aiku.core.ui.extension.painter
-import com.hyunjung.aiku.core.ui.preview.GroupMemberPreviewParameterProvider
+import com.hyunjung.aiku.core.ui.preview.GroupMemberListPreviewParameterProvider
 import com.hyunjung.aiku.feature.group.detail.R
 import com.hyunjung.aiku.core.ui.R as UiR
 
@@ -86,25 +86,12 @@ internal fun GroupMemberTab(
 @Preview
 @Composable
 private fun GroupMemberTabPreview(
-    @PreviewParameter(GroupMemberPreviewParameterProvider::class)
-    members: List<GroupMember>
+    @PreviewParameter(GroupMemberListPreviewParameterProvider::class)
+    groupMembers: List<GroupMember>
 ) {
     AiKUTheme {
         GroupMemberTab(
-            groupMembers = members,
-            onMemberClick = {},
-            onInviteClick = {},
-            modifier = Modifier
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun GroupMemberTabEmptyPreview() {
-    AiKUTheme {
-        GroupMemberTab(
-            groupMembers = emptyList(),
+            groupMembers = groupMembers,
             onMemberClick = {},
             onInviteClick = {},
             modifier = Modifier

@@ -40,7 +40,7 @@ import com.hyunjung.aiku.core.ui.component.common.AikuTabs
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.component.schedule.ScheduleCard
 import com.hyunjung.aiku.core.ui.paging.LazyPagingRow
-import com.hyunjung.aiku.core.ui.preview.GroupMemberPreviewParameterProvider
+import com.hyunjung.aiku.core.ui.preview.GroupMemberListPreviewParameterProvider
 import com.hyunjung.aiku.feature.group.detail.component.GroupMemberTab
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDateTime
@@ -201,26 +201,10 @@ private fun AdContainer(
     }
 }
 
-@Preview(showBackground = true, name = "Group Member Tab - Empty")
-@Composable
-private fun GroupDetailScreenMemberTabEmptyPreview() {
-    AiKUTheme {
-        GroupDetailScreen(
-            selectedTab = GroupDetailTab.MEMBER,
-            onTabSelected = {},
-            groupDetailUiState = GroupDetailUiState.Success(
-                GroupDetail(id = 0, name = "그룹 이름", members = emptyList())
-            ),
-            lazyPagingGroupSchedules = flowOf(PagingData.empty<GroupSchedule>())
-                .collectAsLazyPagingItems(),
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Group Member Tab")
+@Preview
 @Composable
 private fun GroupDetailScreenMemberTabPreview(
-    @PreviewParameter(GroupMemberPreviewParameterProvider::class)
+    @PreviewParameter(GroupMemberListPreviewParameterProvider::class)
     groupMembers: List<GroupMember>
 ) {
     AiKUTheme {
