@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_my_page_title">마이페이지</string>
+    <string name="profile_my_page_my_point">내 아쿠</string>
+    <string name="profile_my_page_shop_button">충전소 바로가기</string>
+</resources>
