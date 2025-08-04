@@ -40,6 +40,7 @@ import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
+import com.hyunjung.aiku.core.model.UserData
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
@@ -52,118 +53,47 @@ fun MyPageScreen(
     modifier: Modifier = Modifier,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
+
+}
+
+@Composable
+private fun MyPageScreen(
+    userData: UserData,
+    onMenuItemClick: (MenuAction) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = AiKUTheme.colors.gray01)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    AiKUTheme.colors.green02,
-                    shape = RoundedCornerShape(bottomStart = 50.dp, bottomEnd = 50.dp)
-                )
-                .padding(horizontal = 20.dp)
-        ) {
-            AikuText(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 28.dp),
-                textAlign = TextAlign.Center,
-                text = stringResource(R.string.profile_my_page_title),
-                style = AiKUTheme.typography.subtitle3G
-            )
-            Spacer(
-                modifier = Modifier.height(34.dp)
-            )
-            ProfileImageRow(
-                userProfileImage = UserProfileImage.Avatar(
-                    AvatarType.BOY,
-                    ProfileBackgroundColor.GREEN
-                ), modifier = Modifier
-            )
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = AiKUTheme.colors.white, shape = RoundedCornerShape(10.dp))
-                    .padding(horizontal = 24.dp, vertical = 16.dp)
-            ) {
-                AikuText(
-                    text = stringResource(R.string.profile_my_page_my_point),
-                    style = AiKUTheme.typography.body2Medium,
-                    color = AiKUTheme.colors.gray03
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    AikuIcon(
-                        painter = AikuIcons.Aku,
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                    AikuText(
-                        text = NumberFormat.getNumberInstance().format(10000),
-                        style = AiKUTheme.typography.subtitle3SemiBold
-                    )
-                }
-            }
-            AikuButton(
-                onClick = {},
-                enabled = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .offset(y = 24.dp),
-                colors = AikuButtonDefaults.buttonColors(
-                    containerColor = AiKUTheme.colors.cobaltBlue,
-                    contentColor = AiKUTheme.colors.white
-                ),
-                contentPadding = PaddingValues(vertical = 14.dp),
-                shape = RoundedCornerShape(10.dp)
-            ) {
-                AikuText(
-                    text = stringResource(R.string.profile_my_page_shop_button),
-                    style = AiKUTheme.typography.subtitle3SemiBold
-                )
-            }
-        }
+        MyPageHeader(
+            userData = userData,
+        )
+        Spacer(Modifier.height(36.dp))
         LazyColumn(
             modifier = Modifier
-                .padding(top = 44.dp, bottom = 20.dp, start = 20.dp, end = 20.dp)
+                .padding(horizontal = 20.dp)
+                .fillMaxWidth()
                 .shadow(
                     elevation = 10.dp,
-                    shape = RoundedCornerShape(12.dp),
                     ambientColor = Color.Black.copy(alpha = 0.08f),
                     spotColor = AiKUTheme.colors.gray03
                 )
+                .background(color = AiKUTheme.colors.white, shape = RoundedCornerShape(10.dp))
         ) {
-            item {
-                ProfileMenuSection { menuAction ->
-                    when (menuAction) {
-                        MenuAction.NOTIFICATION -> {
-                            // 알림 화면으로 이동
-                        }
+            MenuAction.entries.forEachIndexed { index, menuAction ->
+                item {
+                    MenuItemRow(
+                        menuAction = menuAction,
+                        onClick = { onMenuItemClick(menuAction) },
+                    )
 
-                        MenuAction.ACCOUNT -> {
-                            // 계정 화면으로 이동
-                        }
-
-                        MenuAction.NOTIFICATION_CHECK -> {
-                            // 알림 확인 화면으로 이동
-                        }
-
-                        MenuAction.PERMISSION_SETTING -> {
-                            // 권한 설정 화면으로 이동
-                        }
-
-                        MenuAction.HELP -> {
-                            // 도움말 화면으로 이동
-                        }
+                    if (index < MenuAction.entries.size - 1) {
+                        AikuHorizontalDivider(
+                            thickness = 1.dp,
+                            color = AiKUTheme.colors.gray02
+                        )
                     }
                 }
             }
@@ -172,21 +102,107 @@ fun MyPageScreen(
 }
 
 @Composable
-private fun ProfileImageRow(userProfileImage: UserProfileImage, modifier: Modifier = Modifier) {
-    // TODO: 프로필 이미지 받아오기
+private fun MyPageHeader(
+    modifier: Modifier = Modifier,
+    userData: UserData,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(
+                AiKUTheme.colors.green02,
+                shape = RoundedCornerShape(bottomStart = 50.dp, bottomEnd = 50.dp)
+            )
+            .padding(horizontal = 20.dp)
+    ) {
+        AikuText(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 28.dp),
+            textAlign = TextAlign.Center,
+            text = stringResource(R.string.profile_my_page_title),
+            style = AiKUTheme.typography.subtitle3G
+        )
+        Spacer(
+            modifier = Modifier.height(34.dp)
+        )
+        UserProfileInfo(
+            nickname = userData.nickname,
+            email = userData.email,
+            profileImage = userData.profileImage,
+            modifier = Modifier
+        )
+        Spacer(
+            modifier = Modifier.height(20.dp)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = AiKUTheme.colors.white, shape = RoundedCornerShape(10.dp))
+                .padding(horizontal = 24.dp, vertical = 16.dp)
+        ) {
+            AikuText(
+                text = stringResource(R.string.profile_my_page_my_point),
+                style = AiKUTheme.typography.body2Medium,
+                color = AiKUTheme.colors.gray03
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AikuIcon(
+                    painter = AikuIcons.Aku,
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+                AikuText(
+                    text = NumberFormat.getNumberInstance().format(userData.point),
+                    style = AiKUTheme.typography.subtitle3SemiBold
+                )
+            }
+        }
+        AikuButton(
+            onClick = {},
+            enabled = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = 24.dp),
+            colors = AikuButtonDefaults.buttonColors(
+                containerColor = AiKUTheme.colors.cobaltBlue,
+                contentColor = AiKUTheme.colors.white
+            ),
+            contentPadding = PaddingValues(vertical = 14.dp),
+            shape = RoundedCornerShape(10.dp)
+        ) {
+            AikuText(
+                text = stringResource(R.string.profile_my_page_shop_button),
+                style = AiKUTheme.typography.subtitle3SemiBold
+            )
+        }
+    }
+}
+
+@Composable
+private fun UserProfileInfo(
+    nickname: String,
+    email: String,
+    profileImage: UserProfileImage,
+    modifier: Modifier = Modifier
+) {
     Row {
         Box(modifier = modifier) {
             AikuClickableSurface(
                 modifier = Modifier.size(100.dp),
                 onClick = {},
-                color = userProfileImage.backgroundColor(),
+                color = profileImage.backgroundColor(),
                 shape = CircleShape,
-                contentPadding = if (userProfileImage is UserProfileImage.Avatar) PaddingValues(12.dp) else PaddingValues(
+                contentPadding = if (profileImage is UserProfileImage.Avatar) PaddingValues(12.dp) else PaddingValues(
                     0.dp
                 )
             ) {
                 Image(
-                    painter = userProfileImage.painter(),
+                    painter = profileImage.painter(),
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -215,41 +231,15 @@ private fun ProfileImageRow(userProfileImage: UserProfileImage, modifier: Modifi
                 .padding(start = 20.dp)
         ) {
             AikuText(
-                text = "사용자1",
+                text = nickname,
                 style = AiKUTheme.typography.subtitle2G
             )
             AikuText(
-                text = "aiku@naver.com",
+                text = email,
                 style = AiKUTheme.typography.body2,
                 modifier = Modifier
                     .padding(top = 8.dp)
             )
-        }
-    }
-}
-
-@Composable
-private fun ProfileMenuSection(
-    modifier: Modifier = Modifier,
-    onMenuItemClick: (MenuAction) -> Unit = {}
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = AiKUTheme.colors.white, shape = RoundedCornerShape(10.dp)),
-    ) {
-        MenuAction.entries.forEachIndexed { index, menuAction ->
-            MenuItemRow(
-                menuAction = menuAction,
-                onClick = { onMenuItemClick(menuAction) }
-            )
-
-            if (index < MenuAction.entries.size - 1) {
-                AikuHorizontalDivider(
-                    thickness = 1.dp,
-                    color = AiKUTheme.colors.gray02
-                )
-            }
         }
     }
 }
@@ -285,20 +275,21 @@ private fun MenuItemRow(
 @Preview(showBackground = true)
 @Composable
 private fun MyPageScreenPreview() {
+    val userData = UserData(
+        id = 1L,
+        email = "email@example.com",
+        nickname = "아이쿠",
+        kakaoId = "email@kakao.com",
+        profileImage = UserProfileImage.Avatar(
+            type = AvatarType.BOY,
+            backgroundColor = ProfileBackgroundColor.GREEN
+        ),
+        point = 10000,
+    )
     AiKUTheme {
-        MyPageScreen()
-    }
-}
-
-@Preview
-@Composable
-private fun ProfileImageRowPreview() {
-    AiKUTheme {
-        ProfileImageRow(
-            userProfileImage = UserProfileImage.Avatar(
-                type = AvatarType.BOY,
-                backgroundColor = ProfileBackgroundColor.GREEN
-            )
+        MyPageScreen(
+            userData = userData,
+            onMenuItemClick = {}
         )
     }
 }
