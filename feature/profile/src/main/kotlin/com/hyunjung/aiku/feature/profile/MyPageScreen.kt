@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,11 +33,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuHorizontalDivider
 import com.hyunjung.aiku.core.designsystem.component.AikuIcon
+import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
@@ -44,58 +47,112 @@ import com.hyunjung.aiku.core.model.UserData
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
+import com.hyunjung.aiku.core.navigation.AikuRoute
+import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
 import com.hyunjung.aiku.core.ui.extension.painter
+import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 import java.text.NumberFormat
 
 @Composable
 fun MyPageScreen(
     modifier: Modifier = Modifier,
+    onClickNotification: () -> Unit,
+    onClickAccount: () -> Unit,
+    onClickNotificationCheck: () -> Unit,
+    onClickPermissionSetting: () -> Unit,
+    onClickHelp: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    MyPageScreen(
+        uiState = uiState,
+        onMenuItemClick = { menuAction ->
+            when (menuAction) {
+                MenuAction.NOTIFICATION -> onClickNotification()
+                MenuAction.ACCOUNT -> onClickAccount()
+                MenuAction.NOTIFICATION_CHECK -> onClickNotificationCheck()
+                MenuAction.PERMISSION_SETTING -> onClickPermissionSetting()
+                MenuAction.HELP -> onClickHelp()
+            }
+        },
+        modifier = modifier,
+    )
 }
 
 @Composable
 private fun MyPageScreen(
-    userData: UserData,
+    uiState: MyPageUiState,
     onMenuItemClick: (MenuAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = AiKUTheme.colors.gray01)
-    ) {
-        MyPageHeader(
-            userData = userData,
-        )
-        Spacer(Modifier.height(36.dp))
-        LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .fillMaxWidth()
-                .shadow(
-                    elevation = 10.dp,
-                    ambientColor = Color.Black.copy(alpha = 0.08f),
-                    spotColor = AiKUTheme.colors.gray03
+    when (uiState) {
+        is MyPageUiState.Error -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                AikuText(
+                    text = uiState.message ?: "Unknown Error"
                 )
-                .background(color = AiKUTheme.colors.white, shape = RoundedCornerShape(10.dp))
-        ) {
-            MenuAction.entries.forEachIndexed { index, menuAction ->
-                item {
-                    MenuItemRow(
-                        menuAction = menuAction,
-                        onClick = { onMenuItemClick(menuAction) },
-                    )
+            }
+        }
 
-                    if (index < MenuAction.entries.size - 1) {
-                        AikuHorizontalDivider(
-                            thickness = 1.dp,
-                            color = AiKUTheme.colors.gray02
+        is MyPageUiState.Loading -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                AikuLoadingWheel(
+                    modifier = Modifier.size(80.dp),
+                    contentDescription = null,
+                )
+            }
+        }
+
+        is MyPageUiState.Success -> {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(color = AiKUTheme.colors.gray01)
+            ) {
+                MyPageHeader(
+                    userData = uiState.userData,
+                )
+                Spacer(Modifier.height(36.dp))
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .fillMaxWidth()
+                        .shadow(
+                            elevation = 10.dp,
+                            ambientColor = Color.Black.copy(alpha = 0.08f),
+                            spotColor = AiKUTheme.colors.gray03
                         )
+                        .background(
+                            color = AiKUTheme.colors.white,
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                ) {
+                    MenuAction.entries.forEachIndexed { index, menuAction ->
+                        item {
+                            MenuItemRow(
+                                menuAction = menuAction,
+                                onClick = { onMenuItemClick(menuAction) },
+                            )
+
+                            if (index < MenuAction.entries.size - 1) {
+                                AikuHorizontalDivider(
+                                    thickness = 1.dp,
+                                    color = AiKUTheme.colors.gray02
+                                )
+                            }
+                        }
                     }
                 }
+                Spacer(Modifier.weight(1f))
+                AikuNavigationBar(AikuRoute.MyPageRoute)
             }
         }
     }
@@ -286,9 +343,10 @@ private fun MyPageScreenPreview() {
         ),
         point = 10000,
     )
-    AiKUTheme {
+
+    AikuPreviewTheme {
         MyPageScreen(
-            userData = userData,
+            uiState = MyPageUiState.Success(userData),
             onMenuItemClick = {}
         )
     }
