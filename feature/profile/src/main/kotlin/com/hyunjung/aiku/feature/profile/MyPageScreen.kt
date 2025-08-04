@@ -3,6 +3,7 @@ package com.hyunjung.aiku.feature.profile
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,15 +16,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hyunjung.aiku.core.designsystem.component.AikuButton
 import com.hyunjung.aiku.core.designsystem.component.AikuButtonDefaults
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
+import com.hyunjung.aiku.core.designsystem.component.AikuHorizontalDivider
 import com.hyunjung.aiku.core.designsystem.component.AikuIcon
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
@@ -50,6 +55,7 @@ fun MyPageScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(color = AiKUTheme.colors.gray01)
     ) {
         Column(
             modifier = Modifier
@@ -126,6 +132,42 @@ fun MyPageScreen(
                 )
             }
         }
+        LazyColumn(
+            modifier = Modifier
+                .padding(top = 44.dp, bottom = 20.dp, start = 20.dp, end = 20.dp)
+                .shadow(
+                    elevation = 10.dp,
+                    shape = RoundedCornerShape(12.dp),
+                    ambientColor = Color.Black.copy(alpha = 0.08f),
+                    spotColor = AiKUTheme.colors.gray03
+                )
+        ) {
+            item {
+                ProfileMenuSection { menuAction ->
+                    when (menuAction) {
+                        MenuAction.NOTIFICATION -> {
+                            // 알림 화면으로 이동
+                        }
+
+                        MenuAction.ACCOUNT -> {
+                            // 계정 화면으로 이동
+                        }
+
+                        MenuAction.NOTIFICATION_CHECK -> {
+                            // 알림 확인 화면으로 이동
+                        }
+
+                        MenuAction.PERMISSION_SETTING -> {
+                            // 권한 설정 화면으로 이동
+                        }
+
+                        MenuAction.HELP -> {
+                            // 도움말 화면으로 이동
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -183,6 +225,60 @@ private fun ProfileImageRow(userProfileImage: UserProfileImage, modifier: Modifi
                     .padding(top = 8.dp)
             )
         }
+    }
+}
+
+@Composable
+private fun ProfileMenuSection(
+    modifier: Modifier = Modifier,
+    onMenuItemClick: (MenuAction) -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(color = AiKUTheme.colors.white, shape = RoundedCornerShape(10.dp)),
+    ) {
+        MenuAction.entries.forEachIndexed { index, menuAction ->
+            MenuItemRow(
+                menuAction = menuAction,
+                onClick = { onMenuItemClick(menuAction) }
+            )
+
+            if (index < MenuAction.entries.size - 1) {
+                AikuHorizontalDivider(
+                    thickness = 1.dp,
+                    color = AiKUTheme.colors.gray02
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MenuItemRow(
+    menuAction: MenuAction,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 16.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        AikuText(
+            text = menuAction.title,
+            style = AiKUTheme.typography.body2,
+            color = Color.Black,
+            fontWeight = FontWeight.Normal
+        )
+        AikuIcon(
+            painter = AikuIcons.ArrowRight,
+            contentDescription = menuAction.title,
+            tint = Color.Unspecified
+        )
     }
 }
 
