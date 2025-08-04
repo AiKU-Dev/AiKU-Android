@@ -13,6 +13,7 @@ import com.hyunjung.aiku.feature.auth.navigation.authSection
 import com.hyunjung.aiku.feature.auth.navigation.navigateToSignUpSingleTop
 import com.hyunjung.aiku.feature.home.navigation.homeScreen
 import com.hyunjung.aiku.feature.home.navigation.navigateToHomeClearBackStack
+import com.hyunjung.aiku.feature.profile.myPageScreen
 import com.hyunjung.aiku.feature.splash.navigation.splashScreen
 import com.hyunjung.aiku.ui.AikuAppState
 
@@ -44,6 +45,15 @@ fun AikuNavHost(
             // todo : navigate
             onScheduleClick = { groupId, scheduleId -> },
             onGroupClick = { groupId -> },
+        )
+
+        myPageScreen(
+            // todo : navigate
+            onClickNotification = {},
+            onClickAccount = {},
+            onClickNotificationCheck = {},
+            onClickPermissionSetting = {},
+            onClickHelp = {},
         )
 
         composable<AikuRoute.TermsDetailRoute> { backStackEntry ->

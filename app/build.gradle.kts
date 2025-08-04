@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.auth)
     implementation(projects.feature.splash)
+    implementation(projects.feature.profile)
 
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
