@@ -95,7 +95,9 @@ internal fun SignUpProfileScreen(
                 onEditClick = { isOptionMenuVisible = true },
                 onCharacterProfileSelected = onCharacterProfileSelected,
                 onAlbumImageSelected = onAlbumImageSelected,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally),
             )
 
             Column(

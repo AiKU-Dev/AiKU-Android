@@ -14,7 +14,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -35,8 +34,8 @@ import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.component.dialog.CharacterProfilePickerDialog
@@ -74,7 +73,7 @@ fun ProfileImagePicker(
         )
     }
 
-    Box(modifier = modifier.fillMaxWidth()) {
+    Box(modifier = modifier) {
         Box(modifier = Modifier.align(Alignment.Center)) {
             AikuClickableSurface(
                 onClick = onEditClick,

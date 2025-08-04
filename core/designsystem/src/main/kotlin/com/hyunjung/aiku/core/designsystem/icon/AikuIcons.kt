@@ -33,4 +33,6 @@ object AikuIcons {
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_home)
     val Schedule: Painter
         @Composable get() = painterResource(id = R.drawable.core_designsystem_ic_schedule)
+    val ArrowRight: Painter
+        @Composable get() = painterResource(id = R.drawable.core_designsystem_arrow_right)
 }
