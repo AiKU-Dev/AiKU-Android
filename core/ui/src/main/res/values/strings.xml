@@ -34,6 +34,8 @@
     <!-- schedule -->
     <string name="schedule_status_running">진행 중</string>
     <string name="schedule_status_waiting">대기 중</string>
+    <string name="schedule_status_before_join">참가 전</string>
+    <string name="schedule_status_terminated">종료</string>
 
     <!-- dialog -->
     <string name="character_picker_dialog_title">캐릭터를 선택해주세요!</string>

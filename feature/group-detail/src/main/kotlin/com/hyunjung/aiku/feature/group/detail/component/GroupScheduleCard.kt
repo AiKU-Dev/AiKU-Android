@@ -1,4 +1,4 @@
-package com.hyunjung.aiku.core.ui.component.schedule
+package com.hyunjung.aiku.feature.group.detail.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuHorizontalDivider
@@ -23,35 +24,24 @@ import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.component.AikuVerticalDivider
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.schedule.Location
+import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
 import com.hyunjung.aiku.core.ui.R
-import java.time.LocalDateTime
+import com.hyunjung.aiku.core.ui.preview.GroupSchedulePreviewParameterProvider
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-val ScheduleStatus.label: String
-    get() = when (this) {
-        ScheduleStatus.WAITING -> "대기 중"
-        ScheduleStatus.RUNNING -> "진행 중"
-        ScheduleStatus.BEFORE_JOIN -> "참가 전"
-        ScheduleStatus.TERMINATED -> "종료"
-    }
-
 @Composable
-fun ScheduleCard(
+fun GroupScheduleCard(
+    groupSchedule: GroupSchedule,
     onClick: () -> Unit,
-    scheduleName: String,
-    location: Location,
-    time: LocalDateTime,
-    scheduleStatus: ScheduleStatus,
     modifier: Modifier = Modifier
 ) {
     val formatter = remember {
         DateTimeFormatter.ofPattern("yyyy. MM. dd E | a hh:mm", Locale.KOREAN)
     }
 
-    val scheduleStatusColor = when (scheduleStatus) {
+    val scheduleStatusColor = when (groupSchedule.scheduleStatus) {
         ScheduleStatus.WAITING -> AiKUTheme.colors.purple05
         ScheduleStatus.RUNNING -> AiKUTheme.colors.green05
         ScheduleStatus.BEFORE_JOIN -> AiKUTheme.colors.yellow05
@@ -82,11 +72,18 @@ fun ScheduleCard(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     AikuText(
-                        text = scheduleName,
+                        text = groupSchedule.title,
                         style = AiKUTheme.typography.subtitle3Bold
                     )
                     AikuText(
-                        text = scheduleStatus.label,
+                        text = stringResource(
+                            when (groupSchedule.scheduleStatus) {
+                                ScheduleStatus.RUNNING -> R.string.schedule_status_running
+                                ScheduleStatus.WAITING -> R.string.schedule_status_waiting
+                                ScheduleStatus.TERMINATED -> R.string.schedule_status_terminated
+                                ScheduleStatus.BEFORE_JOIN -> R.string.schedule_status_before_join
+                            }
+                        ),
                         style = AiKUTheme.typography.caption1SemiBold,
                         color = AiKUTheme.colors.white,
                         modifier = Modifier
@@ -111,7 +108,7 @@ fun ScheduleCard(
                         tint = AiKUTheme.colors.gray00
                     )
                     AikuText(
-                        text = location.locationName,
+                        text = groupSchedule.location.locationName,
                         style = AiKUTheme.typography.caption1,
                     )
                 }
@@ -120,7 +117,7 @@ fun ScheduleCard(
                     modifier = Modifier.padding(vertical = 12.dp)
                 )
                 AikuText(
-                    text = time.format(formatter),
+                    text = groupSchedule.scheduleTime.format(formatter),
                     style = AiKUTheme.typography.caption1,
                 )
             }
@@ -130,18 +127,14 @@ fun ScheduleCard(
 
 @Preview
 @Composable
-private fun GroupScheduleCardPreview() {
+private fun GroupScheduleCardPreview(
+    @PreviewParameter(GroupSchedulePreviewParameterProvider::class)
+    groupSchedule: GroupSchedule
+) {
     AiKUTheme {
-        ScheduleCard(
+        GroupScheduleCard(
             onClick = {},
-            scheduleName = "약속 이름",
-            location = Location(
-                locationName = "홍대 입구역 1번 출구",
-                latitude = 37.566535,
-                longitude = 126.977969
-            ),
-            time = LocalDateTime.of(2024, 12, 13, 18, 0),
-            scheduleStatus = ScheduleStatus.WAITING
+            groupSchedule = groupSchedule,
         )
     }
 }

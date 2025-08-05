@@ -1,6 +1,7 @@
 package com.hyunjung.aiku.core.ui.preview
 
 import com.hyunjung.aiku.core.model.group.GroupMember
+import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.MemberProfileImage
@@ -30,6 +31,23 @@ object PreviewParameterData {
             scheduleStatus = ScheduleStatus.entries[index]
         )
     }
+
+    val groupSchedules = List(4) { index ->
+        GroupSchedule(
+            id = (index + 1).toLong(),
+            title = "그룹 일정 ${index + 1}",
+            location = Location(
+                latitude = 37.5407,
+                longitude = 127.0795,
+                locationName = "공학관"
+            ),
+            scheduleTime = previewLocalDateTime,
+            scheduleStatus = ScheduleStatus.entries[index % ScheduleStatus.entries.size],
+            memberSize = 5 + index,
+            accept = false
+        )
+    }
+
 
     val JoinedGroups = (1..10).map {
         JoinedGroup(
