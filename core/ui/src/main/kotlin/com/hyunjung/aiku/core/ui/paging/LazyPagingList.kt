@@ -5,6 +5,7 @@ import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -22,9 +23,9 @@ import androidx.paging.LoadState
 fun LazyPagingRow(
     refreshLoadState: LoadState,
     isEmpty: Boolean,
-    loading: @Composable () -> Unit,
-    error: @Composable (Throwable) -> Unit,
-    empty: @Composable () -> Unit,
+    empty: @Composable BoxScope.() -> Unit,
+    error: @Composable BoxScope.(Throwable) -> Unit,
+    loading: @Composable BoxScope.() -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -64,9 +65,9 @@ fun LazyPagingRow(
 fun LazyPagingColumn(
     refreshLoadState: LoadState,
     isEmpty: Boolean,
-    loading: @Composable () -> Unit,
-    error: @Composable (Throwable) -> Unit,
-    empty: @Composable () -> Unit,
+    empty: @Composable BoxScope.() -> Unit,
+    error: @Composable BoxScope.(Throwable) -> Unit,
+    loading: @Composable BoxScope.() -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -106,16 +107,13 @@ fun LazyPagingColumn(
 private fun RefreshStateLayout(
     refreshLoadState: LoadState,
     isEmpty: Boolean,
-    empty: @Composable () -> Unit,
-    error: @Composable (Throwable) -> Unit,
-    loading: @Composable () -> Unit,
-    content: @Composable () -> Unit,
+    empty: @Composable BoxScope.() -> Unit,
+    error: @Composable BoxScope.(Throwable) -> Unit,
+    loading: @Composable BoxScope.() -> Unit,
+    content: @Composable BoxScope.() -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
+    Box(modifier = modifier) {
         when (refreshLoadState) {
             is LoadState.Loading -> loading()
             is LoadState.Error -> error(refreshLoadState.error)

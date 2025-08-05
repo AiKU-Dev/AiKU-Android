@@ -60,6 +60,7 @@ internal fun JoinedGroupsContent(
                 isEmpty = isEmptyJoinedGroup,
                 onGroupClick = onGroupClick,
                 onShowCreateGroupDialog = onShowCreateGroupDialog,
+                modifier = Modifier.fillMaxSize()
             )
 
             if (!isEmptyJoinedGroup) {
@@ -75,19 +76,24 @@ private fun JoinedGroupsPagingList(
     isEmpty: Boolean,
     onGroupClick: (Long) -> Unit,
     onShowCreateGroupDialog: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyPagingColumn(
         refreshLoadState = lazyPagingJoinedGroups.loadState.refresh,
         isEmpty = isEmpty,
         loading = {
-            AikuLoadingWheel(modifier = Modifier.size(80.dp))
+            AikuLoadingWheel(
+                modifier = Modifier
+                    .size(80.dp)
+                    .align(Alignment.Center)
+            )
         },
         empty = {
             EmptyPlaceholder(
                 title = stringResource(R.string.feature_home_group_empty_message),
                 buttonText = stringResource(R.string.feature_home_group_empty_button),
                 onClickButton = onShowCreateGroupDialog,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.align(Alignment.Center)
             )
         },
         error = { throwable ->
@@ -99,7 +105,7 @@ private fun JoinedGroupsPagingList(
         },
         verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(bottom = 40.dp),
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
     ) {
         items(
             count = lazyPagingJoinedGroups.itemCount,

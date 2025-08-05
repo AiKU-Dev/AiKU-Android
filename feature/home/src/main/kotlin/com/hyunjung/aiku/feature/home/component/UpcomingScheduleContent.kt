@@ -3,12 +3,12 @@ package com.hyunjung.aiku.feature.home.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,8 +22,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.hyunjung.aiku.core.designsystem.component.AikuLoadingWheel
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
+import com.hyunjung.aiku.core.model.schedule.UpcomingSchedule
 import com.hyunjung.aiku.core.ui.paging.LazyPagingRow
 import com.hyunjung.aiku.core.ui.preview.UpcomingSchedulePreviewParameterProvider
 import com.hyunjung.aiku.feature.home.R
@@ -51,11 +51,12 @@ internal fun UpcomingScheduleContent(
             text = stringResource(R.string.feature_home_schedule_title),
             style = AiKUTheme.typography.body2,
         )
+        Spacer(Modifier.height(12.dp))
         LazyPagingRow(
             refreshLoadState = lazyPagingUpcomingSchedules.loadState.refresh,
             isEmpty = lazyPagingUpcomingSchedules.itemCount == 0,
-            loading = { AikuLoadingWheel() },
-            empty = { UpcomingSchedulePlaceholder() },
+            loading = { AikuLoadingWheel(Modifier.align(Alignment.Center)) },
+            empty = { UpcomingSchedulePlaceholder(Modifier.fillMaxHeight()) },
             error = { throwable ->
                 // todo : Error UI 교체
                 AikuText(
@@ -66,8 +67,7 @@ internal fun UpcomingScheduleContent(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 132.dp)
-                .padding(vertical = 12.dp),
+                .height(132.dp)
         ) {
             items(
                 count = lazyPagingUpcomingSchedules.itemCount,
@@ -84,7 +84,8 @@ internal fun UpcomingScheduleContent(
                                 schedule.groupId,
                                 schedule.id
                             )
-                        }
+                        },
+                        modifier = Modifier
                     )
                 }
             }
@@ -115,7 +116,6 @@ private fun UpcomingSchedulePreview(
         UpcomingScheduleContent(
             lazyPagingUpcomingSchedules = lazyPagingUpcomingSchedules,
             onScheduleClick = { _, _ -> },
-            modifier = Modifier.padding(20.dp)
         )
     }
 }
