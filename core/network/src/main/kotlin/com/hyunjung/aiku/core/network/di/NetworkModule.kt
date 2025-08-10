@@ -1,11 +1,13 @@
 package com.hyunjung.aiku.core.network.di
 
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
-import com.hyunjung.aiku.core.network.datasource.KtorAuthRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorAuthRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.KtorGroupRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.KtorScheduleRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorUserRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.ScheduleRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.UserRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,4 +31,9 @@ internal abstract class NetworkModule {
     abstract fun bindScheduleRemoteDataSource(
         scheduleRemoteDataSource: KtorScheduleRemoteDataSource
     ): ScheduleRemoteDataSource
+
+    @Binds
+    abstract fun bindUserRemoteDataSource(
+        userRemoteDataSource: KtorUserRemoteDataSource
+    ): UserRemoteDataSource
 }
