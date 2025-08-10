@@ -8,9 +8,5 @@ interface UserDataRepository {
 
     val userData: Flow<UserData>
 
-    suspend fun setEmail(email: String)
-
-    suspend fun setNickname(nickname: String)
-
-    suspend fun setProfileImage(profileImage: UserProfileImage)
+    suspend fun setUserProfile(nickname: String, profileImage: UserProfileImage)
 }

@@ -13,15 +13,8 @@ class OfflineFirstUserDataRepository @Inject constructor(
 
     override val userData: Flow<UserData> = userDataStore.userData
 
-    override suspend fun setEmail(email: String) {
-        userDataStore.setEmail(email)
-    }
-
-    override suspend fun setNickname(nickname: String) {
+    override suspend fun setUserProfile(nickname: String, profileImage: UserProfileImage) {
         userDataStore.setNickname(nickname)
-    }
-
-    override suspend fun setProfileImage(profileImage: UserProfileImage) {
         userDataStore.setProfileImage(profileImage)
     }
 }
