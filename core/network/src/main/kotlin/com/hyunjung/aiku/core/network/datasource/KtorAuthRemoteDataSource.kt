@@ -24,7 +24,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.headers
 import javax.inject.Inject
 
-class DefaultAuthRemoteDataSource @Inject constructor(
+class KtorAuthRemoteDataSource @Inject constructor(
     @UnauthenticatedClient private val client: HttpClient,
 ) : AuthRemoteDataSource {
 

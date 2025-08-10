@@ -1,7 +1,7 @@
 package com.hyunjung.aiku.core.network.di
 
 import com.hyunjung.aiku.core.network.datasource.AuthRemoteDataSource
-import com.hyunjung.aiku.core.network.datasource.DefaultAuthRemoteDataSource
+import com.hyunjung.aiku.core.network.datasource.KtorAuthRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.GroupRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.KtorGroupRemoteDataSource
 import com.hyunjung.aiku.core.network.datasource.KtorScheduleRemoteDataSource
@@ -17,7 +17,7 @@ internal abstract class NetworkModule {
 
     @Binds
     abstract fun bindAuthRemoteDataSource(
-        authRemoteDataSource: DefaultAuthRemoteDataSource
+        authRemoteDataSource: KtorAuthRemoteDataSource
     ): AuthRemoteDataSource
 
     @Binds
