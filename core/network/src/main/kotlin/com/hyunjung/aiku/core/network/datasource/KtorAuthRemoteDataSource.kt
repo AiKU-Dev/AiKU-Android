@@ -39,7 +39,7 @@ class KtorAuthRemoteDataSource @Inject constructor(
         client.post(UserResource()) {
             setBody(MultiPartFormDataContent(formData {
                 appendBaseFields(signUpForm)
-                appendProfileFields(signUpForm.userProfileImage)
+                appendProfileFields(signUpForm.pendingProfileImage)
                 appendAgreementFields(signUpForm.agreedTerms)
                 append("recommenderNickname", signUpForm.recommenderNickname)
             }))

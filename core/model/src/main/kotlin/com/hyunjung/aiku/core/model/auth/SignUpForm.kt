@@ -1,15 +1,15 @@
 package com.hyunjung.aiku.core.model.auth
 
-import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.AvatarType
-import com.hyunjung.aiku.core.model.profile.UserProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.PendingProfileImage
 
 data class SignUpForm(
     val idToken: String,
     val socialType: SocialType,
     val email: String,
     val nickname: String = "",
-    val userProfileImage: UserProfileImage = UserProfileImage.Avatar(
+    val pendingProfileImage: PendingProfileImage = PendingProfileImage.Avatar(
         type = AvatarType.BOY,
         backgroundColor = ProfileBackgroundColor.GREEN,
     ),

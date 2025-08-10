@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.network.model
 
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.AvatarType
-import com.hyunjung.aiku.core.model.profile.MemberProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileImage
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,11 +13,11 @@ data class MemberProfileResponse(
     val profileBackground: String? = null
 )
 
-fun MemberProfileResponse.toModel(): MemberProfileImage =
+fun MemberProfileResponse.toModel(): ProfileImage =
     if (profileType == "IMG" && !profileImg.isNullOrBlank()) {
-        MemberProfileImage.Photo(url = profileImg)
+        ProfileImage.Photo(url = profileImg)
     } else {
-        MemberProfileImage.Avatar(
+        ProfileImage.Avatar(
             type = when (profileCharacter) {
                 "C01" -> AvatarType.BOY
                 "C02" -> AvatarType.BABY

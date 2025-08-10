@@ -14,6 +14,6 @@ message UserDataProto {
 
   oneof profile_image {
     AvatarProto avatar = 6;
-    string file_path = 7;
+    string url = 7;
   }
 }

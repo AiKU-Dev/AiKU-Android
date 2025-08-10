@@ -1,13 +1,13 @@
 package com.hyunjung.aiku.core.model.profile
 
-sealed interface MemberProfileImage {
+sealed interface ProfileImage {
 
     data class Photo(
         val url: String
-    ) : MemberProfileImage
+    ) : ProfileImage
 
     data class Avatar(
         val type: AvatarType,
         val backgroundColor: ProfileBackgroundColor
-    ) : MemberProfileImage
+    ) : ProfileImage
 }

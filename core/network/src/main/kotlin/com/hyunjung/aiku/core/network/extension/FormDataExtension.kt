@@ -2,7 +2,7 @@ package com.hyunjung.aiku.core.network.extension
 
 import com.hyunjung.aiku.core.model.auth.SignUpForm
 import com.hyunjung.aiku.core.model.auth.TermsType
-import com.hyunjung.aiku.core.model.profile.UserProfileImage
+import com.hyunjung.aiku.core.model.profile.PendingProfileImage
 import io.ktor.client.request.forms.FormBuilder
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
@@ -14,9 +14,9 @@ internal fun FormBuilder.appendBaseFields(form: SignUpForm) {
     append("idToken", form.idToken)
 }
 
-internal fun FormBuilder.appendProfileFields(profile: UserProfileImage) {
+internal fun FormBuilder.appendProfileFields(profile: PendingProfileImage) {
     when (profile) {
-        is UserProfileImage.Photo -> {
+        is PendingProfileImage.Photo -> {
             append("memberProfile.profileType", "IMG")
             append(
                 "memberProfile.profileImg",
@@ -28,7 +28,7 @@ internal fun FormBuilder.appendProfileFields(profile: UserProfileImage) {
             )
         }
 
-        is UserProfileImage.Avatar -> {
+        is PendingProfileImage.Avatar -> {
             append("memberProfile.profileType", "CHAR")
             append("memberProfile.profileCharacter", profile.type.code)
             append("memberProfile.profileBackground", profile.backgroundColor.name)

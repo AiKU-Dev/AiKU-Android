@@ -32,9 +32,9 @@ import com.hyunjung.aiku.core.designsystem.component.textfield.AikuLimitedTextFi
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextField
 import com.hyunjung.aiku.core.designsystem.component.textfield.AikuTextFieldDefaults
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import com.hyunjung.aiku.core.model.auth.SignUpForm
 import com.hyunjung.aiku.core.model.auth.SocialType
+import com.hyunjung.aiku.core.model.profile.PendingProfileImage
 import com.hyunjung.aiku.core.ui.component.common.LoadingOverlayContainer
 import com.hyunjung.aiku.core.ui.component.common.NicknameField
 import com.hyunjung.aiku.core.ui.component.common.ProfileImagePicker
@@ -48,7 +48,7 @@ internal fun SignUpProfileScreen(
     uiState: SignUpProfileUiState = SignUpProfileUiState.Idle,
     snackbarHostState: AikuSnackbarHostState = AikuSnackbarHostState(),
     onNicknameChange: (String) -> Unit = {},
-    onCharacterProfileSelected: (UserProfileImage.Avatar) -> Unit = {},
+    onCharacterProfileSelected: (PendingProfileImage.Avatar) -> Unit = {},
     onAlbumImageSelected: (Uri) -> Unit = {},
     checkNicknameDuplication: () -> Unit = {},
     onRecommenderNicknameChange: (String) -> Unit = {},
@@ -89,7 +89,7 @@ internal fun SignUpProfileScreen(
 
             Spacer(Modifier.height(32.dp))
             ProfileImagePicker(
-                userProfileImage = signUpFormState.userProfileImage,
+                pendingProfileImage = signUpFormState.pendingProfileImage,
                 isOptionMenuVisible = isOptionMenuVisible,
                 onProfileImageOptionMenuDisMiss = { isOptionMenuVisible = false },
                 onEditClick = { isOptionMenuVisible = true },

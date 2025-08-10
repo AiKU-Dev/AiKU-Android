@@ -45,8 +45,8 @@ import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.UserData
 import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.ProfileImage
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
-import com.hyunjung.aiku.core.model.profile.UserProfileImage
 import com.hyunjung.aiku.core.navigation.AikuRoute
 import com.hyunjung.aiku.core.ui.component.common.AikuNavigationBar
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
@@ -244,7 +244,7 @@ private fun MyPageHeader(
 private fun UserProfileInfo(
     nickname: String,
     email: String,
-    profileImage: UserProfileImage,
+    profileImage: ProfileImage,
     modifier: Modifier = Modifier
 ) {
     Row {
@@ -254,7 +254,7 @@ private fun UserProfileInfo(
                 onClick = {},
                 color = profileImage.backgroundColor(),
                 shape = CircleShape,
-                contentPadding = if (profileImage is UserProfileImage.Avatar) PaddingValues(12.dp) else PaddingValues(
+                contentPadding = if (profileImage is ProfileImage.Avatar) PaddingValues(12.dp) else PaddingValues(
                     0.dp
                 )
             ) {
@@ -337,7 +337,7 @@ private fun MyPageScreenPreview() {
         email = "email@example.com",
         nickname = "아이쿠",
         kakaoId = "email@kakao.com",
-        profileImage = UserProfileImage.Avatar(
+        profileImage = ProfileImage.Avatar(
             type = AvatarType.BOY,
             backgroundColor = ProfileBackgroundColor.GREEN
         ),

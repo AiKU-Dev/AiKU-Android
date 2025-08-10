@@ -26,31 +26,34 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.hyunjung.aiku.core.designsystem.component.AikuClickableSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.icon.AikuIcons
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.profile.AvatarType
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
-import com.hyunjung.aiku.core.model.profile.UserProfileImage
+import com.hyunjung.aiku.core.model.profile.PendingProfileImage
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.component.dialog.CharacterProfilePickerDialog
-import com.hyunjung.aiku.core.ui.extension.backgroundColor
-import com.hyunjung.aiku.core.ui.extension.padding
-import com.hyunjung.aiku.core.ui.extension.painter
+import com.hyunjung.aiku.core.ui.extension.toColor
+import com.hyunjung.aiku.core.ui.extension.toPainter
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun ProfileImagePicker(
-    userProfileImage: UserProfileImage,
+    pendingProfileImage: PendingProfileImage,
     isOptionMenuVisible: Boolean,
     onProfileImageOptionMenuDisMiss: () -> Unit,
     onEditClick: () -> Unit,
-    onCharacterProfileSelected: (UserProfileImage.Avatar) -> Unit,
+    onCharacterProfileSelected: (PendingProfileImage.Avatar) -> Unit,
     onAlbumImageSelected: (Uri) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -61,8 +64,8 @@ fun ProfileImagePicker(
     ) { uri: Uri? -> uri?.let { onAlbumImageSelected(uri) } }
 
     if (showCharacterPicker) {
-        val avatar = userProfileImage as? UserProfileImage.Avatar
-            ?: UserProfileImage.Avatar(
+        val avatar = pendingProfileImage as? PendingProfileImage.Avatar
+            ?: PendingProfileImage.Avatar(
                 type = AvatarType.BOY,
                 backgroundColor = ProfileBackgroundColor.GREEN
             )
@@ -77,15 +80,15 @@ fun ProfileImagePicker(
         Box(modifier = Modifier.align(Alignment.Center)) {
             AikuClickableSurface(
                 onClick = onEditClick,
-                color = userProfileImage.backgroundColor(),
+                color = pendingProfileImage.backgroundColor(),
                 shape = CircleShape,
             ) {
                 Image(
-                    painter = userProfileImage.painter(),
+                    painter = pendingProfileImage.painter(),
                     contentDescription = stringResource(R.string.profile_image_picker_description),
                     modifier = Modifier
                         .size(148.dp)
-                        .padding(userProfileImage.padding()),
+                        .padding(pendingProfileImage.padding()),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -177,7 +180,7 @@ private fun ProfileImageOptionItem(
 private fun ProfileImagePickerCollapsedPreview() {
     AikuPreviewTheme {
         ProfileImagePicker(
-            userProfileImage = UserProfileImage.Avatar(
+            pendingProfileImage = PendingProfileImage.Avatar(
                 type = AvatarType.BOY,
                 backgroundColor = ProfileBackgroundColor.GREEN
             ),
@@ -196,7 +199,7 @@ private fun ProfileImagePickerCollapsedPreview() {
 private fun ProfileImagePickerExpandedPreview() {
     AikuPreviewTheme {
         ProfileImagePicker(
-            userProfileImage = UserProfileImage.Avatar(
+            pendingProfileImage = PendingProfileImage.Avatar(
                 type = AvatarType.BOY,
                 backgroundColor = ProfileBackgroundColor.GREEN
             ),
@@ -208,4 +211,21 @@ private fun ProfileImagePickerExpandedPreview() {
             modifier = Modifier.padding(24.dp)
         )
     }
+}
+
+@Composable
+private fun PendingProfileImage.painter(): Painter = when (this) {
+    is PendingProfileImage.Avatar -> type.toPainter()
+    is PendingProfileImage.Photo -> rememberAsyncImagePainter(model = file)
+}
+
+@Composable
+private fun PendingProfileImage.backgroundColor(): Color = when (this) {
+    is PendingProfileImage.Avatar -> backgroundColor.toColor()
+    else -> Color.Unspecified
+}
+
+private fun PendingProfileImage.padding(): Dp = when (this) {
+    is PendingProfileImage.Avatar -> 20.dp
+    else -> 0.dp
 }
