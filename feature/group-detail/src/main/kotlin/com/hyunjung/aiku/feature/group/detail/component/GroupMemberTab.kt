@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.hyunjung.aiku.core.designsystem.component.LocalAikuTextStyle
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.model.group.GroupMember
-import com.hyunjung.aiku.core.model.profile.MemberProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileImage
 import com.hyunjung.aiku.core.ui.component.common.EmptyPlaceholder
 import com.hyunjung.aiku.core.ui.extension.backgroundColor
 import com.hyunjung.aiku.core.ui.extension.painter
@@ -66,12 +66,12 @@ internal fun GroupMemberTab(
 
                 items(items = groupMembers, key = { it.id }) { member ->
                     GroupMemberProfile(
-                        image = member.memberProfileImage.painter(),
+                        image = member.profileImage.painter(),
                         label = member.nickname,
-                        backgroundColor = member.memberProfileImage.backgroundColor(),
+                        backgroundColor = member.profileImage.backgroundColor(),
                         contentDescription = stringResource(R.string.group_detail_member_profile_image_description),
                         onClick = { onMemberClick(member.id) },
-                        imagePadding = if (member.memberProfileImage is MemberProfileImage.Avatar) {
+                        imagePadding = if (member.profileImage is ProfileImage.Avatar) {
                             PaddingValues(8.dp)
                         } else {
                             PaddingValues(0.dp)

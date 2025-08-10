@@ -24,7 +24,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.headers
 import javax.inject.Inject
 
-class DefaultAuthRemoteDataSource @Inject constructor(
+class KtorAuthRemoteDataSource @Inject constructor(
     @UnauthenticatedClient private val client: HttpClient,
 ) : AuthRemoteDataSource {
 
@@ -39,7 +39,7 @@ class DefaultAuthRemoteDataSource @Inject constructor(
         client.post(UserResource()) {
             setBody(MultiPartFormDataContent(formData {
                 appendBaseFields(signUpForm)
-                appendProfileFields(signUpForm.userProfileImage)
+                appendProfileFields(signUpForm.pendingProfileImage)
                 appendAgreementFields(signUpForm.agreedTerms)
                 append("recommenderNickname", signUpForm.recommenderNickname)
             }))

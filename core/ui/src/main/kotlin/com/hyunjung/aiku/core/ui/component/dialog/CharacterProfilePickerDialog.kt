@@ -29,9 +29,9 @@ import com.hyunjung.aiku.core.designsystem.component.AikuDialog
 import com.hyunjung.aiku.core.designsystem.component.AikuSurface
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
-import com.hyunjung.aiku.core.model.profile.UserProfileImage
-import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.AvatarType
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.PendingProfileImage
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.extension.getDescription
 import com.hyunjung.aiku.core.ui.extension.toColor
@@ -40,9 +40,9 @@ import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
 fun CharacterProfilePickerDialog(
-    avatar: UserProfileImage.Avatar,
+    avatar: PendingProfileImage.Avatar,
     onDismiss: () -> Unit,
-    onCharacterProfileSelected: (UserProfileImage.Avatar) -> Unit,
+    onCharacterProfileSelected: (PendingProfileImage.Avatar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selectedCharacter by remember { mutableStateOf(avatar.type) }
@@ -129,7 +129,7 @@ fun CharacterProfilePickerDialog(
             AikuButton(
                 onClick = {
                     onCharacterProfileSelected(
-                        UserProfileImage.Avatar(
+                        PendingProfileImage.Avatar(
                             type = selectedCharacter,
                             backgroundColor = selectedBackgroundColor,
                         )
@@ -155,7 +155,7 @@ fun CharacterProfilePickerDialog(
 private fun CreateGroupDialogPreview() {
     AikuPreviewTheme {
         CharacterProfilePickerDialog(
-            UserProfileImage.Avatar(
+            PendingProfileImage.Avatar(
                 type = AvatarType.BOY,
                 backgroundColor = ProfileBackgroundColor.GREEN,
             ),

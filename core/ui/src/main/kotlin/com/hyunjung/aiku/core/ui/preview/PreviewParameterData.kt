@@ -4,7 +4,7 @@ import com.hyunjung.aiku.core.model.group.GroupMember
 import com.hyunjung.aiku.core.model.group.GroupSchedule
 import com.hyunjung.aiku.core.model.group.JoinedGroup
 import com.hyunjung.aiku.core.model.profile.AvatarType
-import com.hyunjung.aiku.core.model.profile.MemberProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileImage
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.schedule.Location
 import com.hyunjung.aiku.core.model.schedule.ScheduleStatus
@@ -62,7 +62,7 @@ object PreviewParameterData {
         GroupMember(
             id = (index + 1).toLong(),
             nickname = "사용자${index + 1}",
-            memberProfileImage = MemberProfileImage.Avatar(
+            profileImage = ProfileImage.Avatar(
                 type = AvatarType.entries[index],
                 backgroundColor = ProfileBackgroundColor.entries[index]
             )

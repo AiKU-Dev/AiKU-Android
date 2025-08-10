@@ -4,7 +4,6 @@ import android.content.Context
 import com.hyunjung.aiku.core.auth.social.SocialAuthManager
 import com.hyunjung.aiku.core.auth.social.di.SocialAuth
 import com.hyunjung.aiku.core.datastore.AuthSessionStore
-import com.hyunjung.aiku.core.datastore.UserDataStore
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.model.auth.SignUpForm
 import com.hyunjung.aiku.core.model.auth.SocialSignInResult
@@ -21,7 +20,6 @@ class DefaultAuthRepository @Inject constructor(
     @SocialAuth(SocialType.KAKAO) private val kakao: SocialAuthManager,
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val authSessionStore: AuthSessionStore,
-    private val userDataStore: UserDataStore,
 ) : AuthRepository {
 
     override val isSignedIn: Flow<Boolean> =
@@ -61,9 +59,6 @@ class DefaultAuthRepository @Inject constructor(
 
     override suspend fun signUp(signUpForm: SignUpForm): Flow<Unit> = flow {
         authRemoteDataSource.signUp(signUpForm)
-        userDataStore.setEmail(signUpForm.email)
-        userDataStore.setNickname(signUpForm.nickname)
-        userDataStore.setProfileImage(signUpForm.userProfileImage)
         emit(Unit)
     }
 
