@@ -44,7 +44,7 @@ internal fun UpcomingScheduleCard(
     val formatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     AikuClickableSurface(
-        modifier = modifier.size(width = 140.dp, height = 132.dp),
+        modifier = modifier,
         onClick = onClick,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(8.dp),
@@ -113,7 +113,9 @@ private fun ScheduleCardPreview() {
             location = "홍대입구역1번 출구 스타벅스 앞",
             time = LocalDateTime.parse("2025-06-30T12:12:12"),
             isRunning = true,
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier
+                .padding(20.dp)
+                .size(width = 140.dp, height = 132.dp)
         )
     }
 }

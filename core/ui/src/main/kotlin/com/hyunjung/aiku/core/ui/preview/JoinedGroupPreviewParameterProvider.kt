@@ -6,5 +6,5 @@ import com.hyunjung.aiku.core.ui.preview.PreviewParameterData.JoinedGroups
 
 class JoinedGroupPreviewParameterProvider : PreviewParameterProvider<List<JoinedGroup>> {
 
-    override val values: Sequence<List<JoinedGroup>> = sequenceOf(JoinedGroups)
+    override val values: Sequence<List<JoinedGroup>> = sequenceOf(emptyList(), JoinedGroups)
 }
