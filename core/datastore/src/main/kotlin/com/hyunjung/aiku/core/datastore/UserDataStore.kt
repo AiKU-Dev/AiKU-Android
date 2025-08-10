@@ -10,21 +10,21 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class UserDataStore @Inject constructor(
-    private val userdataProto: DataStore<UserDataProto>
+    private val userDataProto: DataStore<UserDataProto>
 ) {
 
-    val userData: Flow<UserData> = userdataProto.data.map { it.toModel() }
+    val userData: Flow<UserData> = userDataProto.data.map { it.toModel() }
 
     suspend fun setEmail(email: String) {
-        userdataProto.updateData { it.copy { this.email = email } }
+        userDataProto.updateData { it.copy { this.email = email } }
     }
 
     suspend fun setNickname(nickname: String) {
-        userdataProto.updateData { it.copy { this.nickname = nickname } }
+        userDataProto.updateData { it.copy { this.nickname = nickname } }
     }
 
     suspend fun setProfileImage(profileImage: UserProfileImage) {
-        userdataProto.updateData {
+        userDataProto.updateData {
             it.copy {
                 when (profileImage) {
                     is UserProfileImage.Avatar -> {
