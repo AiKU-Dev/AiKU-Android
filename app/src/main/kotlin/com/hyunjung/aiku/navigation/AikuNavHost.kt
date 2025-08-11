@@ -5,8 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.hyunjung.aiku.core.navigation.AikuRoute
-import com.hyunjung.aiku.core.navigation.AuthRoute
-import com.hyunjung.aiku.core.navigation.navigateAndClearBackStack
 import com.hyunjung.aiku.core.navigation.navigateSingleTop
 import com.hyunjung.aiku.core.ui.component.common.TermsDetailScreen
 import com.hyunjung.aiku.feature.auth.navigation.authSection
@@ -27,13 +25,9 @@ fun AikuNavHost(
         navController = navController,
         startDestination = AikuRoute.SplashRoute
     ) {
-        splashScreen(
-            onAuthenticated = navController::navigateToHomeClearBackStack,
-            onAuthenticationRequired = { navController.navigateAndClearBackStack(AuthRoute.SignInRoute) },
-        )
+        splashScreen()
 
         authSection(
-            onSignInSuccess = navController::navigateToHomeClearBackStack,
             onSignUpCompleted = navController::navigateToHomeClearBackStack,
             onSignUpRequired = navController::navigateToSignUpSingleTop,
             onTermsClick = { termsType ->

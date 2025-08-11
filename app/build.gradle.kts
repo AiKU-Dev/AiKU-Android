@@ -52,10 +52,11 @@ dependencies {
 
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
-    implementation(projects.core.network)
+    implementation(projects.core.domain)
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
     implementation(projects.core.model)
+    implementation(projects.core.common)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
