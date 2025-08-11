@@ -15,6 +15,10 @@ class UserDataStore @Inject constructor(
 
     val userData: Flow<UserData> = userDataProto.data.map { it.toModel() }
 
+    suspend fun setUserData(userData: UserData) {
+        userDataProto.updateData { userData.toProto() }
+    }
+
     suspend fun setEmail(email: String) {
         userDataProto.updateData { it.copy { this.email = email } }
     }

@@ -1,10 +1,11 @@
 package com.hyunjung.aiku.core.datastore.mapper
 
+import com.hyunjung.aiku.core.datastore.AvatarProto
 import com.hyunjung.aiku.core.datastore.UserDataProto
 import com.hyunjung.aiku.core.model.UserData
 import com.hyunjung.aiku.core.model.profile.AvatarType
-import com.hyunjung.aiku.core.model.profile.ProfileImage
 import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
+import com.hyunjung.aiku.core.model.profile.ProfileImage
 
 internal fun UserDataProto.toModel(): UserData = UserData(
     id = id,
@@ -27,3 +28,27 @@ internal fun UserDataProto.toModel(): UserData = UserData(
         )
     }
 )
+
+internal fun UserData.toProto(): UserDataProto {
+    val builder = UserDataProto.newBuilder()
+        .setId(id)
+        .setKakaoId(kakaoId)
+        .setPoint(point)
+        .setEmail(email)
+        .setNickname(nickname)
+
+    when (val image = profileImage) {
+        is ProfileImage.Avatar -> {
+            builder.avatar = AvatarProto.newBuilder()
+                .setType(image.type.toProto())
+                .setBackgroundColor(image.backgroundColor.toProto())
+                .build()
+        }
+
+        is ProfileImage.Photo -> {
+            builder.url = image.url
+        }
+    }
+
+    return builder.build()
+}
