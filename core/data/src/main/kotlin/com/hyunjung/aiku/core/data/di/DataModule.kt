@@ -5,7 +5,7 @@ import com.hyunjung.aiku.core.data.auth.token.DefaultTokenManager
 import com.hyunjung.aiku.core.data.repository.DefaultAuthRepository
 import com.hyunjung.aiku.core.data.repository.DefaultGroupRepository
 import com.hyunjung.aiku.core.data.repository.DefaultScheduleRepository
-import com.hyunjung.aiku.core.data.repository.OfflineFirstUserDataRepository
+import com.hyunjung.aiku.core.data.repository.DefaultUserDataRepository
 import com.hyunjung.aiku.core.domain.repository.AuthRepository
 import com.hyunjung.aiku.core.domain.repository.GroupRepository
 import com.hyunjung.aiku.core.domain.repository.ScheduleRepository
@@ -41,6 +41,6 @@ abstract class DataModule {
 
     @Binds
     internal abstract fun bindsUserDataRepository(
-        userDataRepository: OfflineFirstUserDataRepository
+        userDataRepository: DefaultUserDataRepository
     ): UserDataRepository
 }

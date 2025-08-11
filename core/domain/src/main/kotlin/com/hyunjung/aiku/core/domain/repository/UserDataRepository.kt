@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface UserDataRepository {
 
     val userData: Flow<UserData>
+
+    fun syncUserData(): Flow<Unit>
 }
