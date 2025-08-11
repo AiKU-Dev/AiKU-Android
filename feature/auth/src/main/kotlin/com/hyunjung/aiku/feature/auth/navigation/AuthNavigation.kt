@@ -29,7 +29,6 @@ fun NavController.navigateToSignUpSingleTop(
 
 
 fun NavGraphBuilder.authSection(
-    onSignUpCompleted: () -> Unit,
     onSignUpRequired: (SocialType, String, String) -> Unit,
     onTermsClick: (TermsType) -> Unit,
 ) {
@@ -38,10 +37,7 @@ fun NavGraphBuilder.authSection(
             SignInScreen(onSignUpRequired = onSignUpRequired)
         }
         composable<AuthRoute.SignUpRoute> {
-            SignUpScreen(
-                onTermsClick = onTermsClick,
-                onSignUpCompleted = onSignUpCompleted,
-            )
+            SignUpScreen(onTermsClick = onTermsClick)
         }
     }
 }

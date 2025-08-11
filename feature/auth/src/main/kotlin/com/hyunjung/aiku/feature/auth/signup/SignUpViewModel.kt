@@ -145,9 +145,7 @@ class SignUpViewModel @Inject constructor(
 
                     is Result.Success -> {
                         _signUpProfileUiState.update { SignUpProfileUiState.Idle }
-                        if (isSignedInResult.data) {
-                            _signUpStep.update { SignUpStep.Success }
-                        } else {
+                        if (!isSignedInResult.data) {
                             _snackbarMessage.emit(SignUpSnackbarMessage.UnknownError)
                         }
                     }
@@ -165,7 +163,6 @@ sealed interface SignUpProfileUiState {
 sealed interface SignUpStep {
     data object Terms : SignUpStep
     data object Profile : SignUpStep
-    data object Success : SignUpStep
 }
 
 sealed class SignUpSnackbarMessage(val message: String) {

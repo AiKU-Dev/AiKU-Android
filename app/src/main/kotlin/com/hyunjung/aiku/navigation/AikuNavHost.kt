@@ -10,13 +10,12 @@ import com.hyunjung.aiku.core.ui.component.common.TermsDetailScreen
 import com.hyunjung.aiku.feature.auth.navigation.authSection
 import com.hyunjung.aiku.feature.auth.navigation.navigateToSignUpSingleTop
 import com.hyunjung.aiku.feature.home.navigation.homeScreen
-import com.hyunjung.aiku.feature.home.navigation.navigateToHomeClearBackStack
 import com.hyunjung.aiku.feature.profile.myPageScreen
 import com.hyunjung.aiku.feature.splash.navigation.splashScreen
 import com.hyunjung.aiku.ui.AikuAppState
 
 @Composable
-fun AikuNavHost(
+internal fun AikuNavHost(
     appState: AikuAppState,
 ) {
     val navController = appState.navController
@@ -28,7 +27,6 @@ fun AikuNavHost(
         splashScreen()
 
         authSection(
-            onSignUpCompleted = navController::navigateToHomeClearBackStack,
             onSignUpRequired = navController::navigateToSignUpSingleTop,
             onTermsClick = { termsType ->
                 navController.navigateSingleTop(AikuRoute.TermsDetailRoute(termsType))
