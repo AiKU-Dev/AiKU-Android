@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,7 +36,7 @@ class SignInViewModel @Inject constructor(
     }
 
     fun consumeUiState() {
-        _uiState.value = SignInUiState.Idle
+        _uiState.update { SignInUiState.Idle }
     }
 
     private suspend fun signIn(
@@ -43,8 +44,8 @@ class SignInViewModel @Inject constructor(
         socialType: SocialType
     ) {
         when (result) {
-            is Result.Loading -> _uiState.value = SignInUiState.Loading
-            is Result.Error -> _uiState.value = SignInUiState.Error(result.exception.message)
+            is Result.Loading -> _uiState.update { SignInUiState.Loading }
+            is Result.Error -> _uiState.update { SignInUiState.Error(result.exception.message) }
             is Result.Success -> {
                 val (idToken, email) = result.data
                 authRepository.signIn(socialType, idToken)
@@ -63,19 +64,24 @@ class SignInViewModel @Inject constructor(
         idToken: String,
         email: String,
     ) {
-        _uiState.value = when (isSignedInResult) {
-            is Result.Loading -> SignInUiState.Loading
-            is Result.Success -> {
-                if (isSignedInResult.data) SignInUiState.Success
-                else SignInUiState.NeedsSignUp(
-                    socialType = socialType,
-                    idToken = idToken,
-                    email = email
-                )
-            }
+        _uiState.update {
+            when (isSignedInResult) {
+                is Result.Loading -> SignInUiState.Loading
+                is Result.Success -> {
+                    if (isSignedInResult.data) {
+                        SignInUiState.Idle
+                    } else {
+                        SignInUiState.NeedsSignUp(
+                            socialType = socialType,
+                            idToken = idToken,
+                            email = email
+                        )
+                    }
+                }
 
-            is Result.Error -> {
-                SignInUiState.Error(isSignedInResult.exception.message)
+                is Result.Error -> {
+                    SignInUiState.Error(isSignedInResult.exception.message)
+                }
             }
         }
     }
@@ -84,7 +90,6 @@ class SignInViewModel @Inject constructor(
 sealed interface SignInUiState {
     data object Idle : SignInUiState
     data object Loading : SignInUiState
-    data object Success : SignInUiState
     data class NeedsSignUp(val socialType: SocialType, val idToken: String, val email: String) :
         SignInUiState
 
