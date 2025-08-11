@@ -14,14 +14,8 @@ fun NavController.navigateToSplash() =
         launchSingleTop = true
     }
 
-fun NavGraphBuilder.splashScreen(
-    onAuthenticated: () -> Unit,
-    onAuthenticationRequired: () -> Unit,
-) {
+fun NavGraphBuilder.splashScreen() {
     composable<AikuRoute.SplashRoute> {
-        SplashScreen(
-            onAuthenticated = onAuthenticated,
-            onAuthenticationRequired = onAuthenticationRequired
-        )
+        SplashScreen()
     }
 }

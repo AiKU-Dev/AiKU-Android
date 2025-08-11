@@ -11,44 +11,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjung.aiku.core.designsystem.component.AikuText
 import com.hyunjung.aiku.core.designsystem.theme.AiKUTheme
 import com.hyunjung.aiku.core.ui.R
 import com.hyunjung.aiku.core.ui.preview.AikuPreviewTheme
 
 @Composable
-fun SplashScreen(
-    onAuthenticated: () -> Unit,
-    onAuthenticationRequired: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: SplashViewModel = hiltViewModel()
-) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(uiState) {
-
-        when (uiState) {
-            is SplashUiState.Authenticated -> onAuthenticated()
-            is SplashUiState.Unauthenticated -> onAuthenticationRequired()
-            else -> Unit
-        }
-    }
-
-    SplashScreen(modifier)
-}
-
-@Composable
-private fun SplashScreen(modifier: Modifier = Modifier) {
+internal fun SplashScreen(modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier

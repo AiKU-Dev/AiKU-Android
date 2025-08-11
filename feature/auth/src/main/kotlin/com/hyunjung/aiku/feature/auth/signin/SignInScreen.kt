@@ -32,7 +32,6 @@ import com.hyunjung.aiku.core.ui.R as UiR
 
 @Composable
 internal fun SignInScreen(
-    onSignInSuccess: () -> Unit,
     onSignUpRequired: (SocialType, String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel()
@@ -41,7 +40,6 @@ internal fun SignInScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(uiState) {
         when (val result = uiState) {
-            is SignInUiState.Success -> onSignInSuccess()
             is SignInUiState.NeedsSignUp -> {
                 viewModel.consumeUiState()
                 onSignUpRequired(result.socialType, result.idToken, result.email)

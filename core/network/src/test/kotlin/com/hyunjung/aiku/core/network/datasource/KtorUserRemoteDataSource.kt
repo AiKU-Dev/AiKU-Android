@@ -32,7 +32,7 @@ class KtorUserRemoteDataSourceTest {
 
         assertEquals(1L, user.id)
         assertEquals("지정희", user.nickname)
-        assertEquals("012341234", user.kakaoId)
+        assertEquals("213123", user.kakaoId)
         assertEquals(0, user.point)
         assertNotNull(user.profileImage)
     }

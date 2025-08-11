@@ -1,8 +1,8 @@
 package com.hyunjung.aiku.core.model.auth
 
 import com.hyunjung.aiku.core.model.profile.AvatarType
-import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 import com.hyunjung.aiku.core.model.profile.PendingProfileImage
+import com.hyunjung.aiku.core.model.profile.ProfileBackgroundColor
 
 data class SignUpForm(
     val idToken: String,

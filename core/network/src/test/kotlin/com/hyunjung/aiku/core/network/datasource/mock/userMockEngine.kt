@@ -46,7 +46,7 @@ private const val userJson = """
   "result": {
     "memberId": 1,
     "nickname": "지정희",
-    "kakaoId": "012341234",
+    "kakaoId": 213123,
     "memberProfile": {
       "profileType": "IMG",
       "profileImg": "http://amazon.s3.image.jpg",

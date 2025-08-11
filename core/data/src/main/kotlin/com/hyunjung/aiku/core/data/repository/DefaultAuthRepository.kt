@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DefaultAuthRepository @Inject constructor(
+internal class DefaultAuthRepository @Inject constructor(
     @SocialAuth(SocialType.KAKAO) private val kakao: SocialAuthManager,
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val authSessionStore: AuthSessionStore,
